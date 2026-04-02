@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Mis Clientas</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rosa: #d4537e;
+  --rosa-light: #fbeaf0;
+  --rosa-dark: #72243e;
+  --verde: #3b6d11;
+  --verde-light: #eaf3de;
+  --rojo: #a32d2d;
+  --rojo-light: #fcebeb;
+  --gris: #f5f4f1;
+  --gris-dark: #444441;
+  --borde: #e0deda;
+  --texto: #2c2c2a;
+  --texto2: #888780;
+  --blanco: #ffffff;
+  --radio: 12px;
+  --radio-sm: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: var(--gris); font-family: 'DM Sans', sans-serif; color: var(--texto); font-size: 15px; }
+
+/* HEADER */
+.header { background: var(--blanco); border-bottom: 1px solid var(--borde); padding: 16px 16px 12px; position: sticky; top: 0; z-index: 100; }
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.header h1 { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--texto); }
+.btn-add { background: var(--rosa); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--borde); background: var(--gris); color: var(--texto2); white-space: nowrap; }
+.tab.active { background: var(--texto); color: white; border-color: var(--texto); }
+
+/* MAIN */
+.main { padding: 12px 12px 80px; }
+
+/* METRICS */
+.metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.metric { background: var(--blanco); border-radius: var(--radio-sm); padding: 10px 8px; text-align: center; border: 1px solid var(--borde); }
+.metric-val { font-size: 18px; font-weight: 600; }
+.metric-label { font-size: 10px; color: var(--texto2); margin-top: 2px; }
+.metric-val.rojo { color: var(--rojo); }
+.metric-val.verde { color: var(--verde); }
+.metric-val.rosa { color: var(--rosa-dark); }
+
+/* FILTERS */
+.filters { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-bottom: 10px; }
+.filters::-webkit-scrollbar { display: none; }
+.filter-btn { flex-shrink: 0; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--borde); background: white; color: var(--texto2); }
+.filter-btn.active { background: var(--rosa-light); color: var(--rosa-dark); border-color: var(--rosa); }
+
+/* SEARCH */
+.search { margin-bottom: 10px; }
+.search input { width: 100%; padding: 10px 14px; border: 1px solid var(--borde); border-radius: var(--radio-sm); font-size: 14px; font-family: 'DM Sans', sans-serif; background: white; color: var(--texto); }
+.search input:focus { outline: none; border-color: var(--rosa); }
+
+/* CARD */
+.card { background: white; border-radius: var(--radio); border: 1px solid var(--borde); overflow: hidden; margin-bottom: 10px; }
+.card-header { padding: 12px 14px; font-weight: 600; font-size: 14px; border-bottom: 1px solid var(--borde); }
+
+/* CLIENTA ROW */
+.row { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--borde); }
+.row:last-child { border-bottom: none; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--rosa-light); color: var(--rosa-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.row-info { flex: 1; min-width: 0; }
+.row-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row-sub { font-size: 12px; color: var(--texto2); }
+.badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 600; flex-shrink: 0; }
+.badge-rojo { background: var(--rojo-light); color: var(--rojo); }
+.badge-verde { background: var(--verde-light); color: var(--verde); }
+.row-actions { display: flex; gap: 5px; flex-shrink: 0; }
+.btn-sm { padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--borde); background: white; font-family: 'DM Sans', sans-serif; }
+.btn-sm.verde { color: var(--verde); border-color: #c0dd97; background: var(--verde-light); }
+.btn-sm.rosa { color: var(--rosa-dark); border-color: #f4c0d1; background: var(--rosa-light); }
+.btn-sm.rojo { color: var(--rojo); border-color: #f7c1c1; }
+
+/* HISTORIAL ROW */
+.h-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--borde); font-size: 13px; }
+.h-row:last-child { border-bottom: none; }
+.h-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.h-dot.pago { background: var(--verde); }
+.h-dot.venta { background: var(--rosa); }
+.h-name { font-weight: 500; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.h-nota { color: var(--texto2); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; }
+.h-fecha { color: var(--texto2); font-size: 12px; flex-shrink: 0; }
+.h-monto { font-weight: 600; min-width: 72px; text-align: right; flex-shrink: 0; }
+.h-monto.pago { color: var(--verde); }
+.h-monto.venta { color: var(--rojo); }
+
+/* RESUMEN */
+.saldo-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--borde); font-size: 13px; }
+.saldo-row:last-child { border-bottom: none; }
+.saldo-amt { font-weight: 600; color: var(--rojo); }
+
+/* EMPTY */
+.empty { text-align: center; padding: 2rem 1rem; color: var(--texto2); font-size: 14px; }
+
+/* MODAL */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; align-items: flex-end; }
+.modal-bg.open { display: flex; }
+.modal { background: white; border-radius: 20px 20px 0 0; padding: 20px 16px 36px; width: 100%; max-height: 92vh; overflow-y: auto; }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 16px; }
+.field { margin-bottom: 12px; }
+.field label { font-size: 12px; color: var(--texto2); font-weight: 500; display: block; margin-bottom: 4px; }
+.field input, .field select { width: 100%; padding: 11px 13px; border: 1px solid var(--borde); border-radius: var(--radio-sm); font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--texto); background: white; }
+.field input:focus, .field select:focus { outline: none; border-color: var(--rosa); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+.btn-cancel { flex: 1; padding: 13px; border: 1px solid var(--borde); border-radius: var(--radio-sm); background: white; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-confirm { flex: 2; padding: 13px; border: none; border-radius: var(--radio-sm); background: var(--rosa); color: white; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.drag-handle { width: 40px; height: 4px; background: var(--borde); border-radius: 2px; margin: 0 auto 16px; }
+
+/* SECTION HIDDEN */
+.section { display: none; }
+.section.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1>Mis Clientas</h1>
+    <button class="btn-add" onclick="abrirNuevaClienta()">+ Nueva</button>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="cambiarTab('cobros',this)">Cobros</div>
+    <div class="tab" onclick="cambiarTab('clientas',this)">Clientas</div>
+    <div class="tab" onclick="cambiarTab('historial',this)">Historial</div>
+    <div class="tab" onclick="cambiarTab('resumen',this)">Resumen</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- COBROS -->
+  <div id="tab-cobros" class="section active">
+    <div class="metrics" id="metricas"></div>
+    <div class="filters">
+      <div class="filter-btn active" onclick="filtrar(this,'todas')">Todas</div>
+      <div class="filter-btn" onclick="filtrar(this,'deben')">Deben</div>
+      <div class="filter-btn" onclick="filtrar(this,'al-dia')">Al día</div>
+      <div class="filter-btn" onclick="filtrar(this,'semanal')">Semanal</div>
+      <div class="filter-btn" onclick="filtrar(this,'quincenal')">Quincenal</div>
+    </div>
+    <div class="search"><input type="text" placeholder="🔍 Buscar clienta..." oninput="buscar(this.value)"></div>
+    <div class="card" id="lista-cobros"></div>
+  </div>
+
+  <!-- CLIENTAS -->
+  <div id="tab-clientas" class="section">
+    <div class="card" id="lista-clientas"></div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div id="tab-historial" class="section">
+    <div class="card">
+      <div class="card-header">Últimos movimientos</div>
+      <div id="lista-historial"></div>
+    </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div id="tab-resumen" class="section">
+    <div class="metrics" id="metricas-res"></div>
+    <div class="card" style="margin-bottom:10px">
+      <div class="card-header">Por cobrar — semanales</div>
+      <div id="res-semanal"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Por cobrar — quincenales</div>
+      <div id="res-quincenal"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL NUEVA/EDITAR CLIENTA -->
+<div class="modal-bg" id="modal-clienta">
+  <div class="modal">
+    <div class="drag-handle"></div>
+    <div class="modal-title" id="mc-titulo">Nueva clienta</div>
+    <div class="field"><label>Nombre completo</label><input id="c-nombre" type="text" placeholder="Ej: Rocío Chico Gómez"></div>
+    <div class="field-row">
+      <div class="field"><label>Teléfono</label><input id="c-tel" type="tel" placeholder="444 123 4567"></div>
+      <div class="field"><label>Frecuencia</label>
+        <select id="c-frec"><option value="quincenal">Quincenal</option><option value="semanal">Semanal</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Colonia / Dirección</label><input id="c-colonia" type="text" placeholder="Fracc. Girasoles 461"></div>
+    <div class="field"><label>Saldo inicial que debe ($)</label><input id="c-saldo" type="number" min="0" placeholder="0"></div>
+    <div class="field"><label>Nota</label><input id="c-nota" type="text" placeholder="Ej: cliente frecuente, talla M"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="cerrar()">Cancelar</button>
+      <button class="btn-confirm" onclick="guardarClienta()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PAGO -->
+<div class="modal-bg" id="modal-pago">
+  <div class="modal">
+    <div class="drag-handle"></div>
+    <div class="modal-title">Registrar pago</div>
+    <div id="pago-info" style="font-size:13px;color:var(--texto2);margin-bottom:14px;"></div>
+    <div class="field-row">
+      <div class="field"><label>Monto recibido ($)</label><input id="p-monto" type="number" min="0" placeholder="0"></div>
+      <div class="field"><label>Fecha</label><input id="p-fecha" type="date"></div>
+    </div>
+    <div class="field"><label>Nota (opcional)</label><input id="p-nota" type="text" placeholder="Abono quincenal..."></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="cerrar()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmarPago()">Registrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VENTA -->
+<div class="modal-bg" id="modal-venta">
+  <div class="modal">
+    <div class="drag-handle"></div>
+    <div class="modal-title">Nueva venta</div>
+    <div id="venta-info" style="font-size:13px;color:var(--texto2);margin-bottom:14px;"></div>
+    <div class="field-row">
+      <div class="field"><label>Monto de la venta ($)</label><input id="v-monto" type="number" min="0" placeholder="0"></div>
+      <div class="field"><label>Fecha</label><input id="v-fecha" type="date"></div>
+    </div>
+    <div class="field"><label>Artículos</label><input id="v-desc" type="text" placeholder="Blusa mezclilla, pantalón..."></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="cerrar()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmarVenta()">Agregar a cuenta</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY_C = 'clientas_v2';
+const KEY_H = 'historial_v2';
+
+function cargar() {
+  try {
+    clientas = JSON.parse(localStorage.getItem(KEY_C)) || [];
+    historial = JSON.parse(localStorage.getItem(KEY_H)) || [];
+  } catch(e) { clientas = []; historial = []; }
+}
+
+function guardar() {
+  localStorage.setItem(KEY_C, JSON.stringify(clientas));
+  localStorage.setItem(KEY_H, JSON.stringify(historial));
+}
+
+let clientas = [], historial = [];
+let editIdx = -1, pagoIdx = -1, ventaIdx = -1;
+let filtroActual = 'todas', busquedaActual = '';
+
+cargar();
+
+// Precargar Rocío si no existe ya
+if (!clientas.find(c => c.nombre === 'Rocío Chico Gómez')) {
+  clientas.push({
+    nombre: 'Rocío Chico Gómez',
+    tel: '',
+    colonia: 'José Vasconcelos #333, Secc. Girasoles 461',
+    frecuencia: 'quincenal',
+    saldo: 650,
+    nota: 'Residencia'
+  });
+  const ventas = [
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:730,fecha:'2025-11-14',nota:'Blusa Mezclilla Pastel'},
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:910,fecha:'2025-11-14',nota:'Suéter GLS'},
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:995,fecha:'2025-11-14',nota:'Sudadera Rata'},
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:990,fecha:'2025-11-14',nota:'Pantalón Mezclilla'},
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:940,fecha:'2025-11-14',nota:'Pantalón Blanco Mezquil'},
+    {tipo:'venta',clienta:'Rocío Chico Gómez',monto:1500,fecha:'2025-11-14',nota:'Set Lomas'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2025-11-30',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2025-12-11',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2025-12-26',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2026-01-09',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2026-01-23',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2026-02-09',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:600,fecha:'2026-02-20',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:650,fecha:'2026-03-21',nota:'Pago quincenal'},
+    {tipo:'pago',clienta:'Rocío Chico Gómez',monto:670,fecha:'2026-04-01',nota:'Pago quincenal'},
+  ];
+  historial.push(...ventas);
+  guardar();
+}
+
+function ini(n) { return n.split(' ').slice(0,2).map(x=>x[0]||'').join('').toUpperCase(); }
+function hoy() { return new Date().toISOString().split('T')[0]; }
+function fmt(f) { if(!f) return ''; const [y,m,d]=f.split('-'); return d+'/'+m+'/'+y.slice(2); }
+function $$(n) { return (n||0).toLocaleString('es-MX',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function monto(n) { return '$'+$$(n); }
+
+function cambiarTab(t, el) {
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  renderAll();
+}
+
+function filtrar(el, f) {
+  document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  filtroActual = f;
+  renderCobros();
+}
+
+function buscar(v) { busquedaActual = v.toLowerCase(); renderCobros(); }
+
+function filtradas() {
+  let a = clientas;
+  if (filtroActual==='deben') a=a.filter(c=>c.saldo>0);
+  if (filtroActual==='al-dia') a=a.filter(c=>c.saldo<=0);
+  if (filtroActual==='semanal') a=a.filter(c=>c.frecuencia==='semanal');
+  if (filtroActual==='quincenal') a=a.filter(c=>c.frecuencia==='quincenal');
+  if (busquedaActual) a=a.filter(c=>c.nombre.toLowerCase().includes(busquedaActual)||(c.colonia||'').toLowerCase().includes(busquedaActual));
+  return a;
+}
+
+function renderCobros() {
+  const totalDeuda = clientas.reduce((s,c)=>s+(c.saldo>0?c.saldo:0),0);
+  const deben = clientas.filter(c=>c.saldo>0).length;
+  document.getElementById('metricas').innerHTML = `
+    <div class="metric"><div class="metric-val rosa">${clientas.length}</div><div class="metric-label">clientas</div></div>
+    <div class="metric"><div class="metric-val rojo">${deben}</div><div class="metric-label">deben hoy</div></div>
+    <div class="metric"><div class="metric-val rojo" style="font-size:15px">${monto(totalDeuda)}</div><div class="metric-label">por cobrar</div></div>
+  `;
+  const arr = filtradas();
+  const el = document.getElementById('lista-cobros');
+  if (!arr.length) { el.innerHTML='<div class="empty">Sin resultados</div>'; return; }
+  el.innerHTML = arr.map(c => {
+    const i = clientas.indexOf(c);
+    const badge = c.saldo>0
+      ? `<span class="badge badge-rojo">${monto(c.saldo)}</span>`
+      : `<span class="badge badge-verde">Al día</span>`;
+    return `<div class="row">
+      <div class="avatar">${ini(c.nombre)}</div>
+      <div class="row-info">
+        <div class="row-name">${c.nombre}</div>
+        <div class="row-sub">${c.colonia||''} · ${c.frecuencia}</div>
+      </div>
+      ${badge}
+      <div class="row-actions">
+        <button class="btn-sm verde" onclick="abrirPago(${i})">Pago</button>
+        <button class="btn-sm rosa" onclick="abrirVenta(${i})">+Venta</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderClientas() {
+  const el = document.getElementById('lista-clientas');
+  if (!clientas.length) { el.innerHTML='<div class="empty">Agrega tu primera clienta</div>'; return; }
+  el.innerHTML = clientas.map((c,i) => `
+    <div class="row">
+      <div class="avatar">${ini(c.nombre)}</div>
+      <div class="row-info">
+        <div class="row-name">${c.nombre}</div>
+        <div class="row-sub">${[c.tel,c.colonia,c.nota].filter(Boolean).join(' · ')}</div>
+      </div>
+      <div class="row-actions">
+        <button class="btn-sm" onclick="editarClienta(${i})">Editar</button>
+        <button class="btn-sm rojo" onclick="borrarClienta(${i})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderHistorial() {
+  const arr = [...historial].reverse().slice(0,60);
+  const el = document.getElementById('lista-historial');
+  if (!arr.length) { el.innerHTML='<div class="empty">Sin movimientos</div>'; return; }
+  el.innerHTML = arr.map(h => `
+    <div class="h-row">
+      <div class="h-dot ${h.tipo}"></div>
+      <div class="h-name">${h.clienta}</div>
+      <div class="h-nota">${h.nota||''}</div>
+      <div class="h-fecha">${fmt(h.fecha)}</div>
+      <div class="h-monto ${h.tipo}">${h.tipo==='pago'?'+':'-'}${monto(h.monto)}</div>
+    </div>
+  `).join('');
+}
+
+function renderResumen() {
+  const cobrado = historial.filter(h=>h.tipo==='pago').reduce((s,h)=>s+h.monto,0);
+  const vendido = historial.filter(h=>h.tipo==='venta').reduce((s,h)=>s+h.monto,0);
+  const deuda = clientas.reduce((s,c)=>s+(c.saldo>0?c.saldo:0),0);
+  document.getElementById('metricas-res').innerHTML = `
+    <div class="metric"><div class="metric-val verde" style="font-size:14px">${monto(cobrado)}</div><div class="metric-label">cobrado total</div></div>
+    <div class="metric"><div class="metric-val rosa" style="font-size:14px">${monto(vendido)}</div><div class="metric-label">vendido total</div></div>
+    <div class="metric"><div class="metric-val rojo" style="font-size:14px">${monto(deuda)}</div><div class="metric-label">por cobrar</div></div>
+  `;
+  const sem = clientas.filter(c=>c.frecuencia==='semanal'&&c.saldo>0);
+  const qui = clientas.filter(c=>c.frecuencia==='quincenal'&&c.saldo>0);
+  document.getElementById('res-semanal').innerHTML = sem.length
+    ? sem.map(c=>`<div class="saldo-row"><span>${c.nombre}</span><span class="saldo-amt">${monto(c.saldo)}</span></div>`).join('')
+    : '<div class="empty">Ninguna debe</div>';
+  document.getElementById('res-quincenal').innerHTML = qui.length
+    ? qui.map(c=>`<div class="saldo-row"><span>${c.nombre}</span><span class="saldo-amt">${monto(c.saldo)}</span></div>`).join('')
+    : '<div class="empty">Ninguna debe</div>';
+}
+
+function renderAll() { renderCobros(); renderClientas(); renderHistorial(); renderResumen(); }
+
+// MODALES
+function cerrar() {
+  document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('open'));
+}
+
+function abrirNuevaClienta() {
+  editIdx=-1;
+  document.getElementById('mc-titulo').textContent='Nueva clienta';
+  ['c-nombre','c-tel','c-colonia','c-nota'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('c-frec').value='quincenal';
+  document.getElementById('c-saldo').value='';
+  document.getElementById('modal-clienta').classList.add('open');
+}
+
+function editarClienta(i) {
+  editIdx=i;
+  const c=clientas[i];
+  document.getElementById('mc-titulo').textContent='Editar clienta';
+  document.getElementById('c-nombre').value=c.nombre;
+  document.getElementById('c-tel').value=c.tel||'';
+  document.getElementById('c-colonia').value=c.colonia||'';
+  document.getElementById('c-frec').value=c.frecuencia;
+  document.getElementById('c-saldo').value=c.saldo||0;
+  document.getElementById('c-nota').value=c.nota||'';
+  document.getElementById('modal-clienta').classList.add('open');
+}
+
+function guardarClienta() {
+  const nombre = document.getElementById('c-nombre').value.trim();
+  if (!nombre) { alert('Escribe el nombre'); return; }
+  const c = {
+    nombre, tel: document.getElementById('c-tel').value.trim(),
+    colonia: document.getElementById('c-colonia').value.trim(),
+    frecuencia: document.getElementById('c-frec').value,
+    saldo: parseFloat(document.getElementById('c-saldo').value)||0,
+    nota: document.getElementById('c-nota').value.trim()
+  };
+  if (editIdx>=0) clientas[editIdx]=c; else clientas.push(c);
+  guardar(); cerrar(); renderAll();
+}
+
+function borrarClienta(i) {
+  if (!confirm('¿Borrar a '+clientas[i].nombre+'?')) return;
+  clientas.splice(i,1); guardar(); renderAll();
+}
+
+function abrirPago(i) {
+  pagoIdx=i;
+  const c=clientas[i];
+  document.getElementById('pago-info').textContent=c.nombre+' · Saldo actual: '+monto(c.saldo);
+  document.getElementById('p-monto').value='';
+  document.getElementById('p-fecha').value=hoy();
+  document.getElementById('p-nota').value='';
+  document.getElementById('modal-pago').classList.add('open');
+}
+
+function confirmarPago() {
+  const m=parseFloat(document.getElementById('p-monto').value)||0;
+  if (!m) { alert('Escribe el monto'); return; }
+  const f=document.getElementById('p-fecha').value;
+  const n=document.getElementById('p-nota').value.trim()||'Pago recibido';
+  clientas[pagoIdx].saldo=Math.max(0,clientas[pagoIdx].saldo-m);
+  historial.push({tipo:'pago',clienta:clientas[pagoIdx].nombre,monto:m,fecha:f,nota:n});
+  guardar(); cerrar(); renderAll();
+}
+
+function abrirVenta(i) {
+  ventaIdx=i;
+  document.getElementById('venta-info').textContent=clientas[i].nombre;
+  document.getElementById('v-monto').value='';
+  document.getElementById('v-fecha').value=hoy();
+  document.getElementById('v-desc').value='';
+  document.getElementById('modal-venta').classList.add('open');
+}
+
+function confirmarVenta() {
+  const m=parseFloat(document.getElementById('v-monto').value)||0;
+  if (!m) { alert('Escribe el monto'); return; }
+  const f=document.getElementById('v-fecha').value;
+  const n=document.getElementById('v-desc').value.trim()||'Venta';
+  clientas[ventaIdx].saldo+=m;
+  historial.push({tipo:'venta',clienta:clientas[ventaIdx].nombre,monto:m,fecha:f,nota:n});
+  guardar(); cerrar(); renderAll();
+}
+
+// Cerrar modal al tocar fondo
+document.querySelectorAll('.modal-bg').forEach(mb=>{
+  mb.addEventListener('click', e=>{ if(e.target===mb) cerrar(); });
+});
+
+renderAll();
+</script>
+</body>
+</html>
