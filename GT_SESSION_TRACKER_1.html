@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT · Progress Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D0D2B;--navy2:#1A1A3E;--navy3:#23234A;
+  --mag:#D4006A;--mag2:#FF1F5C;
+  --gold:#F5A623;--gold2:#FFD166;
+  --green:#00C48C;--green2:#00E5A4;
+  --blue:#4B7BF5;
+  --bg:#F6F5F2;--white:#fff;
+  --txt:#111;--txt2:#555;--txt3:#999;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --r:16px;--rs:10px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes pop{0%{transform:scale(0.6);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--navy);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .4s;}
+#loader.out{opacity:0;pointer-events:none;}
+.spin{width:38px;height:38px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--mag);border-radius:50%;animation:spin .7s linear infinite;}
+.lmsg{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;}
+
+/* ── HEADER ── */
+header{background:var(--navy);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.brand{display:flex;align-items:center;gap:10px;}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--mag);flex-shrink:0;}
+.bname{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:rgba(255,255,255,.88);letter-spacing:.06em;text-transform:uppercase;}
+.bsub{font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:3px;background:rgba(255,255,255,.07);padding:3px;border-radius:8px;}
+.tab{padding:6px 18px;border-radius:6px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;color:rgba(255,255,255,.38);transition:all .18s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;}
+.tab.active{background:var(--mag);color:#fff;}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:calc(100vh - 58px);}
+.screen.on{display:block;animation:fadeUp .3s ease;}
+
+/* ══════════════════════════════════════════
+   MAESTRO SCREEN
+══════════════════════════════════════════ */
+.wrap{max-width:940px;margin:0 auto;padding:36px 24px;}
+
+/* selector */
+.sel-card{background:var(--white);border-radius:var(--r);padding:28px 32px;border:1px solid var(--border);margin-bottom:24px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;}
+.sg{display:flex;flex-direction:column;gap:5px;flex:1;min-width:160px;}
+.sl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;}
+.si{padding:10px 14px;border:1.5px solid var(--border2);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--txt);background:var(--bg);outline:none;transition:border-color .15s;cursor:pointer;}
+.si:focus{border-color:var(--mag);}
+.go-btn{padding:11px 26px;background:var(--navy);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.go-btn:hover{background:var(--mag);}
+
+/* student card */
+.stcard{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;display:none;}
+.stcard.on{display:block;animation:fadeUp .28s ease;}
+
+.sc-hero{background:linear-gradient(135deg,var(--navy2) 0%,var(--navy3) 100%);padding:26px 30px;display:flex;align-items:center;gap:18px;}
+.sc-av{width:50px;height:50px;border-radius:50%;background:var(--mag);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#fff;flex-shrink:0;}
+.sc-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:#fff;margin-bottom:4px;}
+.sc-sub{font-size:11px;color:rgba(255,255,255,.38);display:flex;gap:14px;}
+.lvbadge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;font-family:'Syne',sans-serif;letter-spacing:.05em;margin-left:auto;}
+.la1{background:rgba(245,166,35,.18);color:var(--gold);}
+.la2{background:rgba(212,0,106,.16);color:var(--mag2);}
+.lb1{background:rgba(75,123,245,.16);color:var(--blue);}
+.lb2{background:rgba(0,196,140,.16);color:var(--green);}
+
+/* progress */
+.prog-wrap{padding:22px 30px;border-bottom:1px solid var(--border);}
+.prog-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;}
+.prog-lbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;}
+.prog-pct{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--navy);}
+.pbar{height:10px;background:var(--bg);border-radius:10px;overflow:hidden;}
+.pbar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--mag) 0%,var(--mag2) 100%);transition:width .7s cubic-bezier(.4,0,.2,1);}
+.prog-foot{display:flex;justify-content:space-between;margin-top:7px;}
+.pf{font-size:10px;color:var(--txt3);font-family:'DM Mono',monospace;}
+
+/* sessions */
+.sess-wrap{padding:26px 30px;}
+.mod-block{margin-bottom:26px;}
+.mod-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.mod-dot{width:6px;height:6px;border-radius:50%;background:var(--mag);flex-shrink:0;}
+.mod-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;}
+.mod-prog{font-size:11px;color:var(--txt3);margin-left:auto;font-family:'DM Mono',monospace;}
+.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.chip{border-radius:10px;border:2px solid var(--border2);padding:13px 8px 11px;cursor:pointer;transition:all .18s;text-align:center;background:var(--bg);user-select:none;position:relative;}
+.chip:hover:not(.done){border-color:var(--mag);background:rgba(212,0,106,.04);transform:translateY(-2px);}
+.chip.done{background:var(--navy);border-color:var(--navy);animation:pop .25s ease;}
+.cn{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--txt3);line-height:1;margin-bottom:3px;transition:color .18s;}
+.chip.done .cn{color:rgba(255,255,255,.4);}
+.cl{font-size:9px;color:var(--txt3);font-weight:600;letter-spacing:.04em;transition:color .18s;}
+.chip.done .cl{color:rgba(255,255,255,.3);}
+.ck{position:absolute;top:7px;right:7px;width:15px;height:15px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.chip.done .ck{opacity:1;}
+.ck svg{width:8px;height:8px;}
+
+/* stats + save */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--border);border-top:1px solid var(--border);}
+.sbox{background:var(--white);padding:18px 22px;}
+.sv{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--navy);}
+.slb{font-size:11px;color:var(--txt3);margin-top:3px;}
+.save-row{padding:20px 30px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.save-note{font-size:11px;color:var(--txt3);}
+.save-btn{padding:11px 28px;background:var(--mag);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;}
+.save-btn:hover{background:var(--mag2);box-shadow:0 6px 20px rgba(212,0,106,.28);}
+.save-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;}
+
+/* ══════════════════════════════════════════
+   ALUMNO SCREEN
+══════════════════════════════════════════ */
+#screen-alu{background:var(--navy);min-height:calc(100vh - 58px);}
+
+/* login del alumno */
+#alu-login{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 58px);padding:24px;}
+.login-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:44px 40px;width:100%;max-width:380px;text-align:center;}
+.lc-icon{font-size:44px;margin-bottom:20px;}
+.lc-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;}
+.lc-sub{font-size:13px;color:rgba(255,255,255,.38);margin-bottom:28px;line-height:1.6;}
+.lc-input{width:100%;padding:14px 18px;border-radius:var(--rs);border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:22px;font-family:'DM Mono',monospace;letter-spacing:.2em;text-align:center;outline:none;transition:border-color .15s;margin-bottom:14px;}
+.lc-input:focus{border-color:var(--mag);}
+.lc-input::placeholder{color:rgba(255,255,255,.2);letter-spacing:.1em;font-size:15px;}
+.lc-btn{width:100%;padding:14px;background:var(--mag);color:#fff;border:none;border-radius:var(--rs);font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .18s;}
+.lc-btn:hover{background:var(--mag2);}
+.lc-err{margin-top:12px;font-size:12px;color:var(--mag2);display:none;}
+
+/* dashboard alumno */
+#alu-dash{display:none;padding:32px 24px;max-width:800px;margin:0 auto;}
+#alu-dash.on{display:block;animation:fadeUp .3s ease;}
+
+.alu-hero{background:linear-gradient(135deg,var(--navy2),var(--navy3));border-radius:var(--r);padding:32px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.alu-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(212,0,106,.12);}
+.alu-hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(75,123,245,.08);}
+.ah-greeting{font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.ah-name{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;}
+.ah-sub{font-size:13px;color:rgba(255,255,255,.38);}
+.ah-level{position:absolute;top:28px;right:28px;z-index:1;}
+.ah-lvbadge{display:block;padding:8px 16px;border-radius:20px;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;background:rgba(212,0,106,.2);color:var(--mag2);border:1px solid rgba(212,0,106,.3);}
+.ah-lvlabel{font-size:10px;color:rgba(255,255,255,.3);text-align:center;margin-top:5px;letter-spacing:.06em;}
+
+/* big progress */
+.big-prog{background:var(--white);border-radius:var(--r);padding:28px;margin-bottom:16px;border:1px solid var(--border);}
+.bp-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:6px;}
+.bp-label{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;}
+.bp-nums{text-align:right;}
+.bp-pct{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1;}
+.bp-sub{font-size:11px;color:var(--txt3);}
+.bp-bar{height:14px;background:var(--bg);border-radius:14px;overflow:hidden;margin-bottom:10px;}
+.bp-fill{height:100%;border-radius:14px;background:linear-gradient(90deg,var(--mag) 0%,var(--mag2) 60%,var(--gold) 100%);transition:width .8s cubic-bezier(.4,0,.2,1);position:relative;}
+.bp-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);background-size:200% 100%;animation:shimmer 2.5s infinite;}
+.bp-milestones{display:flex;justify-content:space-between;}
+.bpm{font-size:9px;color:var(--txt3);text-align:center;font-family:'DM Mono',monospace;}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.metric{background:var(--white);border-radius:var(--rs);padding:20px;border:1px solid var(--border);text-align:center;}
+.mv{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--navy);}
+.ml{font-size:11px;color:var(--txt3);margin-top:4px;}
+
+/* achievement chips */
+.achievements{background:var(--white);border-radius:var(--r);padding:24px 28px;margin-bottom:16px;border:1px solid var(--border);}
+.ach-title{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:14px;}
+.ach-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.ach-chip{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid;}
+.ach-chip.earned{background:rgba(0,196,140,.08);border-color:rgba(0,196,140,.25);color:var(--green);}
+.ach-chip.locked{background:var(--bg);border-color:var(--border2);color:var(--txt3);}
+.ach-icon{font-size:14px;}
+
+/* modules visual alumno */
+.mod-visual{background:var(--white);border-radius:var(--r);padding:24px 28px;border:1px solid var(--border);}
+.mv-title{font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px;}
+.mv-modules{display:flex;flex-direction:column;gap:10px;}
+.mv-mod{display:flex;align-items:center;gap:12px;}
+.mv-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--txt3);width:24px;flex-shrink:0;}
+.mv-name{font-size:12px;color:var(--txt2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mv-bar{width:120px;height:7px;background:var(--bg);border-radius:7px;overflow:hidden;flex-shrink:0;}
+.mv-fill{height:100%;border-radius:7px;background:var(--mag);transition:width .6s ease;}
+.mv-pct{font-family:'DM Mono',monospace;font-size:10px;color:var(--txt3);width:32px;text-align:right;flex-shrink:0;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:13px;font-weight:500;z-index:999;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;}
+.toast.on{opacity:1;transform:translateY(0);}
+
+@media(max-width:600px){
+  .sel-card{padding:20px;}
+  .sc-hero,.prog-wrap,.sess-wrap,.save-row{padding-left:20px;padding-right:20px;}
+  .sgrid{gap:6px;}
+  .chip{padding:10px 4px 8px;}
+  .cn{font-size:14px;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .metrics{grid-template-columns:repeat(3,1fr);}
+  .ah-level{display:none;}
+  #alu-dash{padding:20px 16px;}
+  header{padding:0 16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="spin"></div>
+  <div class="lmsg">Conectando con el portal...</div>
+</div>
+
+<header>
+  <div class="brand">
+    <div class="bdot"></div>
+    <div>
+      <div class="bname">Gabriel Turner · Progress</div>
+      <div class="bsub">Seguimiento de sesiones</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('maestro',this)">Maestro</button>
+    <button class="tab" onclick="switchTab('alumno',this)">Mi progreso</button>
+  </div>
+</header>
+
+<!-- ═══════════ MAESTRO ═══════════ -->
+<div id="screen-mae" class="screen on">
+<div class="wrap">
+
+  <div class="sel-card">
+    <div class="sg">
+      <div class="sl">Maestro</div>
+      <select class="si" id="sel-mae"><option value="">— tu nombre —</option></select>
+    </div>
+    <div class="sg">
+      <div class="sl">Alumno</div>
+      <select class="si" id="sel-alu"><option value="">— elegí alumno —</option></select>
+    </div>
+    <button class="go-btn" onclick="cargarAlumno()">Ver progreso →</button>
+  </div>
+
+  <div class="stcard" id="stcard">
+
+    <div class="sc-hero">
+      <div class="sc-av" id="m-av">—</div>
+      <div>
+        <div class="sc-name" id="m-name">—</div>
+        <div class="sc-sub">
+          <span id="m-empresa">—</span>
+          <span id="m-teacher">—</span>
+        </div>
+      </div>
+      <span class="lvbadge la1" id="m-level">—</span>
+    </div>
+
+    <div class="prog-wrap">
+      <div class="prog-top">
+        <span class="prog-lbl">Avance en el nivel</span>
+        <span class="prog-pct" id="m-pct">0%</span>
+      </div>
+      <div class="pbar"><div class="pbar-fill" id="m-bar" style="width:0%"></div></div>
+      <div class="prog-foot">
+        <span class="pf">Inicio</span>
+        <span class="pf" id="m-done">0 / 30</span>
+        <span class="pf">Nivel completo</span>
+      </div>
+    </div>
+
+    <div class="sess-wrap" id="m-sessions"></div>
+
+    <div class="stats-row">
+      <div class="sbox"><div class="sv" id="st-done">0</div><div class="slb">Completadas</div></div>
+      <div class="sbox"><div class="sv" id="st-mods">0</div><div class="slb">Módulos</div></div>
+      <div class="sbox"><div class="sv" id="st-asis">—</div><div class="slb">Asistencia</div></div>
+      <div class="sbox"><div class="sv" id="st-nivel">—</div><div class="slb">Nivel</div></div>
+    </div>
+
+    <div class="save-row">
+      <div class="save-note">Marcá las sesiones completadas hoy y guardá.</div>
+      <button class="save-btn" id="sbtn" onclick="guardar()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Guardar progreso
+      </button>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ ALUMNO ═══════════ -->
+<div id="screen-alu" class="screen">
+
+  <!-- LOGIN -->
+  <div id="alu-login">
+    <div class="login-card">
+      <div class="lc-icon">🎯</div>
+      <div class="lc-title">Tu progreso</div>
+      <div class="lc-sub">Ingresá tu código de acceso de 6 dígitos para ver cómo vas.</div>
+      <input class="lc-input" id="codigo-input" type="text" maxlength="6" placeholder="000000"
+        oninput="this.value=this.value.replace(/\D/g,'')"
+        onkeydown="if(event.key==='Enter')loginAlumno()">
+      <button class="lc-btn" onclick="loginAlumno()">Ver mi progreso →</button>
+      <div class="lc-err" id="lc-err">Código incorrecto. Pedíselo a tu maestro.</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="alu-dash">
+
+    <div class="alu-hero">
+      <div class="ah-greeting">Hola 👋</div>
+      <div class="ah-name" id="a-name">—</div>
+      <div class="ah-sub" id="a-sub">—</div>
+      <div class="ah-level">
+        <span class="ah-lvbadge" id="a-level">—</span>
+        <span class="ah-lvlabel">NIVEL ACTUAL</span>
+      </div>
+    </div>
+
+    <div class="big-prog">
+      <div class="bp-top">
+        <span class="bp-label">Tu avance en el nivel</span>
+        <div class="bp-nums">
+          <div class="bp-pct" id="a-pct">0%</div>
+          <div class="bp-sub" id="a-done">0 de 30 sesiones</div>
+        </div>
+      </div>
+      <div class="bp-bar"><div class="bp-fill" id="a-bar" style="width:0%"></div></div>
+      <div class="bp-milestones">
+        <span class="bpm">Inicio</span>
+        <span class="bpm">M2</span>
+        <span class="bpm">M3</span>
+        <span class="bpm">M4</span>
+        <span class="bpm">M5</span>
+        <span class="bpm">🏁 Fin</span>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="mv" id="a-sesiones">0</div>
+        <div class="ml">Sesiones completadas</div>
+      </div>
+      <div class="metric">
+        <div class="mv" id="a-asistencia">—</div>
+        <div class="ml">Asistencia</div>
+      </div>
+      <div class="metric">
+        <div class="mv" id="a-tareas">0</div>
+        <div class="ml">Tareas completadas</div>
+      </div>
+    </div>
+
+    <div class="achievements">
+      <div class="ach-title">Logros</div>
+      <div class="ach-grid" id="a-achievements"></div>
+    </div>
+
+    <div class="mod-visual">
+      <div class="mv-title">Avance por módulo</div>
+      <div class="mv-modules" id="a-modules"></div>
+    </div>
+
+  </div><!-- /alu-dash -->
+</div><!-- /screen-alu -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WORKER = 'https://silent-king-6ef7gt-portal.gabriel32turner.workers.dev';
+
+const MODS = {
+  'A1.1':['Hello, I\'m…','My World','Every Day','People & Teams','Out & About','Plans & Decisions'],
+  'A1.2':['Free Time & Work','Company & Products','Getting Around','Health & Work','Business Comm.','A1 Integration'],
+  'A2.1':['In the Meeting Room','Presenting','Working with Clients','Processes','Business Travel','Career'],
+  'A2.2':['Habits Then & Now','Rules & Obligations','Advice','Possibility','Comparing','A2.2 Integration'],
+  'B1.1':['Who Are You?','Work & Environment','Money & Habits','Technology','Health & Wellbeing','Opinions'],
+  'B1.2':['Who You Are at Work','Money & Power','Digital Life','Society','Media & Fame','Your Future'],
+  'B2.1':['Leadership','Strategic Comm.','Critical Thinking','Negotiation','Presentations','Integration'],
+};
+const LVCLS = {'A1.1':'la1','A1.2':'la1','A2.1':'la2','A2.2':'la2','B1.1':'lb1','B1.2':'lb1','B2.1':'lb2','B2.2':'lb2'};
+const TOTAL = 30;
+
+let DATA = {alumnos:[],maestros:[],sesiones:[],tareas:[]};
+let curAlumno = null;
+let done = new Set();
+
+// ── INIT ─────────────────────────────────────────────────
+async function init(){
+  try{
+    const r = await fetch(WORKER);
+    const j = await r.json();
+    if(!j.ok) throw new Error();
+    DATA = j.data;
+    DATA.alumnos.forEach(a=>{a.activo=!!a.activo;});
+    DATA.sesiones.forEach(s=>{s.asistio=!!s.asistio;});
+    DATA.tareas.forEach(t=>{t.hecha=!!t.hecha;});
+
+    const sm = document.getElementById('sel-mae');
+    const maestros = [...new Set(DATA.alumnos.map(a=>a.maestro).filter(Boolean))].sort();
+    maestros.forEach(m=>{const o=document.createElement('option');o.value=o.textContent=m;sm.appendChild(o);});
+    sm.addEventListener('change',fillAlumnos);
+
+    document.getElementById('loader').classList.add('out');
+  }catch(e){
+    document.getElementById('loader').innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px;text-align:center">Error al conectar.<br>Verificá la conexión.</div>';
+  }
+}
+
+function fillAlumnos(){
+  const mae = document.getElementById('sel-mae').value;
+  const sa  = document.getElementById('sel-alu');
+  sa.innerHTML='<option value="">— elegí alumno —</option>';
+  if(!mae) return;
+  DATA.alumnos.filter(a=>a.maestro===mae&&a.activo)
+    .sort((a,b)=>a.nombre.localeCompare(b.nombre))
+    .forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=`${a.nombre} · ${a.nivel_actual}`;sa.appendChild(o);});
+}
+
+function cargarAlumno(){
+  const id = document.getElementById('sel-alu').value;
+  if(!id){showToast('Seleccioná un alumno');return;}
+  curAlumno = DATA.alumnos.find(a=>a.id===id);
+  if(!curAlumno) return;
+
+  const ses   = DATA.sesiones.filter(s=>s.alumno===id);
+  const asis  = ses.filter(s=>s.asistio).length;
+  const asisPct = ses.length ? Math.round(asis/ses.length*100) : 0;
+
+  const init = curAlumno.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('m-av').textContent    = init;
+  document.getElementById('m-name').textContent  = curAlumno.nombre;
+  document.getElementById('m-empresa').textContent = curAlumno.empresa||'Particular';
+  document.getElementById('m-teacher').textContent = curAlumno.maestro;
+  const lvEl = document.getElementById('m-level');
+  lvEl.textContent = curAlumno.nivel_actual;
+  lvEl.className = 'lvbadge '+(LVCLS[curAlumno.nivel_actual]||'la1');
+
+  document.getElementById('st-asis').textContent  = ses.length ? asisPct+'%' : '—';
+  document.getElementById('st-nivel').textContent = curAlumno.nivel_actual;
+
+  const saved = localStorage.getItem('gtp-'+id);
+  done = saved ? new Set(JSON.parse(saved)) : new Set();
+
+  renderSessGrid();
+  updateMaeProgress();
+
+  const sc = document.getElementById('stcard');
+  sc.classList.add('on');
+  sc.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderSessGrid(){
+  const nivel = curAlumno.nivel_actual;
+  const mods  = MODS[nivel]||MODS['A1.1'];
+  const cont  = document.getElementById('m-sessions');
+  cont.innerHTML = '';
+  mods.forEach((mn,mi)=>{
+    const m = mi+1;
+    const modDone = [...done].filter(k=>k.startsWith('M'+m+'-')).length;
+    const b = document.createElement('div'); b.className='mod-block';
+    b.innerHTML=`<div class="mod-hdr"><span class="mod-dot"></span><span class="mod-name">M${m} · ${mn}</span><span class="mod-prog">${modDone}/5</span></div><div class="sgrid" id="g-m${m}"></div>`;
+    cont.appendChild(b);
+    const g = document.getElementById('g-m'+m);
+    for(let s=1;s<=5;s++){
+      const key='M'+m+'-S'+s;
+      const c=document.createElement('div');
+      c.className='chip'+(done.has(key)?' done':'');
+      c.dataset.key=key;
+      c.onclick=()=>toggleChip(c,key);
+      c.innerHTML=`<div class="cn">S${s}</div><div class="cl">Sesión ${s}</div><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>`;
+      g.appendChild(c);
+    }
+  });
+}
+
+function toggleChip(c,key){
+  if(done.has(key)){done.delete(key);c.classList.remove('done');}
+  else{done.add(key);c.classList.add('done');}
+  // update module counter
+  const m = key.split('-')[0].replace('M','');
+  const g = document.getElementById('g-m'+m);
+  if(g){
+    const hdr = g.previousElementSibling.querySelector('.mod-prog');
+    if(hdr) hdr.textContent=[...done].filter(k=>k.startsWith('M'+m+'-')).length+'/5';
+  }
+  updateMaeProgress();
+}
+
+function updateMaeProgress(){
+  const n = done.size;
+  const p = Math.round(n/TOTAL*100);
+  document.getElementById('m-pct').textContent = p+'%';
+  document.getElementById('m-bar').style.width = p+'%';
+  document.getElementById('m-done').textContent = n+' / '+TOTAL;
+  document.getElementById('st-done').textContent = n;
+  document.getElementById('st-mods').textContent = new Set([...done].map(k=>k.split('-')[0])).size;
+}
+
+function guardar(){
+  if(!curAlumno) return;
+  const btn=document.getElementById('sbtn');
+  btn.disabled=true; btn.textContent='Guardando...';
+  localStorage.setItem('gtp-'+curAlumno.id, JSON.stringify([...done]));
+  setTimeout(()=>{
+    btn.disabled=false;
+    btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar progreso';
+    showToast('✓ Progreso guardado');
+  },700);
+}
+
+// ── ALUMNO LOGIN ─────────────────────────────────────────
+function loginAlumno(){
+  const code = document.getElementById('codigo-input').value.trim();
+  if(code.length!==6){showErr();return;}
+  const alumno = DATA.alumnos.find(a=>a.codigo===code&&a.activo);
+  if(!alumno){showErr();return;}
+  document.getElementById('lc-err').style.display='none';
+  renderAluDash(alumno);
+}
+
+function showErr(){
+  const e=document.getElementById('lc-err');
+  e.style.display='block';
+  setTimeout(()=>e.style.display='none',3000);
+}
+
+function renderAluDash(a){
+  document.getElementById('alu-login').style.display='none';
+  const dash = document.getElementById('alu-dash');
+
+  document.getElementById('a-name').textContent = a.nombre;
+  document.getElementById('a-level').textContent = a.nivel_actual;
+  document.getElementById('a-sub').textContent   = (a.empresa||'Alumno particular')+' · Maestro: '+a.maestro;
+
+  // Sesiones del alumno
+  const ses   = DATA.sesiones.filter(s=>s.alumno===a.id);
+  const asis  = ses.filter(s=>s.asistio).length;
+  const asisPct = ses.length ? Math.round(asis/ses.length*100) : 0;
+  const tar   = DATA.tareas.filter(t=>t.alumno===a.id);
+  const tarH  = tar.filter(t=>t.hecha).length;
+
+  // Progreso guardado por el maestro
+  const saved = localStorage.getItem('gtp-'+a.id);
+  const progSet = saved ? new Set(JSON.parse(saved)) : new Set();
+  const progN = progSet.size;
+  const progP = Math.round(progN/TOTAL*100);
+
+  document.getElementById('a-pct').textContent  = progP+'%';
+  document.getElementById('a-bar').style.width  = progP+'%';
+  document.getElementById('a-done').textContent = progN+' de '+TOTAL+' sesiones';
+  document.getElementById('a-sesiones').textContent  = progN;
+  document.getElementById('a-asistencia').textContent = ses.length ? asisPct+'%' : '—';
+  document.getElementById('a-tareas').textContent     = tarH+'/'+tar.length;
+
+  // Logros
+  const ACHS = [
+    {icon:'🌟',label:'Primera clase',cond:progN>=1},
+    {icon:'💪',label:'5 sesiones',cond:progN>=5},
+    {icon:'🔥',label:'Módulo 1 completo',cond:[...progSet].filter(k=>k.startsWith('M1-')).length>=5},
+    {icon:'🚀',label:'10 sesiones',cond:progN>=10},
+    {icon:'⚡',label:'Módulo 2 completo',cond:[...progSet].filter(k=>k.startsWith('M2-')).length>=5},
+    {icon:'🏅',label:'Mitad del nivel',cond:progN>=15},
+    {icon:'🎯',label:'20 sesiones',cond:progN>=20},
+    {icon:'🏆',label:'Nivel completo',cond:progN>=30},
+  ];
+  const ag = document.getElementById('a-achievements');
+  ag.innerHTML = ACHS.map(ac=>
+    `<div class="ach-chip ${ac.cond?'earned':'locked'}">
+      <span class="ach-icon">${ac.icon}</span>${ac.label}
+    </div>`
+  ).join('');
+
+  // Módulos
+  const nivel = a.nivel_actual;
+  const mods  = MODS[nivel]||MODS['A1.1'];
+  const mg = document.getElementById('a-modules');
+  mg.innerHTML = mods.map((mn,mi)=>{
+    const m = mi+1;
+    const done = [...progSet].filter(k=>k.startsWith('M'+m+'-')).length;
+    const pct  = Math.round(done/5*100);
+    return `<div class="mv-mod">
+      <span class="mv-num">M${m}</span>
+      <span class="mv-name">${mn}</span>
+      <div class="mv-bar"><div class="mv-fill" style="width:${pct}%"></div></div>
+      <span class="mv-pct">${done}/5</span>
+    </div>`;
+  }).join('');
+
+  dash.classList.add('on');
+}
+
+// ── TAB SWITCH ───────────────────────────────────────────
+function switchTab(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('screen-'+(id==='maestro'?'mae':'alu')).classList.add('on');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+init();
+</script>
+</body>
+</html>

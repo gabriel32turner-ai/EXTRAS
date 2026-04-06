@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT · Reporte RH</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D0D2B;--navy2:#1A1A3E;
+  --mag:#D4006A;--mag2:#FF1F5C;
+  --green:#00C48C;--gold:#F5A623;
+  --bg:#F6F5F2;--white:#fff;
+  --txt:#111;--txt2:#555;--txt3:#999;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --r:14px;--rs:8px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--navy);z-index:999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .4s;}
+#loader.out{opacity:0;pointer-events:none;}
+.spin{width:36px;height:36px;border:3px solid rgba(255,255,255,.08);border-top-color:var(--mag);border-radius:50%;animation:spin .7s linear infinite;}
+.lmsg{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.07em;}
+
+/* ── HEADER ── */
+header{background:var(--navy);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;}
+.bdot{width:8px;height:8px;border-radius:50%;background:var(--mag);}
+.bname{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:rgba(255,255,255,.88);letter-spacing:.06em;text-transform:uppercase;}
+.bsub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;}
+.hbtn{padding:8px 20px;background:var(--mag);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s;display:none;}
+.hbtn:hover{background:var(--mag2);}
+.hbtn.visible{display:block;}
+
+/* ── SETUP ── */
+.wrap{max-width:860px;margin:0 auto;padding:36px 24px;}
+.setup-card{background:var(--white);border-radius:var(--r);padding:32px;border:1px solid var(--border);margin-bottom:24px;}
+.sc-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--navy);margin-bottom:20px;}
+.fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:end;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.flbl{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.09em;}
+.fi{padding:10px 14px;border:1.5px solid var(--border2);border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--txt);background:var(--bg);outline:none;transition:border-color .15s;cursor:pointer;}
+.fi:focus{border-color:var(--mag);}
+.gen-btn{padding:11px 24px;background:var(--navy);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s;white-space:nowrap;}
+.gen-btn:hover{background:var(--mag);}
+
+/* ── REPORT ── */
+#report{display:none;}
+#report.on{display:block;animation:fadeUp .3s ease;}
+
+/* Report header */
+.rpt-hdr{background:var(--navy2);border-radius:var(--r);padding:32px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;}
+.rpt-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.rpt-dot{width:8px;height:8px;border-radius:50%;background:var(--mag);}
+.rpt-brand{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:rgba(255,255,255,.9);letter-spacing:.04em;text-transform:uppercase;}
+.rpt-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px;}
+.rpt-sub{font-size:12px;color:rgba(255,255,255,.4);}
+.rpt-meta{text-align:right;flex-shrink:0;}
+.rpt-empresa{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--mag2);margin-bottom:8px;}
+.rpt-period{font-size:12px;color:rgba(255,255,255,.38);line-height:1.8;}
+
+/* Summary metrics */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.sum-box{background:var(--white);border-radius:var(--rs);padding:20px;border:1px solid var(--border);text-align:center;}
+.sum-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--navy);}
+.sum-lbl{font-size:11px;color:var(--txt3);margin-top:4px;}
+
+/* Table */
+.tbl-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:20px;}
+.tbl-title{padding:20px 24px;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--navy);border-bottom:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--bg);}
+th{padding:10px 16px;font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;text-align:left;border-bottom:1px solid var(--border);}
+td{padding:14px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(212,0,106,.02);}
+.badge-asis{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.badge-hi{background:rgba(0,196,140,.1);color:var(--green);}
+.badge-mid{background:rgba(245,166,35,.12);color:var(--gold);}
+.badge-lo{background:rgba(212,0,106,.1);color:var(--mag);}
+.lvbadge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;}
+.la1{background:rgba(245,166,35,.12);color:var(--gold);}
+.la2{background:rgba(212,0,106,.1);color:var(--mag2);}
+.lb1{background:rgba(75,123,245,.1);color:#4B7BF5;}
+.lb2{background:rgba(0,196,140,.1);color:var(--green);}
+.mini-bar{width:80px;height:6px;background:var(--bg);border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px;}
+.mini-fill{height:100%;border-radius:6px;background:var(--mag);}
+
+/* Topics */
+.topics-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:24px;margin-bottom:20px;}
+.topics-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--navy);margin-bottom:14px;}
+.topics-grid{display:flex;flex-wrap:wrap;gap:7px;}
+.topic-chip{padding:5px 12px;background:var(--bg);border-radius:20px;font-size:12px;color:var(--txt2);border:1px solid var(--border2);}
+
+/* Footer */
+.rpt-footer{padding:20px 24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--white);border-radius:var(--r);border:1px solid var(--border);}
+.rf-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;}
+.rf-note{font-size:11px;color:var(--txt3);}
+
+/* print */
+@media print{
+  header,.setup-card,.hbtn,#report .gen-btn{display:none!important;}
+  body{background:#fff;}
+  .rpt-hdr{background:#0D0D2B!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .summary,.sum-box,.tbl-card,.topics-card,.rpt-footer{break-inside:avoid;}
+  #report{display:block!important;}
+}
+@media(max-width:640px){
+  .fields{grid-template-columns:1fr;}
+  .summary{grid-template-columns:repeat(2,1fr);}
+  th:nth-child(n+5),td:nth-child(n+5){display:none;}
+  header{padding:0 16px;}
+  .wrap{padding:20px 16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="spin"></div><div class="lmsg">Cargando datos...</div></div>
+
+<header>
+  <div class="brand">
+    <div class="bdot"></div>
+    <div>
+      <div class="bname">Gabriel Turner · Reporte RH</div>
+      <div class="bsub">Seguimiento corporativo</div>
+    </div>
+  </div>
+  <button class="hbtn" id="print-btn" onclick="window.print()">🖨 Imprimir / PDF</button>
+</header>
+
+<div class="wrap">
+
+  <!-- SETUP -->
+  <div class="setup-card" id="setup">
+    <div class="sc-title">Generar reporte corporativo</div>
+    <div class="fields">
+      <div class="field">
+        <div class="flbl">Empresa</div>
+        <select class="fi" id="sel-empresa"><option value="">— seleccioná empresa —</option></select>
+      </div>
+      <div class="field">
+        <div class="flbl">Período</div>
+        <select class="fi" id="sel-periodo">
+          <option value="mes">Este mes</option>
+          <option value="mes_ant">Mes anterior</option>
+          <option value="trimestre">Últimos 3 meses</option>
+          <option value="todo">Todo el historial</option>
+        </select>
+      </div>
+      <div class="field">
+        <button class="gen-btn" onclick="generarReporte()">Generar reporte →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT -->
+  <div id="report">
+
+    <div class="rpt-hdr">
+      <div>
+        <div class="rpt-logo"><div class="rpt-dot"></div><div class="rpt-brand">Gabriel Turner · English Training</div></div>
+        <div class="rpt-title">Reporte de seguimiento<br>de capacitación</div>
+        <div class="rpt-sub">Informe generado para el área de Recursos Humanos</div>
+      </div>
+      <div class="rpt-meta">
+        <div class="rpt-empresa" id="r-empresa">—</div>
+        <div class="rpt-period" id="r-period">—</div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+      <div class="sum-box"><div class="sum-val" id="r-total-emp">0</div><div class="sum-lbl">Empleados activos</div></div>
+      <div class="sum-box"><div class="sum-val" id="r-total-ses">0</div><div class="sum-lbl">Sesiones en el período</div></div>
+      <div class="sum-box"><div class="sum-val" id="r-avg-asis">0%</div><div class="sum-lbl">Asistencia promedio</div></div>
+      <div class="sum-box"><div class="sum-val" id="r-avg-prog">0</div><div class="sum-lbl">Sesiones prom. / empleado</div></div>
+    </div>
+
+    <!-- Table -->
+    <div class="tbl-card">
+      <div class="tbl-title">Detalle por empleado</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Empleado</th>
+            <th>Nivel actual</th>
+            <th>Sesiones en período</th>
+            <th>Asistencia</th>
+            <th>Progreso en nivel</th>
+            <th>Maestro</th>
+          </tr>
+        </thead>
+        <tbody id="r-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Topics -->
+    <div class="topics-card">
+      <div class="topics-title">Contenidos trabajados en el período</div>
+      <div class="topics-grid" id="r-topics"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="rpt-footer">
+      <div class="rf-brand">Gabriel Turner · English Training · Celaya, Gto.</div>
+      <div class="rf-note" id="r-gen-date">—</div>
+    </div>
+
+  </div><!-- /report -->
+</div><!-- /wrap -->
+
+<script>
+const WORKER = 'https://silent-king-6ef7gt-portal.gabriel32turner.workers.dev';
+const LVCLS  = {'A1.1':'la1','A1.2':'la1','A2.1':'la2','A2.2':'la2','B1.1':'lb1','B1.2':'lb1','B2.1':'lb2','B2.2':'lb2'};
+let DATA = {alumnos:[],sesiones:[],tareas:[]};
+
+async function init(){
+  try{
+    const r=await fetch(WORKER);
+    const j=await r.json();
+    if(!j.ok) throw new Error();
+    DATA=j.data;
+    DATA.alumnos.forEach(a=>{a.activo=!!a.activo;});
+    DATA.sesiones.forEach(s=>{s.asistio=!!s.asistio;});
+
+    // Llenar empresas
+    const empresas=[...new Set(DATA.alumnos.filter(a=>a.activo&&a.empresa).map(a=>a.empresa))].sort();
+    const sel=document.getElementById('sel-empresa');
+    empresas.forEach(e=>{const o=document.createElement('option');o.value=o.textContent=e;sel.appendChild(o);});
+
+    document.getElementById('loader').classList.add('out');
+  }catch(e){
+    document.getElementById('loader').innerHTML='<div style="color:rgba(255,255,255,.4);font-size:13px;text-align:center">Error al conectar.<br>Verificá la conexión.</div>';
+  }
+}
+
+function getDateRange(periodo){
+  const now = new Date();
+  const y=now.getFullYear(), m=now.getMonth();
+  if(periodo==='mes')      return [new Date(y,m,1), now];
+  if(periodo==='mes_ant')  return [new Date(y,m-1,1), new Date(y,m,0)];
+  if(periodo==='trimestre')return [new Date(y,m-3,1), now];
+  return [new Date('2000-01-01'), now];
+}
+
+function periodoLabel(periodo){
+  const now=new Date();
+  const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  if(periodo==='mes')      return meses[now.getMonth()]+' '+now.getFullYear();
+  if(periodo==='mes_ant'){const d=new Date(now.getFullYear(),now.getMonth()-1,1);return meses[d.getMonth()]+' '+d.getFullYear();}
+  if(periodo==='trimestre')return 'Últimos 3 meses';
+  return 'Historial completo';
+}
+
+function generarReporte(){
+  const empresa  = document.getElementById('sel-empresa').value;
+  const periodo  = document.getElementById('sel-periodo').value;
+  if(!empresa){alert('Seleccioná una empresa');return;}
+
+  const [desde, hasta] = getDateRange(periodo);
+  const alumnos = DATA.alumnos.filter(a=>a.activo&&a.empresa===empresa);
+
+  if(!alumnos.length){alert('No hay empleados activos para esta empresa.');return;}
+
+  // Sesiones del período
+  const sesPeriodo = DATA.sesiones.filter(s=>{
+    const f=new Date(s.fecha);
+    return f>=desde&&f<=hasta&&alumnos.some(a=>a.id===s.alumno);
+  });
+
+  // Summary
+  const totalSes = sesPeriodo.length;
+  const totalAsis= sesPeriodo.filter(s=>s.asistio).length;
+  const avgAsis  = totalSes ? Math.round(totalAsis/totalSes*100) : 0;
+  const avgSes   = alumnos.length ? Math.round(totalSes/alumnos.length*10)/10 : 0;
+
+  document.getElementById('r-empresa').textContent   = empresa;
+  document.getElementById('r-period').textContent    =
+    periodoLabel(periodo)+'\nGenerado el '+new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'})+
+    '\nContacto: 461 147 2119';
+  document.getElementById('r-total-emp').textContent = alumnos.length;
+  document.getElementById('r-total-ses').textContent = totalSes;
+  document.getElementById('r-avg-asis').textContent  = avgAsis+'%';
+  document.getElementById('r-avg-prog').textContent  = avgSes;
+  document.getElementById('r-gen-date').textContent  = 'Generado el '+new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});
+
+  // Tabla por empleado
+  const tbody=document.getElementById('r-tbody');
+  tbody.innerHTML='';
+  alumnos.sort((a,b)=>a.nombre.localeCompare(b.nombre)).forEach(a=>{
+    const sesA   = sesPeriodo.filter(s=>s.alumno===a.id);
+    const asisA  = sesA.filter(s=>s.asistio).length;
+    const asisP  = sesA.length ? Math.round(asisA/sesA.length*100) : 0;
+    const badgeCls = asisP>=80?'badge-hi':asisP>=60?'badge-mid':'badge-lo';
+    const asisStr  = sesA.length ? asisP+'%' : '—';
+
+    // Progreso en nivel (desde localStorage)
+    const saved  = localStorage.getItem('gtp-'+a.id);
+    const prog   = saved ? JSON.parse(saved).length : 0;
+    const progP  = Math.round(prog/30*100);
+
+    const lvCls = LVCLS[a.nivel_actual]||'la1';
+    tbody.innerHTML+=`<tr>
+      <td style="font-weight:500">${a.nombre}</td>
+      <td><span class="lvbadge ${lvCls}">${a.nivel_actual}</span></td>
+      <td><strong>${sesA.length}</strong> sesiones</td>
+      <td>${sesA.length?`<span class="badge-asis ${badgeCls}">${asisStr}</span>`:'<span style="color:var(--txt3)">Sin sesiones</span>'}</td>
+      <td>
+        <span class="mini-bar"><span class="mini-fill" style="width:${progP}%"></span></span>
+        <span style="font-size:12px;color:var(--txt2)">${prog}/30</span>
+      </td>
+      <td style="color:var(--txt2);font-size:12px">${a.maestro||'—'}</td>
+    </tr>`;
+  });
+
+  // Temas trabajados
+  const temas = [...new Set(sesPeriodo.map(s=>s.tema).filter(Boolean))].slice(0,20);
+  const tg=document.getElementById('r-topics');
+  tg.innerHTML = temas.length
+    ? temas.map(t=>`<span class="topic-chip">${t}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--txt3)">Sin sesiones en el período.</span>';
+
+  document.getElementById('report').classList.add('on');
+  document.getElementById('print-btn').classList.add('visible');
+}
+
+init();
+</script>
+</body>
+</html>
