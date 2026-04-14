@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Friends Who Disappeared · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#34D399;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#34D399;border:1px solid #34D399;color:#0F1923;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(52,211,153,.12);color:var(--ac);border:1px solid rgba(52,211,153,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(52,211,153,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(52,211,153,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(52,211,153,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(52,211,153,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(52,211,153,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B1.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Friends Who<br>Disappeared</h1>
+    <p>You didn't have a fight. You didn't say goodbye. One day they were just… gone. What happened to those friendships?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocative Headline</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The Guardian · "Why Adult Friendships Are So Hard to Keep" · 2022</div>
+    <div class="trigger-quote">"Most adults lose half of their close friends every 7 years — not through arguments or dramatic endings, but simply through life getting in the way. Researchers call it 'friendship decay.' Most people don't even notice it's happening until the friendship is already gone."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the quote, then pause. Ask: <em>"Half of your friends every 7 years — does that surprise you? Think about who you were friends with 7 years ago. How many of those people do you still talk to?"</em> Let students count silently. Then: <em>"Did those friendships end — or did they just… fade?"</em> The goal is to open the emotional door quickly without making it heavy.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Sofía · 33</div><div class="bub-role">Teacher · Celaya</div></div>
+      </div>
+      <div class="bub-body">"I think it's normal. People change, life changes. I have 2 or 3 real friends now and I'm happy with that. <strong>Quality is more important than quantity.</strong> I don't need 20 people in my life — I need 3 I can call at midnight."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Diego · 38</div><div class="bub-role">Accountant · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I lost my best friend from university and it still hurts. We didn't fight — we just stopped calling. I always think: <strong>if I had tried harder, would we still be friends?</strong> I should have called first. I keep waiting for him to call me. Neither of us does."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍💼</span>
+        <div><div class="bub-name">Valeria · 41</div><div class="bub-role">HR Coordinator · CDMX</div></div>
+      </div>
+      <div class="bub-body">"I was the one who disappeared. I had a baby, I changed jobs, I moved cities. I didn't have <strong>time or energy</strong> for anyone. It wasn't personal. Now that things are calmer, I try to reconnect — but it's different. You can't just press pause on a friendship."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Rodrigo · 45</div><div class="bub-role">Sales Manager · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"Honestly? If a friendship fades that easily, it wasn't that strong. <strong>Real friends don't disappear.</strong> The ones who left probably weren't your real friends. Stop feeling guilty. You didn't lose a real friendship — you just found out who the real ones are."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Rodrigo is the provocateur because he removes the guilt — but also removes the nuance. His position is comforting on the surface but dismissive of the real complexity of adult friendship. Push: <em>"Do you agree with Rodrigo — or does his answer feel too easy?"</em> Then: <em>"Have you ever been Valeria — the one who disappeared?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever lost a close friend — not because of a fight, but just because you both stopped making effort?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Almost everyone has this experience. Let the student tell the story. Push: "When did you realize the friendship was over?" Target: present perfect to open, then past simple for the story. Key vocab to activate: fade, drift apart, lose touch.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever tried to reconnect with an old friend after years of no contact? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Two types of outcomes: it worked, or it was awkward. Both are interesting. Push: "Was it the same — or did it feel like talking to a different person?" Model answer: "I sent a message after 3 years. We met for coffee and it was nice — but not the same as before. I think we both knew it."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever been the one who disappeared from a friendship — maybe without realizing it at the time?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Based on Valeria's bubble. This question flips the perspective — the student was the one who faded. Push gently: "Did you feel guilty when you realized it?" Target: past simple + present perfect for reflection. Key: no judgment, just curiosity.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">In your opinion, whose responsibility is it to keep a friendship alive — or is it always both people?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for activating: responsibility, effort, initiative. Push: "What if one person always calls first — and the other never does? Is that still a friendship?" Target: should + both/neither/either. Model: "I think it should always be 50/50 — but in real life, one person almost always puts in more effort."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think it's possible to go back to a friendship after 5 or 10 years — or does too much change?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push: "What would need to be the same for it to work?" Target: modals for possibility (can, might, could) + comparative structures. Key vocab: pick up where you left off, common ground, too much water under the bridge.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it OK to have fewer friends as you get older — or should adults try harder to keep friendships?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Connects to Sofía's "quality not quantity" position. Push: "At what age did you start having fewer friends — and was it a choice or did it just happen?" Target: should + comparative (fewer/less/more). Encourage the student to reflect on their own friendship pattern over time.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if an old friend — someone you haven't spoken to in 5 years — suddenly sent you a message asking to meet?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional (would + base verb). Push: "Would your answer change if you were the one who disappeared — vs. them?" Model: "I think I would say yes — but I'd also be a little nervous. I'd probably wonder why they're reaching out now."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you realized your best friend was slowly pulling away — less messages, shorter replies, canceling plans — but hadn't said anything?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + direct action vocabulary. Push: "Would you say something directly — or wait and see?" Model: "I would probably say something like: 'Hey, are we okay? I feel like we've been a bit distant lately.' It's scary but better than just watching it fade." Role-play this sentence if possible.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Do adults actually need close friends — or do most people get by fine with just family and work colleagues?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Research says: no. People with close friendships outside family live longer and report higher happiness. But many adults genuinely don't have them. Push: "Do you think the people in your life right now are enough — or is something missing?" Target: present simple + modals for need/necessity.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Is there a person you've been meaning to contact for months — but you keep not doing it? What's really stopping you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The self-reflection closer. Most students will smile or go quiet — because they know exactly who this is. Don't rush. Push: "What would happen if you sent a message right now — today? What's the worst realistic outcome?" The goal is not to make them feel guilty, but to activate real personal reflection in English.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You have a friend you've known for 15 years. In the last 2 years, you've noticed that every time you talk, the conversation is always about them — their problems, their life, their news. They never ask about you. You've started to dread their calls. Do you say something — or slowly let the friendship fade?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me what you would do — and give me the exact words you would say to that friend. In English. No script."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B1.2 · Speaking Lab · Friends Who Disappeared · Relationships &amp; Personality · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'friendship',def:'A close relationship between two people who care about each other',ex:'"Some friendships last a lifetime. Others last a season."'},
+  {w:'effort',def:'The energy or work you put into something',ex:'"A friendship without effort from both sides slowly dies."'},
+  {w:'distance',def:'Physical or emotional space between two people',ex:'"After she moved cities, the distance was too much."'},
+  {w:'contact',def:'Communication with someone — a call, message, or visit',ex:'"We lost contact after university. I still think about him sometimes."'},
+  {w:'guilt',def:'The feeling that you did something wrong',ex:'"I feel guilt about the friendships I let go. I could have tried harder."'},
+  {w:'memories',def:'Things you remember from the past',ex:'"We have good memories — but memories aren\'t the same as a friendship."'},
+  {w:'trust',def:'The feeling that someone is honest and reliable',ex:'"You can\'t rebuild trust with someone you stopped calling for 3 years."'},
+  {w:'loneliness',def:'The feeling of being alone or disconnected from others',ex:'"A lot of adults feel loneliness but won\'t admit it."'},
+  {w:'bond',def:'A strong connection between two people',ex:'"We had a bond at university that I haven\'t found with anyone else since."'},
+  {w:'space',def:'Time or distance that allows people to breathe in a relationship',ex:'"Sometimes people need space — and sometimes space becomes permanent."'},
+];
+const verbs=[
+  {w:'fade',def:'To slowly become less strong or disappear over time',ex:'"The friendship just faded. No drama — just silence."'},
+  {w:'drift apart',def:'To slowly become less close without a specific reason',ex:'"We drifted apart after we stopped working together."'},
+  {w:'lose touch',def:'To stop having regular contact with someone',ex:'"I lost touch with my best friend from school. It happens."'},
+  {w:'reach out',def:'To contact someone, especially after a long time',ex:'"I finally reached out after 2 years. It was awkward but worth it."'},
+  {w:'reconnect',def:'To form a relationship again after a period of distance',ex:'"We reconnected at a wedding and it felt like no time had passed."'},
+  {w:'pull away',def:'To become less involved or present in a relationship',ex:'"She started pulling away after she got the new job. I noticed."'},
+  {w:'check in',def:'To contact someone to see how they are doing',ex:'"I try to check in with old friends at least once a month."'},
+  {w:'grow apart',def:'To change in different directions until you no longer have much in common',ex:'"We grew apart. We want different things from life now."'},
+  {w:'miss',def:'To feel sad because someone is not in your life anymore',ex:'"I miss the friendship more than I miss the person, if that makes sense."'},
+  {w:'move on',def:'To accept that something has ended and continue with your life',ex:'"At some point you have to move on and stop waiting for them to call."'},
+];
+const phrases=[
+  {p:'We just lost touch',ctx:'The most common way to explain a friendship that faded — no drama, just silence'},
+  {p:'I\'ve been meaning to call',ctx:'Said about someone you haven\'t contacted — usually for months'},
+  {p:'We drifted apart',ctx:'When two people slowly stop being close without a specific reason or event'},
+  {p:'We picked up right where we left off',ctx:'When a reconnection feels natural — like no time passed'},
+  {p:'It\'s not the same anymore',ctx:'Said when a friendship has changed and can\'t go back to what it was'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

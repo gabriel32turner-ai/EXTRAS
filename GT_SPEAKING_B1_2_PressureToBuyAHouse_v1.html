@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · The Pressure to Buy a House · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#34D399;--ac2:rgba(52,211,153,0.12);--ac3:rgba(52,211,153,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(52,211,153,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.2</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">The Pressure to Buy a House</div>
+    <div class="hero-sub">Your parents say rent is "throwing money away." Your friends just bought. Are you behind — or is buying a house not for everyone?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">BBC News · 2023</div>
+    <div class="trigger-quote">"For the first time in 30 years, more adults under 40 in Mexico are renting than owning. But 78% of them say they still feel they 'should' buy a house — even when they don't want to."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask: "Do you own a house or do you rent? How do you feel about that?" Wait. Then: "Has anyone — your parents, your partner, a friend — ever made you feel bad for renting? Or for not buying yet?" This gets personal fast. Let it.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Conversation Language</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one sounds like you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🏠</div><div><div class="op-name">Rodrigo · 41</div><div class="op-role">Accountant · Celaya</div></div></div>
+      <div class="op-text">I bought my house at 35 and it was the best decision I ever made. <strong>Every peso I pay goes to something that is mine.</strong> When you rent, you pay someone else's mortgage. My kids will inherit this house. That is security. That is a real goal.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😤</div><div><div class="op-name">Valeria · 32</div><div class="op-role">Nurse · Guadalajara</div></div></div>
+      <div class="op-text">I am tired of people telling me I need to buy. <strong>I don't want to be in debt for 30 years.</strong> I want to travel, change cities, have freedom. A mortgage is a prison. My parents say I'm throwing money away. But I'm buying experiences — not walls.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Diego · 29</div><div class="op-role">Sales Rep · CDMX</div></div></div>
+      <div class="op-text">Buying a house in Mexico right now is <strong>mathematically terrible</strong>. Interest rates are high, prices are crazy, and you will pay 2.5 times the real value over 20 years. <strong>The idea that renting is "throwing money away" is something banks invented to sell mortgages.</strong> My parents bought in a different economy. This is not that economy.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🤷</div><div><div class="op-name">Andrea · 45</div><div class="op-role">Teacher · Querétaro</div></div></div>
+      <div class="op-text">I think it depends on your life. <strong>For me, the house gave me stability when I had kids.</strong> But my sister rents and she's happy. The pressure is the real problem — not the choice. Nobody should feel like a failure for renting. Or for buying. It's just a house.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person sounds most like you right now? Which opinion makes you a little uncomfortable — and why?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever felt pressure from your family to buy a house? What did they say — and how did it make you feel?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very common in Mexican families. Push for specifics: "Who said it — your mom, your dad, your grandparents? What exactly did they say? Did you feel guilty, angry, or were they right?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever compared yourself to a friend or colleague who bought a house — and felt behind or stressed about it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes. My friend bought at 30 and I felt like I was failing. But when I looked at his mortgage payments, I realized I had more money at the end of every month. Still — the feeling was there. It was not rational."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever moved to a new city or changed jobs and thought: "I'm glad I don't have a mortgage right now"?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is the flexibility argument for renting. Great for students who are mobile. Push: "Would a mortgage have stopped you from making that move? How would your life be different?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think renting is really "throwing money away" — or is that just something older generations say?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for critical thinking. Push: "Is it possible that this idea was true 30 years ago but is not true today? What changed?" Mortgage rates, house prices, job mobility — all useful vocabulary here.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">In your opinion, at what age should a person buy a house — or does age have nothing to do with it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I don't think age matters. I think stability matters — a stable job, a stable relationship, a clear idea of where you want to live. If you have those things at 25, go ahead. If you don't have them at 45, wait."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think a house is an investment — something that makes you money — or just a place to live?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This divides people cleanly. Some see it as pure investment, others as purely personal. Push: "Have you ever seen someone lose money on a house? Or make a lot? What happened?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your parents offered to give you money for a down payment — but only if you bought in the city where they live?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "That's really hard. The money would help a lot. But I don't want to live in their city — I want to build my life where I am. I think I would say thank you and no. But it would not be easy to say that to my parents."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you could buy a house right now — but it would mean no vacations, no eating out, and no savings for 5 years?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Real trade-off question. Push: "Is the house worth 5 years of that life? What would you be giving up that matters most to you?" Quality of life vs. financial security — no easy answer.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Do you think you actually want to buy a house — or do you just feel like you should because everyone says so?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The core question of the whole session. Give it real space. "If nobody in your life had an opinion about it — your parents, your friends, your partner — would you still want to buy? Or is it mostly social pressure?" Silence is a good answer here.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">When you imagine your life at 60, do you picture yourself in a house you own — or does it not really matter to you?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "When I really think about it — I picture being somewhere comfortable and safe. I don't think I picture owning specifically. I think I picture not worrying about money. Maybe a house is one way to get there. But it's not the only way."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your partner really wants to buy a house. You are not sure. You found one you both like — $1,800,000 pesos. The mortgage payment would be $14,000 pesos a month for 20 years. Your rent right now is $8,500. You would have to say goodbye to your savings, your vacations, and your emergency fund for at least 3 years. Your partner says: "If we don't buy now, we never will." What do you do?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: Do you buy or not? And what does your answer say about what you really value?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.2 · Money &amp; Finance · The Pressure to Buy a House · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv on">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"mortgage",def:"A bank loan to buy a house, paid back over many years",ex:'"His mortgage payment is $12,000 pesos a month — for 25 years."'},
+  {w:"rent",def:"Money you pay every month to live in a place you don\'t own",ex:'"She pays $7,500 pesos in rent and feels no pressure about it."'},
+  {w:"debt",def:"Money you owe to a bank or a person",ex:'"He doesn\'t want to be in debt for 20 years — so he keeps renting."'},
+  {w:"down payment",def:"The amount of money you pay upfront when you buy a house",ex:'"They saved for 4 years to have enough for the down payment."'},
+  {w:"savings",def:"Money you keep for the future, not for daily spending",ex:'"Buying the house meant using all her savings at once."'},
+  {w:"interest rate",def:"The percentage a bank charges you for lending money",ex:'"The interest rate went up and suddenly the mortgage was too expensive."'},
+  {w:"property",def:"A house or land that someone owns",ex:'"Property prices in Monterrey have gone up 40% in three years."'},
+  {w:"landlord",def:"The person who owns the place you rent",ex:'"Her landlord raised the rent every year with no warning."'},
+  {w:"security",def:"The feeling of being safe and stable, especially financially",ex:'"He bought the house because it gave him a sense of security."'},
+  {w:"investment",def:"Something you spend money on now to get more money later",ex:'"Is a house really an investment — or just an expensive place to live?"'},
+];
+const verbs=[
+  {w:"afford",def:"To have enough money to pay for something",ex:'"They can\'t afford a mortgage right now — and that\'s okay."'},
+  {w:"save up",def:"To put money aside over time for a specific goal",ex:'"She has been saving up for a house for six years."'},
+  {w:"rent out",def:"To let someone live in your property in exchange for money",ex:'"He bought two apartments and rents one out to cover the mortgage."'},
+  {w:"owe",def:"To have to pay money back to someone",ex:'"She owes the bank 1.2 million pesos. She doesn\'t think about it much."'},
+  {w:"pressure",def:"To push someone to do something they may not want to do",ex:'"His parents pressured him to buy at 30. He regrets it."'},
+  {w:"invest",def:"To put money into something to grow it over time",ex:'"Instead of buying, she invested in the stock market. It grew more."'},
+  {w:"inherit",def:"To receive money, property, or objects from someone who died",ex:'"She inherited her grandmother\'s house and never needed a mortgage."'},
+  {w:"compare yourself",def:"To measure your life against someone else\'s situation",ex:'"He always compared himself to friends who owned houses. It made him miserable."'},
+  {w:"move out",def:"To leave the place where you currently live",ex:'"She moved out of her parents\' house at 27 and immediately rented."'},
+  {w:"settle down",def:"To choose a stable place and lifestyle, often with a partner",ex:'"They decided to settle down in Querétaro — and bought a small house there."'},
+];
+const phrases=[
+  {t:'"Rent is throwing money away."',c:"What parents and older family members say — not always true in today\'s market."},
+  {t:'"We can\'t afford to wait."',c:"Used to justify buying before you are really ready."},
+  {t:'"It\'s a lot of commitment."',c:"A polite way to say a mortgage feels terrifying."},
+  {t:'"At least it\'s mine."',c:"What homeowners say to feel better about a very expensive purchase."},
+  {t:'"I\'m not ready for that yet."',c:"Common answer when someone asks why you haven\'t bought a house."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

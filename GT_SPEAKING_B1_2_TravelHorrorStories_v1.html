@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.2 — Travel Horror Stories</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#34D399;--ac-dim:rgba(52,211,153,.08);--ac-mid:rgba(52,211,153,.18);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.hdr-brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.mode-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#modeBtn{border:none;cursor:pointer;padding:7px 16px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;background:var(--ac);color:#0F1923}
+#modeBtn.student{background:#2a3a4e;color:white}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=80&fit=crop');background-size:cover;background-position:center;opacity:.22}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.98) 0%,rgba(15,25,35,.65) 55%,rgba(15,25,35,.25) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid}
+.tag-level{color:var(--ac);border-color:var(--ac);background:rgba(52,211,153,.08)}
+.tag-cat{color:var(--muted);border-color:var(--border)}
+.tag-medium{color:#fbbf24;border-color:#fbbf24;background:rgba(251,191,36,.08)}
+.tag-time{color:var(--muted);border-color:var(--border)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+
+.sec{margin-top:40px}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-hd-l{display:flex;align-items:center;gap:14px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:.5px;margin-top:2px}
+.timer-pill{flex-shrink:0;background:var(--ac-dim);border:1px solid var(--ac-mid);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;text-transform:uppercase}
+
+.quote-box{border-left:3px solid var(--ac);background:var(--card);padding:20px 24px;margin-bottom:16px}
+.quote-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.quote-text{font-size:16px;font-style:italic;color:var(--text);line-height:1.6}
+.trigger-script{background:rgba(52,211,153,.04);border:1px solid var(--ac-mid);padding:14px 18px;font-size:13px;color:var(--muted);margin-top:12px}
+.trigger-script strong{color:var(--ac)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px}
+.v-card{background:var(--card);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.v-card:hover,.v-card:active{border-color:var(--ac);background:var(--ac-dim)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--ac);margin-bottom:2px}
+.v-type{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--muted);line-height:1.4}
+.vocab-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:16px}
+.phrases-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--ac)}
+.phrase-text{font-size:13.5px;color:var(--text);font-style:italic}
+.phrase-use{font-size:12px;color:var(--muted);margin-top:2px}
+.ph-icon{font-size:14px;flex-shrink:0}
+
+.opinions{display:flex;flex-direction:column;gap:12px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px 20px}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{width:36px;height:36px;background:var(--ac-dim);border:1px solid var(--ac-mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--text)}
+.op-text{font-size:13.5px;color:var(--text);line-height:1.65}
+.op-text strong{color:var(--ac)}
+.op-provocateur{border-color:rgba(248,113,113,.3)}
+.op-provocateur .op-avatar{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.3)}
+.provoc-badge{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-left:auto}
+.op-instruction{background:var(--ac-dim);border:1px solid var(--ac-mid);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--ac)}
+
+.q-blocks{display:flex;flex-direction:column;gap:24px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-block-lbl::after{content:'';flex:1;height:1px;background:var(--ac-mid)}
+.questions{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14.5px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.tip-btn{border:1px solid var(--ac-mid);background:none;color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background .15s}
+.tip-btn:hover{background:var(--ac-dim)}
+.tip-content{display:none;margin-top:12px;background:rgba(52,211,153,.04);border-top:1px solid var(--ac-mid);padding-top:12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.tip-content strong{color:var(--ac)}
+.tip-content.show{display:block}
+
+.exit-box{border:2px solid var(--ac);background:var(--ac-dim);padding:28px 32px;margin-bottom:20px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:18px}
+.hw-box{background:var(--card);border:1px solid var(--border);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.hw-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hw-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.hw-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+footer{border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:11px;color:var(--muted)}
+footer strong{color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1px}
+
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+  .exit-box{padding:20px 18px}
+  .exit-q{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="hdr-right">
+    <span class="mode-tag teacher-only" id="modeTag">Teacher Mode</span>
+    <button id="modeBtn" onclick="toggleMode()">Student Mode</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="tag tag-level">B1.2</span>
+      <span class="tag tag-cat">Travel &amp; Culture</span>
+      <span class="tag tag-medium">🌡 Medium</span>
+      <span class="tag tag-time">⏱ 50 min</span>
+    </div>
+    <h1>Travel Horror Stories</h1>
+    <p class="hero-sub">Lost luggage, missed flights, scams, food poisoning — the trips you'll never forget for the wrong reasons.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- FASE 1 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🪝</span>
+      <div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">Phase 1 · Open the conversation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">4 min</div>
+  </div>
+  <div class="quote-box">
+    <div class="quote-source">The Guardian · Travel Section</div>
+    <div class="quote-text">"Airlines lost or mishandled over 26 million bags last year. And yet, travel experts agree: the stories people tell most passionately are never about the perfect trips."</div>
+  </div>
+  <div class="trigger-script teacher-only">
+    <strong>Teacher script:</strong> Read the stat, then say: <em>"Think about a trip that went wrong — even a little. A missed bus, a terrible hotel, food that destroyed you. Give me 10 seconds to think... Now, who has the worst story in this room?"</em> The competition for worst story is the best warm-up in this session.
+  </div>
+</section>
+
+<!-- FASE 2 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💉</span>
+      <div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Phase 2 · Click any card to hear pronunciation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">8 min</div>
+  </div>
+  <div class="vocab-lbl">Nouns</div>
+  <div class="vocab-grid" id="nouns"></div>
+  <div class="vocab-lbl">Verbs</div>
+  <div class="vocab-grid" id="verbs"></div>
+  <div class="vocab-lbl">Colloquial Phrases — click to hear</div>
+  <div class="phrases-list" id="phrases"></div>
+</section>
+
+<!-- FASE 3 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🧱</span>
+      <div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">10 min</div>
+  </div>
+  <div class="opinions">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Sofía, 33 — Nurse, Monterrey</div></div>
+      </div>
+      <div class="op-text">"I missed a connecting flight in Miami because the first flight was delayed. The airline put me in a hotel that was 40 minutes away, gave me a voucher for $12 to eat, and rebooked me for the next day. <strong>I cried in the airport for 30 minutes.</strong> I've been afraid of connecting flights ever since."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Mateo, 40 — Engineer, Guadalajara</div></div>
+      </div>
+      <div class="op-text">"My bag arrived three days late on a business trip. My suit, my laptop charger, everything. I had to buy clothes at the airport at tourist prices. The airline reimbursed me $80. The clothes cost $200. <strong>I've been taking only carry-on luggage since 2019.</strong> Never again."</div>
+    </div>
+
+    <div class="opinion-card op-provocateur">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Valeria, 28 — Teacher, CDMX</div></div>
+        <span class="provoc-badge">provocateur</span>
+      </div>
+      <div class="op-text">"I got food poisoning in Thailand. I was sick for two days in a tiny hotel room. It was horrible — but honestly? <strong>That trip changed my life more than any comfortable vacation.</strong> The bad moments are the ones you actually remember. I'd go back tomorrow."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Rodrigo, 46 — Sales Manager, Querétaro</div></div>
+      </div>
+      <div class="op-text">"I got scammed in Barcelona. A guy on Las Ramblas convinced me to buy tickets for a 'rooftop bar' that didn't exist. It was 60 euros. I wasn't even that angry about the money — I was angry because <strong>I felt stupid.</strong> I've been telling that story at dinner parties for five years."</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 <strong>Choose one opinion.</strong> Which person's story do you relate to most? Do you agree with Valeria — that bad trips are actually more valuable? Tell your partner.</div>
+</section>
+
+<!-- FASE 4 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🗣️</span>
+      <div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">Phase 4 · 10 questions · 4 blocks</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">23 min</div>
+  </div>
+  <div class="q-blocks">
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">Have you ever missed a flight or a bus? What happened, and how did you handle it?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Almost everyone has a version of this. Push for the emotional detail: <em>"What was going through your head in that moment? Who did you call first?"</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Have you ever been scammed or ripped off while travelling? How much did it cost you?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes, in a taxi in Cancún. The driver said the meter was broken and charged me three times the normal price. I paid because I didn't know the city. I've been checking prices on my phone before getting in a taxi ever since."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">Have you ever stayed in a hotel or Airbnb that was nothing like the photos? What did you do?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Follow up: <em>"Did you complain? Did you leave a bad review? Or did you say nothing?"</em> The willingness to complain in a foreign country is a rich topic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">Do you think travel problems make a trip more memorable, like Valeria says — or do they just ruin it?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Split the room. Ask who agrees with Valeria and who disagrees. Make each side explain with a specific example from their own experience.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">In your opinion, who is responsible when a trip goes wrong — the traveller, the airline, the hotel, or the country?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I think it depends on the situation. If my bag is lost, that's the airline. If I get scammed, that's partly my fault for not being more careful. If a destination is dangerous and nobody warned me — that's a government problem."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">What do you think about people who travel to dangerous places on purpose — war zones, politically unstable countries, extreme environments? Is that brave or irresponsible?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Natural debate question. Strong opinions on both sides. Push students to justify: <em>"Where do you draw the line between adventure and recklessness?"</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">What would you do if you arrived at your destination and your hotel said they had no record of your reservation?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I would show them my confirmation email immediately. If they still couldn't help me, I would call the booking platform on the spot and ask them to find me something nearby at their expense. I would stay calm but very clear."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">What would you do if you got seriously sick in a foreign country and your travel insurance didn't cover the treatment?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This question reveals how prepared students actually are. Good follow-up: <em>"Do you always buy travel insurance? Why or why not?"</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">Have you ever made a travel decision that put you or someone else at risk — and you knew it at the time?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This surfaces honest stories. Common answers: taking unsafe transport to save money, going out alone at night in an unfamiliar city, ignoring local warnings. Don't judge — let the story come out.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">Be honest: have you ever exaggerated a travel horror story to make it sound worse than it was?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> The best closing question of this session. Almost everyone says yes with a laugh. Follow up: <em>"Why do we do that? What does it say about how we use travel stories socially?"</em></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FASE 5 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💣</span>
+      <div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">Phase 5 · One final question</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">You are at the airport. Your flight is delayed 11 hours. You have no lounge access, $30 in cash, your phone is at 8% battery, and the charging stations are all occupied. There is one other traveller next to you who also looks completely lost. What do you actually do for the next 11 hours?</div>
+  </div>
+  <div class="hw-box">
+    <div class="hw-icon">🎙️</div>
+    <div>
+      <div class="hw-label">Homework — WhatsApp Voice Note</div>
+      <div class="hw-text">Record a 60-second voice message in English describing your worst real travel experience — or the Exit Shot scenario if you prefer. Be specific: where, what went wrong, what you did, how you felt after.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <strong>GABRIEL TURNER ENGLISH TRAINING</strong> &nbsp;·&nbsp; Speaking Lab &nbsp;·&nbsp; B1.2 &nbsp;·&nbsp; Travel &amp; Culture
+</footer>
+
+<script>
+const nouns=[
+  {w:'delay',def:'When a flight, bus or train leaves later than scheduled'},
+  {w:'luggage',def:'The bags and suitcases you travel with'},
+  {w:'scam',def:'A trick someone uses to steal your money'},
+  {w:'layover',def:'A stop between two flights, usually at a connecting airport'},
+  {w:'refund',def:'Money you get back after a payment or cancellation'},
+  {w:'insurance',def:'A service that pays your costs if something goes wrong'},
+  {w:'customs',def:'The government check when you enter a new country'},
+  {w:'hostel',def:'A cheap place to sleep, usually with shared rooms'},
+  {w:'jet lag',def:'Extreme tiredness from travelling across time zones'},
+  {w:'pickpocket',def:'A person who steals from you without you noticing'}
+];
+const verbs=[
+  {w:'miss',def:'To arrive too late for a flight, bus or train'},
+  {w:'rebook',def:'To change your reservation to a new date or flight'},
+  {w:'complain',def:'To formally express that something was wrong or unfair'},
+  {w:'get ripped off',def:'To pay much more than something is worth'},
+  {w:'get lost',def:'To not know where you are or how to get somewhere'},
+  {w:'cancel',def:'To officially stop a reservation or booking'},
+  {w:'get sick',def:'To become ill, especially from food or a change of climate'},
+  {w:'get stuck',def:'To be unable to continue your journey or leave a place'},
+  {w:'pack',def:'To put your clothes and belongings into a bag before travelling'},
+  {w:'claim',def:'To officially request something you are owed, like lost luggage'}
+];
+const phrases=[
+  {p:"It was an absolute nightmare",u:"Use to describe a situation that was extremely bad and stressful"},
+  {p:"I had no idea what to do",u:"Use when you were completely confused or unprepared"},
+  {p:"I just wanted to go home",u:"Use when a situation became too overwhelming to deal with"},
+  {p:"Never again",u:"Use after a very bad experience to say you will not repeat it"},
+  {p:"I pulled it off",u:"Use when you successfully managed a difficult or unexpected situation"}
+];
+
+function buildVocab(){
+  const ng=document.getElementById('nouns');
+  const vg=document.getElementById('verbs');
+  nouns.forEach(n=>{ng.innerHTML+=`<div class="v-card" onclick="speak('${n.w}')"><div class="v-word">${n.w}</div><div class="v-type">noun · 🔊</div><div class="v-def">${n.def}</div></div>`;});
+  verbs.forEach(v=>{vg.innerHTML+=`<div class="v-card" onclick="speak('${v.w}')"><div class="v-word">${v.w}</div><div class="v-type">verb · 🔊</div><div class="v-def">${v.def}</div></div>`;});
+  const pl=document.getElementById('phrases');
+  phrases.forEach(ph=>{pl.innerHTML+=`<div class="phrase-item" onclick="speak('${ph.p}')"><span class="ph-icon">🔊</span><div><div class="phrase-text">"${ph.p}"</div><div class="phrase-use">${ph.u}</div></div></div>`;});
+}
+function speak(txt){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.88;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('show');
+  btn.textContent=tip.classList.contains('show')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  const btn=document.getElementById('modeBtn');
+  const tag=document.getElementById('modeTag');
+  if(studentMode){btn.textContent='Teacher Mode';btn.classList.add('student');if(tag)tag.textContent='Student Mode';}
+  else{btn.textContent='Student Mode';btn.classList.remove('student');if(tag)tag.textContent='Teacher Mode';}
+}
+buildVocab();
+</script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.2 · Getting Fired: The Worst Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.08)}
+.mode-btn{background:#34D399;border:1px solid #34D399;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none;padding:0}
+.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(52,211,153,.1)}
+.tn-c1{border-left:3px solid rgba(52,211,153,.6)}
+.tn-c2{border-left:3px solid rgba(0,207,255,.5)}
+.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}
+.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}
+.tn-txt li{margin-bottom:5px}
+.tn-txt strong{color:var(--txt)}
+/* HOOK */
+.hook-stat-card{background:linear-gradient(135deg,rgba(52,211,153,.08) 0%,rgba(52,211,153,.03) 100%);border:1px solid rgba(52,211,153,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(52,211,153,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(52,211,153,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(52,211,153,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(52,211,153,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+/* VOCAB */
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(52,211,153,.3)}
+.vc.noun-c{border-top:2px solid rgba(52,211,153,.4)}
+.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(52,211,153,.6)}
+.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(110,231,183,.8);font-style:italic;border-left:2px solid rgba(52,211,153,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(52,211,153,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+.challenge-btn:hover{background:rgba(52,211,153,.18)}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(52,211,153,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+/* PERSPECTIVES */
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(52,211,153,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(52,211,153,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+/* CONVERSATION */
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(52,211,153,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(52,211,153,.65);background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(52,211,153,.3)}
+.q-tn strong{color:rgba(52,211,153,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(52,211,153,.8)}
+/* EXIT */
+.exit-hero{background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,rgba(52,211,153,.04) 50%,transparent 100%);border:1px solid rgba(52,211,153,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){
+  .persp-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .hsc-stats{grid-template-columns:1fr}
+  .sec{padding:30px 20px}
+  .hdr{padding:0 16px}
+  .snav{padding:0 16px}
+}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r">
+    <div class="badge">B1.2 · Speaking Lab</div>
+    <button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=80" alt="Getting Fired">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Work &amp; Corporate Life</div>
+    <div class="hero-title">GETTING<br><em>FIRED</em></div>
+    <div class="hero-sub">The worst day at work. Nobody talks about it. Everyone has felt it — or is terrified of it.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span>
+      <span class="hchip">No grammar</span>
+      <span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span>
+      <span class="hchip">🌶 Spicy</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 01 · The Trigger</div>
+      <div class="sec-title">🪝 The Number Nobody Talks About</div>
+      <div class="sec-sub">Read aloud or project · First reaction only · No debate yet · 4 min max</div>
+    </div>
+    <div class="sec-wm">01</div>
+    <div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">📋</div>
+    <div class="hsc-label">Gallup State of the Global Workplace + LinkedIn Workforce Report 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat">
+        <div class="hsc-num">1 in 5</div>
+        <div class="hsc-desc">Workers have been fired or laid off at least once in their career — most with no warning</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">67%</div>
+        <div class="hsc-desc">Of people who were fired say they never received clear feedback before the termination</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">3× faster</div>
+        <div class="hsc-desc">People who were fired at least once find their next best job faster than those who quit voluntarily</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">78%</div>
+        <div class="hsc-desc">Say being fired was one of the most stressful experiences of their life — worse than divorce, worse than moving</div>
+      </div>
+    </div>
+    <div class="hsc-source">Sources: Gallup State of the Global Workplace (2023) · LinkedIn Workforce Confidence Report · Harvard Business Review "The Productive Failure" (2022)</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Trigger — Read this slowly, then point at someone</div>
+    <div class="hq-text">"In 2022, Elon Musk fired 50% of Twitter's workforce in one day. Some people found out via email. Others lost access to their computers before the email arrived. Is there a right way to fire someone — or is it always just bad?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the Twitter/Musk story once, slowly. Then point at one student: "First reaction — is there a right way to fire someone?" Don't judge the answer. Wait 5 seconds for silence. After 2–3 reactions, say: "Hold that thought. Everything comes back in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 The Trigger <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>This topic is almost universal in Mexican corporate settings — most students know someone who was fired, or fear it themselves. Use that. The emotional activation is instant.</li>
+        <li>If a student has personally been fired and starts to share immediately — let them speak for 30 seconds max, then say: <strong>"We're going to come back to that story in §4. Save it."</strong></li>
+        <li>The 67% stat (no feedback before termination) is the one that generates the most reaction. Mark who responds to it — they'll lead Q3 and Q6.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The Musk/Twitter reference works in Mexico — it was everywhere in the news. If students don't know it: <strong>"The guy who bought Twitter fired half the company by email. Before the email, people lost access to their computers. No conversation, no explanation."</strong></li>
+        <li>Best activation question if the group is quiet: <strong>"How many of you have a colleague who was fired without warning? Raise your hand."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention line: <strong>"This session is about something that nobody teaches you in school — how to talk about failure, loss, and starting over. In English. That's a professional skill."</strong></li>
+        <li>Referral trigger: the Musk stat is WhatsApp-shareable. After class: send it in English.</li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 02 · Vocab Injection</div>
+      <div class="sec-title">💉 20 Words That Matter</div>
+      <div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs simultaneous · Production challenge after</div>
+    </div>
+    <div class="sec-wm">02</div>
+    <div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B produces the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — The Job Loss World</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Happens Before, During &amp; After</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Each person picks <em>3 words</em>. One sentence each about <em>a real situation at your job — past or present.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 Vocab <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Laid off" vs "fired" is a key distinction — clarify if it comes up: laid off = company decision (no wrongdoing), fired = performance or behavior issue. Many students use them interchangeably.</li>
+        <li>Best production challenge trigger: <strong>"Which 3 words describe what happened to someone you know at work? Go."</strong></li>
+        <li>If a student uses "I was fired" in the production challenge — don't react emotionally. Treat it as language. Celebrate the grammar, not the story.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>These are real Monday-morning words. Say it: <strong>"If something happens at work today and you need to tell someone in English — these are the words."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"These words appear in resignation letters, performance reviews, and LinkedIn posts. You'll need them."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 03 · Opinion Wall</div>
+      <div class="sec-title">🧱 4 Real Voices. 4 Different Reactions.</div>
+      <div class="sec-sub">Read each card · Pairs discuss 90 sec · Group shares · Same question each time</div>
+    </div>
+    <div class="sec-wm">03</div>
+    <div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who surprises you most? Why?"</div></div><div class="sbo-badge">Don't vary the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who surprises you most? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 Opinion Wall <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Read all 4 cards before opening debate. The contrast between Valentina (relief) and Marco (shame) is the tension that drives the conversation.</li>
+        <li>The provocateur is <strong>Ing. Torres</strong>. His opinion will create immediate resistance — especially from younger students. Let the resistance be the fuel. Push: <strong>"He's your boss. Is he wrong?"</strong></li>
+        <li>Don't let discussion become personal storytelling. Redirect with: <strong>"We'll get to your story in §4. Right now — which of these four people is closest to how you think?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Best activation: read Ing. Torres in a slightly authoritative voice. Read Valentina with surprise. The delivery creates contrast that the group reacts to.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"In one sentence — which of these four sounds most like someone you actually know?"</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 CONVERSATION ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 04 · The Conversation Engine</div>
+      <div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div>
+      <div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · No round-robin · Point and push</div>
+    </div>
+    <div class="sec-wm">04</div>
+    <div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> Minimum 2 sentences per answer. Position first. Reason second. One finger up = more. Two fingers = next question.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 Engine <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 uses present perfect — monitor "Have you ever been..." responses. If students answer in simple past only ("I was fired"), gently recycle: <strong>"So you have been fired — tell me more."</strong></li>
+        <li>Block 3 (second conditional) — watch for "If I would be fired" (Spanish interference). Recycle at the end: "If I were fired, I would..." Don't interrupt the flow.</li>
+        <li>Q9 (self-reflection) is the most honest question of the session. Give it full time — don't rush to Q10.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Celebrate when someone uses vocab from §2 in their answer: <strong>"You just used 'severance' in a real sentence. That's B1.2 output."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just talked about one of the hardest things that can happen at work — in English. Not translating in your head. Talking."</strong></li>
+        <li>Upsell: <strong>"Next Speaking Lab goes into money — salary, debt, savings. Same depth. Same format."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 05 · The Exit Shot</div>
+      <div class="sec-title">💣 One Question. No Easy Answer.</div>
+      <div class="sec-sub">5 min · No chips · Just position + reason · Then the loop</div>
+    </div>
+    <div class="sec-wm">05</div>
+    <div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">You've been at your job for <em>6 years</em>. Your boss calls you in on a Friday at 4pm. He says: <em>"This is your last day."</em> No explanation. No warning. You have a mortgage and <em>one kid in school.</em> What is the first thing you do — and the first thing you say?</div>
+    <div class="exit-rule">Answer in 3 sentences minimum. Be honest — not brave. What would you actually do?</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"Honestly, I think I would go quiet. I wouldn't know what to say. The first thing I would do is ask for something in writing — because I've heard that you should always have documentation. Then I would call my partner from the parking lot. I wouldn't be brave. I would be scared. And I think that's normal."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — The WhatsApp Homework</strong>
+    "Before our next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Don't rehearse it. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 Exit Shot <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The scenario is concrete: 6 years, Friday 4pm, mortgage, one kid. The specificity forces a real decision. If a student gives a generic answer ("I would look for another job"), push: <strong>"Before that — right now, in that room, what do you say to your boss?"</strong></li>
+        <li>After the student answers: one follow-up only — <strong>"What would you do differently if you had seen it coming?"</strong> This activates second conditional naturally.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer uses honest, non-heroic language — "I would be scared. And I think that's normal." This gives students permission to be vulnerable in English. That vulnerability is the most powerful learning state.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing line: <strong>"You just described a moment of real human fear — in English. That's not a textbook exercise. That's language that works when it counts."</strong></li>
+        <li>Referral trigger: <strong>"If someone you know is taking a basic English class doing grammar exercises, they've never had a conversation like this one. That's the difference."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Getting Fired: The Worst Day · Work &amp; Corporate Life · Spicy</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div>
+    <div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv on">B1.2</div>
+    <div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"termination",  def:"The official end of someone's job",                                      ex:"He received the termination letter by email — on a Friday afternoon."},
+  {w:"severance",    def:"Money a company pays you when they end your job",                        ex:"She got two weeks of severance and a box to carry her things."},
+  {w:"warning",      def:"A signal before something bad happens",                                  ex:"He was fired with no warning — nobody had said anything was wrong."},
+  {w:"reference",    def:"A letter or person who confirms you were a good employee",               ex:"She was afraid to ask for a reference after the way she was let go."},
+  {w:"résumé",       def:"The document that shows your work history and skills",                   ex:"He hadn't updated his résumé in six years — that was the first problem."},
+  {w:"contract",     def:"The official agreement between you and your employer",                   ex:"She read her contract that night for the first time."},
+  {w:"performance",  def:"How well you do your job",                                               ex:"His performance had been fine — the firing was a total surprise."},
+  {w:"notice",       def:"Advance warning before ending a job — usually 2 weeks",                 ex:"They didn't give her any notice. Just: today is your last day."},
+  {w:"shame",        def:"The feeling that you did something wrong or that others will judge you", ex:"He felt shame, even though it wasn't really his fault."},
+  {w:"relief",       def:"The feeling when something stressful finally ends",                      ex:"She felt shame at first — but honestly, also a little relief."}
+];
+const verbs=[
+  {w:"get fired",    def:"To lose your job because the company decided to end it",                 ex:"He got fired on the same day he asked for a raise."},
+  {w:"lay off",      def:"To end someone's job for business reasons, not personal performance",    ex:"The company laid off 200 people in one day — no one saw it coming."},
+  {w:"let go",       def:"A softer way to say someone lost their job",                             ex:"She was let go after the merger — her position no longer existed."},
+  {w:"quit",         def:"To leave your job by your own decision",                                 ex:"She had wanted to quit for two years — they fired her before she could."},
+  {w:"struggle",     def:"To have a hard time doing something or managing a situation",            ex:"He struggled to find a new job for three months after the termination."},
+  {w:"recover",      def:"To return to a normal, stable state after something difficult",          ex:"She took six weeks to recover — not financially, but emotionally."},
+  {w:"update",       def:"To make something current — like your CV or LinkedIn profile",           ex:"He hadn't updated his LinkedIn in four years. That was the second problem."},
+  {w:"blame",        def:"To say that something is someone else's fault",                          ex:"He blamed his boss for two months. Then he started blaming himself. Neither helped."},
+  {w:"move on",      def:"To stop focusing on something painful and start a new chapter",          ex:"The hardest part wasn't finding a new job. It was learning to move on."},
+  {w:"hide",         def:"To keep something secret because you are embarrassed or afraid",         ex:"She hid the firing from her family for two weeks."}
+];
+const perspectives=[
+  {
+    name:"Valentina Cruz",meta:"31 · Accountant · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I got fired two years ago and honestly? It was the <strong>best thing</strong> that ever happened to me. I hated that job. I just didn't have the courage to quit. When they fired me I cried for a day and then I felt… free. My new job pays better and I actually want to go on Monday morning."
+  },
+  {
+    name:"Marco Delgado",meta:"44 · Sales Manager · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I've been fired once and I still feel <strong>ashamed</strong> when I think about it. I know it was seven years ago. I know I have a better job now. But that day changed something in me. I work harder now — maybe too hard — because I never want to feel that again. Some things don't just go away."
+  },
+  {
+    name:"Sofía Rentería",meta:"38 · HR Coordinator · Querétaro",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I'm in HR. I've had to fire people. And it is <strong>never easy</strong> — not for me, not for them. What I've learned is that the way you fire someone says everything about your company. No warning, no feedback, fired by email? That company has a problem. The person being fired is not the problem."
+  },
+  {
+    name:"Ing. Torres",meta:"58 · Plant Director · Celaya — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"Look, I've fired many people in 30 years. It's part of the job. If your performance is bad and you get fired, that's <strong>your responsibility</strong> — not the company's, not the boss's. I have no patience for people who blame everyone else. You always know when your numbers are bad. You always know. The surprise is never a real surprise."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever been fired or laid off — or do you know someone who has? What happened?",chips:["I have never been fired, but...","A colleague of mine was...","I was let go once and...","The situation was..."],tn:"If nobody has been fired personally, redirect: 'Have you ever known someone who was? Tell me what happened.' Almost everyone has a story. Don't let silence mean there's no experience."},
+    {num:"Q2",text:"Have you ever had a boss who treated people badly or fired someone unfairly? What did you see?",chips:["I've seen a situation where...","My boss once...","I've worked in a place where...","It wasn't fair because..."],tn:"This question shifts from personal to witnessed experience — it opens the conversation to people who haven't been fired. Most students have seen unfair treatment even if it didn't happen to them."},
+    {num:"Q3",text:"Have you ever felt that your job was not secure? How did that feel? What did you do?",chips:["I've had that feeling when...","It made me feel...","At one point I thought...","I started to..."],tn:"The present perfect here is key: 'Have you felt' — not 'Did you feel.' If students use simple past, gently recycle with the present perfect form without stopping the conversation."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for reasons · No yes/no answers",questions:[
+    {num:"Q4",text:"Do you think companies should always give a warning before firing someone? Or is it sometimes better to do it immediately?",chips:["I think it depends on...","In my opinion, every person deserves...","If someone steals or lies, then...","But for performance reasons..."],tn:"There's a legitimate debate here — some firings need to be immediate (theft, harassment). Others need a process. Don't let students stay abstract. Push: 'Give me a specific situation where you think immediate is OK.'"},
+    {num:"Q5",text:"Why do you think many people feel ashamed after being fired — even when it wasn't their fault?",chips:["I think it's because...","In Mexico, work is connected to...","People feel that others will think...","But I believe that..."],tn:"This is a cultural and emotional question. Mexican professional culture often links work performance to personal worth. Students will often say things like 'people think you're lazy.' That's the real insight — let it land."},
+    {num:"Q6",text:"Is it better to quit before you get fired — or is it always better to stay until the end?",chips:["I think it's better to quit because...","But if you quit, you lose...","Staying shows that you...","In my experience..."],tn:"There's a practical dimension here (severance, unemployment benefits) and an emotional one (dignity, self-respect). Let both come up. Don't resolve the debate — let the students argue it out."}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Watch for 'If I would' — recycle at end",questions:[
+    {num:"Q7",text:"What would you do first if you arrived at work tomorrow and your boss said: 'Today is your last day'?",chips:["I would probably...","The first thing I would do is...","I wouldn't...","I think I would ask..."],tn:"Second conditional territory. Watch for 'If I would arrive' — note it but don't interrupt. After all Block 3 answers, quickly recycle: 'If you arrived tomorrow and... — what would you do?' The form is the lesson."},
+    {num:"Q8",text:"What would you do differently in your career if you knew you might get fired in the next 6 months?",chips:["I would start to...","I would probably update my...","I would try to...","Honestly, I would..."],tn:"This question is about preparation vs. denial. Many students will say they would start saving money, updating their CV, or networking more. That's great vocab activation. Some will say nothing — they'd just wait. That's also an honest, discussable answer."}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · Push anyone who gives a safe answer",questions:[
+    {num:"Q9",text:"Honest question: Are you afraid of getting fired? Not in theory. Right now, at your current job. Tell me the truth.",chips:[],tn:"This is the most personal question of the session. Wait a full 5 seconds after asking. The first honest answer usually unlocks the whole group. If everyone says 'no, I'm fine' — push: 'Nobody? Not even a little? Really?'"},
+    {num:"Q10",text:"Is getting fired always a failure — or can it sometimes be the start of something better? Give me a real example, not a motivational poster.",chips:[],tn:"The 'not a motivational poster' framing is intentional — it stops students from giving generic answers. Push for specific examples: a person they know, a story they heard, or their own experience. The synthesis question for the whole session."}
+  ]}
+];
+
+function buildVocab(data,containerId,type){
+  const g=document.getElementById(containerId);
+  data.forEach(item=>{
+    const c=document.createElement("div");
+    c.className="vc "+(type==="noun"?"noun-c":"verb-c");
+    c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;
+    g.appendChild(c);
+  });
+}
+buildVocab(nouns,"nounGrid","noun");
+buildVocab(verbs,"verbGrid","verb");
+
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{
+  pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;
+});
+
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{
+  let qHTML="";
+  phase.questions.forEach(q=>{
+    const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");
+    qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;
+  });
+  convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;
+});
+
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"];
+const navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

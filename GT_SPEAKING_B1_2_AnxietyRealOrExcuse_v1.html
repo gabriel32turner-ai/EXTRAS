@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.2 · Anxiety: Real Problem or Excuse?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.08)}
+.mode-btn{background:#34D399;border:1px solid #34D399;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}
+.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(52,211,153,.1)}
+.tn-c1{border-left:3px solid rgba(52,211,153,.6)}
+.tn-c2{border-left:3px solid rgba(0,207,255,.5)}
+.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}
+.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}
+.tn-txt li{margin-bottom:5px}
+.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(52,211,153,.08) 0%,rgba(52,211,153,.03) 100%);border:1px solid rgba(52,211,153,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(52,211,153,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(52,211,153,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(52,211,153,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(52,211,153,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(52,211,153,.3)}
+.vc.noun-c{border-top:2px solid rgba(52,211,153,.4)}
+.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(52,211,153,.6)}
+.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(110,231,183,.8);font-style:italic;border-left:2px solid rgba(52,211,153,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(52,211,153,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(52,211,153,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(52,211,153,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(52,211,153,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(52,211,153,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(52,211,153,.65);background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(52,211,153,.3)}
+.q-tn strong{color:rgba(52,211,153,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(52,211,153,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,rgba(52,211,153,.04) 50%,transparent 100%);border:1px solid rgba(52,211,153,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.sensitivity-note{background:rgba(0,207,255,.04);border:1px solid rgba(0,207,255,.2);border-left:3px solid rgba(0,207,255,.5);padding:12px 16px;margin-bottom:18px;font-size:12px;color:rgba(0,207,255,.75);line-height:1.6}
+.sensitivity-note strong{color:rgba(0,207,255,.9);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){
+  .persp-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .hsc-stats{grid-template-columns:1fr}
+  .sec{padding:30px 20px}
+  .hdr{padding:0 16px}
+  .snav{padding:0 16px}
+}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r">
+    <div class="badge">B1.2 · Speaking Lab</div>
+    <button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1474631245212-32dc3c8310c6?w=1400&q=80" alt="Anxiety">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Health &amp; Wellness</div>
+    <div class="hero-title">ANXIETY:<br><em>REAL OR EXCUSE?</em></div>
+    <div class="hero-sub">Everyone seems to have it. Nobody agrees on what it is. And the conversation is long overdue.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span>
+      <span class="hchip">No grammar</span>
+      <span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span>
+      <span class="hchip">🌶🌶 Spicy</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 01 · The Trigger</div>
+      <div class="sec-title">🪝 The Numbers We Don't Talk About</div>
+      <div class="sec-sub">Read aloud or project · First reaction only · No debate yet · 4 min max</div>
+    </div>
+    <div class="sec-wm">01</div>
+    <div class="sec-time teacher-only">4 min</div>
+  </div>
+
+  <div class="sensitivity-note teacher-only">
+    <strong>⚠️ Sensitivity Note — Read Before Starting</strong>
+    This topic may be personally relevant to some students. The goal is a professional, honest conversation — not therapy. If a student shares something deeply personal, acknowledge it briefly and redirect to the language: "That takes courage to say in English. Can you say that again in a full sentence?" Never probe for clinical details. If anyone seems distressed, end the topic and check in privately after class.
+  </div>
+
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🧠</div>
+    <div class="hsc-label">WHO Global Mental Health Report + APA Stress in America Survey 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">1 in 4</div><div class="hsc-desc">Adults worldwide experience an anxiety disorder at some point in their life — making it the most common mental health condition globally</div></div>
+      <div class="hsc-stat"><div class="hsc-num">264M</div><div class="hsc-desc">People globally diagnosed with anxiety disorders — more than the entire population of Brazil</div></div>
+      <div class="hsc-stat"><div class="hsc-num">56%</div><div class="hsc-desc">Of Mexican adults report feeling anxious "often" or "always" — but fewer than 1 in 10 have ever spoken to a mental health professional</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3×</div><div class="hsc-desc">More likely: younger workers (under 35) report clinical anxiety at 3 times the rate of workers over 55 — and are 3 times more likely to call it a reason to miss work</div></div>
+    </div>
+    <div class="hsc-source">Sources: WHO World Mental Health Report 2022 · APA Stress in America 2023 · INEGI Encuesta Nacional de Bienestar Mental · Harvard Business Review "The Anxiety Economy" (2023)</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Trigger — Read this, then point at someone</div>
+    <div class="hq-text">"A 28-year-old engineer calls in sick on Monday. She tells her boss she has anxiety and cannot come in. Her boss — 55 years old — thinks: 'We all have anxiety. I had it at 28 too. I came in anyway.' Who is right?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the scenario once, slowly. Point directly: "First reaction — who is right?" Don't express your opinion. Wait for the tension. After 2–3 responses, say: "Hold every opinion you have. They all come back in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The generational tension in the trigger (28-year-old vs 55-year-old boss) is intentional — it maps directly onto most corporate groups where there is an age gap between junior and senior employees.</li>
+        <li>The 56% Mexico stat is the most relevant — most students will recognize it immediately. Use it: <strong>"More than half of Mexican adults feel anxious often or always. How many of you would say that's true for you?"</strong></li>
+        <li>If a student has personal experience with anxiety — let them speak briefly, then redirect to the language. Never ask for clinical details.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The "spicy" label is earned by the core question: is anxiety a real medical condition or a cultural trend? Both positions have defenders in the room — usually across generational lines. That friction is the engine.</li>
+        <li>Best activation if the group is cautious: <strong>"Nobody is diagnosing anyone here. We're talking about a word that has changed meaning in the last 10 years. That's a language and culture conversation."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Being able to talk about mental health in English — clearly, professionally, without drama — is a real skill. HR managers at international companies talk about this all the time."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 02 · Vocab Injection</div>
+      <div class="sec-title">💉 20 Words That Matter</div>
+      <div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs simultaneous · Production challenge after</div>
+    </div>
+    <div class="sec-wm">02</div>
+    <div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B produces the word. Switch. Production challenge after.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Mental Health, Stress &amp; Work</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — How People Deal (or Don't)</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Each person picks <em>3 words</em>. One sentence each about <em>something you have experienced personally — at work or in life.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Anxiety" vs "stress" — clarify the distinction: stress usually has a clear cause (a deadline, a meeting); anxiety is often more general, sometimes without a specific trigger. The distinction matters for §4.</li>
+        <li>"Therapist" — some students may not know this word or may confuse it with "psychiatrist." Clarify: a therapist or psychologist talks with you; a psychiatrist can also prescribe medication.</li>
+        <li>Best production challenge trigger: <strong>"Which 3 words describe how you feel at work on a typical Monday morning?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words appear in every HR conversation about employee wellbeing at international companies. If you work with American or European colleagues, you will hear these words in meetings."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Knowing how to talk about mental health professionally — in English — is a competitive advantage. Very few people can do this clearly, even in their first language."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 03 · Opinion Wall</div>
+      <div class="sec-title">🧱 4 Real Voices. 4 Different Generations.</div>
+      <div class="sec-sub">Read each card · Pairs discuss 90 sec · Group shares · Same question each time</div>
+    </div>
+    <div class="sec-wm">03</div>
+    <div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who would your parents agree with? Why?"</div></div><div class="sbo-badge">Don't vary the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who would your parents agree with? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The processing question ("who would your parents agree with?") is intentionally cross-generational — it creates distance from personal identification and makes the debate easier to have without defensiveness.</li>
+        <li>The provocateur is <strong>Don Ernesto</strong>. His position will generate the most friction with younger students — but many older students in the group may quietly agree with him. That split is the best possible debate fuel.</li>
+        <li>Valentina and Alejandro represent the two poles of the pro-mental-health position — one personal, one professional. Mariana is the nuanced middle ground.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Best activation: ask before reading — <strong>"Quick show of hands: who has ever told their boss they were stressed? Who has ever called in sick because of a mental health day?"</strong> The gap between hands tells you everything about the group's starting point.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"In one sentence — which of these four sounds most like someone you have worked with? Not you. Someone you know."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 04 · The Conversation Engine</div>
+      <div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div>
+      <div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · No round-robin · Point and push</div>
+    </div>
+    <div class="sec-wm">04</div>
+    <div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> Minimum 2 sentences per answer. Position first. Real example second. Respectful but honest — this is a hard topic.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Monitor the emotional temperature throughout — this topic can go deep quickly. If a student becomes visibly emotional, slow down: acknowledge briefly, then redirect gently to the language dimension.</li>
+        <li>Q9 (the most personal) — give it the most time and silence. Don't rush to Q10 if Q9 generates a real conversation.</li>
+        <li>Block 3 second conditional: "If anxiety were more accepted at work..." — watch for "If anxiety would be accepted." Note and recycle at end only.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When vocab from §2 appears naturally — especially "overwhelmed," "cope," or "trigger" — celebrate it: <strong>"You just used a word from today's list in a real sentence about a real experience. That's B1.2."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just had a conversation that most people avoid — even in Spanish. You had it in English. That is a real skill, and it's one that makes you stand out professionally."</strong></li>
+        <li>Upsell: <strong>"The next Speaking Lab in this series looks at toxic positivity — when 'just be positive' becomes its own problem. Same depth. Same honesty."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 05 · The Exit Shot</div>
+      <div class="sec-title">💣 One Question. No Easy Answer.</div>
+      <div class="sec-sub">5 min · No chips · Just position + reason · Then the loop</div>
+    </div>
+    <div class="sec-wm">05</div>
+    <div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">A colleague on your team tells you they have <em>anxiety</em> and asks if they can skip the next <em>all-hands presentation</em> because speaking in front of people makes them feel physically sick. You are the team lead. If they skip, <em>you have to present their part.</em> You already have too much work. <em>What do you say?</em></div>
+    <div class="exit-rule">Answer in 3 sentences. Be real — not HR-correct. What do you actually say to this person, and what do you think privately?</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I would say yes — they can skip it this time. But privately, I'd feel frustrated. Not because I don't believe anxiety is real — I do — but because I'm already overwhelmed and now I have to cover for them with no warning. What I wish I could say is: 'I support you, and I also need support right now.' But most workplaces don't have space for that conversation."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — The WhatsApp Homework</strong>
+    "Before our next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Don't rehearse. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The "HR-correct vs what you actually think" framing is essential — it gives students permission to be honest rather than performing empathy. The gap between the two answers is the most interesting moment of the session.</li>
+        <li>Follow-up only: <strong>"What would you do if this happened again next month — same colleague, same request?"</strong> Second conditional activates naturally.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer validates both positions — empathy AND frustration — without resolving the tension. That honesty is what B1.2 sounds like: nuanced, personal, real. Point it out.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"What you said in the last 5 minutes — in English — is something most people can't say clearly even in their first language. That's what this program builds."</strong></li>
+        <li>Referral trigger: <strong>"If a colleague is taking a traditional English class doing grammar exercises and can't have this conversation — that's the difference between their program and this one."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Anxiety: Real Problem or Excuse? · Health &amp; Wellness · Spicy</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div>
+    <div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv on">B1.2</div>
+    <div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"anxiety",      def:"A feeling of worry or fear that is hard to control, often with physical symptoms",   ex:"She had anxiety before every presentation — her hands shook even when she felt prepared."},
+  {w:"stress",       def:"Pressure from a situation or demand that feels hard to manage",                      ex:"He was under so much stress that he stopped sleeping well for two months."},
+  {w:"therapist",    def:"A professional who helps people manage mental and emotional problems through conversation", ex:"She started seeing a therapist after her second panic attack at work."},
+  {w:"trigger",      def:"A specific situation, word, or event that causes a strong emotional reaction",       ex:"For him, the trigger was large meetings — too many people, too much noise."},
+  {w:"burnout",      def:"Complete emotional and physical exhaustion from chronic stress — usually from work", ex:"She didn't recognize burnout when it arrived. She just thought she was tired."},
+  {w:"mental health",def:"The condition of your emotional and psychological wellbeing",                        ex:"His company talked about mental health every month but never changed anything."},
+  {w:"panic attack", def:"A sudden intense episode of fear with physical symptoms — fast heartbeat, shortness of breath", ex:"He had a panic attack in a client meeting and didn't know what was happening."},
+  {w:"overwhelmed",  def:"Feeling like you have too much to deal with at the same time",                      ex:"She felt overwhelmed every Sunday night before the new work week."},
+  {w:"pressure",     def:"The feeling that you must do something perfectly or face negative consequences",    ex:"The pressure of the quarterly review made his anxiety much worse."},
+  {w:"cope",         def:"To manage a difficult situation, even if imperfectly — to get through it",         ex:"She coped by exercising. He coped by avoiding everything. Neither was sustainable."}
+];
+const verbs=[
+  {w:"feel anxious",  def:"To experience feelings of worry or fear that are hard to control",                ex:"She felt anxious every time her phone rang and she didn't recognize the number."},
+  {w:"overthink",     def:"To think about something too much, often making it more stressful than it needs to be", ex:"He would overthink every email he sent — reading it five times before pressing send."},
+  {w:"avoid",         def:"To stay away from people, situations, or feelings that cause discomfort",         ex:"She started avoiding meetings. Then emails. Then the office entirely."},
+  {w:"cope with",     def:"To deal with and manage a difficult or stressful situation",                      ex:"He coped with work pressure by working more — which made everything worse."},
+  {w:"open up",       def:"To start talking honestly about your feelings or problems",                       ex:"He opened up to his manager for the first time — and was surprised by the response."},
+  {w:"burn out",      def:"To reach a point of total emotional and physical exhaustion",                     ex:"She burned out in her third year at the company. Nobody had seen it coming."},
+  {w:"dismiss",       def:"To treat something as unimportant or not serious",                               ex:"Her manager dismissed her anxiety as 'just nerves.' That made it worse."},
+  {w:"seek help",     def:"To actively look for professional or personal support for a problem",             ex:"He waited two years before seeking help. He wished he had done it earlier."},
+  {w:"set limits",    def:"To decide what you will and will not do in order to protect yourself",           ex:"She set a limit: no work emails after 8pm. Her anxiety dropped noticeably in a month."},
+  {w:"push through",  def:"To continue despite difficulty, discomfort, or emotional resistance",            ex:"He pushed through the presentation even though he felt physically sick before it."}
+];
+const perspectives=[
+  {
+    name:"Valentina Cruz",meta:"27 · UX Designer · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I have anxiety. It's diagnosed, it's real, and it affects my work sometimes. What I need is not for people to fix me — I need them to <strong>stop dismissing me.</strong> When my manager says 'just relax' or 'everyone gets nervous,' it makes it worse. Anxiety is not the same as being nervous. I would not tell someone with diabetes to 'just calm down.'"
+  },
+  {
+    name:"Don Ernesto",meta:"58 · Plant Supervisor · Querétaro — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I'm going to say what many people think: this generation uses 'anxiety' as an excuse to avoid difficult things. <strong>I had anxiety at 25.</strong> I had a mortgage, three children, and a boss who screamed. I didn't take a mental health day. I came in, did my job, and eventually it got better. The problem today is that people have been told that discomfort is a medical condition. It isn't always."
+  },
+  {
+    name:"Alejandro Ríos",meta:"38 · HR Business Partner · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I deal with this every week. And the truth is: <strong>both things are real.</strong> Clinical anxiety is a medical condition that deserves support. But there are also people who use the word to avoid accountability. The problem is that HR can't tell them apart easily — and the cost of getting it wrong in either direction is high. We need better conversations, not simpler rules."
+  },
+  {
+    name:"Mariana Soto",meta:"44 · School Principal · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I've watched anxiety triple among young teachers in the last 5 years. And I don't think they're weaker than previous generations. I think the <strong>world has genuinely gotten harder</strong> — social media, job insecurity, the pandemic. Don Ernesto's generation had stressful jobs. This generation has stressful jobs AND constant digital noise AND no job security AND housing they can't afford. The context is different."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Present perfect · 2 min per Q · Point directly · Be gentle but honest",questions:[
+    {num:"Q1",text:"Have you ever felt so stressed or anxious at work that it affected how you performed? What happened?",chips:["There was a period when I felt...","I've had moments where anxiety made it hard to...","I've seen this happen to a colleague when...","For me, stress usually shows up as..."],tn:"This is an open question — don't push for clinical disclosure. The goal is to connect 'anxiety' and 'stress' to real work experiences, not personal history. If someone shares something deep: 'Thank you for saying that. Can you describe it in English?' Move forward."},
+    {num:"Q2",text:"Have you ever worked with someone who seemed really stressed or anxious — and how did it affect the team?",chips:["I've worked with someone who...","The effect on the team was...","I've seen a colleague who...","What I noticed was..."],tn:"Shifting to a colleague experience creates distance and makes the conversation easier. It also activates workplace vocabulary naturally."},
+    {num:"Q3",text:"Have you ever told your boss or a colleague that you were stressed or struggling? What did they say?",chips:["I've told my boss once that...","I've never said anything because...","The response I got was...","I wish I had said something when..."],tn:"Most students have never had this conversation at work — and that's the insight. The silence around mental health at work is the topic. Don't fill it with reassurance; let the silence speak."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for position · No neutral answers",questions:[
+    {num:"Q4",text:"Is anxiety a real medical condition — or has the word been overused to describe normal human stress?",chips:["I think it can be both...","The problem is that the word 'anxiety' now means...","For me, the difference between anxiety and stress is...","I believe that real anxiety is..."],tn:"Don Ernesto vs Valentina from §3. This is the core question of the session. Don't let students stay vague: push for a position. 'Can you say that as a clear statement — yes or no, with a reason?'"},
+    {num:"Q5",text:"Should companies be responsible for their employees' mental health — or is that too personal for the workplace?",chips:["I think companies should...","But there's a limit because...","In my company right now...","The problem with leaving it to HR is..."],tn:"Alejandro's position from §3 is directly relevant — he represents the company perspective. This question often reveals a gap between what students believe (companies should help) and what they've experienced (companies don't)."},
+    {num:"Q6",text:"Do you think Mexican culture makes it harder to talk about anxiety and mental health at work than, say, American or European culture? Why?",chips:["I think in Mexico...","The idea of being 'strong' in our culture means...","At my company, mental health is...","Compared to what I know about US workplaces..."],tn:"Cultural comparison is rich territory for B1.2 students. The 56% Mexico stat from §1 is relevant here — a lot of anxiety, very little professional help. Why? That's the question."}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Note errors · Recycle at end only",questions:[
+    {num:"Q7",text:"What would you do if a colleague told you they were having panic attacks and couldn't handle the workload anymore?",chips:["I would try to...","The first thing I would do is...","I would probably feel...","I would not know what to say, but I would..."],tn:"This is a practical response question — not about beliefs but about actions. Push students past 'I would support them' to specific behavior: 'What would you actually say? In English — give me the sentence.'"},
+    {num:"Q8",text:"If your company announced a 'mental health day' each month — one day off for wellbeing, no questions asked — would you use it? What would you think of colleagues who always use it?",chips:["I would use it to...","But I would feel... about colleagues who...","I think the idea is good but...","In my company, if someone always used it..."],tn:"The second part ('what would you think of colleagues who always use it') surfaces the real attitude most people have but don't say. That gap is the productive tension."}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · No HR-correct answers",questions:[
+    {num:"Q9",text:"Honest question: Do you ever use 'I'm stressed' or 'I'm anxious' at work — as a reason to avoid something difficult? Be real.",chips:[],tn:"This is the most self-reflective question of the session. Give it 6 full seconds of silence after asking. The first honest answer usually unlocks everyone else. Don't judge any direction of the answer."},
+    {num:"Q10",text:"Final question: Is anxiety the real epidemic — or is it just what happens when you ask people to do too much for too long with too little support? Pick one and defend it.",chips:[],tn:"'Real epidemic' (anxiety as a growing medical condition requiring treatment) vs 'structural response' (anxiety as the logical result of impossible working conditions). Both are defensible. Push hard against whoever gives a generic answer."}
+  ]}
+];
+
+function buildVocab(data,containerId,type){const g=document.getElementById(containerId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");
+buildVocab(verbs,"verbGrid","verb");
+
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"];
+const navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

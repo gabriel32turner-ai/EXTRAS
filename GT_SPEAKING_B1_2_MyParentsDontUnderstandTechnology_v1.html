@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · My Parents Don't Understand Technology · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#34D399;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#0F1923;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1586105251261-72a756497a11?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.35)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B1.2</span>
+      <span class="htag">Technology & Media</span>
+      <span class="htag">⚡ Edge: Medium</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">My Parents Don't<br>Understand Technology</div>
+    <div class="hero-sub">You love them. But explaining how to share a photo for the fifteenth time is testing your patience. Is it frustration, love, or something more complicated?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real headline. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The Guardian · 2023</div>
+    <div class="trigger-quote">"Studies show that older adults who feel excluded from digital technology also report higher levels of loneliness and depression. The digital divide isn't just a tech problem — it's becoming a mental health crisis for millions of parents and grandparents who feel left behind."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Quick question: how many of you have spent more than 20 minutes helping a parent do something on their phone? Now — how did you feel during that? Patient? Frustrated? Guilty about being frustrated? Let's talk about this honestly today. It's more complicated than it looks."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('patience')"><div class="vword">patience</div><div class="vdef">The ability to wait or explain something calmly without getting angry</div><div class="vex">"Explaining WhatsApp to my mom for the tenth time tested my patience completely."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('scam')"><div class="vword">scam</div><div class="vdef">A trick designed to steal your money or personal information</div><div class="vex">"My dad almost sent money to a scam. He thought it was a real message from me."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('frustration')"><div class="vword">frustration</div><div class="vdef">The feeling of being annoyed because something is not working the way you want</div><div class="vex">"I feel frustration, then immediately guilt about the frustration. Every time."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('password')"><div class="vword">password</div><div class="vdef">A secret code you need to enter to access an account or device</div><div class="vex">"My parents write all their passwords on a piece of paper taped to the computer."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('update')"><div class="vword">update</div><div class="vdef">A new version of an app or system — often confusing for older users</div><div class="vex">"Every app update changes everything and my parents have to relearn it from zero."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('gap')"><div class="vword">gap</div><div class="vdef">A difference between two people or groups — here, in technology knowledge</div><div class="vex">"The gap between what I know and what my parents know grows every year."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('trust')"><div class="vword">trust</div><div class="vdef">The confidence you have in someone — and what scammers try to use against older people</div><div class="vex">"My parents trust everything they read online. That's their biggest vulnerability."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('loneliness')"><div class="vword">loneliness</div><div class="vdef">The feeling of being alone or disconnected from others</div><div class="vex">"When my mom doesn't understand video calls, I think she feels lonely and embarrassed."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('embarrassment')"><div class="vword">embarrassment</div><div class="vdef">The uncomfortable feeling of not knowing something everyone else seems to know</div><div class="vex">"My dad feels embarrassment asking for help again. So sometimes he just doesn't ask."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('responsibility')"><div class="vword">responsibility</div><div class="vdef">Something you are expected or feel obligated to take care of</div><div class="vex">"I feel like it's my responsibility to keep my parents safe online. Nobody else will."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('explain')"><div class="vword">explain</div><div class="vdef">Help someone understand something by saying it clearly and simply</div><div class="vex">"I explain the same thing every Sunday. By the next Sunday, it is gone."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('click')"><div class="vword">click</div><div class="vdef">Press a button or link on a screen to open or do something</div><div class="vex">"My mom clicks on every link she receives. I check her phone weekly now."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('lose patience')"><div class="vword">lose patience</div><div class="vdef">Stop being calm when something takes too long or gets too frustrating</div><div class="vex">"I lose patience faster with my parents than with anyone at work. That bothers me."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('protect')"><div class="vword">protect</div><div class="vdef">Keep someone safe from danger — here, from online fraud or harmful content</div><div class="vex">"I installed a security app to protect my parents. They deleted it by accident."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('adapt')"><div class="vword">adapt</div><div class="vdef">Change to fit a new situation or environment</div><div class="vex">"My dad tries to adapt, but technology changes too fast for him."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('ignore')"><div class="vword">ignore</div><div class="vdef">Not pay attention to something — here, warnings or safety advice</div><div class="vex">"My parents ignore every privacy warning their phone shows them."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('share')"><div class="vword">share</div><div class="vdef">Send content to others — or post it publicly</div><div class="vex">"My mom shares fake news without reading it. The headline is enough for her."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('feel left out')"><div class="vword">feel left out</div><div class="vdef">Have the feeling that everyone else is included in something but you are not</div><div class="vex">"When the family group chat moves too fast, my dad feels left out."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('teach')"><div class="vword">teach</div><div class="vdef">Help someone learn a skill — with patience and repetition</div><div class="vex">"Teaching my parents technology is different from teaching a child. They feel ashamed."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('give up')"><div class="vword">give up</div><div class="vdef">Stop trying because it is too difficult or frustrating</div><div class="vex">"My dad gives up when something doesn't work on the first try. That makes it harder."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('Just press the big green button')"><div><div class="phrase-text">Just press the big green button</div><div class="phrase-context">The instruction that seemed obvious to you and completely unclear to your parent</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I already showed you this')"><div><div class="phrase-text">I already showed you this</div><div class="phrase-context">What you want to say — and the phrase that makes your parent feel terrible</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Don\'t click on that')"><div><div class="phrase-text">Don't click on that</div><div class="phrase-context">The warning you give every week — and the link they click anyway</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('They\'re not stupid, they\'re just from a different time')"><div><div class="phrase-text">They're not stupid, they're just from a different time</div><div class="phrase-context">The reminder you give yourself when your patience runs out</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('You taught me to walk. I can teach you to use WhatsApp.')"><div><div class="phrase-text">You taught me to walk. I can teach you to use WhatsApp.</div><div class="phrase-context">The perspective shift that helps when you're losing patience</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍💼</div><div><div class="b-name">Sofía, 33</div><div class="b-role">Accountant · Querétaro</div></div></div>
+      <div class="b-text">"I spend every Sunday afternoon helping my parents with their phones. Sometimes I feel frustrated, but then I remember <strong>they didn't complain when they taught me everything I needed to know.</strong> It's my turn now. I'm happy to do it."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍💻</div><div><div class="b-name">Mateo, 38</div><div class="b-role">IT Manager · CDMX</div></div></div>
+      <div class="b-text">"I love my parents but I have a job, two kids, and my own problems. <strong>I can't be their personal tech support 24 hours a day.</strong> I bought my mom a simple phone with big buttons. She was upset. But it works for her and I can stop worrying."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🎓</div><div><div class="b-name">Lucía, 45</div><div class="b-role">School Principal · León</div></div></div>
+      <div class="b-text">"The real problem is that <strong>technology companies don't design for older people.</strong> Everything is tiny, fast, and always changing. We blame our parents, but the apps were never made for them in the first place. That's not their fault."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(52,211,153,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👴</div><div><div class="b-name">Don Jorge, 67</div><div class="b-role">Retired Teacher · Celaya</div></div></div>
+      <div class="b-text">"My children get frustrated with me. But I learned to drive, to use a VCR, a fax machine, a computer, and three different phones in my life. <strong>The technology changed — but nobody says thank you for the last one.</strong> I'm not slow. I'm tired of starting over."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one feels closest to your experience — and which one made you think about something differently?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever had to explain something on a phone or computer to your parents — or someone older in your family? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Get a specific story. "I showed my mom how to do a video call" is fine but "my mom called me crying because she couldn't turn on her phone and she thought it was broken — but it was on airplane mode" is the real conversation. Specific memories open vocabulary naturally.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever felt frustrated explaining technology to someone older — and then felt guilty about that frustration?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The double feeling is the honest answer. "Frustration + guilt" is the emotional vocabulary for this topic. Don't let them say "no, I'm always patient" without gently challenging it. Almost everyone has had this moment.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever had to stop your parents from clicking on something dangerous — a scam, a fake message, a suspicious link? What was it?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Digital safety + family emotion together. Almost everyone in Mexico has a story about a WhatsApp scam targeting a family member. Great real-world vocabulary: scam, fake, link, urgent, money transfer. If they haven't had this happen, ask: "Do you ever worry it will?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">In your opinion, whose responsibility is it to help older people understand technology — their children, the government, or the technology companies?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Push for a clear position with a reason. Model: "I think it's the technology companies — because they make billions of dollars and could make their products simpler if they wanted. They choose not to because confusion keeps people dependent." That's a strong B1.2 argument.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think older people who don't want to learn new technology are being stubborn — or do they have a good reason to resist it?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Don Jorge's opinion lives here. Every generation has learned new technology in their lifetime. At what point does it become unreasonable to expect someone to adapt again? Great empathy builder. Ask: "What technology do YOU find annoying and avoid?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it better to give an older person a simple phone with limited functions — or teach them to use a normal smartphone? What's more respectful?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Mateo's approach vs. Sofía's. The simple phone feels like giving up on the person — but it also stops the stress. Ask: "Would you want someone to give you a simple phone when you're 70? Or would you want them to have patience with you?" Personal stakes change the answer.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if you found out your parents had shared personal information online — their address, their bank details — with a scammer? How would you handle that conversation?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Real scenario, real stakes. "I would be very calm and..." — push: "Really? Even if they lost money?" The emotional management of a crisis with a parent you love is a rich conversation. Great use of would + infinitive for hypothetical planning.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if your parents asked you to come every weekend to help them with their technology — but you had no free time and were already exhausted from work?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The guilt + limits question. What's the balance between being a good child and having your own life? Model answer: "I would try to teach them one thing per visit — really teach it, not just do it for them. That way I'm investing, not just fixing."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">When you explain technology to your parents, do you treat them with the same patience you would give a colleague at work — or less? Why?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most people admit less patience with family. Why? Because with family the emotional stakes are higher, the expectations are different, and there's no professional filter. That's not wrong — but naming it is important. "I am less patient with the people I love most." That's real.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">One day you will be the one asking your children for help — with technology, with a form, with something that seems obvious to them. How do you want them to treat you in that moment?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The mirror closer. Everything they say about how they want to be treated is exactly what their parents need right now. Let that connection land slowly. Don't rush it. The silence after this question is often the most powerful moment in the class.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your mom calls you on a Saturday morning, crying. She received a WhatsApp message that said: "Mom, I'm in an accident, I need 3,500 pesos right now, don't call me, just send it." She almost sent the money. She didn't — because she decided to call you first. You have 5 minutes to explain what happened and what to do in the future. What do you say — and how do you say it without making her feel stupid?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me exactly what you say to your mom in that moment — and how you keep your tone kind even when you're scared and frustrated at the same time. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · My Parents Don't Understand Technology · Technology & Media</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

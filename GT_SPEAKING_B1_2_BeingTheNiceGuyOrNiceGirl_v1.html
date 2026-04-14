@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Being the Nice Guy or Nice Girl · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #34D399;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #34D399; border: none; color: #0F1923;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(52,211,153,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(52,211,153,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(52,211,153,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B1.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Being the Nice Guy or Nice Girl</h1>
+    <p>Kind, helpful, always available — and always last on everyone's list. Is being too nice actually a problem?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"People who struggle to say 'no' are more likely to experience burnout, resentment, and anxiety. Psychologists say that excessive niceness is often not generosity — it's a fear of conflict and a need for approval that makes you easy to take advantage of."</div>
+      <div class="quote-source">— Psychology Today / Harvard Business Review</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Honest question — are you a 'yes' person? Someone who finds it really hard to say no? Or do you know someone like that?" [Pause.] "Today we're going to talk about whether being too nice is actually a personality strength — or a trap you fall into."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('approval')">
+        <div class="vocab-word">approval</div>
+        <div class="vocab-def">the feeling that people like you and think well of you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('resentment')">
+        <div class="vocab-word">resentment</div>
+        <div class="vocab-def">an angry feeling you carry when you feel used or treated unfairly</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('doormat')">
+        <div class="vocab-word">doormat</div>
+        <div class="vocab-def">a person who lets others treat them badly without complaining</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('conflict')">
+        <div class="vocab-word">conflict</div>
+        <div class="vocab-def">a disagreement or fight between people with different opinions</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('favor')">
+        <div class="vocab-word">favor</div>
+        <div class="vocab-def">a kind action you do for someone because they asked you to</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('respect')">
+        <div class="vocab-word">respect</div>
+        <div class="vocab-def">the feeling that someone values and takes you seriously</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('guilt')">
+        <div class="vocab-word">guilt</div>
+        <div class="vocab-def">the uncomfortable feeling you get after saying no or disappointing someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pushover')">
+        <div class="vocab-word">pushover</div>
+        <div class="vocab-def">someone who gives in too easily and never stands up for themselves</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('kindness')">
+        <div class="vocab-word">kindness</div>
+        <div class="vocab-def">the quality of being friendly, generous, and helpful to others</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('limit')">
+        <div class="vocab-word">limit</div>
+        <div class="vocab-def">the point at which you stop accepting something from others</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('say no')">
+        <div class="vocab-word">say no</div>
+        <div class="vocab-def">to refuse a request, even when you feel pressure to say yes</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('take advantage of')">
+        <div class="vocab-word">take advantage of</div>
+        <div class="vocab-def">to use someone's kindness in a selfish or unfair way</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stand up for yourself')">
+        <div class="vocab-word">stand up for yourself</div>
+        <div class="vocab-def">to defend your own rights, opinions, or needs</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('please')">
+        <div class="vocab-word">please</div>
+        <div class="vocab-def">to do things to make others happy, sometimes at your own cost</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('give in')">
+        <div class="vocab-word">give in</div>
+        <div class="vocab-def">to stop resisting and do what the other person wants</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('feel used')">
+        <div class="vocab-word">feel used</div>
+        <div class="vocab-def">to realize someone only came to you for what you can give them</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('avoid')">
+        <div class="vocab-word">avoid</div>
+        <div class="vocab-def">to stay away from difficult conversations or situations</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('speak up')">
+        <div class="vocab-word">speak up</div>
+        <div class="vocab-def">to say what you think or need, even when it is uncomfortable</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('burn out')">
+        <div class="vocab-word">burn out</div>
+        <div class="vocab-def">to become completely exhausted because you give too much of yourself</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('set limits')">
+        <div class="vocab-word">set limits</div>
+        <div class="vocab-def">to decide how much you are willing to do for others</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I cannot say no to people.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I can't say no to people."</div>
+          <div class="phrase-context">The classic self-description of a people-pleaser — said with a mix of pride and frustration.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('They walk all over me.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"They walk all over me."</div>
+          <div class="phrase-context">When someone treats you with no respect because you never push back.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not want to cause problems.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I don't want to cause problems."</div>
+          <div class="phrase-context">The internal reason why nice people stay quiet instead of speaking up.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Nice guys finish last.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Nice guys finish last."</div>
+          <div class="phrase-context">A popular saying meaning that kind people are taken advantage of while others get ahead.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('You need to be a little selfish sometimes.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"You need to be a little selfish sometimes."</div>
+          <div class="phrase-context">What people tell their people-pleasing friends — and what those friends never actually do.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😇</div>
+          <div>
+            <div class="op-name">Lucía, 34</div>
+            <div class="op-role">Primary School Teacher, León</div>
+          </div>
+        </div>
+        <div class="op-text">"I am a naturally kind person and I am proud of that. <strong>The world needs more people who help and listen.</strong> If some people take advantage of me sometimes — that says something about them, not me. I am not going to stop being who I am."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😩</div>
+          <div>
+            <div class="op-name">Fernando, 42</div>
+            <div class="op-role">Operations Manager, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I used to be the nice guy at work. I helped everyone, I never said no, I stayed late. <strong>Nobody respected me more for it — they just asked for more.</strong> The day I started saying no, people finally started treating me like a professional."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Sofía, 28</div>
+            <div class="op-role">HR Assistant, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I think there is a difference between being kind and being a people-pleaser. <strong>Kind people help because they want to. People-pleasers help because they are afraid of what happens if they do not.</strong> One feels good. The other is exhausting."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Mateo, 47</div>
+            <div class="op-role">Sales Director, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"Honestly, very nice people make me a little nervous in business. <strong>If someone never disagrees with me, I start to wonder if they have any real opinions at all.</strong> In negotiations I need someone with backbone — not someone who will just agree with whatever I say to avoid conflict."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which one sounds most like you — or most like someone you know? Do you think Mateo is being too harsh — or does he have a point?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever done something for someone else — at work or in your personal life — when you really didn't want to, just to avoid saying no?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Universal experience — nearly everyone has done this. Present perfect is natural here. Model: "Yes, I've stayed late at work many times because I felt too guilty to say I had plans."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever felt used by a friend or colleague who kept asking for favors but never helped you back?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "one-way friendship" pattern. Students often have a very specific person in mind. Let them tell the story. Don't rush — this is the most engaging part of the topic.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Have you ever said yes to something — and then regretted it immediately?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "yes regret" moment. Very relatable. Model: "I've agreed to take on extra work and then sat in my car wishing I had said no." Light tone, good for humor — don't let it become too heavy too fast.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">In your opinion, is it possible to be too nice — or is kindness always a positive quality?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Core question. Push them to distinguish between kindness (healthy) and people-pleasing (fear-based). Model: "I think you can be too nice if it means you never put yourself first."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">What do you think — do people respect you more when you say no, or when you always help?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Counter-intuitive insight: "no" often earns more respect than "yes." Good for real examples. "I think that in my experience, when you always say yes, people start to assume it and stop appreciating it."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think it is harder for women to say no than for men — because of how society sees them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Gender and social expectations angle. In Mexican professional culture this is very real. Let women in the class lead this one if possible. No wrong answer — both perspectives are valid.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">What would you do if a coworker kept asking you to cover their tasks because they know you never say no?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. Very concrete professional scenario. "If a coworker kept doing this... I would..." Push: "How many times would you do it before you said something? Once? Five times? Never?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What would you do if your boss gave you extra work every Friday — and you wanted to say no but were scared of the consequences?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Power dynamics + niceness. The workplace version of the problem. "If my boss did that... I would probably say yes but feel terrible." Honest answer is often "I would say yes anyway" — and that is a great conversation starter.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">If someone is always nice and never complains, is it their fault when people take advantage of them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This question sounds harsh — and it is meant to. Some students will say yes, some no. The truth is uncomfortable. Push: "At what point does being kind become enabling bad behavior in others?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Are you a people-pleaser? And if you are — do you want to change it, or do you think it is part of who you are?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The self-reflection bomb. This is where students recognize themselves in the topic. Create a safe space — "there is no shame in it, but let us be honest." The best sessions end here with real personal revelation.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your closest friend at work asks you to cover for them — again. It is the 4th time this month. They have never returned the favor. If you say yes, you miss your daughter's school event. If you say no, they will probably be angry at you. What do you do?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. What do you do — and what do you actually say to your friend? Be specific.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B1.2 · Relationships &amp; Personality · Being the Nice Guy or Nice Girl
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.88;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

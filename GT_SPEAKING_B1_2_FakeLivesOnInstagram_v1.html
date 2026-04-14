@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Fake Lives on Instagram · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#34D399;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#34D399;border:1px solid #34D399;color:#0F1923;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(52,211,153,.12);color:var(--ac);border:1px solid rgba(52,211,153,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(52,211,153,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(52,211,153,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(52,211,153,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(52,211,153,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(52,211,153,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B1.2</span>
+      <span class="tag">Technology &amp; Media</span>
+      <span class="tag spicy">🔥 Spicy Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Fake Lives<br>on Instagram</h1>
+    <p>The perfect meal. The perfect trip. The perfect body. The perfect life. Everyone is performing — including you.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocative Headline</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The Wall Street Journal · Facebook Internal Research Leak · 2021</div>
+    <div class="trigger-quote">"Facebook's own research showed that Instagram makes body image worse for 1 in 3 teenage girls. Internal documents said: 'We make body image issues worse for one in three teen girls.' The company knew. They continued anyway."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the quote slowly. Then: <em>"The company knew it was hurting people — and kept going. Does that surprise you? Or does it sound exactly like what you expected?"</em> Let students react. Then shift closer to home: <em>"Have you ever felt worse about your life after spending time on Instagram? Be honest."</em> The goal is immediate personal connection, not abstract debate.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍🎨</span>
+        <div><div class="bub-name">Camila · 29</div><div class="bub-role">Graphic Designer · Celaya</div></div>
+      </div>
+      <div class="bub-body">"I deleted Instagram 8 months ago. Best decision of my life. I stopped comparing myself to people I don't even know. <strong>I started living for me — not for likes.</strong> I have more time, less anxiety, and I actually enjoy my food without photographing it first."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨‍💼</span>
+        <div><div class="bub-name">Alejandro · 35</div><div class="bub-role">Sales Rep · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"Instagram is a tool. I use it for my business and it works. The problem is not the app — <strong>the problem is people who can't separate real life from social media.</strong> I post nice photos. I don't think my life is perfect. And I don't think anyone else's is either."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍👧</span>
+        <div><div class="bub-name">Patricia · 42</div><div class="bub-role">Mother · Nurse · CDMX</div></div>
+      </div>
+      <div class="bub-body">"My 14-year-old daughter cried last year because she thought her body was ugly — after following fitness influencers. <strong>These are not real bodies.</strong> They are edited, filtered, and sometimes surgically modified. But my daughter didn't know that. I wish I had talked to her sooner."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">📸</span>
+        <div><div class="bub-name">Sebastián · 31</div><div class="bub-role">Content Creator · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"Everyone says Instagram is fake — but <strong>nobody stops using it.</strong> If it really made you feel that bad, you would delete it. The truth is: you enjoy it. You enjoy the validation, the pretty photos, the comparison. Stop blaming the app and take responsibility for how you use it."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Sebastián is the provocateur because he turns the criticism back on the user — "you enjoy it, so stop complaining." This is uncomfortably true for many people. Push: <em>"Is Sebastián right — does complaining about Instagram while still using it mean you secretly like it?"</em> Then use Patricia to bring the stakes up: <em>"Is it still just a personal choice when it's affecting 14-year-olds?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever seen someone's Instagram and felt that your life was less interesting, less beautiful, or less successful than theirs?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Most students will say yes. The important follow-up: "And did you know — even while feeling it — that their profile was probably not their real life?" The gap between knowing and feeling is the interesting territory. Target: present perfect + past simple for the specific memory.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever posted a photo that showed a better version of a moment than it really was — a nicer meal, a happier face, a more exciting trip?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The honest self-implication question. Most students have done this. Push gently: "Why did you choose that photo instead of a real one?" Target: present perfect + honest reflection. Key vocab: filter, edit, choose, select, impression. No judgment — just curiosity.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever felt happier or more confident after posting a photo and getting a lot of likes? Be honest — why do you think that happens?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is about dopamine and validation — in simple B1.2 terms. Most students will admit this. Push: "Is that a problem — or is it just how humans work?" Target: present perfect + present simple for the explanation. Key vocab: likes, validation, confidence, approval.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think most people know — deep down — that Instagram is not real? Or do some people actually believe it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The interesting answer: adults know, but still feel the comparison. Children and teenagers often don't know. Push: "Is it worse to feel bad about something you know is fake — or is that even more worrying?" Target: present simple + modals for speculation (might, could, probably).</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">In your opinion, is it dishonest to show only the best parts of your life on social media — or is that just normal human behavior?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good philosophical question for B1.2. Push: "Do you show strangers the worst version of yourself? Then why should Instagram be different?" Target: present simple for opinion + modals (should, have to). Model: "I think it's normal to show your best — but there's a difference between choosing a nice photo and pretending your life is perfect."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Should Instagram be required to show when a photo has been filtered or edited — like a warning label? Would that actually change anything?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Some countries (Norway, UK) have already passed laws requiring influencers to disclose edited photos. Push: "Would a small label change how you feel when you see a perfect body?" Target: should + passive voice (photos should be labeled). Key: even if students say "yes," push: "Would you trust the label?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if you found out that a close friend's "perfect life" on Instagram was completely fake — financial problems, relationship problems, unhappy at work?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional. Push: "Would you say something — or pretend you didn't know?" Model: "I would probably say something privately. Something like: 'Hey, I know things aren't easy right now. You don't have to pretend with me.'" Role-play this sentence. Key vocab: pretend, fake, honest, admit.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if your teenage child came to you crying because they felt ugly compared to influencers they follow? What would you actually say?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + direct language production. Push: "Say it out loud — in English — what are the first 2 sentences you would say?" This is the kinesthetic moment. Key: the student has to produce real, warm, human language. Not a speech — a real response to a real child. Patricia's bubble gives them a model to work with.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is social media making people less happy — or were people always unhappy, and social media just makes it more visible?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Big question, accessible for B1.2. Push both directions: "Were people happier before Instagram — or did they just compare themselves to their neighbors instead of the whole world?" Target: past simple + present simple. Key vocab: compare, happiness, before/after, visible. This question often produces the most interesting personal reflection of the session.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Uncomfortable question: what part of your life do you NEVER post about on social media — and why? What are you protecting people from seeing?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The self-reflection closer. Every student has an answer. The question reveals what they're protecting: finances, relationship problems, insecurities, failures at work. Push: "Is that dishonest — or is it just private?" Let the student sit with the distinction. The goal is honest English, not a confession. Target: present simple + honest vocabulary.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You follow someone on Instagram who posts about their perfect relationship, perfect home, and perfect body. You've always felt a little jealous. Then you find out — through a mutual friend — that they lost their job 6 months ago, have serious debt, and are in therapy for depression. Their last post was yesterday: a smiling selfie with the caption "Grateful for this beautiful life." Do you unfollow them — or do you feel something completely different now?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me how you feel now — and what you're going to do the next time you feel jealous of someone on social media. In English. No script."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B1.2 · Speaking Lab · Fake Lives on Instagram · Technology &amp; Media · Spicy Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'filter',def:'A digital tool that changes how a photo looks — skin, color, body shape',ex:'"She uses 3 filters on every photo. It doesn\'t look like her anymore."'},
+  {w:'like',def:'A click or heart on social media that shows approval',ex:'"I posted the photo and got 200 likes in an hour. It felt amazing."'},
+  {w:'follower',def:'Someone who follows your account and sees your posts',ex:'"She has 50,000 followers but no real friends. That\'s sad."'},
+  {w:'comparison',def:'When you judge your life or body against someone else\'s',ex:'"Comparison is the main reason people feel bad after using Instagram."'},
+  {w:'highlight',def:'The best moments shown publicly — not the full reality',ex:'"Your Instagram is your highlight reel — not your real life."'},
+  {w:'jealousy',def:'The feeling that you want what someone else has',ex:'"I feel jealousy every time I see her vacation photos. I hate that."'},
+  {w:'self-esteem',def:'How good or bad you feel about yourself',ex:'"Her self-esteem dropped after 6 months of following fitness influencers."'},
+  {w:'influencer',def:'Someone with many followers who earns money by promoting products',ex:'"Most influencers earn money from the insecurities they create."'},
+  {w:'caption',def:'The text written under a photo on social media',ex:'"The caption said \'blessed.\' The photo was taken right after a fight."'},
+  {w:'validation',def:'Feeling accepted or approved by others',ex:'"He posts every day because he needs the validation. It\'s his main source."'},
+];
+const verbs=[
+  {w:'compare',def:'To look at two things — or two lives — and judge the difference',ex:'"Stop comparing your real life to someone\'s edited highlight reel."'},
+  {w:'edit',def:'To change or improve a photo before posting it',ex:'"I edit every photo I post. I don\'t think that\'s wrong — everyone does."'},
+  {w:'unfollow',def:'To stop following someone\'s account on social media',ex:'"I unfollowed her because every post made me feel bad about myself."'},
+  {w:'perform',def:'To act in a way that is for an audience — not authentic',ex:'"On Instagram, everyone is performing a version of themselves."'},
+  {w:'pretend',def:'To behave as if something is true when it is not',ex:'"She pretends her life is perfect. Her DMs tell a different story."'},
+  {w:'scroll',def:'To move through posts on social media, often without thinking',ex:'"I scroll for 30 minutes and feel worse every time. Still can\'t stop."'},
+  {w:'post',def:'To share a photo, video, or message on social media',ex:'"I don\'t post when I\'m sad. Nobody wants to see that."'},
+  {w:'fake',def:'To pretend something is real when it is not',ex:'"That smile is completely faked. You can see it in her eyes."'},
+  {w:'hide',def:'To keep something secret or not show it',ex:'"He hides all his problems behind perfect vacation photos."'},
+  {w:'feel insecure',def:'To feel uncertain or not good enough about yourself',ex:'"After 20 minutes on Instagram, I always feel insecure. Always."'},
+];
+const phrases=[
+  {p:'My highlight reel',ctx:'What people show on social media — only the best moments, not real life'},
+  {p:'I took like 40 photos to get that one',ctx:'The hidden work behind a "spontaneous" perfect Instagram photo'},
+  {p:'Comparison is the thief of joy',ctx:'A well-known saying — Instagram makes it very relevant'},
+  {p:'That\'s so filtered',ctx:'Said when a photo clearly doesn\'t look like the real person'},
+  {p:'I need a social media detox',ctx:'Said when someone realizes they\'ve been using social media too much'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

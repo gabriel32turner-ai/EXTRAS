@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · I Can't Sleep Anymore · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#34D399;--ac2:rgba(52,211,153,0.12);--ac3:rgba(52,211,153,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1455642305367-68834a9b4c00?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(52,211,153,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.2</span>
+      <span class="htag">Daily Life &amp; Lifestyle</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">I Can't Sleep Anymore</div>
+    <div class="hero-sub">You lie in bed, your brain won't stop, and the alarm is in 5 hours. Why is everyone so tired — and why does nobody talk about it?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Gallup World Poll · 2023</div>
+    <div class="trigger-quote">"Mexico is one of the most sleep-deprived countries in Latin America. 6 out of 10 Mexican adults say they don't sleep well — and most say work stress is the main reason."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask simply: "How did you sleep last night?" Wait for real answers. Then: "When was the last time you slept really well — like you woke up and actually felt good? What was happening in your life at that time?" Let this question open the personal stories naturally.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Conversation Language</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one sounds like you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">📱</div><div><div class="op-name">Jimena · 28</div><div class="op-role">Marketing Assistant · CDMX</div></div></div>
+      <div class="op-text">I know my phone is the problem. I know it. But at 11pm I'm finally alone, the house is quiet, and that's my only time for myself. <strong>I am not ready to give that up.</strong> Yes, I'm tired. But I'm also happy those two hours are mine. Sleep can wait a little.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😤</div><div><div class="op-name">Carlos · 47</div><div class="op-role">Operations Manager · Monterrey</div></div></div>
+      <div class="op-text">I haven't slept more than 5 hours in three years. My job doesn't stop at 6pm — emails come at midnight, my boss messages on Sunday. <strong>The problem is not my habits. The problem is my job.</strong> No app or meditation will fix that. I need a different culture, not better sleep hygiene.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Rebeca · 35</div><div class="op-role">Wellness Coach · Guadalajara</div></div></div>
+      <div class="op-text">Everyone says they can't sleep because of stress or work. But honestly? <strong>Most people just don't prioritize sleep.</strong> They watch four episodes of Netflix and then wonder why they're tired. Sleep is free. It fixes almost everything. And we treat it like it's optional. <strong>That is a choice — not a condition.</strong></div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😔</div><div><div class="op-name">Miguel · 52</div><div class="op-role">Accountant · Querétaro</div></div></div>
+      <div class="op-text">I wake up at 3am every night and I just lie there thinking. About money, about my kids, about work. <strong>I am not on my phone. I am not watching TV. I just can't turn my brain off.</strong> This is anxiety. And I don't think a sleep schedule or no coffee is going to fix that. I think I need to talk to someone.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person sounds most like you at night? Which one are you most uncomfortable admitting to?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever gone through a period in your life when you couldn't sleep well? What was happening at that time?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has a specific period. Push for it: "Was it a job? A relationship? Money? A family situation? How long did it last — and what changed?" This is where the best personal vocabulary comes out.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever stayed up very late looking at your phone or watching something — and then regretted it the next day at work?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes — too many times. I tell myself 'just one more video' and suddenly it's 1:30am. Then I wake up at 6 and I feel terrible all day. I know exactly what I'm doing. I do it anyway. That's the worst part."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever received a work message at night — after 10pm — that kept you awake or stressed? What did you do?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very common in Mexican work culture. Push: "Did you respond immediately? Why? What would happen if you didn't? Has anyone in your company ever actually set a rule about this?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">In your opinion, is poor sleep mostly a personal habit problem — or a work and stress problem? Can you separate the two?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for pushing nuanced thinking at B1.2. "If you fixed your phone habit, would you sleep well? Or would you just lie in bed worrying about work instead? Which one is harder to fix?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think it is normal to wake up at night and think about work — or is that a sign that something is wrong?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think it is common — but not normal. Common means many people do it. Normal means it is healthy. We have accepted something that is actually harming us because everyone does it. That doesn't make it right."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">What do you think about apps and podcasts that help you sleep — things like sleep sounds, meditation, or ASMR? Do they really work, or is it just a business?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Fun and accessible topic. "Have you ever tried any of these? What happened? Is there something a little strange about using a screen to fix a screen problem?" Keeps it light before the deeper questions.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your doctor told you that your sleep problems were seriously affecting your health and you had to make one big change immediately?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I would probably stop checking my phone after 9pm. I know that's the main problem. I just need a reason big enough to actually do it. A doctor saying 'this is damaging your heart' might be exactly that reason."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if your company said: "No work messages after 8pm — it is now company policy"? Would you feel relieved, or would you find it difficult?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Interesting because many people feel anxious about the idea of "disconnecting" — even when they want to. "Would part of you feel worried that you might miss something important? What does that say about your relationship with work?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Do you think you use your phone late at night because you enjoy it — or because you are avoiding something? What are you avoiding?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The deepest question of the session. Give real time. Common honest answers: avoiding thoughts about work, about relationships, about problems they don't want to face. No judgment — just space.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">When you lie in bed and your brain won't stop — what does it think about most? Work? Money? The future? Relationships? And when was the last time you actually did something about that?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Money, mostly. I run through numbers in my head at 2am. And the honest answer to your second question is: I have never really done anything about it. I just wait for morning. Which means the problem is still there the next night. It's a terrible cycle."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your doctor tells you this: "You are sleeping an average of 5 hours a night. In 3 years, if nothing changes, you will have serious health problems — high blood pressure, heart risk, cognitive damage. The fix is simple: be in bed at 10pm every night with no phone. But that means giving up the only 2 hours of the day that are truly yours." What do you choose — and can you actually do it?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: What do you decide — and what is the hardest part about actually doing it?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.2 · Daily Life &amp; Lifestyle · I Can't Sleep Anymore · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv on">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"sleep",def:"The natural rest your body and brain need every night",ex:'"He gets 5 hours of sleep a night and wonders why he\'s always tired."'},
+  {w:"stress",def:"A feeling of pressure or worry that is hard to control",ex:'"Work stress is the number one reason people can\'t sleep in Mexico."'},
+  {w:"routine",def:"A set of habits you do regularly, especially at the same time",ex:'"She built a sleep routine — no phone after 9pm — and it changed everything."'},
+  {w:"anxiety",def:"A feeling of worry and fear that is hard to stop",ex:'"His anxiety woke him up every night at 3am. He didn\'t know what to do."'},
+  {w:"exhaustion",def:"Extreme tiredness — when you have no energy left at all",ex:'"She got to Friday in a state of complete exhaustion. That is not normal."'},
+  {w:"insomnia",def:"A condition where you regularly cannot sleep at night",ex:'"He went to the doctor and was told he had mild insomnia. He wasn\'t surprised."'},
+  {w:"screen time",def:"The amount of time you spend looking at your phone, TV, or computer",ex:'"His screen time was 6 hours a day. Four of those were after 10pm."'},
+  {w:"rest",def:"A period when you stop working or being active and relax",ex:'"She needed rest — not sleep exactly, just quiet time with no demands."'},
+  {w:"burnout",def:"A state of physical and emotional exhaustion from too much work",ex:'"She hit burnout in November. She slept 12 hours a night for two weeks."'},
+  {w:"habit",def:"Something you do regularly, often without thinking about it",ex:'"Checking his phone before bed was a habit. A bad one. He knew it."'},
+];
+const verbs=[
+  {w:"fall asleep",def:"To go from being awake to sleeping",ex:'"She was so tired she fell asleep in the meeting. Not her best moment."'},
+  {w:"wake up",def:"To stop sleeping and become conscious",ex:'"He woke up at 3am and couldn\'t go back to sleep. Again."'},
+  {w:"lie awake",def:"To be in bed but not sleeping, with your eyes open",ex:'"She lay awake for two hours thinking about the presentation."'},
+  {w:"overthink",def:"To think about something too much, especially at night",ex:'"He overthinks everything at night. His brain doesn\'t have an off switch."'},
+  {w:"recharge",def:"To rest and get your energy back, like charging a phone",ex:'"She needs the weekend to recharge. Without it, she falls apart by Wednesday."'},
+  {w:"scroll",def:"To move through content on your phone or computer, often without purpose",ex:'"He scrolled for 90 minutes and then felt worse, not better. Classic."'},
+  {w:"disconnect",def:"To stop using your phone or work tools and give your mind a break",ex:'"She tried to disconnect on Sundays. It took 3 months to actually stop checking."'},
+  {w:"drag",def:"To feel slow, heavy, and tired throughout the day",ex:'"He dragged himself through the whole Thursday. Couldn\'t concentrate on anything."'},
+  {w:"ignore",def:"To see or know something but choose not to act on it",ex:'"She ignored the 11pm message. The best decision she made all week."'},
+  {w:"crash",def:"To suddenly feel very tired and need to sleep — or stop functioning",ex:'"He crashes every Friday afternoon. His body has had enough."'},
+];
+const phrases=[
+  {t:'"I\'m running on empty."',c:"When you have no energy left but you\'re still going somehow."},
+  {t:'"I\'ll sleep when I\'m dead."',c:"A joke — but also a bad life philosophy many professionals actually follow."},
+  {t:'"My brain won\'t turn off."',c:"What you say when you\'re in bed but your thoughts won\'t stop."},
+  {t:'"Just one more episode."',c:"The lie you tell yourself at midnight that becomes 2am."},
+  {t:'"I\'m not a morning person."',c:"Sometimes true — but often a cover for going to bed too late."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

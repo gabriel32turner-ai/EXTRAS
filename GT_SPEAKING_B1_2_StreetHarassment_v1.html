@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Street Harassment · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#34D399;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#0F1923;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(52,211,153,.4);color:var(--ac)}
+.hero-tag.spicy{border-color:rgba(255,31,92,.5);color:rgba(255,31,92,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(52,211,153,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(52,211,153,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(52,211,153,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(52,211,153,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.2</span>
+      <span class="hero-tag">Social Issues & Society</span>
+      <span class="hero-tag spicy">🌶 Spicy</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Street Harassment: Normal or Unacceptable?</div>
+    <div class="hero-sub">In Mexico, it has a name: acoso callejero. Many women experience it every day. Many men have never thought about it. This conversation changes that.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One number. Let it create a reaction before the discussion starts.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">UN Women · Safe Cities Global Initiative · 2022</div>
+      <div class="trigger-quote">"In Mexico, 9 out of 10 women say they have experienced some form of street harassment. Most of them say they change their route, their clothes, or the time they go out because of it."</div>
+      <div class="trigger-script">Street harassment includes comments about appearance, whistling, following, touching, and blocking someone's path in public. In Mexico, the term "acoso callejero" has been used in national campaigns since 2019, and several states have passed laws making it a punishable offense. Despite this, most incidents still go unreported — and many people still debate whether it is a serious problem or a cultural tradition.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the statistic. Then say: <em>"9 out of 10. That means almost every woman in this room — or every woman in someone's life — has experienced this. Before we start: does that number surprise you?"</em> If the class is mixed gender, let both sides react. If it's mostly women, ask: <em>"Has this happened to you or someone you know? You don't have to give details — just yes or no."</em> Don't explain or debate the stat. Just let it land.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Use these words when you speak — don't describe around them.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('harassment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">harassment</div>
+        <div class="vc-def">Unwanted behavior that makes someone feel uncomfortable, unsafe, or disrespected</div>
+      </div>
+      <div class="vocab-card" onclick="speak('safety')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">safety</div>
+        <div class="vc-def">The feeling of not being in danger — something many women don't feel walking alone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fear')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">fear</div>
+        <div class="vc-def">The feeling you get when you think something bad might happen to you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('comment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">comment</div>
+        <div class="vc-def">A remark about someone — when unwanted in public, it becomes harassment</div>
+      </div>
+      <div class="vocab-card" onclick="speak('respect')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">respect</div>
+        <div class="vc-def">Treating someone as a person with rights, not as an object</div>
+      </div>
+      <div class="vocab-card" onclick="speak('victim')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">victim</div>
+        <div class="vc-def">A person who experiences harm from someone else's behavior</div>
+      </div>
+      <div class="vocab-card" onclick="speak('bystander')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">bystander</div>
+        <div class="vc-def">Someone who sees something happen but is not directly involved</div>
+      </div>
+      <div class="vocab-card" onclick="speak('culture')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">culture</div>
+        <div class="vc-def">The shared norms and behaviors of a group — sometimes used to excuse harm</div>
+      </div>
+      <div class="vocab-card" onclick="speak('consent')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">consent</div>
+        <div class="vc-def">Permission — if someone doesn't want a comment or touch, there is no consent</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reaction')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">reaction</div>
+        <div class="vc-def">What you do or feel in response to something that happens to you</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('harass')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">harass</div>
+        <div class="vc-def">To repeatedly say or do things that make someone feel uncomfortable or threatened</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stare at')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">stare at</div>
+        <div class="vc-def">To look at someone for a long time in a way that makes them uncomfortable</div>
+      </div>
+      <div class="vocab-card" onclick="speak('follow')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">follow</div>
+        <div class="vc-def">To walk behind someone — when unwanted, it creates fear and danger</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">ignore</div>
+        <div class="vc-def">To pretend something is not happening — common reaction to street harassment</div>
+      </div>
+      <div class="vocab-card" onclick="speak('speak up')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">speak up</div>
+        <div class="vc-def">To say something when you see something wrong happening</div>
+      </div>
+      <div class="vocab-card" onclick="speak('feel unsafe')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">feel unsafe</div>
+        <div class="vc-def">To experience the feeling that you might be in danger in a place or situation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('normalize')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">normalize</div>
+        <div class="vc-def">To treat something harmful as if it is normal and acceptable</div>
+      </div>
+      <div class="vocab-card" onclick="speak('avoid')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">avoid</div>
+        <div class="vc-def">To change your behavior to stay away from a dangerous place or person</div>
+      </div>
+      <div class="vocab-card" onclick="speak('report')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">report</div>
+        <div class="vc-def">To officially tell the police or authorities about something that happened</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stand up for')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">stand up for</div>
+        <div class="vc-def">To defend someone or something when you see them being treated unfairly</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I just ignore it and keep walking')">
+        <div class="pi-phrase">"I just ignore it and keep walking."</div>
+        <div class="pi-context">The most common strategy women use — not because it feels right, but because it feels safer.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is just a compliment')">
+        <div class="pi-phrase">"It's just a compliment."</div>
+        <div class="pi-context">The most common defense — and the one that makes the conversation most difficult.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I did not feel safe walking there alone')">
+        <div class="pi-phrase">"I didn't feel safe walking there alone."</div>
+        <div class="pi-context">Said after choosing a different route — or staying home instead.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Why does nobody say anything')">
+        <div class="pi-phrase">"Why does nobody say anything?"</div>
+        <div class="pi-context">The question bystanders ask themselves — and rarely answer out loud.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('That is just how men are')">
+        <div class="pi-phrase">"That's just how men are."</div>
+        <div class="pi-context">Said to explain — and accidentally excuse — behavior that causes real harm.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four real positions. Which one do you agree with — and which one makes you most uncomfortable?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Andrea, 31</div>
+            <div class="op-role">Teacher · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I change my route every week because of men on certain streets. I wear headphones I'm not listening to so I look busy. I check if someone is following me before I open my door. <strong>I live with this every day and most men don't even know it exists.</strong> That's the problem."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Fernando, 38</div>
+            <div class="op-role">Driver · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I grew up seeing men talk to women on the street. It was normal — nobody thought it was a problem. <strong>Now everything is harassment.</strong> I'm not saying it's right to be rude. But telling a woman she looks nice? I don't think that's a crime."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">👀</div>
+          <div>
+            <div class="op-name">Mateo, 29</div>
+            <div class="op-role">Accountant · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I saw a man follow a woman for two blocks last month. She was clearly scared. I didn't do anything. <strong>I still feel bad about it.</strong> I didn't know what to say. I think the problem isn't just the men who do it — it's the rest of us who look the other way."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😠</div>
+          <div>
+            <div class="op-name">Valeria, 45</div>
+            <div class="op-role">Nurse · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I've experienced harassment my whole life. But <strong>I'm also tired of teaching women to protect themselves.</strong> We tell women: don't go out at night, don't dress that way, don't walk alone. Why aren't we telling men to stop? The problem is men's behavior — not women's routes."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people do you understand the most? Which one says something you've never thought about before?" Valeria is the provocateur — she flips the "safety advice" narrative by pointing out that we spend more time teaching women to protect themselves than teaching men not to harass. This often makes both men and women stop and reconsider.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Personal answers only — not what you think you should say.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever felt unsafe walking alone in a public place? What happened — or what were you worried might happen?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This question works for both men and women — though the experiences are often very different. Let everyone answer. Women often have many stories. Men sometimes say "no" at first, then remember a moment. Both are interesting. Use "Have you ever…" as a model for their answer.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever seen someone being harassed or made uncomfortable in public — on the street, on the bus, at the market? What did you do?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This connects to Mateo's story. Most people have seen something and done nothing — that guilt is worth exploring. Push: "Why didn't you say something? What stopped you?" No judgment. The answer reveals a lot about how normalized the behavior is.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever changed your plans — your route, your clothes, the time you went out — because you were worried about your safety?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The statistic in the trigger says most women do this. If men in the class say "no," that gap is the conversation. Ask: "Does it surprise you that many women do this every day?" Let the difference in experience become a real talking point, not a lecture.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">In your opinion, is there a difference between a compliment and harassment? Where does one end and the other begin?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Fernando raised this point in the Opinion Wall. The best answer is usually: the difference is whether the person wants it. A compliment given once to someone who smiles is different from a repeated comment to someone who is clearly uncomfortable. Push them to name the line.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">What do you think about the phrase "that's just how men are"? Is it an explanation — or an excuse?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is about the normalization of behavior. Explanation vs. excuse is a useful distinction — push them to define both. "An explanation says why something happens. An excuse says it's okay. Which one is 'that's just how men are'?"
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think bystanders — people who see it happen but don't stop it — are part of the problem? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Mateo said it best: the problem is also "the rest of us who look the other way." Most students will say yes, bystanders share responsibility — but push: "What would you actually do? Name one specific thing." Abstract agreement is not fluency. Concrete action language is.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if you saw a man following a woman on the street and she looked scared? Would you say something?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional: "What would you do if you saw…" Push for specifics — not "I would help her" but what they would actually say or do. Research shows the most effective bystander strategy is talking to the person being harassed, not confronting the harasser. Share this if helpful.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you say to a friend — a male friend — if you found out he often makes comments to women on the street?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + reported speech. This is the personal accountability question. Many people find it easier to condemn abstract bad actors than confront someone they know. Push: "Would you actually say something to him? Or would you stay quiet?" The honest answer is often "I don't know."
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you think street harassment is more of a problem in Mexico than in other countries — or is it the same everywhere but less talked about?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is about cultural honesty. Mexico does have a significant street harassment problem — and also has growing public awareness and legislation about it. The comparison to other countries prevents the "it's just our culture" deflection while keeping it honest. Push them to use evidence from their own experience.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Have you ever said or done something — even something small — that made another person feel uncomfortable in public? Be honest.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The hardest question — and the most important one. Most people have stared too long, made a comment they didn't think through, or laughed at something they now realize wasn't funny. The goal isn't guilt — it's honest reflection. Give them space. Don't push if they're not ready.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B1.2 Street Harassment</div>
+      <div class="exit-question">Your 16-year-old daughter — or sister, or niece — tells you that a man follows her every morning on her walk to school. She asks you: "What should I do?" What do you tell her?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. What do you tell her — and does your answer focus on what she should do, or on what he should stop doing?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The question works because it's concrete and personal — a family member, not a statistic. The second part ("does your answer focus on her behavior or his?") echoes Valeria's provocateur point and lands harder when the student hears themselves giving advice. End: <em>"Send me the voice note. I want to hear what you tell her."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Street Harassment · Social Issues & Society</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

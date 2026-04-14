@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Fake Beggars · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#34D399;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#0F1923;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1541859944-e28ce1b73d28?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(52,211,153,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(52,211,153,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(52,211,153,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(52,211,153,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(52,211,153,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.2</span>
+      <span class="hero-tag">Social Issues & Society</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Fake Beggars on the Street</div>
+    <div class="hero-sub">You see someone asking for money on the corner. You don't know if they're really in need. What do you do — and what does your answer say about how you see poverty?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One idea that makes the "fake or real" question more complicated.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">The Guardian · 2022 · Poverty & Homelessness Report</div>
+      <div class="trigger-quote">"Studies consistently show that most people who beg on the street are in genuine need. But because of a small number of visible cases of fraud, many people now assume the opposite — and give nothing."</div>
+      <div class="trigger-script">In Mexico, CONEVAL estimates that over 36 million people live in poverty. Street begging is often the last visible symptom of a much deeper system of unemployment, addiction, disability, migration, and family breakdown. The debate about "fake beggars" is real — but researchers note that the fear of being deceived stops many people from helping anyone, including those who are genuinely desperate.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the quote. Then ask directly: <em>"Quick show of hands — who gives money to people begging on the street? Who doesn't? Who used to but stopped?"</em> Don't comment on the answers yet. Then: <em>"The person who stopped — what changed your mind? I want to start there."</em> That's your hook into the real conversation.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Concrete words for a concrete situation.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('poverty')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">poverty</div>
+        <div class="vc-def">The state of having very little money — not enough for basic needs</div>
+      </div>
+      <div class="vocab-card" onclick="speak('beggar')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">beggar</div>
+        <div class="vc-def">A person who asks strangers for money or food on the street</div>
+      </div>
+      <div class="vocab-card" onclick="speak('charity')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">charity</div>
+        <div class="vc-def">Money or help you give to people who need it — without expecting anything back</div>
+      </div>
+      <div class="vocab-card" onclick="speak('guilt')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">guilt</div>
+        <div class="vc-def">The uncomfortable feeling you get when you walk past someone in need and do nothing</div>
+      </div>
+      <div class="vocab-card" onclick="speak('doubt')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">doubt</div>
+        <div class="vc-def">Uncertainty about whether something is real or true</div>
+      </div>
+      <div class="vocab-card" onclick="speak('addiction')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">addiction</div>
+        <div class="vc-def">A strong dependence on alcohol, drugs, or other substances that is difficult to stop</div>
+      </div>
+      <div class="vocab-card" onclick="speak('homeless')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">homeless</div>
+        <div class="vc-def">A person who has no permanent place to live</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scam')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">scam</div>
+        <div class="vc-def">A trick designed to get money from someone by lying or deceiving them</div>
+      </div>
+      <div class="vocab-card" onclick="speak('need')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">need</div>
+        <div class="vc-def">Something essential — food, shelter, medicine — that a person lacks</div>
+      </div>
+      <div class="vocab-card" onclick="speak('trust')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">trust</div>
+        <div class="vc-def">The belief that someone is honest — often the thing that gets broken by one bad experience</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('give')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">give</div>
+        <div class="vc-def">To offer money, food, or time to someone who needs it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">ignore</div>
+        <div class="vc-def">To walk past someone without looking at them or responding to them</div>
+      </div>
+      <div class="vocab-card" onclick="speak('judge')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">judge</div>
+        <div class="vc-def">To form a quick opinion about someone based on how they look or where they are</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lie</div>
+        <div class="vc-def">To say something that is not true — the concern with "fake" beggars</div>
+      </div>
+      <div class="vocab-card" onclick="speak('feel bad')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">feel bad</div>
+        <div class="vc-def">To experience guilt or discomfort about something you did or didn't do</div>
+      </div>
+      <div class="vocab-card" onclick="speak('help out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">help out</div>
+        <div class="vc-def">To give practical support to someone who needs it — money, food, or time</div>
+      </div>
+      <div class="vocab-card" onclick="speak('take advantage of')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">take advantage of</div>
+        <div class="vc-def">To use someone's kindness or weakness to get something from them unfairly</div>
+      </div>
+      <div class="vocab-card" onclick="speak('assume')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">assume</div>
+        <div class="vc-def">To believe something is true without actually knowing — often the first mistake we make</div>
+      </div>
+      <div class="vocab-card" onclick="speak('struggle')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">struggle</div>
+        <div class="vc-def">To have a very difficult time surviving or managing daily life</div>
+      </div>
+      <div class="vocab-card" onclick="speak('donate')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">donate</div>
+        <div class="vc-def">To give money or goods to an organization that helps people in need</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I never know if they are really in need')">
+        <div class="pi-phrase">"I never know if they're really in need."</div>
+        <div class="pi-context">The most common reason people give for not helping — and the starting point of this whole conversation.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I gave money once and he spent it on alcohol')">
+        <div class="pi-phrase">"I gave money once and he spent it on alcohol."</div>
+        <div class="pi-context">The experience that changes many people's behavior permanently — even if it only happened once.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I feel bad walking past them')">
+        <div class="pi-phrase">"I feel bad walking past them."</div>
+        <div class="pi-context">The honest admission that most people make — and then do nothing about anyway.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Better to give to an organization than directly')">
+        <div class="pi-phrase">"Better to give to an organization than directly."</div>
+        <div class="pi-context">The solution many people land on — practical, but it doesn't help the person in front of you right now.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not want to be tricked')">
+        <div class="pi-phrase">"I don't want to be tricked."</div>
+        <div class="pi-context">The fear that stops the kindness — even when the risk of being deceived is small.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four honest reactions to the same situation. Which one is closest to yours?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">❤️</div>
+          <div>
+            <div class="op-name">Lucía, 32</div>
+            <div class="op-role">Social Worker · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I give money when I can. Maybe some people are lying — I don't know. But <strong>if I give 20 pesos to 10 people and only 3 really need it, those 3 people matter.</strong> I would rather be wrong sometimes than always walk past someone who is suffering."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😒</div>
+          <div>
+            <div class="op-name">Héctor, 44</div>
+            <div class="op-role">Sales Representative · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I stopped giving money years ago. I saw a guy begging on Monday and then I saw him buying beer on Tuesday with the money people gave him. <strong>I'm not paying for someone's addiction.</strong> I donate to a real charity instead. At least I know where my money goes."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Carmen, 50</div>
+            <div class="op-role">Teacher · Irapuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I don't give cash, but I don't just walk past either. Sometimes I buy them food. Sometimes I just stop and talk to them for a minute. <strong>A lot of people on the street are very lonely.</strong> Money isn't always what they need most."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Diego, 38</div>
+            <div class="op-role">Business Owner · Salamanca</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I'll tell you what I really think: some of these people make more money begging than I made in my first job. <strong>It's a business — not a real emergency.</strong> And by giving them money, we're just making the problem bigger. I know that sounds hard. But it's the truth."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people do you agree with most — even if you're not proud of it? Which one says something you've thought but never said out loud?" Diego is the provocateur — his "begging is a business" argument is something many people think privately and rarely say. It's uncomfortable because it mixes real frustration with a lack of empathy. Let the class decide how much of it is true.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Be honest — especially with the ones that are uncomfortable.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever given money to someone begging on the street? Have you ever regretted it — or felt good about it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Both sides are valid — guilt from giving and guilt from not giving are both common. Push: "Tell me about a specific moment. What happened? What did you do? How did you feel after?" Present perfect for the question, past simple for the story.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever seen someone begging on the street and felt suspicious — like they weren't really in need? What made you think that?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Get specific: what did they see that made them doubt? Phone, clean clothes, acting? This helps explore how we read "visible poverty" — and how often those signals are misleading. Vocabulary: assume, judge, doubt.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever spoken to someone begging on the street — not to give money, just to talk? What happened?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Carmen from the Opinion Wall does this. It's a less common experience — but when students have it, the story is always interesting. If no one has done it, ask: "Why not? What stops you?" The answer is often discomfort or not knowing what to say.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">In your opinion, is it better to give money directly to a person on the street, or to donate to an organization? Why?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Both positions are defensible. Direct giving has immediacy — the person gets it now. Organizational giving has accountability — but it also has administrative costs and delays. Push for the values behind the preference: is it about control? Trust? Convenience? Guilt reduction?
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think giving money to someone with an addiction makes things worse for them — or is it not your responsibility to decide how they spend it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The addiction question is real and difficult. Harm reduction research suggests that giving money rarely makes addiction worse — most people with addiction are not begging. But the "I don't want to pay for alcohol" feeling is real. Don't resolve it — explore the tension between compassion and paternalism.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">What do you think about Diego's idea that begging is a "business"? Does that change how you feel about giving?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Diego's "business" framing is provocative but partially accurate — some people do organize begging strategically. But the majority are genuinely vulnerable. The question is: does the existence of fraud justify withholding help from everyone? Most students will say no — but they still feel the hesitation. That hesitation is worth naming.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if you saw a child — maybe 8 years old — begging alone on the street with no adult nearby?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional — and it raises a different issue: child safety vs. poverty vs. possible exploitation. This is where the "fake beggar" conversation gets most serious. Some children are sent out by adults to beg. Would they give money? Call someone? Stop and talk? Push for a specific action.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if you found out that a person you regularly gave money to was actually not poor at all — just pretending?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + emotional response. Push: "Would you stop giving to anyone after that? Or just that person?" The interesting question is whether one deception should change the response to everyone. Research says it does — even though it probably shouldn't.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Be honest: when you walk past someone begging and do nothing, is it because you don't believe they need help — or because it's easier not to stop?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The honesty question. Most people know the answer is "easier not to stop" — but they justify it with "I'm not sure if they're real." This gap between the real reason and the stated reason is the most interesting territory of the session. Don't push them to confess — just invite the honesty.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">If you were ever in a situation where you had no money and had to ask strangers for help — how do you think you would feel? And do you think people would help you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The empathy inversion. This question is about perspective — what it would actually feel like to be on the other side. Most people haven't imagined it concretely. Give them a moment. Then ask: "Would you look clean enough for people to believe you? Would that matter?" The answer often surprises them.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B1.2 Fake Beggars</div>
+      <div class="exit-question">You pass the same man every day on your way to work. He always asks for money for food. Today you have 50 pesos in your pocket — that's your coffee money. He looks worse than usual. You're not 100% sure he's going to spend it on food. Do you give it to him?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. What do you do — and what do you tell yourself in that moment to justify your decision?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The 50 pesos detail makes it real and low-stakes enough to be honest — it's not a large amount, but it's also something concrete. "He looks worse than usual" adds emotional weight without being manipulative. The "what do you tell yourself" ending is what makes it stick — it's not about the money, it's about the internal narrative. End: <em>"Send me your voice note. And I want to hear the justification — not just the yes or no."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Fake Beggars on the Street · Social Issues & Society</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

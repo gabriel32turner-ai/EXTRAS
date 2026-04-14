@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · The Rich Get Richer · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#34D399;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#0F1923;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.32)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.htag.spicy{border-color:rgba(255,80,60,.7);color:rgba(255,120,80,1)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B1.2</span>
+      <span class="htag">Social Issues & Society</span>
+      <span class="htag spicy">🌶 Edge: Spicy</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">The Rich Get Richer</div>
+    <div class="hero-sub">You work hard. They have a yacht. Is the system broken — or is that just how life works? Let's have the honest conversation.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real headline. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Oxfam Report · 2024</div>
+    <div class="trigger-quote">"The five richest men in the world doubled their wealth since 2020. In the same period, five billion people became poorer. This is not a coincidence. It is the result of economic systems designed to move money upward."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Quick question — and be honest: do you think you will be richer than your parents were? Do you think your children will be richer than you? And if the answer is no — why not? Today we're going to talk about money, success, and fairness. This one might get uncomfortable. That's okay."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('wealth')"><div class="vword">wealth</div><div class="vdef">A large amount of money, property, or valuable things</div><div class="vex">"Some families have wealth that has existed for generations. I didn't start there."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('debt')"><div class="vword">debt</div><div class="vdef">Money you owe to someone else — a bank, a person, a company</div><div class="vex">"I started my adult life with debt. Some people start with savings."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('savings')"><div class="vword">savings</div><div class="vdef">Money you have kept aside over time, not spent</div><div class="vex">"My parents never had savings. We spent everything just to get through the month."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('salary')"><div class="vword">salary</div><div class="vdef">The fixed amount of money you receive for your job each month</div><div class="vex">"My salary looks okay on paper. But after rent and food, there is nothing left."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('opportunity')"><div class="vword">opportunity</div><div class="vdef">A chance to do or get something good — not everyone has the same ones</div><div class="vex">"Hard work matters, but opportunity matters more. Not everyone gets the same doors."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('taxes')"><div class="vword">taxes</div><div class="vdef">Money the government takes from your income or purchases</div><div class="vex">"I pay taxes on every peso I earn. Big companies pay almost nothing."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('rent')"><div class="vword">rent</div><div class="vdef">The monthly payment you make to live in someone else's property</div><div class="vex">"Half my salary goes to rent. That's money I'll never see again."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('inequality')"><div class="vword">inequality</div><div class="vdef">When some people have much more than others — money, opportunity, access</div><div class="vex">"The inequality in Mexico is visible every day. You don't need statistics to see it."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('connection')"><div class="vword">connection</div><div class="vdef">A relationship with someone powerful or useful — "who you know"</div><div class="vex">"The best jobs don't go to the best people. They go to the best connections."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('raise')"><div class="vword">raise</div><div class="vdef">An increase in your salary</div><div class="vex">"I asked for a raise after three years. They said the budget was tight. The CEO got a bonus."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('afford')"><div class="vword">afford</div><div class="vdef">Have enough money to buy or do something</div><div class="vex">"I can't afford to buy a house in the city where I was born."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('earn')"><div class="vword">earn</div><div class="vdef">Receive money in exchange for work</div><div class="vex">"I earn a reasonable salary and still feel broke by the 20th of every month."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('invest')"><div class="vword">invest</div><div class="vdef">Put money somewhere so it can grow over time</div><div class="vex">"To invest, you first need money left over. Most people don't get that far."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('inherit')"><div class="vword">inherit</div><div class="vdef">Receive money, property, or assets from a family member after they die</div><div class="vex">"Some of my colleagues inherited their parents' house. I inherited their debts."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('struggle')"><div class="vword">struggle</div><div class="vdef">Try very hard to do something difficult — financially or personally</div><div class="vex">"My parents struggled their whole lives and never got ahead. I think about that a lot."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('blame')"><div class="vword">blame</div><div class="vdef">Say that someone is responsible for a problem</div><div class="vex">"People blame the poor for being poor. Nobody blames the system that keeps them there."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('get ahead')"><div class="vword">get ahead</div><div class="vdef">Improve your economic or professional situation over time</div><div class="vex">"I work hard but I can't get ahead. Something keeps pulling me back."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('depend on')"><div class="vword">depend on</div><div class="vdef">Need someone or something to survive or function</div><div class="vex">"My whole family depends on my salary. That pressure never stops."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('complain')"><div class="vword">complain</div><div class="vdef">Express unhappiness about a situation</div><div class="vex">"People say: stop complaining and work harder. As if working harder is the variable."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('give up')"><div class="vword">give up</div><div class="vdef">Stop trying because it feels impossible</div><div class="vex">"I haven't given up. But I understand the people who have."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('Money makes money')"><div><div class="phrase-text">Money makes money</div><div class="phrase-context">The simple truth: if you already have money, it grows. If you don't, it stays zero.</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('It\'s not what you know, it\'s who you know')"><div><div class="phrase-text">It's not what you know, it's who you know</div><div class="phrase-context">The frustrating reality of how jobs and opportunities are often actually distributed</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I\'m living paycheck to paycheck')"><div><div class="phrase-text">I'm living paycheck to paycheck</div><div class="phrase-context">Having just enough money to survive until the next salary — with nothing left over</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('The rules are different for rich people')"><div><div class="phrase-text">The rules are different for rich people</div><div class="phrase-context">Observed reality — from taxes to legal consequences to job opportunities</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Pull yourself up by your bootstraps')"><div><div class="phrase-text">Pull yourself up by your bootstraps</div><div class="phrase-context">The idea that hard work alone is enough to succeed — often said by people who had help</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍🔧</div><div><div class="b-name">Diego, 42</div><div class="b-role">Factory Worker · Celaya</div></div></div>
+      <div class="b-text">"I have worked since I was 17. I have never been lazy. And I am still renting a room at 42 years old. <strong>The system is not designed for people like me to win.</strong> Hard work is necessary. But it is not enough. And nobody wants to say that out loud."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍💼</div><div><div class="b-name">Adriana, 36</div><div class="b-role">Small Business Owner · Querétaro</div></div></div>
+      <div class="b-text">"I grew up with nothing and now I have my own business. <strong>I don't feel sorry for people who give up.</strong> I worked two jobs for four years. Nobody helped me. If you want it enough, you find a way. Not everyone does — and that's a personal choice."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍🏫</div><div><div class="b-name">Rodrigo, 48</div><div class="b-role">University Professor · CDMX</div></div></div>
+      <div class="b-text">"The problem is not rich people — it's a tax system that lets them keep almost everything. <strong>In Mexico, the top 1% pay a smaller percentage of taxes than a teacher or a nurse.</strong> That's the real issue. Not individual success — but who pays for the schools and hospitals."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(52,211,153,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👩‍💰</div><div><div class="b-name">Gabriela, 44</div><div class="b-role">Entrepreneur · Monterrey</div></div></div>
+      <div class="b-text">"I'm going to say something uncomfortable: <strong>most people are not poor because of the system — they're poor because of their decisions.</strong> Where you live, who you marry, what you study, how you spend money. Nobody talks about financial education because it's easier to blame rich people than to change habits."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one do you agree with most — and which one makes you the most angry?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever felt that someone had a big advantage over you — at school, at work, or in life — just because their family had more money? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Get a real story. "A colleague got promoted because his uncle was a director" is more useful than "yes, in general." Specific personal memories open the most authentic vocabulary. Follow up: "How did that make you feel — angry, motivated, or resigned?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever looked at someone very rich and felt jealous? What were you jealous of exactly — their money, their freedom, or something else?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Jealousy is honest and universal. The interesting part is what specifically they're jealous of: security? time? options? not having to worry? That distinction leads to a much richer conversation than "I want to be rich."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you or your family ever struggled financially — not having enough money for something important? How did that experience shape you?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Sensitive but important. Many B1.2 students in corporate Mexico have complex family histories with money. Respect silence if it comes. The option is there to share — not an obligation. If they share: validate before analyzing.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">In your opinion, is it possible for a poor person to become rich in Mexico today — just through hard work and good decisions? Or do you need luck and connections too?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The classic debate. Push for specifics: "Can you name someone who did it? What did they have that others didn't?" The goal is to test the "hard work is enough" theory against real examples they know personally — not famous exceptions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think rich people deserve their money — or do you think a lot of wealth comes from luck, family, and connections more than personal effort?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The "deserve" question is spicy. Push them to think of a specific person: a Mexican billionaire, a wealthy colleague, a boss. "Does that specific person deserve what they have?" is harder to answer than the abstract version.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Gabriela says the real problem is personal decisions, not the system. Is she wrong — or does she have a point that people don't want to hear?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The spiciest opinion question. Both are true simultaneously, which makes the answer genuinely hard. Personal decisions DO matter. AND the starting conditions are not equal. The challenge is holding both truths without using one to dismiss the other.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if you suddenly received 5 million pesos? Would you spend it, save it, invest it — or share it? Be specific.</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Great vocabulary practice: pay off debt, buy a house, start a business, help my family, invest. Push for a real plan: "How much for each thing?" The decisions reveal values. Watch especially for who they would help — and who they wouldn't.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you found out your company's CEO earns 400 times more than you — and just approved a freeze on salaries because "the company needs to cut costs"? Would you say something?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Hypothetical with real emotional charge. Push: "Would you say something to your manager? To HR? Or would you just update your CV?" The range from silence to action reveals their real feelings about power and fairness at work. No wrong answer.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">If you became very rich one day — really rich — do you think you would still believe the system is unfair? Or do you think your opinion would change?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The honest question about how wealth changes perspective. Research shows that people who become rich tend to attribute it more to personal merit over time — and less to luck or circumstances. Ask: "Is that a problem? Is it human? Is it dangerous?" Let them decide.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Be honest: do you think your children will have a better economic life than you — or a harder one? And what does your answer say about the world we are building?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The closer. This connects the abstract to the deeply personal. Most people in Mexico are not optimistic about this for their children. That feeling — named out loud in English — is one of the most powerful moments a language class can produce. Don't rush the silence after this one.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your company offers you a promotion. The new salary is 35% more than what you earn now. But you find out that a colleague with less experience and fewer results also got the same promotion — because his father is a personal friend of the director. You have two choices: accept the promotion and say nothing, or turn it down in protest and look for a new job. What do you do — and what does that choice cost you?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me what you do — and be honest about what you are giving up with that choice. There is no right answer. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · The Rich Get Richer · Social Issues & Society</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

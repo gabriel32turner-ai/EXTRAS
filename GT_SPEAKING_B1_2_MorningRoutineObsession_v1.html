@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab B1.2 · The Morning Routine Obsession</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.1)}
+.mode-btn{background:var(--ac);border:none;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 35%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(52,211,153,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.3);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.3);color:rgba(255,31,92,.8);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(52,211,153,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(52,211,153,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(52,211,153,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(52,211,153,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+  <div class="brand">
+    <div class="dot"></div>
+    <div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">B1.2 · Daily Life & Lifestyle</div></div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge">B1.2</div>
+    <button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80&fit=crop" alt="morning sunrise alarm clock coffee">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">MR</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Daily Life & Lifestyle</div>
+    <div class="hero-title">The Morning<br><em>Routine Obsession</em></div>
+    <div class="hero-sub">Wake up at 5am. Meditate. Journal. Exercise. Make your bed. Or just... sleep.</div>
+    <div class="hero-chips">
+      <span class="hchip em">B1.2</span>
+      <span class="hchip">Daily Life & Lifestyle</span>
+      <span class="hchip">🟡 Medium</span>
+      <span class="hchip">50 min</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<!-- PHASE 1 -->
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🪝 Phase 1 — The Trigger</div>
+        <div class="sec-title">The Headline</div>
+        <div class="sec-sub">Read it aloud. Then ask the first question.</div>
+      </div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">Forbes · Productivity</div>
+      <div class="trigger-quote">"The world's most successful CEOs swear by 5am wake-ups, cold showers, and 2-hour morning routines. Researchers say the benefits are mostly made up."</div>
+      <div class="trigger-sub">— On the growing gap between the morning routine industry — worth billions — and actual scientific evidence</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">BBC Science Focus</div>
+      <div class="trigger-quote">"Night owls have the same productivity potential as early risers. The real enemy of a good morning is not the hour you wake up — it's a bad night's sleep."</div>
+      <div class="trigger-sub">— Chronobiology research suggests your ideal wake-up time is largely genetic, not a habit you can just build</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body">
+        <strong>Launch line:</strong> "What time did you wake up this morning? And was that your choice — or your alarm?" [Let them answer.] Then: "Would you describe yourself as a morning person or a night person?" [Pause.] "Today we're going to ask whether the whole 'wake up at 5am and be your best self' thing is real — or just pressure from Instagram."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💉 Phase 2 — Vocab Injection</div>
+        <div class="sec-title">Power Words</div>
+        <div class="sec-sub">Click any card to hear it. Use at least 4 of these in the conversation today.</div>
+      </div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1000&q=80&fit=crop" alt="morning routine nouns">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Morning, Energy & Daily Life</div><div class="sbo-sub">Click each card · Web Speech · B1.2 calibrated</div></div>
+        <div class="sbo-badge">Nouns</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('alarm')"><div class="v-word">alarm</div><div class="v-pos">noun</div><div class="v-def">The sound or device that wakes you up in the morning</div></div>
+      <div class="v-card" onclick="speak('snooze')"><div class="v-word">snooze</div><div class="v-pos">noun</div><div class="v-def">The button you press to get 10 more minutes of sleep — and then press again</div></div>
+      <div class="v-card" onclick="speak('routine')"><div class="v-word">routine</div><div class="v-pos">noun</div><div class="v-def">A set of activities you do regularly in the same order each day</div></div>
+      <div class="v-card" onclick="speak('energy')"><div class="v-word">energy</div><div class="v-pos">noun</div><div class="v-def">How much physical and mental strength you have — varies a lot by person and time of day</div></div>
+      <div class="v-card" onclick="speak('pressure')"><div class="v-word">pressure</div><div class="v-pos">noun</div><div class="v-def">The feeling that you must do or be something — from social media, from work, from yourself</div></div>
+      <div class="v-card" onclick="speak('habit')"><div class="v-word">habit</div><div class="v-pos">noun</div><div class="v-def">Something you do automatically without thinking — good or bad</div></div>
+      <div class="v-card" onclick="speak('productivity')"><div class="v-word">productivity</div><div class="v-pos">noun</div><div class="v-def">How much useful work you get done in a given time</div></div>
+      <div class="v-card" onclick="speak('burnout')"><div class="v-word">burnout</div><div class="v-pos">noun</div><div class="v-def">Complete exhaustion from doing too much for too long without real rest</div></div>
+      <div class="v-card" onclick="speak('discipline')"><div class="v-word">discipline</div><div class="v-pos">noun</div><div class="v-def">The ability to make yourself do something even when you don't feel like it</div></div>
+      <div class="v-card" onclick="speak('guilt')"><div class="v-word">guilt</div><div class="v-pos">noun</div><div class="v-def">The feeling that you did something wrong — often felt by people who sleep past 7am</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=1000&q=80&fit=crop" alt="morning verbs">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What We Do in the Morning</div><div class="sbo-sub">Click to hear · Natural pace</div></div>
+        <div class="sbo-badge">Verbs</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('wake up')"><div class="v-word">wake up</div><div class="v-pos">verb</div><div class="v-def">To stop sleeping — the first challenge of every day</div></div>
+      <div class="v-card" onclick="speak('hit snooze')"><div class="v-word">hit snooze</div><div class="v-pos">verb</div><div class="v-def">To press the alarm button to sleep a little more — usually more than once</div></div>
+      <div class="v-card" onclick="speak('skip')"><div class="v-word">skip</div><div class="v-pos">verb</div><div class="v-def">To not do something you planned — "I skip breakfast when I'm in a hurry"</div></div>
+      <div class="v-card" onclick="speak('rush')"><div class="v-word">rush</div><div class="v-pos">verb</div><div class="v-def">To do something very fast because you are late or running out of time</div></div>
+      <div class="v-card" onclick="speak('meditate')"><div class="v-word">meditate</div><div class="v-pos">verb</div><div class="v-def">To sit quietly and focus your mind — very popular in productivity content</div></div>
+      <div class="v-card" onclick="speak('journal')"><div class="v-word">journal</div><div class="v-pos">verb</div><div class="v-def">To write your thoughts in a notebook — part of many morning routines</div></div>
+      <div class="v-card" onclick="speak('compare')"><div class="v-word">compare</div><div class="v-pos">verb</div><div class="v-def">To look at how your life measures up against other people — often unhelpful</div></div>
+      <div class="v-card" onclick="speak('force yourself')"><div class="v-word">force yourself</div><div class="v-pos">verb</div><div class="v-def">To make yourself do something hard or unpleasant — like waking up at 5am</div></div>
+      <div class="v-card" onclick="speak('feel guilty')"><div class="v-word">feel guilty</div><div class="v-pos">verb</div><div class="v-def">To feel bad about something you did or didn't do — sleeping in often causes this</div></div>
+      <div class="v-card" onclick="speak('stick to')"><div class="v-word">stick to</div><div class="v-pos">verb</div><div class="v-def">To keep doing something consistently — hard with morning routines</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases morning">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Morning Talk</div><div class="sbo-sub">Things people actually say · Click to hear</div></div>
+        <div class="sbo-badge">Colloquial</div>
+      </div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m not a morning person')"><div class="p-text">"I'm not a morning person."</div><div class="p-context">The most common excuse for everything that goes wrong before 9am</div></div>
+      <div class="phrase-item" onclick="speak('I need my coffee first')"><div class="p-text">"I need my coffee first."</div><div class="p-context">Said before any serious conversation, decision, or eye contact</div></div>
+      <div class="phrase-item" onclick="speak('I woke up on the wrong side of the bed')"><div class="p-text">"I woke up on the wrong side of the bed."</div><div class="p-context">When your whole day feels bad from the moment you opened your eyes</div></div>
+      <div class="phrase-item" onclick="speak('I barely made it')"><div class="p-text">"I barely made it."</div><div class="p-context">Arrived just in time — probably after hitting snooze three times</div></div>
+      <div class="phrase-item" onclick="speak('I was up at the crack of dawn')"><div class="p-text">"I was up at the crack of dawn."</div><div class="p-context">Said with either pride or exhaustion — depending on whether it was your choice</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">
+        After vocab, ask: "Which of these verbs describes your mornings most honestly — rush, skip, or force yourself?" Most students will laugh and pick rush or skip. Then: "And which one do you wish described your morning?" Use that gap to introduce the Opinion Wall.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div>
+        <div class="sec-title">Four Voices. One Topic.</div>
+        <div class="sec-sub">Read all four. Choose one. Tell me why in 60 seconds.</div>
+      </div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">🏃‍♂️</div>
+        <div class="op-name">Mateo, 35</div>
+        <div class="op-role">Sales Manager · Monterrey</div>
+        <div class="op-text">"I wake up at 5:30am every day. I exercise, read for 20 minutes, and plan my day before my family wakes up. <strong>Those 90 minutes are the reason my life works.</strong> It took me 3 months to build the habit, but now I can't imagine my day without it. It's the one thing that's completely mine."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">😴</div>
+        <div class="op-name">Andrea, 31</div>
+        <div class="op-role">Graphic Designer · CDMX</div>
+        <div class="op-text">"I've tried the 5am thing three times. It just makes me tired, stressed, and useless by 2pm. <strong>I do my best work at night — always have.</strong> The whole morning routine trend is made for a certain type of person. The rest of us just feel bad about ourselves for not doing it."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🧘‍♀️</div>
+        <div class="op-name">Lucía, 44</div>
+        <div class="op-role">HR Director · Guadalajara</div>
+        <div class="op-text">"My morning routine is simple: I wake up slowly, drink my coffee, and don't look at my phone for 30 minutes. That's it. <strong>You don't need a 2-hour routine to have a good day.</strong> You just need to start it without stress. Small and consistent beats perfect and unsustainable."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">⏰</div>
+        <div class="op-name">Fernando, 50</div>
+        <div class="op-role">Operations Director · Querétaro</div>
+        <div class="op-text">"If you can't wake up on time and start your day with discipline, it's because you go to bed too late — and that's a choice. <strong>People who say they're not morning people are usually people who watch Netflix until 1am.</strong> Your morning is a result of your night. Fix one and you fix the other. Nobody is biologically forced to be lazy."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body">
+        <strong>Provocateur rationale:</strong> Fernando removes the excuse of "I'm just not a morning person" by connecting it directly to nighttime habits and calling it a choice. Most students will feel a mix of "he's right" and "that's not fair." Both reactions are honest and produce good conversation. <br><br>
+        <strong>Facilitation move:</strong> After the student picks their opinion, ask: "And what time did you go to bed last night?" Let that answer connect naturally to Fernando's argument.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div>
+        <div class="sec-title">10 Questions · 4 Blocks</div>
+        <div class="sec-sub">Build from personal to provocative. Show tips only after the student answers.</div>
+      </div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever seriously tried to change your morning routine — wake up earlier, exercise, meditate, or do something different? What happened?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Present perfect opener — very natural. Most students have tried and failed at some point. Model: "Yes — I tried waking up at 6am to exercise for about two weeks. It worked great. Then I had a stressful week at work and it collapsed." Activate: routine, discipline, stick to.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever felt jealous or guilty when you see someone on social media showing off their perfect morning routine — gym, smoothie, sunrise, all before 7am?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Activate: guilt, pressure, compare. Honest and fun — most students have felt this. The key is to normalize the feeling without reinforcing the guilt. Model: "Yes — and then I put my phone down and hit snooze again." Light and relatable.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">What does your typical morning look like right now — from when you wake up to when you start work? Walk me through it honestly.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Descriptive and very personal. Students often enjoy describing their mornings. Activate all the verbs naturally: rush, skip, wake up, hit snooze. This question generates the most natural, flowing speech at B1.2. Let them go.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think waking up early actually makes you more productive — or is it just something we believe because successful people say it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">References the Trigger headline. Push for their personal evidence. Model: "I think it depends on the person. I've been productive waking up at 7 and useless waking up at 5:30. The hour isn't the thing — the quality of sleep is." Activate: productivity, energy, burnout.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it fair to judge someone for sleeping until 8am if they do their job well? Does the time you wake up say anything about your character?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Fernando's position again. Most students will say no — it's not fair to judge. Push: "But you probably have a small opinion when you see a colleague arriving at 9:30, right? Be honest." Activate: judge, discipline, habit, pressure.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Some people spend money on apps, coaches, and books to build a morning routine. Do you think that's a good investment — or is it a waste of money on something you could just do yourself?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Light money question — easy for B1.2. Good for modals: "I think it could be useful if..." or "I would never pay for..." Activate: habit, discipline, routine, pressure. Most students have strong opinions on self-help spending.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if your new job required you to start at 7am every day — and you're a natural night owl who does your best work in the evenings?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Second conditional. Real scenario — many professionals face this. Model: "If that happened, I would probably try to adapt for a few weeks — but if it kept affecting my performance, I'd talk to my manager about flexible hours." Activate: force yourself, routine, energy, discipline.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would a perfect morning look like for you — if you had no work, no schedule, no alarm? Describe it in detail.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Imaginative and very personal. Great for B1.2 "going to" and conditional structures. Let them dream a little. Some students describe peaceful, slow mornings — others describe active, productive ones. Both reveal character. Compare with their real morning from Q3.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you think the obsession with morning routines is really about productivity — or is it about showing other people that you are disciplined, healthy, and successful?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">This is the real question behind the whole trend. Model: "I think it's both — but mostly the second one. If it was just about productivity, people wouldn't film it and post it." Activate: pressure, compare, guilt, discipline. Great for nuanced opinions at B1.2.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Be honest — if you could change one thing about your mornings, what would it be? And why haven't you changed it yet?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The self-reflection close. Very personal and direct — B1.2 can handle this well. The second part ("why haven't you changed it?") is the key. Common answers: "Because I'm tired." "Because I always say tomorrow." "Because I actually like my mornings the way they are." All honest. All productive.</div>
+      </div>
+    </div>
+
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body">
+        <strong>B1.2 grammar check:</strong> Q1–Q3 should produce clean present perfect. Q7–Q8 should produce second conditional. If students default to "I will do..." instead of "I would do..." in Block 3, model once and continue. Don't over-correct. <br><br>
+        <strong>Energy note:</strong> This is a high-engagement topic — students enjoy talking about themselves. Keep the pace up in Blocks 1–2 and slow down for Q9 and Q10, where the real reflection happens.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💣 Phase 5 — The Exit Shot</div>
+        <div class="sec-title">The Final Question</div>
+        <div class="sec-sub">One question. No right answer. Be honest.</div>
+      </div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Your doctor tells you that based on your sleep patterns, stress levels, and energy, you need to go to bed by 10pm and wake up at 6am every day for the next 6 months. No exceptions. You currently go to bed at midnight and wake up at 7:30am. That's 2 hours less per night — your evenings, your TV time, your social life. Are you willing to do it?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Describe your perfect morning — if you could design it from zero. What time would you wake up, what would you do, and how would you feel before you started your day?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body">
+        <strong>Why it works:</strong> The doctor authority removes the "it's my choice" defense. The specific numbers (10pm, 6am, 2 hours less, 6 months) make it concrete and hard to answer vaguely. The evenings detail is the emotional lever — TV, friends, personal time. <br><br>
+        <strong>Homework note:</strong> The recording prompt is creative and personal — easy to record, activates vocab from today (routine, energy, wake up, rush, skip). Students often describe mornings that are the opposite of their current reality. <br><br>
+        <strong>Upsell moment:</strong> "Next session we talk about work-life balance — including how to protect your personal time when your job doesn't stop. Exactly the conversation many of you are already having."
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">B1.2 · Daily Life & Lifestyle · The Morning Routine Obsession · Medium</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+function toggleMode(btn){
+  const isStudent=document.body.classList.toggle('student-mode');
+  btn.textContent=isStudent?'Student Mode':'Teacher Mode';
+}
+function toggleTN(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.toggle('open');
+  btn.querySelector('span').textContent=isOpen?'−':'+';
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide tip':'Show tip';
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+},{passive:true});
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.2 · The Burnout Generation</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.08)}
+.mode-btn{background:#34D399;border:1px solid #34D399;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}
+.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(52,211,153,.1)}
+.tn-c1{border-left:3px solid rgba(52,211,153,.6)}
+.tn-c2{border-left:3px solid rgba(0,207,255,.5)}
+.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}
+.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}
+.tn-txt li{margin-bottom:5px}
+.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(52,211,153,.08) 0%,rgba(52,211,153,.03) 100%);border:1px solid rgba(52,211,153,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(52,211,153,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(52,211,153,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(52,211,153,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(52,211,153,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(52,211,153,.3)}
+.vc.noun-c{border-top:2px solid rgba(52,211,153,.4)}
+.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(52,211,153,.6)}
+.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(110,231,183,.8);font-style:italic;border-left:2px solid rgba(52,211,153,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(52,211,153,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(52,211,153,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(52,211,153,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(52,211,153,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(52,211,153,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(52,211,153,.65);background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(52,211,153,.3)}
+.q-tn strong{color:rgba(52,211,153,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(52,211,153,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,rgba(52,211,153,.04) 50%,transparent 100%);border:1px solid rgba(52,211,153,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){
+  .persp-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .hsc-stats{grid-template-columns:1fr}
+  .sec{padding:30px 20px}
+  .hdr{padding:0 16px}
+  .snav{padding:0 16px}
+}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r">
+    <div class="badge">B1.2 · Speaking Lab</div>
+    <button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1400&q=80" alt="Burnout">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Health &amp; Wellness</div>
+    <div class="hero-title">THE BURNOUT<br><em>GENERATION</em></div>
+    <div class="hero-sub">We were told hard work would pay off. We worked hard. Now we're exhausted — and still waiting for the payoff.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span>
+      <span class="hchip">No grammar</span>
+      <span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span>
+      <span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 01 · The Trigger</div>
+      <div class="sec-title">🪝 When Hard Work Stops Paying Off</div>
+      <div class="sec-sub">Read aloud or project · First reaction only · No debate yet · 4 min max</div>
+    </div>
+    <div class="sec-wm">01</div>
+    <div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🔥</div>
+    <div class="hsc-label">Gallup State of the Global Workplace + WHO Burnout Classification 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">77%</div><div class="hsc-desc">Of workers have experienced burnout at their current job — 28% say they feel burned out "very often" or "always"</div></div>
+      <div class="hsc-stat"><div class="hsc-num">$322B</div><div class="hsc-desc">Annual global cost of employee burnout in lost productivity, healthcare, and turnover — equivalent to 5% of global GDP</div></div>
+      <div class="hsc-stat"><div class="hsc-num">2× more</div><div class="hsc-desc">Burned-out employees are twice as likely to quit their job within the next year — and 63% more likely to take a sick day</div></div>
+      <div class="hsc-stat"><div class="hsc-num">2019</div><div class="hsc-desc">The year the WHO officially classified burnout as an occupational phenomenon — not a personal weakness or character flaw</div></div>
+    </div>
+    <div class="hsc-source">Sources: Gallup State of the Global Workplace 2023 · WHO International Classification of Diseases (ICD-11) · Deloitte Workplace Burnout Survey · McKinsey Health Institute</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Trigger — Read this, then point at someone</div>
+    <div class="hq-text">"In 2019, the World Health Organization officially recognized burnout as a real medical condition — not laziness, not weakness, not a personal problem. It took them until 2019. Why do you think it took so long?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the WHO statement once, slowly. The question "why did it take so long?" is the hook — it opens the cultural conversation immediately. Point at someone: "First reaction." No judgment. 2–3 reactions max. "Hold everything. We come back in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The WHO 2019 classification is the most powerful fact in this session — it reframes burnout from a personal moral failure to a recognized medical condition. Most students will not know this. Let the surprise work.</li>
+        <li>The $322B cost stat is useful for students who work in corporate environments — it makes burnout a business problem, not just a personal one. That framing resonates in manufacturing and corporate settings.</li>
+        <li>If the group is quiet: <strong>"How many of you have felt burned out at work at some point in the last two years? Raise your hand."</strong> Then: "How many of you told your boss?"</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>This topic lands immediately in most corporate groups — especially at Apex Tool Group where production pressure is real. The emotional activation requires almost no push.</li>
+        <li>Frame it professionally: <strong>"This is not a therapy session — it's a conversation about a workplace reality that affects performance, retention, and your career."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Being able to discuss burnout, workload, and boundaries in English is increasingly expected in international corporate roles. HR teams in the US and Europe talk about this in every leadership meeting."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 02 · Vocab Injection</div>
+      <div class="sec-title">💉 20 Words That Matter</div>
+      <div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs simultaneous · Production challenge after</div>
+    </div>
+    <div class="sec-wm">02</div>
+    <div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B produces the word. Switch. Production challenge after.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Work, Exhaustion &amp; Recovery</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Burned-Out People Do (and Don't Do)</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Each person picks <em>3 words</em>. One sentence each about <em>your real work life right now — honest.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Burned out" vs "tired" — the distinction matters: tired is temporary; burnout is chronic and affects motivation, identity, and purpose. Clarify once and move on.</li>
+        <li>"Detach" — often confused with "disconnect." Clarify: detach means emotionally separating from work (not caring anymore); disconnect means physically turning off devices. Both appear in burnout conversations.</li>
+        <li>Best production challenge trigger: <strong>"Which 3 words describe how you feel on Sunday evening when you think about the next work week?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words appear in every performance review, HR survey, and leadership training at international companies. If someone asks you how you are doing professionally, these are the words you need."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Burnout vocabulary is essential for any professional working in a bilingual or international environment. HR managers at US headquarters will ask about workload, boundaries, and recovery in English. You now have the words."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 03 · Opinion Wall</div>
+      <div class="sec-title">🧱 4 Real Voices. 4 Relationships With Work.</div>
+      <div class="sec-sub">Read each card · Pairs discuss 90 sec · Group shares · Same question each time</div>
+    </div>
+    <div class="sec-wm">03</div>
+    <div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who sounds most like your boss?"</div></div><div class="sbo-badge">Don't vary the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who sounds most like your boss?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The processing question ("who sounds most like your boss?") is deliberately different from the usual "who do you agree with" — it creates distance, allows honesty, and often generates a laugh that opens the group.</li>
+        <li>The provocateur is <strong>Ing. Castellanos</strong>. His position — that burnout is a label for people who lack resilience — will create friction, especially with students who have experienced real burnout. Push: <strong>"He's a plant director. Would you say this to his face?"</strong></li>
+        <li>Renata's position (she quit a high-paying job and recovered) is the most aspirational and will resonate emotionally. Don't let students stay in that emotional space — push back: "But not everyone can afford to quit. What about them?"</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Best activation: <strong>"Quick question — when was the last time you felt genuinely rested after a weekend? Not just less tired. Actually rested. Take a moment."</strong> The pause itself is the activation.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"One sentence — which of these four people best describes where you are right now professionally? Be honest."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 04 · The Conversation Engine</div>
+      <div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div>
+      <div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · No round-robin · Point and push</div>
+    </div>
+    <div class="sec-wm">04</div>
+    <div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> Minimum 2 sentences per answer. Position first. Real example second. No generic answers — connect it to your actual work life.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 present perfect — watch for "I have work too much" (missing -ed) or "I have felt burn out." Correct once: "So you have felt burned out — tell me what that was like."</li>
+        <li>Q9 is the most personal and most likely to generate honest answers. Silence after asking is productive — wait a full 6 seconds before redirecting.</li>
+        <li>Block 3: watch for "If I would have more time" — note and recycle at end only. Don't interrupt the flow.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When "overwhelmed," "detach," or "boundaries" appear naturally — celebrate immediately: <strong>"That word — burnout vocabulary in a real sentence. That's what today is building."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just had a conversation about work, identity, and limits — in English. These are the conversations that happen in international HR meetings. You're ready for them."</strong></li>
+        <li>Upsell: <strong>"The next Speaking Lab in this health series looks at toxic positivity — when 'stay positive' becomes the problem. Same honesty, different angle."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 05 · The Exit Shot</div>
+      <div class="sec-title">💣 One Question. No Easy Answer.</div>
+      <div class="sec-sub">5 min · No chips · Just position + reason · Then the loop</div>
+    </div>
+    <div class="sec-wm">05</div>
+    <div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">You have been in your job for <em>4 years.</em> You are good at it. But for the last <em>8 months</em> you wake up tired, you have no motivation, and you have been doing only <em>the minimum.</em> Your performance reviews are still fine — nobody has noticed. You know you are burned out. <em>Do you tell your boss — or do you keep going and hope it passes?</em></div>
+    <div class="exit-rule">Answer in 3 sentences. Be specific — what do you actually do, and what do you think the real risk is in each choice?</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I would not tell my boss — not yet. In my company, showing vulnerability has never ended well for the person who showed it. What I would do first is take a real vacation — not a long weekend, a full week offline — and see if I can recover enough to think clearly. If it still hasn't changed after that, then I'd consider the conversation. Burnout doesn't fix itself, but timing matters."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — The WhatsApp Homework</strong>
+    "Before our next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Don't rehearse. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The "nobody has noticed" detail is critical — it removes external pressure and forces a purely internal decision. The question is about self-honesty, not performance management.</li>
+        <li>Follow-up only: <strong>"What would you do if your boss noticed before you said anything — and asked if everything was okay?"</strong> Second conditional naturally activated, plus present perfect if they set the scene.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer is strategically honest — "showing vulnerability has never ended well." That realism gives students permission to be politically astute rather than idealistic. Point it out: <strong>"This model answer doesn't say 'just be honest with your boss.' It says: timing matters. That's a B1.2 nuance."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You just described a real professional situation — burnout, risk, decision-making — in English. Most people can't do that clearly in their first language. You just did."</strong></li>
+        <li>Referral trigger: <strong>"If a colleague of yours is in that exact situation right now — tired, doing the minimum, nobody noticing — they need this conversation. This is what English for professionals looks like."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · The Burnout Generation · Health &amp; Wellness · Medium</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div>
+    <div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv on">B1.2</div>
+    <div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"burnout",      def:"Complete emotional and physical exhaustion from chronic overwork or stress",     ex:"She didn't recognize burnout until she started crying in the parking lot every Monday."},
+  {w:"workload",     def:"The total amount of work you are expected to do",                                ex:"His workload had doubled in a year. His salary had not."},
+  {w:"deadline",     def:"The date or time by which something must be finished",                           ex:"She had three deadlines on the same day every week. That had been the case for a year."},
+  {w:"overtime",     def:"Extra hours worked beyond the normal schedule — often without extra pay",        ex:"He worked overtime every week. He stopped counting the hours."},
+  {w:"recovery",     def:"The process of returning to a healthy state after exhaustion or illness",        ex:"She took two weeks off for recovery. She came back and the pile of work was still there."},
+  {w:"boundary",     def:"A limit you set to protect your time, energy, or wellbeing at work",           ex:"He set a boundary: no emails after 8pm. His team respected it for exactly one week."},
+  {w:"motivation",   def:"The desire and energy to start and continue doing something",                    ex:"She lost her motivation slowly — not all at once, but month by month."},
+  {w:"promotion",    def:"A move to a higher position at work, usually with more responsibility and pay",  ex:"He got a promotion. The salary increased 10%. The workload increased 60%."},
+  {w:"resignation",  def:"The act of formally leaving your job by your own choice",                       ex:"Her resignation surprised everyone. Nobody had asked her how she was doing."},
+  {w:"loyalty",      def:"A strong commitment to a person, team, or company",                            ex:"She stayed three years past her burnout point — out of loyalty. She regrets it."}
+];
+const verbs=[
+  {w:"burn out",      def:"To reach a state of complete emotional and physical exhaustion",               ex:"He burned out in his third year and nobody at the company noticed for months."},
+  {w:"overwork",      def:"To work too much, beyond what is healthy or sustainable",                      ex:"She had been overworking for so long that she forgot what normal felt like."},
+  {w:"disconnect",    def:"To stop engaging with work — turning off notifications, email, and calls",     ex:"He couldn't disconnect on weekends. The phone was always there, always on."},
+  {w:"push through",  def:"To continue working despite exhaustion, pain, or emotional resistance",        ex:"She pushed through for 18 months. Then her body made the decision for her."},
+  {w:"recover",       def:"To return to a normal level of energy and engagement after exhaustion",        ex:"He took a month off to recover. The first two weeks he slept 10 hours a night."},
+  {w:"set limits",    def:"To decide clearly how much work you will and will not take on",               ex:"She finally set limits on how many projects she would handle at the same time."},
+  {w:"detach",        def:"To emotionally separate yourself from your work — to stop caring",            ex:"He detached completely in his last six months. He did the minimum and nothing more."},
+  {w:"quit",          def:"To leave your job voluntarily",                                                ex:"She quit without another job lined up. She had no energy left to interview."},
+  {w:"ignore",        def:"To deliberately not pay attention to something",                              ex:"He ignored the warning signs for two years — the headaches, the sleep problems, the anger."},
+  {w:"recharge",      def:"To restore your energy through rest, time off, or activities you enjoy",      ex:"She couldn't recharge on weekends anymore. Two days wasn't enough to undo five."}
+];
+const perspectives=[
+  {
+    name:"Renata Figueroa",meta:"34 · Ex-Financial Analyst · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I quit my job at 32 with nothing lined up. I was earning well, I had a good title, and I was completely <strong>empty.</strong> People thought I was crazy. I thought maybe they were right. A year later I work fewer hours, earn less, and I feel like myself again. I don't know if I made the right financial decision. I know I made the right human decision."
+  },
+  {
+    name:"Ing. Castellanos",meta:"54 · Plant Director · Guanajuato — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"In my experience, burnout is something people discover when they start comparing themselves to others on social media instead of focusing on their work. My generation worked hard, got tired, and kept going. We didn't call it burnout — we called it a job. I'm not saying don't take care of yourself. I'm saying <strong>resilience is a skill</strong> and this generation hasn't been asked to develop it."
+  },
+  {
+    name:"Marco Espinoza",meta:"29 · Software Developer · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I've been burned out twice before age 30. Both times because I worked for companies that said they valued work-life balance and then <strong>punished anyone who actually tried to have one.</strong> The problem isn't resilience — it's that companies ask for 100% and 120% and then 140% and then they call it 'culture.' I'm not weak. The system is broken."
+  },
+  {
+    name:"Dra. Fuentes",meta:"46 · Organizational Psychologist · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I work with companies on this every week. The hard truth is that <strong>both sides are right</strong> and both sides avoid the real conversation. Some individuals do lack resilience. Some companies do exploit their employees. Most burnout cases involve both. The only way forward is an honest conversation between the employee and the organization — and very few companies know how to have it."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever felt completely tired of your work — not just tired, but like you didn't care anymore? What happened?",chips:["I've had periods where...","There was a point when I felt...","I've never felt that, but I've seen colleagues who...","The moment I knew something was wrong was..."],tn:"The distinction 'not just tired — like you didn't care anymore' is the clinical marker for burnout. If a student describes emotional detachment from work, that's worth slowing down on: 'Can you describe that feeling in English? What words would you use?'"},
+    {num:"Q2",text:"Have you ever worked in a place where the workload was so high that people regularly worked overtime — and nobody said anything about it?",chips:["I've worked in a place where...","Overtime was expected because...","I've been in teams where...","The culture was..."],tn:"This question normalizes the experience without making it personal. Most manufacturing and corporate students will have a clear answer. Push: 'Did anyone ever say this was a problem? To management?'"},
+    {num:"Q3",text:"Have you ever seen a colleague burn out — and what did the company do about it?",chips:["A colleague of mine once...","The company's response was...","I've seen it happen and what surprised me was...","Nobody said anything because..."],tn:"Shifting to a colleague creates the same productive distance as in other sessions. The 'what did the company do about it' is the key push — most answers will be 'nothing' or 'they found someone to replace them.' That's the real data."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for position · No neutral answers",questions:[
+    {num:"Q4",text:"Is burnout a personal problem — something you can prevent with the right habits — or is it a company problem that employees can't really solve alone?",chips:["I think it's mostly...","Both are responsible but...","The individual can...","But without the company changing..."],tn:"Ing. Castellanos (personal resilience) vs Marco (broken system) from §3. Both positions have merit. Push students to say which factor they think is bigger — not which is the only one."},
+    {num:"Q5",text:"Why do you think so many people keep working even when they know they are burned out — what stops them from stopping?",chips:["I think it's because of...","The fear of...","In Mexico, stopping feels like...","Financially, most people can't just..."],tn:"This question surfaces the real barriers to recovering from burnout: financial pressure, job security, cultural expectations around work ethic, fear of judgment. These are B1.2-level vocabulary activations."},
+    {num:"Q6",text:"Ing. Castellanos says this generation hasn't developed resilience. Do you think he's right — or do you think the conditions of work have genuinely changed?",chips:["I think the conditions have changed because...","But he has a point about...","Comparing generations is hard because...","What's different now is..."],tn:"This is the cross-generational debate at the heart of the session. Push students to give a concrete example: 'Name one thing that is genuinely harder about work now than 30 years ago.' And: 'Name one thing that is easier.'"}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Note errors · Recycle at end only",questions:[
+    {num:"Q7",text:"If you could set one rule at your current job to prevent burnout — just one rule your whole team would follow — what would it be?",chips:["I would make a rule that...","The most important change would be...","I would stop...","I would require that everyone..."],tn:"This activates both vocabulary and second conditional naturally. Push past 'no overtime' — anyone can say that. Push: 'What rule would actually be followed? Not the ideal one — the realistic one.'"},
+    {num:"Q8",text:"If a close friend told you they were burned out and thinking of quitting their job, what would you tell them — and what would you tell them not to do?",chips:["I would tell them to...","I would NOT say...","The most important thing would be...","I've been in a position to give this advice and..."],tn:"The 'what would you tell them NOT to do' is as important as the advice itself — it surfaces the bad advice people commonly receive ('just push through,' 'at least you have a job') and generates richer conversation."}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · Real answers only",questions:[
+    {num:"Q9",text:"Honest question: Right now, at your current job — are you thriving, surviving, or barely holding on? Be real.",chips:[],tn:"Give this 6 full seconds of silence. The three options ('thriving, surviving, barely holding on') make it easy to start — it's a forced choice with permission to be honest. The answer to this question often produces the most authentic WhatsApp voice notes."},
+    {num:"Q10",text:"Final question: Is hard work still the path to success — or has the deal changed and nobody told us?",chips:[],tn:"The synthesis question. 'The deal has changed' (hard work used to lead to job security and advancement; now it often leads to burnout and lateral movement) vs 'hard work still works' (the fundamentals haven't changed; your strategy might need updating). Push anyone who gives a vague answer: 'Has the deal changed for YOU — specifically, in your career?'"}
+  ]}
+];
+
+function buildVocab(data,containerId,type){const g=document.getElementById(containerId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");
+buildVocab(verbs,"verbGrid","verb");
+
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"];
+const navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

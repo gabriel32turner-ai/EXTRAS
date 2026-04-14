@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Why Young People Don't Want Kids · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#34D399;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#0F1923;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(52,211,153,.4);color:var(--ac)}
+.hero-tag.spicy{border-color:rgba(255,31,92,.5);color:rgba(255,31,92,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(52,211,153,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(52,211,153,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(52,211,153,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(52,211,153,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.2</span>
+      <span class="hero-tag">Social Issues & Society</span>
+      <span class="hero-tag spicy">🌶 Spicy</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Why Young People Don't Want Kids</div>
+    <div class="hero-sub">It's not laziness. It's not selfishness. It's a generation doing the math on money, time, climate, and a world that makes having children harder than ever.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One number that many parents and grandparents don't want to believe.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">INEGI · Mexico National Survey · 2023</div>
+      <div class="trigger-quote">"In Mexico, the birth rate has dropped by 35% in the last 20 years. For the first time in history, more young Mexicans between 18 and 35 say they do not want children than say they do."</div>
+      <div class="trigger-script">The trend is not unique to Mexico. South Korea, Japan, Italy, Spain, and the United States are all experiencing record-low birth rates. Researchers point to rising housing costs, job insecurity, career pressure, and climate anxiety as key factors — alongside a generation that simply sees parenthood as a choice, not an obligation.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Put the number up. Then ask: <em>"Does this number surprise you — or does it make total sense?"</em> Then: <em>"Quick — how many of you want children, or already have them? And how many of you understand why someone wouldn't want them?"</em> Don't ask people to justify — just get a quick read of the room before the conversation opens up.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Real words for a real conversation.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('rent')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">rent</div>
+        <div class="vc-def">The monthly payment to live in a house or apartment you don't own</div>
+      </div>
+      <div class="vocab-card" onclick="speak('debt')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">debt</div>
+        <div class="vc-def">Money you owe — student loans, credit cards, car payments</div>
+      </div>
+      <div class="vocab-card" onclick="speak('savings')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">savings</div>
+        <div class="vc-def">Money you keep for the future — many young people have very little</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pressure')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">pressure</div>
+        <div class="vc-def">When family, society, or your own mind pushes you to do something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('freedom')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">freedom</div>
+        <div class="vc-def">The ability to make your own choices without obligation to others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('anxiety')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">anxiety</div>
+        <div class="vc-def">Constant worry about the future — very common among young people today</div>
+      </div>
+      <div class="vocab-card" onclick="speak('responsibility')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">responsibility</div>
+        <div class="vc-def">Something you must take care of — a child is a lifelong responsibility</div>
+      </div>
+      <div class="vocab-card" onclick="speak('sacrifice')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">sacrifice</div>
+        <div class="vc-def">Giving up something important to you for something else</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lifestyle')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">lifestyle</div>
+        <div class="vc-def">The way you choose to live — travel, career, hobbies, relationships</div>
+      </div>
+      <div class="vocab-card" onclick="speak('generation')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">generation</div>
+        <div class="vc-def">A group of people born around the same time — millennials, Gen Z, etc.</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('afford')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">afford</div>
+        <div class="vc-def">To have enough money for something — many young people can not afford to raise a child</div>
+      </div>
+      <div class="vocab-card" onclick="speak('choose not to')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">choose not to</div>
+        <div class="vc-def">To make a deliberate decision against something — even when others expect it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('judge')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">judge</div>
+        <div class="vc-def">To have a negative opinion about someone else's life choices</div>
+      </div>
+      <div class="vocab-card" onclick="speak('struggle')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">struggle</div>
+        <div class="vc-def">To have difficulty — financially, emotionally, or physically</div>
+      </div>
+      <div class="vocab-card" onclick="speak('raise a child')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">raise a child</div>
+        <div class="vc-def">To care for and educate a child from birth to adulthood</div>
+      </div>
+      <div class="vocab-card" onclick="speak('regret')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">regret</div>
+        <div class="vc-def">To feel sad about a decision you made — can go both ways with kids</div>
+      </div>
+      <div class="vocab-card" onclick="speak('depend on')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">depend on</div>
+        <div class="vc-def">To need someone for support — children depend on parents completely</div>
+      </div>
+      <div class="vocab-card" onclick="speak('give up')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">give up</div>
+        <div class="vc-def">To stop doing something you want — many parents give up sleep, time, and career for children</div>
+      </div>
+      <div class="vocab-card" onclick="speak('push back')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">push back</div>
+        <div class="vc-def">To resist pressure from family or society to do something you don't want to do</div>
+      </div>
+      <div class="vocab-card" onclick="speak('make sense')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">make sense</div>
+        <div class="vc-def">To seem logical — "It doesn't make sense to have kids when I can barely pay rent."</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I cannot even afford my own rent')">
+        <div class="pi-phrase">"I can't even afford my own rent."</div>
+        <div class="pi-context">The most common practical reason young people give — and the one that's hardest to argue with.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('You will change your mind when you are older')">
+        <div class="pi-phrase">"You'll change your mind when you're older."</div>
+        <div class="pi-context">What older people say — and what young people are increasingly tired of hearing.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is my choice')">
+        <div class="pi-phrase">"It's my choice."</div>
+        <div class="pi-context">Simple, direct, and surprisingly difficult for many families to accept.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('What kind of world am I bringing a child into')">
+        <div class="pi-phrase">"What kind of world am I bringing a child into?"</div>
+        <div class="pi-context">The climate anxiety version of the decision — a reason that's growing more common every year.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('My parents did not ask me if I wanted to be born')">
+        <div class="pi-phrase">"My parents didn't ask me if I wanted to be born."</div>
+        <div class="pi-context">Said by people who had difficult childhoods — and don't want to repeat the pattern.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four honest positions. Which one do you understand — even if you disagree?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🙅</div>
+          <div>
+            <div class="op-name">Sofía, 29</div>
+            <div class="op-role">Marketing Coordinator · CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I don't want kids. I've known this since I was 22. <strong>I'm not broken, I'm not selfish, and I'm not going to change my mind.</strong> I have a full life. I love my nephews. I sleep eight hours. I travel. And I don't owe anyone an explanation for my uterus."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😊</div>
+          <div>
+            <div class="op-name">Ricardo, 36</div>
+            <div class="op-role">Father of 2 · Accountant · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Having kids was the best decision of my life. Yes, it's expensive. Yes, I'm tired. But <strong>nothing prepared me for how much I would love them.</strong> I understand people who don't want children. I just think some of them are afraid — and fear isn't a reason to miss this."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😟</div>
+          <div>
+            <div class="op-name">Gabriela, 33</div>
+            <div class="op-role">Nurse · Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I wanted children. I can't have them. So when I hear people say 'I don't want kids' like it's so easy to decide — <strong>I feel a lot of things.</strong> I respect their choice. I really do. But I wish it was that simple for everyone."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">👴</div>
+          <div>
+            <div class="op-name">Don Ernesto, 68</div>
+            <div class="op-role">Retired · Father of 4 · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "My generation didn't have money either. We didn't have job security. <strong>We had children anyway — and it made us stronger.</strong> This generation talks about anxiety and lifestyle. We worked. I think young people today are looking for the perfect moment. It never comes. You just decide."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people makes you feel something strong — agreement, frustration, or sadness? Which one says something nobody usually says out loud?" Don Ernesto is the provocateur — his "we had children anyway" argument is what many grandparents genuinely think, and many young people silently fight against. Gabriela is the emotional wildcard — her presence reframes the debate as one that not everyone has equal access to.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Real opinions only — not what your family wants to hear.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever felt pressure from your family to have children — or to have more children? What did that feel like?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          In Mexican families, this pressure is often intense and starts early. Most students 30+ have a story. Push for the specific moment — not "yes, my mom asks" but the actual conversation. "What did she say? What did you say back?" That's where the real language lives.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever heard someone judged for not wanting children — or for having too many? What was the reaction around them?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Both directions are interesting — judgment against people who don't want kids, and judgment against people who have many. Mexico has both conversations happening at the same time. Let the contrast surface naturally.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever worried about money when thinking about your future — your house, your retirement, your health? How does that affect big decisions?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This connects the "kids" conversation to the broader economic reality for this generation. Use vocabulary: rent, debt, savings, afford. The point is that the decision to not have children is often economic — not just personal preference. Let them make that connection themselves.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">In your opinion, is choosing not to have children selfish — or is it just a personal decision that doesn't affect anyone else?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The "selfish" accusation is very common. Push them to define selfish: "Can a decision be selfish if it doesn't hurt anyone?" The interesting follow-up: "Is having children selfish too? Are you doing it for them — or for yourself?" That reversal often surprises students.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">What do you think about Don Ernesto's idea that "your generation looks for the perfect moment"? Is he right — or does he not understand the situation young people are in today?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The inter-generational tension question. Don Ernesto's argument is common — but it ignores real differences: housing costs, job insecurity, longer working hours. Push students to name specific things that are different today versus 30 years ago. Concrete comparisons are better than general "things are harder now."
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think society should do more to help people who want children — better salaries, childcare, parental leave? Or is it a personal decision and the government shouldn't be involved?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Policy vs. personal choice. Mexico has limited parental leave and expensive childcare. Most students will say "yes, the government should help" — push for specifics: what would help the most? Salary, childcare, housing? Makes the vocabulary concrete: savings, afford, debt, sacrifice.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if your partner wanted children but you didn't — or the other way around? Is that a deal-breaker for you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional — and very personal. This question works for all relationship statuses. Push: "Is there a compromise? Or is this one of those things where there's no middle ground?" Most students realize there isn't — you can't have half a child.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would change in your life — in your daily routine, your finances, your plans — if you had a child right now?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional — and very concrete. Push for specific numbers and details: "How much do you spend on rent? Could you afford childcare on top of that? What plans would you give up?" The specificity is the point — abstract "my life would change" is not as useful as naming the actual changes.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you think people who have children they can't afford are making a responsible decision — or are they being irresponsible with a child's life?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Spicy — and deliberate. This question inverts the "selfish for not having children" argument. The point isn't to judge parents who struggle financially — it's to examine the double standard: why is "no kids" selfish but "kids you can't support" not irresponsible? Let the tension sit.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">If you have children — or want them — are you completely sure it's what you want? Or is part of it what you think you should want?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The closing self-reflection — and the most honest question of the session. Many people who have children have never fully separated "I want this" from "I'm supposed to want this." Give students time. The silence before they answer is valuable. Don't rush.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B1.2 Why Young People Don't Want Kids</div>
+      <div class="exit-question">Your 27-year-old nephew — or younger sibling — tells the family at Sunday dinner that he and his partner have decided not to have children. Ever. Your grandmother starts to cry. Your parents get angry. What do you say to him — and what do you say to your family?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Do you defend him — or do you stay quiet to keep the peace? What does your answer say about what you actually believe?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The Sunday dinner setting is universally recognizable in Mexican culture — it's where these conversations actually happen. The two audiences (nephew vs. family) force the student to take two positions at the same time, which is linguistically rich and personally revealing. End: <em>"Send me your voice note. I want to hear both conversations — not just one."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Why Young People Don't Want Kids · Social Issues & Society</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

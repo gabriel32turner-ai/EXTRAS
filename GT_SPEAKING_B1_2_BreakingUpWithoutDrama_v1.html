@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Breaking Up Without Drama · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #34D399;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #34D399; border: none; color: #0F1923;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(52,211,153,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(52,211,153,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(52,211,153,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B1.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Breaking Up Without Drama</h1>
+    <p>Ending a relationship is one of the hardest conversations anyone has. Is there a way to do it well — or is drama always part of the deal?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"Research shows that 'ghosting' — ending a relationship by simply disappearing — is now the most common way people break up, especially under 35. Experts say it is not just rude — it causes lasting emotional damage to the person left without an explanation."</div>
+      <div class="quote-source">— BBC / Journal of Social and Personal Relationships, 2023</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Okay, be honest — has anyone here ever been ghosted? Or ghosted someone else?" [Pause — let students react naturally.] "Today we are talking about breakups: how to do them, how not to do them, and why so many people just... disappear instead of having the conversation."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('breakup')">
+        <div class="vocab-word">breakup</div>
+        <div class="vocab-def">the end of a romantic relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('closure')">
+        <div class="vocab-word">closure</div>
+        <div class="vocab-def">a sense of peace and acceptance after a relationship ends</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ghosting')">
+        <div class="vocab-word">ghosting</div>
+        <div class="vocab-def">when someone suddenly stops all contact without any explanation</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('excuse')">
+        <div class="vocab-word">excuse</div>
+        <div class="vocab-def">a reason you give that is not completely true to avoid hurting someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('feelings')">
+        <div class="vocab-word">feelings</div>
+        <div class="vocab-def">the emotions you have toward someone in a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('honesty')">
+        <div class="vocab-word">honesty</div>
+        <div class="vocab-def">telling the truth even when it is painful or uncomfortable</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ex')">
+        <div class="vocab-word">ex</div>
+        <div class="vocab-def">a person you used to be in a romantic relationship with</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('conversation')">
+        <div class="vocab-word">conversation</div>
+        <div class="vocab-def">the difficult talk you need to have when ending a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pain')">
+        <div class="vocab-word">pain</div>
+        <div class="vocab-def">the emotional hurt that comes from losing someone you cared about</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('message')">
+        <div class="vocab-word">message</div>
+        <div class="vocab-def">a text or chat used to break up — widely considered the coward's way out</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('break up')">
+        <div class="vocab-word">break up</div>
+        <div class="vocab-def">to end a romantic relationship with someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ghost')">
+        <div class="vocab-word">ghost</div>
+        <div class="vocab-def">to stop all contact with someone without saying why</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('move on')">
+        <div class="vocab-word">move on</div>
+        <div class="vocab-def">to stop thinking about a past relationship and start a new chapter</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('hurt')">
+        <div class="vocab-word">hurt</div>
+        <div class="vocab-def">to cause emotional pain to someone you care about</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vocab-word">lie</div>
+        <div class="vocab-def">to say something that is not true to make a breakup easier</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('drag out')">
+        <div class="vocab-word">drag out</div>
+        <div class="vocab-def">to make a breakup take longer than it needs to because you avoid it</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stay friends')">
+        <div class="vocab-word">stay friends</div>
+        <div class="vocab-def">to keep a friendly relationship with someone after a breakup</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('get over')">
+        <div class="vocab-word">get over</div>
+        <div class="vocab-def">to stop feeling sad or angry about the end of a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('deserve')">
+        <div class="vocab-word">deserve</div>
+        <div class="vocab-def">to have a right to an honest explanation when a relationship ends</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('regret')">
+        <div class="vocab-word">regret</div>
+        <div class="vocab-def">to feel bad about how you ended a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('It is not you, it is me.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It's not you, it's me."</div>
+          <div class="phrase-context">The most classic — and least believed — breakup line of all time.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('We need to talk.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"We need to talk."</div>
+          <div class="phrase-context">Four words that everyone dreads hearing — because everyone knows what they mean.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just need some space.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just need some space."</div>
+          <div class="phrase-context">Sometimes it means "I need a break." Often it means "I want to break up but I cannot say it."</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I thought we were fine.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I thought we were fine."</div>
+          <div class="phrase-context">What you say after someone breaks up with you and you did not see it coming.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Can we still be friends?')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Can we still be friends?"</div>
+          <div class="phrase-context">A question that divides people completely — some say yes, some think it is impossible.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">💪</div>
+          <div>
+            <div class="op-name">Camila, 32</div>
+            <div class="op-role">Graphic Designer, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"If you break up with someone, you owe them a real conversation — in person, no excuses. <strong>Ghosting someone after months together is cruel and cowardly.</strong> I know it is uncomfortable, but they deserve to hear the truth. Do it, be honest, and let them move on."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😬</div>
+          <div>
+            <div class="op-name">Carlos, 35</div>
+            <div class="op-role">Engineer, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I ghosted someone once and I still think about it. But in my defense — every time I tried to have the conversation, she cried and I gave in. <strong>Sometimes ghosting is not cruelty, it is the only way to actually end it</strong> when the other person makes every conversation impossible."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🙏</div>
+          <div>
+            <div class="op-name">Andrea, 40</div>
+            <div class="op-role">Nurse, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"I think the worst breakups are the ones that drag on for months. <strong>If you already know it is over, the kindest thing is to say it clearly and quickly.</strong> Giving small signs and hoping they guess is more cruel than just saying 'this is not working.'"</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😂</div>
+          <div>
+            <div class="op-name">Javier, 29</div>
+            <div class="op-role">Marketing Coordinator, León</div>
+          </div>
+        </div>
+        <div class="op-text">"Honestly, some people do not deserve a conversation. If someone was toxic, disrespectful, or treated you badly — you do not owe them a nice breakup. <strong>Ghosting a bad person is not cruel. It is self-protection.</strong> Not every relationship deserves the same ending."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Who do you agree with most? Have you ever experienced a breakup like one of these? Is Javier wrong — or does he have a point?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever broken up with someone — or been broken up with? How did it happen?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Open and personal. Most students have a story. Let them tell it in their own words. Don't push for names or details — just let the language flow. In person / by message / by ghosting are useful angles to explore.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever been ghosted — or have you ever ghosted someone? How did it feel?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very current topic — most adults under 45 have experienced this. Present perfect is natural. Model: "I've been ghosted once and it was the worst — not knowing what happened was harder than any explanation would have been."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Have you ever stayed in a relationship longer than you should have — because you did not want to hurt the other person?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very honest question. The "compassionate trap" — staying to avoid causing pain, but causing more in the long run. Most adults have done this. Model: "I've stayed in a relationship for 6 extra months because I was afraid to say it was over."</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">What do you think — is it ever okay to break up by text or message? Or does everyone deserve a face-to-face conversation?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very divisive. There is a generational split on this. Some say it depends on how long the relationship was. Push: "What about after one month? Three months? Two years? Does the length change the rules?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">In your opinion, should you always tell the real reason you are breaking up — or is it sometimes kinder to lie a little?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Honesty vs kindness tension. "It's not you, it's me" is a lie — but is it a kind one? Model: "I think I would rather hear a hard truth than a comfortable lie. But I'm not sure I would always be brave enough to give one."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think men and women deal with breakups differently? Who recovers faster — and why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Classic debate with real research behind it (men are often harder hit longer-term; women process faster but feel it more immediately). Good for comparisons and opinions. No correct answer.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">What would you do if someone you cared about broke up with you by text, with no explanation at all?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. "If someone broke up with me by text... I would..." Expect range: "I would ask for an explanation" / "I would block them immediately" / "I would be too hurt to respond." All valid and authentic.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What would you do if your ex called you 6 months after the breakup and said they made a mistake — and wanted to try again?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "comeback" scenario. Second conditional. "If my ex called me... I would..." Very imaginative, everyone has a strong opinion on this. Good place for humor too: "It depends on how they broke up with me."</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Is it possible to stay real friends with an ex — or does one person always still have feelings?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The eternal "can we be friends?" debate. Research says it is complicated. Some students have done it successfully; others think it is impossible. Let them share real experiences.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Think about a relationship you ended or that ended for you. Looking back now — was it done well, or do you wish it had been different?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The self-reflection bomb. This moves from general opinion to personal honesty. Use a gentle tone. Model: "I think I handled one breakup badly. I was a coward and I wish I had been braver about it." Very human, very real.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">You have been with someone for 2 years. You love them — but you are not in love with them anymore. They think everything is fine. They are a good person. They have done nothing wrong. How do you tell them — and what do you actually say?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. Tell me: how do you have this conversation — and what are the first words you say?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B1.2 · Relationships &amp; Personality · Breaking Up Without Drama
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.88;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

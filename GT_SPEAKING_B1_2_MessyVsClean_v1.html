@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab B1.2 · Messy People vs. Clean Freaks</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.1)}
+.mode-btn{background:var(--ac);border:none;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(52,211,153,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.3);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.3);color:rgba(255,31,92,.8);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(52,211,153,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(52,211,153,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(52,211,153,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(52,211,153,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+  <div class="brand">
+    <div class="dot"></div>
+    <div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">B1.2 · Daily Life & Lifestyle</div></div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge">B1.2</div>
+    <button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1400&q=80&fit=crop" alt="messy desk vs clean desk">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">MC</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Daily Life & Lifestyle</div>
+    <div class="hero-title">Messy People vs.<br><em>Clean Freaks</em></div>
+    <div class="hero-sub">Your desk says a lot about you. But does it really matter?</div>
+    <div class="hero-chips">
+      <span class="hchip em">B1.2</span>
+      <span class="hchip">Daily Life & Lifestyle</span>
+      <span class="hchip">🟡 Medium</span>
+      <span class="hchip">50 min</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<!-- PHASE 1 -->
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🪝 Phase 1 — The Trigger</div>
+        <div class="sec-title">The Headline</div>
+        <div class="sec-sub">Read it aloud. Then ask the first question.</div>
+      </div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">The Guardian · Lifestyle</div>
+      <div class="trigger-quote">"Studies show that a messy desk can actually increase creativity. But your coworkers probably still hate it."</div>
+      <div class="trigger-sub">— On research from the University of Minnesota finding that disorder can encourage creative thinking</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">BBC Worklife</div>
+      <div class="trigger-quote">"40% of people say a colleague's messy desk has affected their opinion of that person professionally — before ever speaking to them."</div>
+      <div class="trigger-sub">— We judge people by their spaces. A lot.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body">
+        <strong>Launch line:</strong> "Quick question — before we start. Look at your desk or workspace right now. Is it clean, messy, or somewhere in between?" [Let them answer.] Then: "Would you be embarrassed if your boss walked in and saw it right now?" That single question opens the whole conversation.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💉 Phase 2 — Vocab Injection</div>
+        <div class="sec-title">Power Words</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Use at least 4 of these today.</div>
+      </div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80&fit=crop" alt="workspace nouns">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Spaces, Habits & Judgments</div><div class="sbo-sub">Click each card · Web Speech · B1.2 calibrated</div></div>
+        <div class="sbo-badge">Nouns</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('clutter')"><div class="v-word">clutter</div><div class="v-pos">noun</div><div class="v-def">Too many things in a space — messy, disorganized, hard to find anything</div></div>
+      <div class="v-card" onclick="speak('pile')"><div class="v-word">pile</div><div class="v-pos">noun</div><div class="v-def">A stack of things on top of each other — papers, clothes, dishes</div></div>
+      <div class="v-card" onclick="speak('habit')"><div class="v-word">habit</div><div class="v-pos">noun</div><div class="v-def">Something you do regularly without thinking — good or bad</div></div>
+      <div class="v-card" onclick="speak('routine')"><div class="v-word">routine</div><div class="v-pos">noun</div><div class="v-def">A regular set of activities you do at the same time each day</div></div>
+      <div class="v-card" onclick="speak('mess')"><div class="v-word">mess</div><div class="v-pos">noun</div><div class="v-def">A place or situation that is dirty, disorganized, or out of control</div></div>
+      <div class="v-card" onclick="speak('control')"><div class="v-word">control</div><div class="v-pos">noun</div><div class="v-def">The ability to manage things the way you want — in life or at work</div></div>
+      <div class="v-card" onclick="speak('stress')"><div class="v-word">stress</div><div class="v-pos">noun</div><div class="v-def">A feeling of pressure or worry — often made worse by a chaotic environment</div></div>
+      <div class="v-card" onclick="speak('judgment')"><div class="v-word">judgment</div><div class="v-pos">noun</div><div class="v-def">An opinion about someone based on what you see — often too fast</div></div>
+      <div class="v-card" onclick="speak('system')"><div class="v-word">system</div><div class="v-pos">noun</div><div class="v-def">A way of organizing things so you can find them and get things done</div></div>
+      <div class="v-card" onclick="speak('distraction')"><div class="v-word">distraction</div><div class="v-pos">noun</div><div class="v-def">Something that stops you from focusing — a messy desk can be one</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&fit=crop" alt="cleaning organizing verbs">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What We Do With Our Spaces</div><div class="sbo-sub">Click to hear · Natural pace</div></div>
+        <div class="sbo-badge">Verbs</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('tidy up')"><div class="v-word">tidy up</div><div class="v-pos">verb</div><div class="v-def">To clean and organize a space — usually quickly, before someone arrives</div></div>
+      <div class="v-card" onclick="speak('throw away')"><div class="v-word">throw away</div><div class="v-pos">verb</div><div class="v-def">To put something in the trash — hard for people who keep everything</div></div>
+      <div class="v-card" onclick="speak('pile up')"><div class="v-word">pile up</div><div class="v-pos">verb</div><div class="v-def">When things accumulate because you keep adding but never removing</div></div>
+      <div class="v-card" onclick="speak('organize')"><div class="v-word">organize</div><div class="v-pos">verb</div><div class="v-def">To put things in order so everything has a place and you can find it</div></div>
+      <div class="v-card" onclick="speak('declutter')"><div class="v-word">declutter</div><div class="v-pos">verb</div><div class="v-def">To remove things you don't need — the process Marie Kondo made famous</div></div>
+      <div class="v-card" onclick="speak('keep')"><div class="v-word">keep</div><div class="v-pos">verb</div><div class="v-def">To not throw something away — "I keep everything, just in case"</div></div>
+      <div class="v-card" onclick="speak('judge')"><div class="v-word">judge</div><div class="v-pos">verb</div><div class="v-def">To form an opinion about someone based on what you see</div></div>
+      <div class="v-card" onclick="speak('focus')"><div class="v-word">focus</div><div class="v-pos">verb</div><div class="v-def">To give all your attention to one thing — easier in a clean space for some people</div></div>
+      <div class="v-card" onclick="speak('bother')"><div class="v-word">bother</div><div class="v-pos">verb</div><div class="v-def">To annoy or affect someone — "Does mess bother you at work?"</div></div>
+      <div class="v-card" onclick="speak('force')"><div class="v-word">force</div><div class="v-pos">verb</div><div class="v-def">To make someone do something they don't want to do</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases lifestyle">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Daily Life</div><div class="sbo-sub">Things people actually say · Click to hear</div></div>
+        <div class="sbo-badge">Colloquial</div>
+      </div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I know where everything is')"><div class="p-text">"I know where everything is."</div><div class="p-context">The classic defense of messy people — and sometimes it's actually true</div></div>
+      <div class="phrase-item" onclick="speak('I can\'t work in a messy space')"><div class="p-text">"I can't work in a messy space."</div><div class="p-context">Said by people who need order to think — or who just hate other people's mess</div></div>
+      <div class="phrase-item" onclick="speak('I\'ll clean it later')"><div class="p-text">"I'll clean it later."</div><div class="p-context">Famous last words — usually means never</div></div>
+      <div class="phrase-item" onclick="speak('It drives me crazy')"><div class="p-text">"It drives me crazy."</div><div class="p-context">When someone else's mess becomes your problem — very common in shared offices</div></div>
+      <div class="phrase-item" onclick="speak('Out of sight, out of mind')"><div class="p-text">"Out of sight, out of mind."</div><div class="p-context">If you hide the mess, you forget about it — the messy person's philosophy</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">
+        After the cards, ask: "Which phrase describes you best?" Most students immediately identify with one. Use that as a natural bridge: "Okay — let's see if the people on the Opinion Wall agree with you."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div>
+        <div class="sec-title">Four Voices. One Topic.</div>
+        <div class="sec-sub">Read all four. Choose one. Tell me why in 60 seconds.</div>
+      </div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">👩‍💼</div>
+        <div class="op-name">Sofía, 33</div>
+        <div class="op-role">Accountant · Guadalajara</div>
+        <div class="op-text">"I can't work if my desk is messy. I need everything in its place before I can even start. <strong>A clean desk is a clear mind.</strong> When I see piles of paper I feel stressed immediately. I know it sounds extreme, but I'm more productive this way. And honestly? I think it shows respect for your coworkers too."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">👨‍🔧</div>
+        <div class="op-name">Diego, 40</div>
+        <div class="op-role">Engineer · Monterrey</div>
+        <div class="op-text">"My desk looks like a disaster, but I know where everything is. I've had the same system for 10 years. <strong>People waste more time organizing than actually working.</strong> The only thing that matters is getting the job done. Nobody asks about the state of your desk when the project is delivered on time."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">👩‍🏫</div>
+        <div class="op-name">Valeria, 29</div>
+        <div class="op-role">Teacher · CDMX</div>
+        <div class="op-text">"I think it depends on the person. <strong>Some people think better with order, others think better with a bit of chaos.</strong> What bothers me is when someone judges you for it. A messy desk doesn't mean you're lazy or unprofessional. It just means you work differently."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">👨‍💻</div>
+        <div class="op-name">Rodrigo, 47</div>
+        <div class="op-role">IT Manager · Celaya</div>
+        <div class="op-text">"If your desk is always messy, you have a problem with self-discipline. Period. <strong>How you keep your space is how you keep your life.</strong> I've never met a truly organized, successful person with a messy desk. Maybe I'm wrong, but I've never seen the exception. Clean up. It takes 10 minutes."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body">
+        <strong>Provocateur rationale:</strong> Rodrigo makes a personal attack — connecting desk messiness to self-discipline and life success. Most students will react emotionally, either defending themselves or secretly agreeing. Both reactions are productive. <br><br>
+        <strong>Facilitation move:</strong> "Which opinion makes you feel a little uncomfortable? That's probably the one closest to a truth you don't want to admit."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div>
+        <div class="sec-title">10 Questions · 4 Blocks</div>
+        <div class="sec-sub">Build from personal to provocative. Show tips only after the student answers.</div>
+      </div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever cleaned your desk or home specifically because someone was coming over — and felt embarrassed about how it normally looks?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Almost everyone has done this. It's a great opener because it's personal and a little funny. Model: "Yes — I cleaned my whole apartment in 2 hours before my boss came for a meeting. Normally it's... not like that." Activate: clutter, tidy up, stress.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever shared a workspace or a room with someone who was much messier — or much cleaner — than you? How did you deal with it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Very relatable for people who have shared offices, apartments, or hotel rooms on business trips. Activate: bother, drives me crazy, judge, force. Push for how they resolved it — or didn't.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever lost something important — a document, a key, your phone — because of a messy space? What happened?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Light and funny — everyone has a story. Good for present perfect practice ("Have you ever lost..."). The follow-up: "Did that make you want to organize more — or did you just accept it?" Activate: pile, pile up, distraction.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think a person's desk or home really says something about their personality? Or is it just a stereotype?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">This is Rodrigo's argument from the Opinion Wall. Push for nuance: "What about creative people? What about very busy people who don't have time to clean?" Model: "I think it says something, but not everything. My car is always clean — my desk, not so much." Activate: judgment, control, system.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">At work, should companies have rules about how clean or organized desks need to be? Is that fair — or too controlling?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Opinion territory. Most students will say "it depends on the job" — which is the right answer. Push: "What if it's a shared desk? What if clients can see it?" Activate: force, control, organize, system.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Some people say a messy environment helps them be more creative. Do you believe that — or does it just sound like an excuse?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Reference the Trigger headline here. It has real scientific support — but most tidy people will still reject it. Model: "I think it's true for some people. But I think 80% of the time it really is just an excuse." Activate: clutter, distraction, focus, habit.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if your new roommate or office partner was extremely messy — left dishes in the sink, papers everywhere, never cleaned up? Would you say something or stay silent?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Second conditional. Model: "If that happened, I would wait maybe one week — and then I'd say something calmly. But if they didn't change, I'd be really frustrated." Push for what they'd specifically say. This is great spoken English practice: confrontation language.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if your boss asked you to clean your desk because a client was coming — and you thought it was fine the way it was?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Workplace dynamics. Most will say they'd just clean it without arguing. Push: "Would you feel annoyed? Would you say anything?" Activate: judge, control, force, bother. Good for modals: "I would probably just... but I might feel..."</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you think people who are obsessed with cleanliness and organization sometimes use it to control other people — or to feel better about something they can't control in their life?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">This flips Rodrigo's argument — instead of attacking messy people, it challenges clean freaks. Some students will immediately say yes. Others who identify as clean will feel defensive. Both reactions are productive. Activate: control, stress, habit.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Be honest — what does your desk or home look like right now? Are you happy with it, or is there a part of you that knows you should change something?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The self-reflection close. Light but personal. Almost everyone has a small guilt here — either "I should be cleaner" or "I know I'm too obsessive about this." Give the student space to be honest. Don't judge either answer.</div>
+      </div>
+    </div>
+
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body">
+        <strong>B1.2 grammar check:</strong> Blocks 1–2 should activate present perfect naturally ("Have you ever..."). Blocks 3–4 activate second conditional ("What would you do if..."). If the student defaults to simple past in Block 3, gently model the correct form and move on. <br><br>
+        <strong>Pacing note:</strong> This topic tends to be lighter than other labs — students enjoy it. If energy is high, let it run. The Exit Shot will land well regardless.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💣 Phase 5 — The Exit Shot</div>
+        <div class="sec-title">The Final Question</div>
+        <div class="sec-sub">One question. Personal. No right answer.</div>
+      </div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">You get a new job — great salary, great team, great location. On your first day, you find out that your desk is shared with a colleague who leaves food, papers, and personal items everywhere. HR says the company has no policy about shared desks. Your colleague seems nice. Do you say something or just adapt?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Describe your desk or workspace right now — is it messy or clean? And tell me: has it always been like that, or has it changed over time?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body">
+        <strong>Why it works:</strong> The scenario is concrete and realistic — shared desk, nice colleague, no rules. It forces a real decision between comfort and conflict. The "nice colleague" detail makes it harder to be direct. <br><br>
+        <strong>Homework note:</strong> The recording topic is descriptive and personal — easy to record, but requires real vocabulary from today (clutter, pile, tidy up, organized, messy). Great for B1.2 output practice. <br><br>
+        <strong>Upsell moment:</strong> "Next session we talk about how to have difficult conversations at work — including how to tell a colleague something uncomfortable without damaging the relationship. That's exactly the English skill you'd need for today's Exit Shot."
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">B1.2 · Daily Life & Lifestyle · Messy People vs. Clean Freaks · Medium</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+function toggleMode(btn){
+  const isStudent=document.body.classList.toggle('student-mode');
+  btn.textContent=isStudent?'Student Mode':'Teacher Mode';
+}
+function toggleTN(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.toggle('open');
+  btn.querySelector('span').textContent=isOpen?'−':'+';
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide tip':'Show tip';
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+},{passive:true});
+</script>
+</body>
+</html>

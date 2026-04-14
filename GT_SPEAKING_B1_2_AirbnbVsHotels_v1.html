@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.2 · Airbnb vs Hotels: The Real Truth</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#34D399;--ac2:#6EE7B7;
+  --green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(52,211,153,.08)}
+.mode-btn{background:#34D399;border:1px solid #34D399;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(52,211,153,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(52,211,153,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(52,211,153,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(52,211,153,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(52,211,153,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(52,211,153,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}
+.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(52,211,153,.1)}
+.tn-c1{border-left:3px solid rgba(52,211,153,.6)}
+.tn-c2{border-left:3px solid rgba(0,207,255,.5)}
+.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}
+.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}
+.tn-txt li{margin-bottom:5px}
+.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(52,211,153,.08) 0%,rgba(52,211,153,.03) 100%);border:1px solid rgba(52,211,153,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(52,211,153,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(52,211,153,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(52,211,153,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(52,211,153,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(52,211,153,.3)}
+.vc.noun-c{border-top:2px solid rgba(52,211,153,.4)}
+.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(52,211,153,.6)}
+.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(110,231,183,.8);font-style:italic;border-left:2px solid rgba(52,211,153,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(52,211,153,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(52,211,153,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(52,211,153,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(52,211,153,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(52,211,153,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(52,211,153,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(52,211,153,.65);background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(52,211,153,.3)}
+.q-tn strong{color:rgba(52,211,153,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(52,211,153,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(52,211,153,.1) 0%,rgba(52,211,153,.04) 50%,transparent 100%);border:1px solid rgba(52,211,153,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(52,211,153,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(52,211,153,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){
+  .persp-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .hsc-stats{grid-template-columns:1fr}
+  .sec{padding:30px 20px}
+  .hdr{padding:0 16px}
+  .snav{padding:0 16px}
+}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r">
+    <div class="badge">B1.2 · Speaking Lab</div>
+    <button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=80" alt="Travel">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.2 · Travel &amp; Culture</div>
+    <div class="hero-title">AIRBNB VS<br><em>HOTELS</em></div>
+    <div class="hero-sub">One promises authenticity. The other promises consistency. Neither always delivers what it sells.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span>
+      <span class="hchip">No grammar</span>
+      <span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span>
+      <span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 01 · The Trigger</div>
+      <div class="sec-title">🪝 The Numbers Behind the Booking</div>
+      <div class="sec-sub">Read aloud or project · First reaction only · No debate yet · 4 min max</div>
+    </div>
+    <div class="sec-wm">01</div>
+    <div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🏠</div>
+    <div class="hsc-label">Airbnb Annual Report + J.D. Power Hotel Guest Satisfaction Study 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">4M+</div><div class="hsc-desc">Airbnb hosts worldwide — but 72% of all complaints involve listings that looked nothing like the photos</div></div>
+      <div class="hsc-stat"><div class="hsc-num">43%</div><div class="hsc-desc">Of Airbnb users say they have had at least one booking they would describe as a bad experience</div></div>
+      <div class="hsc-stat"><div class="hsc-num">$180</div><div class="hsc-desc">Average "hidden fee" added at checkout on Airbnb bookings — after the initial price looked cheaper than a hotel</div></div>
+      <div class="hsc-stat"><div class="hsc-num">68%</div><div class="hsc-desc">Of business travelers still prefer hotels — but 71% of leisure travelers under 40 choose Airbnb first</div></div>
+    </div>
+    <div class="hsc-source">Sources: Airbnb Annual Report 2023 · J.D. Power North America Hotel Guest Satisfaction Index · Consumer Reports Travel Survey</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Trigger — Read this, then point at someone</div>
+    <div class="hq-text">"A family books an Airbnb in Cancún. The photos show a beautiful apartment with a pool view. They arrive: the pool is under construction, the Wi-Fi password doesn't work, and the host doesn't answer messages. The hotel next door has rooms available — but costs 40% more. What do they do?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the Cancún story slowly. Point at someone: "What do they do — stay or move?" Don't judge the answer. Wait 5 seconds if silence. After 2–3 reactions, say: "Hold that. Everything comes back in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The Cancún scenario is locally relatable — Mexican professionals travel domestically. If students have been to Cancún or similar destinations, the scenario is visceral, not abstract.</li>
+        <li>The $180 hidden-fee stat is the most surprising. Mark who reacts — they often lead Q4 and Q5.</li>
+        <li>If nobody reacts immediately: <strong>"Have you ever booked something online and it looked nothing like the photos? Raise your hand."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>This topic has universal personal experience — almost every adult has stayed in both. The debate is real, not theoretical. That's the activation.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention hook: <strong>"In English, knowing how to complain, compare, and negotiate travel situations is a real professional skill — especially for business trips with international colleagues."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 02 · Vocab Injection</div>
+      <div class="sec-title">💉 20 Words That Matter</div>
+      <div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs simultaneous · Production challenge after</div>
+    </div>
+    <div class="sec-wm">02</div>
+    <div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B produces the word. Switch. Production challenge after.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Travel, Stays &amp; Expectations</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Travelers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Each person picks <em>3 words</em>. One sentence each about <em>a real trip you took — good or bad.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Host" vs "guest" — clarify once: in Airbnb, the host owns the property; the guest stays in it. This role distinction matters for several §4 questions.</li>
+        <li>Best production challenge trigger: <strong>"Which 3 words describe your last travel experience — honestly?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words are what you need to write a review, complain at a front desk, or tell a colleague about a business trip — all in English."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Business travel vocabulary is one of the most requested topics by HR managers who hire bilingual professionals. You're building that vocabulary today."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 03 · Opinion Wall</div>
+      <div class="sec-title">🧱 4 Real Voices. 4 Different Travelers.</div>
+      <div class="sec-sub">Read each card · Pairs discuss 90 sec · Group shares · Same question each time</div>
+    </div>
+    <div class="sec-wm">03</div>
+    <div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who do you think is wrong? Why?"</div></div><div class="sbo-badge">Don't vary the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who do you think is wrong? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Read all 4 before opening. The contrast between Fernanda (Airbnb convert) and Roberto (hotel loyalist) drives the first wave of debate. Diego (Airbnb host) adds a dimension most students haven't considered.</li>
+        <li>The provocateur is <strong>Lic. Méndez</strong>. Her position — that Airbnb is destroying neighborhoods and should be regulated — is the most uncomfortable for students who love Airbnb. Push: <strong>"She lives in a building where 60% of apartments are now Airbnbs. Is she wrong to be angry?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>If anyone in the class has used Airbnb as a host — that's gold. Point them out: <strong>"You're Diego in this conversation. What do you think of Lic. Méndez's opinion?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"One sentence — have you personally had an experience that proves one of these four people right?"</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 04 · The Conversation Engine</div>
+      <div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div>
+      <div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · No round-robin · Point and push</div>
+    </div>
+    <div class="sec-wm">04</div>
+    <div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> Minimum 2 sentences per answer. Position first. Reason or real example second. No yes/no answers.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 present perfect: watch for "I have stay" (missing -ed). Recycle gently: "So you have stayed in an Airbnb — tell me more."</li>
+        <li>Block 3 second conditional: watch for "If I would travel" — note and recycle at end only.</li>
+        <li>Q9 and Q10 require concrete position-taking — push students who answer vaguely: <strong>"Give me a number. Give me a specific situation."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Celebrate vocab activation from §2: when "host," "amenities," or "check in" appear naturally — point it out immediately.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You can now have this conversation with an American colleague on a business trip. That is a real professional skill."</strong></li>
+        <li>Upsell: <strong>"Next Speaking Lab: Gym Culture and Fake Transformations. Different topic — same depth."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 05 · The Exit Shot</div>
+      <div class="sec-title">💣 One Question. No Easy Answer.</div>
+      <div class="sec-sub">5 min · No chips · Just position + reason · Then the loop</div>
+    </div>
+    <div class="sec-wm">05</div>
+    <div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">Your company sends you on a <em>5-day business trip</em> to Mexico City. They give you a budget of <em>$1,200 USD</em> for accommodation. A hotel costs <em>$190/night</em> — clean, reliable, breakfast included. An Airbnb costs <em>$95/night</em> — great reviews, but no front desk, no room service, and you've had a bad Airbnb experience before. <em>Which do you book — and why?</em></div>
+    <div class="exit-rule">Answer in 3 sentences. Be specific — mention at least one thing from today's vocabulary. What do you actually choose?</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I would book the hotel. For a business trip, I need reliability — I can't risk arriving at an Airbnb and finding a problem the night before an important meeting. The extra cost is worth the peace of mind. I've stayed in both and the difference on a work trip is not about price — it's about having someone at the front desk when things go wrong."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — The WhatsApp Homework</strong>
+    "Before our next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Don't rehearse. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The corporate framing (company budget, business trip) makes the decision concrete and professionally relevant. It's not about personal preference — it's about professional judgment.</li>
+        <li>Follow-up only: <strong>"What would you choose if it were a personal vacation instead of a work trip?"</strong> This naturally surfaces the leisure vs business distinction and activates second conditional.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer uses "peace of mind" — a natural English collocation worth pointing out: <strong>"Peace of mind — remember that phrase. It comes up in professional English all the time."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You just compared, evaluated, and decided — about a real professional situation — in English. That's exactly what B1.2 sounds like."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.2 · Speaking Lab · Airbnb vs Hotels: The Real Truth · Travel &amp; Culture · Medium</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div>
+    <div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv on">B1.2</div>
+    <div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"host",        def:"The person who owns and rents out the property on Airbnb",              ex:"The host never answered messages — not before check-in, not during, not after."},
+  {w:"guest",       def:"The person who pays to stay in a property or hotel",                    ex:"As a guest, she expected the apartment to look like the photos. It did not."},
+  {w:"review",      def:"A written opinion about a place after you have stayed there",           ex:"He read 40 reviews before booking. They all seemed positive. The reality was different."},
+  {w:"amenities",   def:"The extra services or features a place offers — pool, gym, breakfast",  ex:"The hotel had all the amenities she needed for a 3-day work trip."},
+  {w:"check-in",    def:"The process of arriving at your accommodation and getting access",      ex:"The Airbnb check-in was self-service — a lockbox with a code that didn't work."},
+  {w:"hidden fee",  def:"An extra charge that was not visible in the original price",            ex:"The apartment looked cheap until the hidden fees appeared at checkout."},
+  {w:"cancellation",def:"The act of deciding not to go with a booking you already made",        ex:"She requested a cancellation after the host stopped responding 48 hours before arrival."},
+  {w:"neighborhood",def:"The area surrounding the place where you are staying",                  ex:"The hotel was in a safe neighborhood — the Airbnb was in an area she did not know."},
+  {w:"refund",      def:"Money returned to you after a problem or cancellation",                 ex:"He spent two days arguing with Airbnb support before he got a partial refund."},
+  {w:"reliability", def:"The quality of being consistent and dependable — working as expected", ex:"For business travel, reliability matters more than price."}
+];
+const verbs=[
+  {w:"book",        def:"To reserve accommodation, flights, or services in advance",             ex:"She booked the Airbnb three months in advance. The host cancelled two days before."},
+  {w:"check in",    def:"To officially arrive at and register for your accommodation",           ex:"He arrived at 11pm. The hotel staff were still there. The Airbnb host was not."},
+  {w:"check out",   def:"To officially leave your accommodation at the end of your stay",        ex:"She checked out early — the apartment was not clean when she arrived."},
+  {w:"complain",    def:"To say officially that something is wrong or not acceptable",           ex:"He complained to the front desk and they gave him a room upgrade."},
+  {w:"compare",     def:"To look at two or more things and notice their similarities and differences", ex:"She compared 15 properties before making a decision. Hotels won on reliability."},
+  {w:"cancel",      def:"To decide not to go ahead with a booking or plan",                      ex:"He cancelled the Airbnb after reading three recent negative reviews."},
+  {w:"recommend",   def:"To suggest something to someone based on your positive experience",    ex:"She only recommended hotels for business trips — never Airbnbs."},
+  {w:"expect",      def:"To believe something will happen or be in a certain condition",         ex:"He expected the apartment to match the photos. The pool was under construction."},
+  {w:"disappoint",  def:"To fail to meet the expectations of someone",                           ex:"The Airbnb disappointed her — not because it was bad, but because it was misleading."},
+  {w:"upgrade",     def:"To move to a better room or service, often at no extra cost",           ex:"The hotel apologized for the noise and upgraded her to a suite."}
+];
+const perspectives=[
+  {
+    name:"Fernanda Ortiz",meta:"31 · Marketing Specialist · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I switched to Airbnb three years ago and I have never gone back. Hotels feel <strong>cold and generic.</strong> With Airbnb you have a kitchen, space, a real neighborhood. My last stay in CDMX — I was in a beautiful apartment in Condesa for half the price of the hotel next door. You just have to read the reviews carefully."
+  },
+  {
+    name:"Roberto Sandoval",meta:"48 · Sales Director · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"For business travel, I always choose hotels. <strong>Always.</strong> I need Wi-Fi that works, a front desk when something goes wrong, and a room that is exactly what I booked. Airbnb is a gamble. I've had three bad experiences and I've learned my lesson. When I have a meeting at 8am, I cannot risk a bad night because the host didn't clean properly."
+  },
+  {
+    name:"Diego Reyes",meta:"35 · Airbnb Host · Puerto Vallarta",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I've been hosting for four years. 95% of my guests leave 5-star reviews. The problem is not Airbnb — it's <strong>bad hosts.</strong> People who don't clean properly, who don't answer messages, who use fake photos. When you find a good host, it's a much better experience than any hotel. The solution is better filtering — not switching back to hotels."
+  },
+  {
+    name:"Lic. Méndez",meta:"55 · Urban Planner · CDMX — la provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"We are talking about which is more comfortable — and nobody is talking about <strong>what Airbnb is doing to cities.</strong> In my neighborhood, 60% of apartments are now short-term rentals. Families cannot afford to rent. Local businesses closed. Tourists arrived. I'm not against tourism — I'm against a platform that turns homes into hotels and calls it the 'sharing economy.' It is not sharing. It is speculation."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever stayed in an Airbnb? What was it like — did it match what you expected?",chips:["I've stayed in an Airbnb once and...","I have never tried it but...","The best part was...","The problem was that..."],tn:"The key vocab here is 'expect' and 'disappoint.' If a student had a bad experience, ask them to describe it in detail — that story will drive the whole session. Don't rush them."},
+    {num:"Q2",text:"Have you ever had a bad hotel experience — a dirty room, rude staff, wrong booking? What happened?",chips:["I've had a really bad experience at a hotel when...","The worst part was...","I've been lucky — I haven't had a problem yet, but I know someone who...","I complained because..."],tn:"This balances the conversation — Airbnb gets criticized in §1; hotels get criticized here. Both have problems. That symmetry is important for a real debate."},
+    {num:"Q3",text:"Have you ever traveled for work — a business trip? Where did you stay and why?",chips:["I've traveled for work to...","My company usually books...","I prefer... for work because...","The last business trip I took..."],tn:"This connects the personal to the professional — and sets up the Exit Shot. Students who travel for work have strong opinions about accommodation. Students who don't yet will want to."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for concrete examples · No vague answers",questions:[
+    {num:"Q4",text:"Is Airbnb actually cheaper than a hotel — or is that a myth? Have you ever done the math including the fees?",chips:["I think it depends on...","When I compare prices, I usually find...","The hidden fees are the problem because...","For a long stay it makes more sense to..."],tn:"The $180 hidden-fee stat from §1 is directly relevant here. If students haven't thought about cleaning fees, service fees, and taxes — walk them through it: 'So the $60/night becomes $90 after fees. Now compare that to the hotel.'"},
+    {num:"Q5",text:"For a vacation with your family, which would you choose — Airbnb or hotel? What about a solo work trip?",chips:["For a family trip I would choose... because...","But for work it is different — I need...","The thing about traveling with kids is...","On a work trip the most important thing is..."],tn:"The leisure vs business distinction is the pivot question of this lab. Students often give different answers for each context — that difference is the insight. Let both answers come out."},
+    {num:"Q6",text:"Lic. Méndez says Airbnb is destroying neighborhoods. Do you agree — or is that too extreme?",chips:["I think she has a point because...","But the bigger problem is...","In cities like CDMX or Guadalajara...","Tourism always changes neighborhoods — with or without Airbnb..."],tn:"This is the Lic. Méndez question from §3. Some students will have seen this firsthand in tourist cities. Others will think it's an exaggeration. Both positions generate real conversation."}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Note errors · Recycle at end only",questions:[
+    {num:"Q7",text:"What would you do if you arrived at your Airbnb and it looked nothing like the photos?",chips:["I would immediately...","I would contact the host and...","If the host didn't answer, I would...","I would ask for a refund and..."],tn:"This activates complaint vocabulary and practical problem-solving. Push students past 'I would complain' — to WHO, HOW, and WHAT SPECIFICALLY would you say in English?"},
+    {num:"Q8",text:"If you could earn extra money by renting your apartment on Airbnb when you travel, would you do it? What would worry you?",chips:["I would do it because...","I wouldn't because I'd be worried about...","The thing that would stop me is...","I would set a rule that..."],tn:"This shifts perspective from guest to host — same as Diego's position in §3. It personalizes the economic angle and often generates the most creative discussion of Block 3."}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences only · Push all safe answers",questions:[
+    {num:"Q9",text:"Honest question: When you book a trip, do you actually read all the reviews — or do you just look at the star rating and book? Be real.",chips:[],tn:"Most people just look at the rating. That honesty usually gets a laugh — and then a real conversation about how we make decisions online. Don't judge the answer. Use it: 'So what would it take for you to read all the reviews?'"},
+    {num:"Q10",text:"Final question: Is the Airbnb vs hotel debate really about comfort and price — or is it about the kind of traveler you think you are?",chips:[],tn:"The synthesis question. 'What kind of traveler you think you are' is the key phrase — it points at identity and self-image, not just preference. Push for specifics: 'What kind of traveler ARE you? In one sentence.'"}
+  ]}
+];
+
+function buildVocab(data,containerId,type){const g=document.getElementById(containerId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");
+buildVocab(verbs,"verbGrid","verb");
+
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"];
+const navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Jealous Partners · B1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #34D399;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #34D399; border: none; color: #0F1923;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(52,211,153,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(52,211,153,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(52,211,153,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(52,211,153,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B1.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Jealous Partners</h1>
+    <p>A little jealousy shows you care. Too much jealousy destroys everything. Where exactly is the line?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"Studies show that moderate jealousy can increase attraction in a relationship — but 30% of people say their partner's jealousy made them feel controlled, not loved. The same behavior reads as 'caring' to one person and 'toxic' to another."</div>
+      <div class="quote-source">— Psychology Today / Journal of Social and Personal Relationships</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Quick question — and be honest: have you ever felt jealous in a relationship? Or has someone been jealous of you?" [Short pause.] "Today we're going to talk about where jealousy stops being love and starts being a problem. Get ready — this one gets personal."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('jealousy')">
+        <div class="vocab-word">jealousy</div>
+        <div class="vocab-def">the feeling that you might lose someone you love to another person</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('trust')">
+        <div class="vocab-word">trust</div>
+        <div class="vocab-def">the belief that your partner is honest and faithful to you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('insecurity')">
+        <div class="vocab-word">insecurity</div>
+        <div class="vocab-def">a feeling of not being good enough or being afraid of losing something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('control')">
+        <div class="vocab-word">control</div>
+        <div class="vocab-def">when one person tries to manage or limit what their partner does</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('argument')">
+        <div class="vocab-word">argument</div>
+        <div class="vocab-def">a serious disagreement between two people, often with strong emotions</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('red flag')">
+        <div class="vocab-word">red flag</div>
+        <div class="vocab-def">a sign that something is wrong in a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('boundaries')">
+        <div class="vocab-word">boundaries</div>
+        <div class="vocab-def">the limits you set about what is and is not okay in a relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('space')">
+        <div class="vocab-word">space</div>
+        <div class="vocab-def">time or freedom to do things separately from your partner</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('past')">
+        <div class="vocab-word">past</div>
+        <div class="vocab-def">previous relationships or experiences that still affect how you act now</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('reaction')">
+        <div class="vocab-word">reaction</div>
+        <div class="vocab-def">what you do or say when something upsets or bothers you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('check')">
+        <div class="vocab-word">check</div>
+        <div class="vocab-def">to look at your partner's phone, messages, or location</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('accuse')">
+        <div class="vocab-word">accuse</div>
+        <div class="vocab-def">to tell someone they did something wrong, often without proof</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('hide')">
+        <div class="vocab-word">hide</div>
+        <div class="vocab-def">to keep something secret from your partner to avoid a fight</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('overreact')">
+        <div class="vocab-word">overreact</div>
+        <div class="vocab-def">to respond to a situation with much more emotion than it deserves</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('push away')">
+        <div class="vocab-word">push away</div>
+        <div class="vocab-def">to make someone feel unwanted or distant because of your behavior</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('reassure')">
+        <div class="vocab-word">reassure</div>
+        <div class="vocab-def">to tell someone not to worry, that everything is fine</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('deal with')">
+        <div class="vocab-word">deal with</div>
+        <div class="vocab-def">to manage a difficult feeling or situation in your relationship</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('put up with')">
+        <div class="vocab-word">put up with</div>
+        <div class="vocab-def">to accept or tolerate something you don't like for a long time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('work on')">
+        <div class="vocab-word">work on</div>
+        <div class="vocab-def">to make an effort to improve something, like trust or communication</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('admit')">
+        <div class="vocab-word">admit</div>
+        <div class="vocab-def">to say honestly that you did something or felt something difficult</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('He checks my phone every night.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"He checks my phone every night."</div>
+          <div class="phrase-context">The classic jealous partner move — and a relationship dealbreaker for many.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I have nothing to hide.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I have nothing to hide."</div>
+          <div class="phrase-context">What people say when they want to prove they are faithful — or when they feel unfairly accused.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It comes from a place of love.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It comes from a place of love."</div>
+          <div class="phrase-context">How jealous partners often explain their behavior to make it seem okay.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('You are being crazy.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"You're being crazy."</div>
+          <div class="phrase-context">Said to dismiss jealousy — often makes things much worse.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just need to know where you are.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just need to know where you are."</div>
+          <div class="phrase-context">Sounds reasonable — until it happens 10 times a day.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Valeria, 31</div>
+            <div class="op-role">Accountant, Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">"My ex was extremely jealous. He called me 15 times if I came home late from work. <strong>I felt like a prisoner, not a girlfriend.</strong> Jealousy is not love — it's insecurity and control. I left and I am so much happier now."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Diego, 38</div>
+            <div class="op-role">Sales Rep, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"A partner who is never jealous — not even a little — makes me nervous, honestly. <strong>If you don't care at all, what does that say about how much you love me?</strong> A bit of jealousy is normal. It means you don't want to lose the other person."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😌</div>
+          <div>
+            <div class="op-name">Andrea, 29</div>
+            <div class="op-role">Nurse, León</div>
+          </div>
+        </div>
+        <div class="op-text">"My partner gets jealous sometimes, but we talk about it. <strong>Jealousy is not the problem — how you handle it is.</strong> If you scream and accuse, that's toxic. If you say 'I felt insecure about that,' that's just being human."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😈</div>
+          <div>
+            <div class="op-name">Rodrigo, 45</div>
+            <div class="op-role">Teacher, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I think if you are jealous, you should look at yourself first. <strong>Jealousy tells you more about your own fears than about your partner's behavior.</strong> You don't trust them? Or do you actually not trust yourself? Most jealous people already know the relationship has a problem — they just don't want to admit it."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which opinion is closest to how you feel? Which one challenges you? Have you ever been in a situation like one of these?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever been in a relationship where one person was very jealous? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Classic present perfect opener. Students can talk about their own experience or someone they know. Don't push for details if they feel uncomfortable — "a friend's relationship" works fine too.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever checked your partner's phone, location, or social media — or has someone done that to you?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This often gets very honest answers. Most people have done this at least once. No judgment in your tone. Follow up: "How did it make you feel — guilty, or justified?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Have you ever hidden something small from a partner just to avoid a fight about jealousy?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Great for exploring the "hiding to keep the peace" dynamic. Model answer: "I've never lied, but I've definitely not told the whole story about who I had lunch with."</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">In your opinion, is some jealousy normal and healthy — or is any jealousy already a problem?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The core question of the topic. Push them to define "normal" — what amount is acceptable? When does it cross a line? Model: "I think a little jealousy is human, but the moment it becomes a habit, it's a problem."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">What do you think is the real cause of jealousy — insecurity, past experience, or a problem with the relationship itself?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Opens up self-reflection. Some students will say "it depends." Push: "Which cause is the hardest to fix?" Good for modals: "I think it could be... / It might come from..."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think men and women deal with jealousy differently? Or is it the same?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Gender angle — will generate strong opinions. Be ready for cultural context from Mexican students. No right answer; just keep them talking and using comparison language: "I think men tend to... while women usually..."</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">What would you do if you found out your partner was reading all your messages every day?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. "If I found out... I would..." Very concrete scenario that everyone can picture. Expect a range from "I would leave immediately" to "I would want to understand why." Both are valid and create good debate.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What would you do if your partner asked you to delete a friend from social media because they were jealous?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very real scenario, especially with Instagram. "If my partner asked me to... I would/wouldn't because..." Push: "Does it matter who the friend is? An ex? A coworker?"</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">If your partner is never jealous at all — not even a tiny bit — does that feel good, or does it make you feel like they don't care?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The flip side of the topic. This question surprises people. Many students will admit they want a little jealousy as proof of love. Let them sit with the contradiction.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Have you ever been the jealous one — and later realized you were the problem?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Self-reflection bomb. Honest, vulnerable question. Model: "Yes, I was jealous in one relationship and I think I pushed them away because of it." Allow silence. This is where real conversation happens.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your partner of 3 years asks to share location with you 24 hours a day. They say: "I just feel better when I know where you are. I love you." They have never cheated. They have never lied. Do you say yes?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English answering the Exit Shot. Yes or no — and explain your reason clearly.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B1.2 · Relationships &amp; Personality · Jealous Partners
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.88;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

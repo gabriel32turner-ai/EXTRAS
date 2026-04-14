@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.2 — The Bad Boss I Had</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#34D399;--ac-dim:rgba(52,211,153,.08);--ac-mid:rgba(52,211,153,.18);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+a{color:var(--ac)}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.hdr-brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.mode-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#modeBtn{border:none;cursor:pointer;padding:7px 16px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;background:var(--ac);color:#0F1923}
+#modeBtn.student{background:#2a3a4e;color:white}
+
+/* HERO */
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px;background:linear-gradient(135deg,#0a1520 0%,#1a2535 100%)}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1400&q=80&fit=crop');background-size:cover;background-position:center;opacity:.18}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.98) 0%,rgba(15,25,35,.6) 60%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid}
+.tag-level{color:var(--ac);border-color:var(--ac);background:rgba(52,211,153,.08)}
+.tag-cat{color:var(--muted);border-color:var(--border)}
+.tag-spicy{color:#f87171;border-color:#f87171;background:rgba(248,113,113,.08)}
+.tag-time{color:var(--muted);border-color:var(--border)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px}
+
+/* CONTAINER */
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+
+/* SECTIONS */
+.sec{margin-top:40px}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-hd-l{display:flex;align-items:center;gap:14px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:.5px;margin-top:2px}
+.timer-pill{flex-shrink:0;background:var(--ac-dim);border:1px solid var(--ac-mid);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;text-transform:uppercase}
+.timer-pill.teacher-only{display:flex}
+
+/* TRIGGER */
+.quote-box{border-left:3px solid var(--ac);background:var(--card);padding:20px 24px;margin-bottom:16px}
+.quote-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.quote-text{font-size:16px;font-style:italic;color:var(--text);line-height:1.6}
+.trigger-script{background:rgba(52,211,153,.04);border:1px solid var(--ac-mid);padding:14px 18px;font-size:13px;color:var(--muted);margin-top:12px}
+.trigger-script strong{color:var(--ac)}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px}
+.v-card{background:var(--card);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.v-card:hover,.v-card:active{border-color:var(--ac);background:var(--ac-dim)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--ac);margin-bottom:2px}
+.v-type{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--muted);line-height:1.4}
+.vocab-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:16px}
+.phrases-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--ac)}
+.phrase-text{font-size:13.5px;color:var(--text);font-style:italic}
+.phrase-use{font-size:12px;color:var(--muted);margin-top:2px}
+.ph-icon{font-size:14px;flex-shrink:0}
+
+/* OPINION WALL */
+.opinions{display:flex;flex-direction:column;gap:12px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px 20px;transition:border-color .15s}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{width:36px;height:36px;background:var(--ac-dim);border:1px solid var(--ac-mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--text)}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13.5px;color:var(--text);line-height:1.65}
+.op-text strong{color:var(--ac)}
+.op-provocateur{border-color:rgba(248,113,113,.3)}
+.op-provocateur .op-avatar{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.3)}
+.provoc-badge{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-left:auto}
+.op-instruction{background:var(--ac-dim);border:1px solid var(--ac-mid);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--ac)}
+
+/* CONVERSATION ENGINE */
+.q-blocks{display:flex;flex-direction:column;gap:24px}
+.q-block{}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-block-lbl::after{content:'';flex:1;height:1px;background:var(--ac-mid)}
+.questions{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14.5px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.tip-btn{border:1px solid var(--ac-mid);background:none;color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background .15s}
+.tip-btn:hover{background:var(--ac-dim)}
+.tip-content{display:none;margin-top:12px;background:rgba(52,211,153,.04);border-top:1px solid var(--ac-mid);padding-top:12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.tip-content strong{color:var(--ac)}
+.tip-content.show{display:block}
+
+/* EXIT SHOT */
+.exit-box{border:2px solid var(--ac);background:var(--ac-dim);padding:28px 32px;margin-bottom:20px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.exit-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:18px}
+.hw-box{background:var(--card);border:1px solid var(--border);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.hw-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hw-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.hw-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:11px;color:var(--muted)}
+footer strong{color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1px}
+
+/* TEACHER-ONLY */
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+  .exit-box{padding:20px 18px}
+  .exit-q{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="hdr-right">
+    <span class="mode-tag teacher-only" id="modeTag">Teacher Mode</span>
+    <button id="modeBtn" onclick="toggleMode()">Student Mode</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="tag tag-level">B1.2</span>
+      <span class="tag tag-cat">Work &amp; Corporate Life</span>
+      <span class="tag tag-spicy">🌶 Spicy</span>
+      <span class="tag tag-time">⏱ 50 min</span>
+    </div>
+    <h1>The Bad Boss I Had</h1>
+    <p class="hero-sub">Toxic management, humiliation, credit-stealing — and what you actually did about it.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ══ FASE 1 — THE TRIGGER ══ -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🪝</span>
+      <div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">Phase 1 · Open the conversation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">4 min</div>
+  </div>
+
+  <div class="quote-box">
+    <div class="quote-source">Gallup · State of the Global Workplace Report</div>
+    <div class="quote-text">"The single biggest factor in employee engagement is the direct manager. 70% of the variance in team engagement is determined by the manager alone."</div>
+  </div>
+
+  <div class="trigger-script teacher-only">
+    <strong>Teacher script:</strong> Read the stat aloud. Pause. Then ask: <em>"Think about your best job and your worst job. What was different? Was it the company — or was it the boss?"</em> Let students react freely for 90 seconds before moving to vocabulary.
+  </div>
+</section>
+
+<!-- ══ FASE 2 — VOCAB INJECTION ══ -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💉</span>
+      <div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Phase 2 · Click any card to hear pronunciation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">8 min</div>
+  </div>
+
+  <div class="vocab-lbl">Nouns</div>
+  <div class="vocab-grid" id="nouns"></div>
+
+  <div class="vocab-lbl">Verbs</div>
+  <div class="vocab-grid" id="verbs"></div>
+
+  <div class="vocab-lbl">Colloquial Phrases — click to hear</div>
+  <div class="phrases-list" id="phrases"></div>
+</section>
+
+<!-- ══ FASE 3 — OPINION WALL ══ -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🧱</span>
+      <div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">10 min</div>
+  </div>
+
+  <div class="opinions">
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div>
+          <div class="op-name">Daniela, 34 — HR Coordinator, Monterrey</div>
+        </div>
+      </div>
+      <div class="op-text">"My last boss used to humiliate people in front of the whole team. She would say things like <strong>'I thought you were smarter than that'</strong> in a meeting with twelve people. I've been working on my confidence ever since I left that job. A bad boss can damage you for years."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div>
+          <div class="op-name">Rodrigo, 41 — Plant Supervisor, Querétaro</div>
+        </div>
+      </div>
+      <div class="op-text">"My boss has been taking credit for my team's results for three years. Every presentation to the director — he talks for 20 minutes and never mentions a single name. I've been watching it happen and saying nothing. <strong>I'm not proud of that.</strong> But what do you do when he controls your raise?"</div>
+    </div>
+
+    <div class="opinion-card op-provocateur">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div>
+          <div class="op-name">Diego, 44 — Operations Manager, CDMX</div>
+        </div>
+        <span class="provoc-badge">provocateur</span>
+      </div>
+      <div class="op-text">"Honestly? <strong>There are no bad bosses, only weak employees.</strong> If your boss is treating you badly, you have three options: talk to them, go to HR, or quit. If you do none of those, you're choosing to stay. Stop complaining and take responsibility for your own situation."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div>
+          <div class="op-name">Carmen, 29 — Sales Rep, Guadalajara</div>
+        </div>
+      </div>
+      <div class="op-text">"My bad boss wasn't aggressive — he was <strong>invisible</strong>. He's been 'working from home' for two years and nobody can reach him when we need a decision. Lazy leadership is just as damaging as toxic leadership. You can't grow when your boss doesn't even know your name."</div>
+    </div>
+  </div>
+
+  <div class="op-instruction">💬 <strong>Choose one opinion.</strong> Which person do you agree with most? Which one makes you uncomfortable? Why? Tell your partner.</div>
+</section>
+
+<!-- ══ FASE 4 — CONVERSATION ENGINE ══ -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🗣️</span>
+      <div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">Phase 4 · 10 questions · 4 blocks</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">23 min</div>
+  </div>
+
+  <div class="q-blocks">
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">Have you ever had a boss who humiliated you or a colleague in front of others? What happened?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> If students are shy, start with a colleague's story: <em>"Maybe it didn't happen to you directly — have you seen it happen to someone else?"</em> Push for specific detail: who, where, what exactly was said.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Have you ever felt that your boss took credit for your work? How did you handle it?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes, my manager has done this several times. He sent my analysis to the director with his name on it. I felt really angry but I said nothing because I was afraid of losing the job."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">Have you ever quit a job because of a bad boss — or seriously considered it?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Follow up with: <em>"What kept you there?"</em> or <em>"How long did you stay after you decided to leave?"</em> Common answers: salary, the team, fear of unemployment.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">In your opinion, which is worse — an aggressive boss or an invisible one? Why?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This is a natural debate. Divide the group: aggressive vs. invisible. Make each side defend their position with at least two reasons.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">Do you think companies should train managers on how to treat people — or is that just common sense?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I think companies should do it, because a lot of people become managers just because they are good at their technical job — not because they know how to lead people."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">What do you think about employees who complain about their boss but never do anything? Is Diego right?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Reference Diego's opinion from the wall. Some students will agree, some will push back hard. Let the tension develop — don't resolve it early.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">What would you do if your boss humiliated you in front of your team tomorrow?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I would probably stay quiet in the moment, but I would ask for a private meeting the same day and tell them that what they did was not acceptable."</em> Push for concrete steps, not just feelings.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">What would you do if you became a manager and realized you were making the same mistakes as your bad boss?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This question creates strong self-reflection. Good follow-up: <em>"Do you think you already have any tendencies from a bad boss?"</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">Have you ever protected a bad boss — defended them to colleagues or covered up their mistakes? Why?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This question makes people uncomfortable in the best way. Common motivations: loyalty, fear, hoping the boss will protect them back. Don't judge — explore.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">Be honest: have you ever been a bad boss yourself — even for a short time?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> The key word is "be honest." Give students 15 seconds to think before they answer. This is the most vulnerable question of the session — celebrate honesty when it appears.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FASE 5 — EXIT SHOT ══ -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💣</span>
+      <div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">Phase 5 · One final question</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">5 min</div>
+  </div>
+
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your current boss has been publicly humiliating a colleague for 3 months. HR knows. Nothing has changed. You are next in line for a promotion — but only if your boss approves it. What do you do?</div>
+  </div>
+
+  <div class="hw-box">
+    <div class="hw-icon">🎙️</div>
+    <div>
+      <div class="hw-label">Homework — WhatsApp Voice Note</div>
+      <div class="hw-text">Record a 60-second voice message in English answering the Exit Shot question. Be specific: what exactly would you do, step by step? Send it before the next session.</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <strong>GABRIEL TURNER ENGLISH TRAINING</strong> &nbsp;·&nbsp; Speaking Lab &nbsp;·&nbsp; B1.2 &nbsp;·&nbsp; Work &amp; Corporate Life
+</footer>
+
+<script>
+const nouns=[
+  {w:'humiliation',def:'Making someone feel ashamed in public'},
+  {w:'credit',def:'Recognition for something you did'},
+  {w:'burnout',def:'Extreme tiredness from too much work or stress'},
+  {w:'boundaries',def:'Limits you set about what is acceptable'},
+  {w:'promotion',def:'Moving to a higher position at work'},
+  {w:'raise',def:'An increase in your salary'},
+  {w:'overtime',def:'Extra hours worked beyond the normal schedule'},
+  {w:'feedback',def:'Comments about how you are doing your job'},
+  {w:'resignation',def:'The act of formally quitting your job'},
+  {w:'favoritism',def:'Treating one person better than others unfairly'}
+];
+const verbs=[
+  {w:'humiliate',def:'To make someone feel stupid or ashamed'},
+  {w:'take credit',def:'To say you did something that someone else did'},
+  {w:'push back',def:'To disagree and resist a decision'},
+  {w:'speak up',def:'To say your opinion, even when it feels risky'},
+  {w:'cover up',def:'To hide a mistake or problem'},
+  {w:'quit',def:'To leave your job permanently'},
+  {w:'confront',def:'To talk directly to someone about a problem'},
+  {w:'protect',def:'To defend someone from criticism or blame'},
+  {w:'ignore',def:'To deliberately not pay attention to something'},
+  {w:'stay silent',def:'To choose not to say anything'}
+];
+const phrases=[
+  {p:"I'm not gonna lie",u:"Use when you're about to say something honest or uncomfortable"},
+  {p:"Fair enough",u:"Use when you accept someone's point, even if you don't fully agree"},
+  {p:"That's such a mood",u:"Use to strongly relate to what someone just described"},
+  {p:"I've had enough",u:"Use when you've reached your limit with a situation or person"},
+  {p:"That's on them",u:"Use when the responsibility or blame belongs to someone else"}
+];
+
+function buildVocab(){
+  const ng=document.getElementById('nouns');
+  const vg=document.getElementById('verbs');
+  nouns.forEach(n=>{
+    ng.innerHTML+=`<div class="v-card" onclick="speak('${n.w}')">
+      <div class="v-word">${n.w}</div>
+      <div class="v-type">noun · 🔊</div>
+      <div class="v-def">${n.def}</div>
+    </div>`;
+  });
+  verbs.forEach(v=>{
+    vg.innerHTML+=`<div class="v-card" onclick="speak('${v.w}')">
+      <div class="v-word">${v.w}</div>
+      <div class="v-type">verb · 🔊</div>
+      <div class="v-def">${v.def}</div>
+    </div>`;
+  });
+  const pl=document.getElementById('phrases');
+  phrases.forEach(ph=>{
+    pl.innerHTML+=`<div class="phrase-item" onclick="speak('${ph.p}')">
+      <span class="ph-icon">🔊</span>
+      <div>
+        <div class="phrase-text">"${ph.p}"</div>
+        <div class="phrase-use">${ph.u}</div>
+      </div>
+    </div>`;
+  });
+}
+
+function speak(txt){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.88;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('show');
+  btn.textContent=tip.classList.contains('show')?'Hide Tip':'Show Tip';
+}
+
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  const btn=document.getElementById('modeBtn');
+  const tag=document.getElementById('modeTag');
+  if(studentMode){btn.textContent='Teacher Mode';btn.classList.add('student');if(tag)tag.textContent='Student Mode';}
+  else{btn.textContent='Student Mode';btn.classList.remove('student');if(tag)tag.textContent='Teacher Mode';}
+}
+
+buildVocab();
+</script>
+</body>
+</html>
