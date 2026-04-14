@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · The Attention Economy · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:transparent;border:1px solid var(--bd);color:var(--mt);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{border-color:var(--ac);color:var(--ac);background:rgba(255,184,0,.06)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.7) 50%,rgba(15,25,35,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,184,0,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,184,0,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,184,0,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,184,0,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">The Attention Economy</div>
+    <div class="hero-sub">Your attention is the product. Every notification, every scroll, every algorithm is engineered to sell your focus to the highest bidder. And you agreed to all of it.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One quote about a resource more valuable than oil. Let them sit with it.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">The Social Dilemma · Netflix / Tristan Harris, Former Google Design Ethicist · 2020</div>
+      <div class="trigger-quote">"There are only two industries that call their customers 'users': illegal drugs and software. That's not a coincidence."</div>
+      <div class="trigger-script">The attention economy describes the model where digital platforms generate revenue by capturing and selling user attention to advertisers. The average person now spends over 6 hours per day on screens, checks their phone 96 times a day, and has seen their average attention span drop from 12 seconds in 2000 to 8 seconds in 2023 — one second less than a goldfish. The platforms are working exactly as designed.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the quote. Pause. Then: <em>"First reaction — do you think that comparison is fair, or is it an overstatement?"</em> Then immediately: <em>"Before you answer — pick up your phone. Look at your screen time from yesterday. How many hours?"</em> The screen time number always lands harder than any statistic you can give them. Let the silence after that question do the work.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. These words will come up in every conversation about tech and media from now on.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('doom-scrolling')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">doom-scrolling</div>
+        <div class="vc-def">Compulsively consuming negative content online even though it makes you feel worse</div>
+      </div>
+      <div class="vocab-card" onclick="speak('engagement')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">engagement</div>
+        <div class="vc-def">The metric platforms use to measure how much you interact with content — likes, shares, time spent</div>
+      </div>
+      <div class="vocab-card" onclick="speak('algorithm')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">algorithm</div>
+        <div class="vc-def">The system that decides what content you see — optimized for keeping you on the platform</div>
+      </div>
+      <div class="vocab-card" onclick="speak('dopamine hit')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">dopamine hit</div>
+        <div class="vc-def">The small rush of pleasure you get from a like, a notification, or new content</div>
+      </div>
+      <div class="vocab-card" onclick="speak('digital detox')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">digital detox</div>
+        <div class="vc-def">A deliberate period of disconnecting from screens and social media</div>
+      </div>
+      <div class="vocab-card" onclick="speak('echo chamber')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">echo chamber</div>
+        <div class="vc-def">An environment where you only encounter information that confirms what you already believe</div>
+      </div>
+      <div class="vocab-card" onclick="speak('screen time')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">screen time</div>
+        <div class="vc-def">The total amount of time you spend looking at a phone, tablet, or computer</div>
+      </div>
+      <div class="vocab-card" onclick="speak('clickbait')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">clickbait</div>
+        <div class="vc-def">Content designed to provoke a click through exaggeration or shock — regardless of accuracy</div>
+      </div>
+      <div class="vocab-card" onclick="speak('notification fatigue')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">notification fatigue</div>
+        <div class="vc-def">The exhaustion of being constantly interrupted by alerts, pings, and updates</div>
+      </div>
+      <div class="vocab-card" onclick="speak('deep work')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">deep work</div>
+        <div class="vc-def">Focused, uninterrupted work on cognitively demanding tasks — increasingly rare</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('scroll')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">scroll</div>
+        <div class="vc-def">To move through content on a feed — a gesture that has become almost involuntary</div>
+      </div>
+      <div class="vocab-card" onclick="speak('get hooked on')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">get hooked on</div>
+        <div class="vc-def">To become addicted to or dependent on something — a platform, an app, a content loop</div>
+      </div>
+      <div class="vocab-card" onclick="speak('track')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">track</div>
+        <div class="vc-def">To monitor and collect data about your behavior, location, or preferences</div>
+      </div>
+      <div class="vocab-card" onclick="speak('monetize')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">monetize</div>
+        <div class="vc-def">To turn something into a revenue source — platforms monetize your attention</div>
+      </div>
+      <div class="vocab-card" onclick="speak('unplug')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">unplug</div>
+        <div class="vc-def">To disconnect from technology intentionally, even temporarily</div>
+      </div>
+      <div class="vocab-card" onclick="speak('tune out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">tune out</div>
+        <div class="vc-def">To stop paying attention — whether by choice or exhaustion</div>
+      </div>
+      <div class="vocab-card" onclick="speak('target')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">target</div>
+        <div class="vc-def">To direct specific content or advertising at a particular person based on their data</div>
+      </div>
+      <div class="vocab-card" onclick="speak('set limits')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">set limits</div>
+        <div class="vc-def">To deliberately restrict your own screen time or app usage</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lose track of time')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lose track of time</div>
+        <div class="vc-def">To become so absorbed in content that you don't notice how long you've been on your phone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('opt out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">opt out</div>
+        <div class="vc-def">To choose not to participate in a system — but realizing you still do anyway</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I just picked up my phone for no reason')">
+        <div class="pi-phrase">"I just picked up my phone for no reason."</div>
+        <div class="pi-context">The moment you realize the habit has become fully automatic and you don't even know why you did it.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I went down a rabbit hole')">
+        <div class="pi-phrase">"I went down a rabbit hole."</div>
+        <div class="pi-context">You opened YouTube to watch one video. Ninety minutes later you are still there and cannot explain what happened.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I need to detox from social media')">
+        <div class="pi-phrase">"I need to detox from social media."</div>
+        <div class="pi-context">Said roughly once a week. Rarely followed through on for more than 48 hours.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I cannot focus like I used to')">
+        <div class="pi-phrase">"I can't focus like I used to."</div>
+        <div class="pi-context">Said by people in their 30s and 40s who remember being able to read for two hours without checking their phone.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('If it is free, you are the product')">
+        <div class="pi-phrase">"If it's free, you're the product."</div>
+        <div class="pi-context">The most efficient summary of how the attention economy actually works — and most people have heard it but still use the apps.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four different relationships with their own attention. Which one are you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">📵</div>
+          <div>
+            <div class="op-name">Alejandra, 36</div>
+            <div class="op-role">Project Manager · Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Two years ago I deleted Instagram, TikTok, and Twitter. Cold turkey. The first two weeks were genuinely uncomfortable — I kept reaching for my phone. But after a month, <strong>my ability to concentrate came back in a way I hadn't experienced since my twenties.</strong> I'm not saying everyone should do it. I'm saying I had no idea how much it was costing me until it was gone."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Diego, 29</div>
+            <div class="op-role">Social Media Manager · CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I spend 8 hours a day on social media — for work. And then I go home and scroll for another 3. Does it affect me? Probably. But <strong>I'm not interested in the 'phones are bad' conversation.</strong> My parents watched TV for 4 hours a night in the 90s and nobody called that an addiction. Every generation has their distraction. This is ours."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🧐</div>
+          <div>
+            <div class="op-name">Mónica, 44</div>
+            <div class="op-role">Neurologist · Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "What I see clinically concerns me. The reward cycles these platforms are built on are functionally identical to the ones that drive substance dependence. <strong>We are running a mass neurological experiment on billions of people</strong> — especially children — with no long-term data on the effects. The fact that it's legal and profitable doesn't make it safe."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">💰</div>
+          <div>
+            <div class="op-name">Ernesto, 50</div>
+            <div class="op-role">Digital Marketing Director · Monterrey</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I've spent 20 years building campaigns that capture attention. And I'll tell you something: <strong>attention was always for sale.</strong> Newspapers, radio, TV — all of it was built on the same model. The difference now is efficiency. We're just better at it. The outrage is selective. People didn't complain about being 'addicted' to Friends. They complain about TikTok because they feel judged for it."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people would you most want to have dinner with — and which one would you argue with all night?" Ernesto is the provocateur because his argument is historically accurate and morally uncomfortable at the same time. He's not wrong that TV was also engineered for attention. But he deliberately avoids the question of scale and neurological impact. Let the class catch that gap.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Their phones are probably in their pockets right now. Keep that in the room.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What's your actual daily screen time? And when you saw that number for the first time — what did you feel?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Have them check their phones right now if they haven't already. The average in this age group is 4–7 hours. The emotional reaction — denial, guilt, justification — is where the conversation actually starts. Don't skip this.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever tried to reduce your screen time or delete an app — and failed? What happened?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Almost everyone has tried and reinstalled. The failure is the interesting part — what brought them back? Boredom? FOMO? Habit? Push for the specific moment, not just "I went back." Present perfect: "Have you ever tried…"
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you noticed changes in your ability to focus on one thing for a long time — reading a book, watching a long film, or sitting without your phone?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is the "deep work" question. Most people over 30 can remember being able to read for two hours. Now many can't get through 20 pages. If they say "no change," ask: "When did you last read a book? A full one?" The answer is often years.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is social media addiction real — or is "addiction" too strong a word for something you can technically stop whenever you want?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The "you can stop whenever you want" argument is exactly what addicts say about their substance of choice. Push them to define addiction, then apply their own definition. Mónica's clinical framing is useful here — the dopamine mechanisms are the same.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Should platforms be legally required to limit daily usage — like alcohol is limited in advertising — or is that too much government control?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Regulation vs. individual freedom. This question works well with modals: "should," "could," "might." Push for a specific policy they'd support — not just "yes, regulate it." What would the rule look like? Age limits? Daily caps? Warning labels?
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Ernesto argued that attention was always for sale — that this is nothing new. Is he right, or is there something genuinely different about how apps work today?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The historical continuity argument vs. the scale/personalization argument. TV was broadcast — the same content for everyone. Algorithms are personalized and adaptive — they learn what keeps you specifically engaged. That's the qualitative difference. See if they find it themselves.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If your phone showed a real-time counter of how much money your attention generated for platforms today — would that change how you use it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + would. The "if you could see the transaction" framing makes the attention economy tangible. Some students will say yes — seeing it would make them angry. Others will say no — they already know and don't care. Both are interesting.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will the next generation — people who grew up on TikTok from age 8 — be able to do deep, focused work in a way that will be competitive in the job market?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will + future concern. This is the long-term consequence question. Connect to the AI jobs lab if they've done it: if AI handles repetitive tasks, and humans struggle to do deep work, what role is left? The intersection is genuinely alarming — and worth letting them sit with.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">If someone told you that you spend more time on your phone than with any single person in your life — would that be true? And what do you think about that?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          For most people this is statistically true. The phone is their most-used "relationship." Don't soften it. Let the math land. Then ask: "Does that change anything for you — or is it just a number?"
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">What is the most important thing you have not done — a project, a book, a conversation, a relationship — because you were on your phone instead?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The closing question of the session — and the most personal one. Give them time. The honest answers are uncomfortable: "I haven't called my dad." "I haven't finished my MBA thesis." "I don't know what my kids are actually interested in." Don't follow up with advice. Just let them name it.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. One week to answer with your behavior, not your words.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B2.1 The Attention Economy</div>
+      <div class="exit-question">Starting tomorrow, you put your phone in a drawer every day from 7pm to 9pm — no exceptions. No WhatsApp, no Instagram, no news, no email. Just 2 hours. You have a partner, maybe kids, unread messages at work. Can you actually do it for 7 consecutive days?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Don't just tell me yes or no. Tell me: what's the hardest part of this for you specifically? What would you do instead — and does that answer surprise you?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The exit shot is a behavioral challenge, not just a reflection prompt — which makes it memorable. Next session, ask: "Did anyone try it?" The ones who did have a story. The ones who didn't have a more interesting story. Both create the perfect opening for Session 2 on this topic. End: <em>"Send me your voice note before our next class. And I'll know if you actually tried."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · The Attention Economy · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · People Pleasers · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;--ac2:#FFB800;
+  --green:#00e676;--red:rgba(255,31,92,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+a{color:var(--ac);text-decoration:none}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:transparent;border:1px solid var(--bd);color:var(--mt);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{border-color:var(--ac);color:var(--ac);background:rgba(255,184,0,.06)}
+
+/* HERO */
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.7) 50%,rgba(15,25,35,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,184,0,.4);color:var(--ac)}
+.hero-tag.spicy{border-color:rgba(255,31,92,.5);color:rgba(255,31,92,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+/* CONTAINER */
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+/* SECTION */
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-meta{}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+/* TRIGGER BOX */
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,184,0,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+/* OPINION WALL */
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,184,0,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+/* QUESTIONS */
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,184,0,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.teacher-only .tip-content.show{display:block}
+
+/* EXIT SHOT */
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+/* FOOTER */
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+/* TEACHER HIDDEN */
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag">Relationships & Personality</span>
+      <span class="hero-tag spicy">🌶 Spicy</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">People Pleasers</div>
+    <div class="hero-sub">The psychology behind saying yes when you mean no — and the real cost it has on your career and relationships.</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <!-- PHASE 1: THE TRIGGER -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One headline. One question. Let them react before they think too much.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Harvard Business Review · 2023</div>
+      <div class="trigger-quote">"People pleasers are the highest-rated employees and the most likely to burn out. They're also the least likely to get promoted."</div>
+      <div class="trigger-script">HBR research on people-pleasing in the workplace found that employees who consistently prioritize others' approval over their own boundaries tend to be rated higher by managers — but advance slower, earn less, and report significantly higher rates of emotional exhaustion than their more assertive peers.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Put the headline up. Give them 10 seconds. Then say: <em>"First reaction — is this fair or totally wrong? Don't think about it. Just tell me."</em> Let 2–3 students react, then ask: <em>"Quick show of hands — how many of you have said yes to something at work this week that you really wanted to say no to?"</em> That's your hook. Don't explain the topic yet. Let it unfold.
+    </div>
+  </section>
+
+  <!-- PHASE 2: VOCAB INJECTION -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Use these words in Phase 4.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('approval')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">approval</div>
+        <div class="vc-def">The need to be liked or accepted by others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('resentment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">resentment</div>
+        <div class="vc-def">The bitter feeling that builds when you keep saying yes against your will</div>
+      </div>
+      <div class="vocab-card" onclick="speak('boundary')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">boundary</div>
+        <div class="vc-def">A personal limit that defines what you will and won't accept</div>
+      </div>
+      <div class="vocab-card" onclick="speak('validation')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">validation</div>
+        <div class="vc-def">Seeking confirmation from others that you are good enough</div>
+      </div>
+      <div class="vocab-card" onclick="speak('burnout')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">burnout</div>
+        <div class="vc-def">Total physical and emotional exhaustion from overcommitting</div>
+      </div>
+      <div class="vocab-card" onclick="speak('conflict avoidance')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">conflict avoidance</div>
+        <div class="vc-def">The tendency to dodge disagreement at all costs</div>
+      </div>
+      <div class="vocab-card" onclick="speak('overcommitment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">overcommitment</div>
+        <div class="vc-def">Taking on more than you can realistically handle</div>
+      </div>
+      <div class="vocab-card" onclick="speak('doormat')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">doormat</div>
+        <div class="vc-def">Informal: a person who lets others walk all over them</div>
+      </div>
+      <div class="vocab-card" onclick="speak('self-worth')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">self-worth</div>
+        <div class="vc-def">How much you value yourself — independent of others' opinions</div>
+      </div>
+      <div class="vocab-card" onclick="speak('guilt trip')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">guilt trip</div>
+        <div class="vc-def">When someone makes you feel guilty to get what they want</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('people-please')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">people-please</div>
+        <div class="vc-def">To constantly prioritize others' approval over your own needs</div>
+      </div>
+      <div class="vocab-card" onclick="speak('set boundaries')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">set boundaries</div>
+        <div class="vc-def">To clearly define your personal and professional limits</div>
+      </div>
+      <div class="vocab-card" onclick="speak('push back')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">push back</div>
+        <div class="vc-def">To resist or disagree with what someone is asking</div>
+      </div>
+      <div class="vocab-card" onclick="speak('overextend')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">overextend</div>
+        <div class="vc-def">To stretch yourself too thin by taking on too much</div>
+      </div>
+      <div class="vocab-card" onclick="speak('speak up')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">speak up</div>
+        <div class="vc-def">To voice your opinion, especially when it's uncomfortable</div>
+      </div>
+      <div class="vocab-card" onclick="speak('give in')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">give in</div>
+        <div class="vc-def">To stop resisting and do what someone wants</div>
+      </div>
+      <div class="vocab-card" onclick="speak('prioritize yourself')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">prioritize yourself</div>
+        <div class="vc-def">To put your own needs first without feeling guilty</div>
+      </div>
+      <div class="vocab-card" onclick="speak('burn bridges')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">burn bridges</div>
+        <div class="vc-def">To permanently damage a relationship by your actions</div>
+      </div>
+      <div class="vocab-card" onclick="speak('manipulate')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">manipulate</div>
+        <div class="vc-def">To control someone using indirect or unfair tactics</div>
+      </div>
+      <div class="vocab-card" onclick="speak('own your decisions')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">own your decisions</div>
+        <div class="vc-def">To take full responsibility for the choices you make</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I just can\'t say no')">
+        <div class="pi-phrase">"I just can't say no."</div>
+        <div class="pi-context">Said when you've already said yes to three things you didn't want to do this week.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I don\'t want to rock the boat')">
+        <div class="pi-phrase">"I don't want to rock the boat."</div>
+        <div class="pi-context">The go-to excuse for avoiding any uncomfortable conversation.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I\'ll deal with it')">
+        <div class="pi-phrase">"I'll deal with it."</div>
+        <div class="pi-context">What you say instead of asking for help — and then resent everyone for not noticing.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('That\'s not really my problem but okay')">
+        <div class="pi-phrase">"That's not really my problem, but okay."</div>
+        <div class="pi-context">The internal monologue of every people pleaser who just said yes again.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I don\'t want to come across as difficult')">
+        <div class="pi-phrase">"I don't want to come across as difficult."</div>
+        <div class="pi-context">Said before agreeing to something completely unreasonable.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3: THE OPINION WALL -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four real positions. Which one makes you uncomfortable? That's the one to discuss first.</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😌</div>
+          <div>
+            <div class="op-name">Valentina, 34</div>
+            <div class="op-role">UX Designer · Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I used to be the person everyone called when they needed a favor. I thought that was a good thing — it meant people liked me. What I didn't realize is that <strong>they didn't like me, they used me.</strong> The moment I started saying no, I found out who my real friends actually were. Best filter I've ever used."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Rodrigo, 46</div>
+            <div class="op-role">Operations Manager · CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I manage a team of 12. The people pleasers on my team are genuinely the hardest to manage. <strong>They say yes in meetings and then quietly fall apart at their desks.</strong> I'd rather have someone tell me 'I can't take this on right now' than watch them miss deadlines and then apologize. Assertiveness isn't rude. Silence is."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🙄</div>
+          <div>
+            <div class="op-name">Camila, 29</div>
+            <div class="op-role">HR Coordinator · Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "The self-help world has overcorrected. Now <strong>'setting boundaries' is an excuse for being selfish.</strong> There's a difference between a people pleaser and someone who is genuinely collaborative and supportive. Not every act of kindness is a trauma response. Sometimes you help people because you're a good person, not because you're broken."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🔥</div>
+          <div>
+            <div class="op-name">Andrés, 51</div>
+            <div class="op-role">Clinical Psychologist · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "People pleasers aren't nice people. <strong>They're manipulative people who've found the most socially acceptable way to control others.</strong> By always saying yes, they create obligation and guilt in everyone around them. The martyrdom is the strategy. They need others to need them — and they'd never admit it."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which opinion makes you most uncomfortable — and why? Which one sounds most like someone you know?" Andrés is the provocateur — his framing redefines people pleasers as the aggressor, which will provoke strong reactions. Let the disagreement happen. Don't resolve it.
+    </div>
+  </section>
+
+  <!-- PHASE 4: THE CONVERSATION ENGINE -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Real answers only. No rehearsed corporate speak.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <!-- Block 1: Personal Experience -->
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever said yes to something at work or in your personal life that you immediately regretted? What happened?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Almost everyone has. The key is getting them past the surface answer ("yes, I took on extra work"). Push for: what did you actually feel in that moment? What stopped you from saying no? What was the real cost?
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Think of someone in your life — at work or personally — who you'd describe as a people pleaser. What does that actually look like in their behavior?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This question creates useful distance — they describe someone else before turning the mirror on themselves. Listen for specific behaviors: always volunteering, never disagreeing, apologizing constantly, saying "no problem" when it clearly is a problem.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever felt resentment toward someone you were helping — even though you were the one who said yes in the first place?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is the core people-pleaser experience. If they've felt it, they'll recognize themselves in it. Use present perfect here: "Have you ever felt…" — encourage them to use it in their answer too.
+        </div>
+      </div>
+    </div>
+
+    <!-- Block 2: Opinion -->
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is people-pleasing a personality trait, a learned behavior, or a sign of low self-esteem? Can you separate them?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Push them to take a position, not just list options. "You gave me three options — which one do you actually believe?" Good vocabulary activation: self-worth, validation, conflict avoidance.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think there's a difference between being a people pleaser and just being a kind, supportive person? Where's the line?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This connects to Camila's opinion from the wall. The line is usually: do you feel resentful? Are you doing it because you want to, or because you're afraid of the consequences of not doing it?
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Andrés from the Opinion Wall said people pleasers are actually manipulative. Do you agree — even a little? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The spicy one. Many will resist it. But push them to steelman it: "Even if you disagree, explain the argument as well as you can before you reject it." This is the highest-level language task in the session.
+        </div>
+      </div>
+    </div>
+
+    <!-- Block 3: Hypothetical -->
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If you could completely stop caring about what other people think of you at work, how would your behavior change on Monday morning?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional: "If I could… I would…" Push for specific, concrete answers. Not "I'd be more assertive" — what would they actually do differently? Who would they push back on? What meeting would they not volunteer for?
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will people-pleasing become more or less common as younger generations enter the workforce? What's driving that?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will + prediction. Encourage them to connect to real trends: Gen Z, social media, hustle culture, therapy culture, etc. No right answer — push them to defend their position with a reason.
+        </div>
+      </div>
+    </div>
+
+    <!-- Block 4: Provocative -->
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Have the people in your life — your boss, your partner, your family — actually benefited from your people-pleasing? Be honest.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is uncomfortable because the honest answer is often yes. And if the people around you benefit from it, there's a dynamic being maintained. Let them sit with that. Don't rush to resolution.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">On a scale of 1 to 10, how much of a people pleaser are you? And — more importantly — are you okay with that number?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The closer question of the session. The number is less important than the second part. Some students will say "I'm a 7 and I'm fine with it." Others will say "I'm a 4 and it's still too much." Both are valid — the goal is honesty, not performance of self-awareness.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5: EXIT SHOT -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. No right answer. Record your response.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B2.1 People Pleasers</div>
+      <div class="exit-question">Your manager asks you to work extra hours on a project every week for the next 3 months. No extra pay. No promotion on the table. But they say: "I really need someone I can count on — and I thought that was you." Do you say yes?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Tell me: what would you actually say to your manager — word for word? And be honest: is your answer today different from what you would have done 5 years ago?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The guilt trip in the exit shot ("I thought that was you") is deliberate — it's the exact mechanism people pleasers can't resist. Most students will feel the pull even as they read it. End with: <em>"Send me your voice note before our next session. I want to hear the word 'no' — or a very good reason why not."</em>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · People Pleasers · Relationships & Personality</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US'; u.rate = 0.88; u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+function toggleMode(){
+  const body = document.body;
+  const btn = document.getElementById('modeBtn');
+  const on = body.classList.toggle('teacher-mode');
+  btn.textContent = 'Teacher Mode: ' + (on ? 'ON' : 'OFF');
+  btn.classList.toggle('on', on);
+}
+
+function toggleTip(btn){
+  const tip = btn.nextElementSibling;
+  const show = tip.classList.toggle('show');
+  btn.textContent = show ? 'Hide Tip' : 'Show Tip';
+}
+</script>
+</body>
+</html>

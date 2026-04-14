@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Toxic Family · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;
+  --red-soft:rgba(255,31,92,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:transparent;border:1px solid var(--bd);color:var(--mt);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{border-color:var(--ac);color:var(--ac);background:rgba(255,184,0,.06)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,184,0,.4);color:var(--ac)}
+.hero-tag.spicy{border-color:rgba(255,31,92,.5);color:rgba(255,31,92,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,184,0,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,184,0,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,184,0,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag">Relationships & Personality</span>
+      <span class="hero-tag spicy">🌶 Spicy</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Cutting Toxic Family Members Off</div>
+    <div class="hero-sub">In Latin culture, family loyalty is almost sacred. So what happens when the person causing you the most damage is your own blood?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One insight that lands harder than a statistic.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Psychology Today · Dr. Kristina Coop Gordon · 2022</div>
+      <div class="trigger-quote">"The fact that someone is family does not make them safe. And safety — emotional, psychological, and sometimes physical — is not a privilege. It's a requirement for human wellbeing."</div>
+      <div class="trigger-script">Research on family estrangement — the deliberate decision to cut off or limit contact with a family member — shows it is far more common than most people admit. A 2020 University of Cambridge study found that 27% of Americans are estranged from a family member. Yet the topic remains heavily stigmatized, especially in cultures where family loyalty is treated as an absolute moral value.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the quote slowly. Then pause. Then say: <em>"Before we talk about whether you agree or disagree — does this feel like a new idea to you, or have you heard something like this before?"</em> In Latin cultures, this quote will land differently than in an American context. Let the cultural tension breathe. Don't rush to the discussion. The discomfort is the lesson.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click to hear pronunciation. These words carry real weight — use them carefully in Phase 4.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('estrangement')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">estrangement</div>
+        <div class="vc-def">The state of being deliberately distanced from a family member</div>
+      </div>
+      <div class="vocab-card" onclick="speak('toxic dynamic')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">toxic dynamic</div>
+        <div class="vc-def">A pattern of interaction that consistently causes harm to one or both people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('emotional abuse')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">emotional abuse</div>
+        <div class="vc-def">Non-physical harm through manipulation, criticism, or control</div>
+      </div>
+      <div class="vocab-card" onclick="speak('guilt')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">guilt</div>
+        <div class="vc-def">The painful feeling that you've done something wrong — often weaponized in families</div>
+      </div>
+      <div class="vocab-card" onclick="speak('obligation')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">obligation</div>
+        <div class="vc-def">A duty you feel — whether it's real or imposed by others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('enmeshment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">enmeshment</div>
+        <div class="vc-def">When family boundaries are so blurred that no one has a separate identity</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scapegoat')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">scapegoat</div>
+        <div class="vc-def">The family member who gets blamed for everyone else's problems</div>
+      </div>
+      <div class="vocab-card" onclick="speak('narcissist')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">narcissist</div>
+        <div class="vc-def">A person with an excessive need for admiration and a lack of empathy for others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('closure')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">closure</div>
+        <div class="vc-def">A sense of emotional resolution after ending or processing a difficult relationship</div>
+      </div>
+      <div class="vocab-card" onclick="speak('grief')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">grief</div>
+        <div class="vc-def">Deep sorrow — including the loss of a relationship with someone who is still alive</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('cut someone off')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">cut someone off</div>
+        <div class="vc-def">To deliberately stop all contact with a person</div>
+      </div>
+      <div class="vocab-card" onclick="speak('set limits')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">set limits</div>
+        <div class="vc-def">To define what behavior you will and won't accept from someone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('gaslight')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">gaslight</div>
+        <div class="vc-def">To manipulate someone into questioning their own memory or perception</div>
+      </div>
+      <div class="vocab-card" onclick="speak('enable')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">enable</div>
+        <div class="vc-def">To allow harmful behavior to continue by not confronting it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('walk away from')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">walk away from</div>
+        <div class="vc-def">To leave a situation or relationship, even when it's painful</div>
+      </div>
+      <div class="vocab-card" onclick="speak('process')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">process</div>
+        <div class="vc-def">To work through emotions or a difficult experience over time</div>
+      </div>
+      <div class="vocab-card" onclick="speak('heal')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">heal</div>
+        <div class="vc-def">To recover emotionally from pain caused by others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('confront')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">confront</div>
+        <div class="vc-def">To directly address a person about their harmful behavior</div>
+      </div>
+      <div class="vocab-card" onclick="speak('hold on to')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">hold on to</div>
+        <div class="vc-def">To keep something — often used for resentment or hope you haven't released</div>
+      </div>
+      <div class="vocab-card" onclick="speak('choose your family')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">choose your family</div>
+        <div class="vc-def">To build relationships with people who deserve your loyalty — not just blood relatives</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('Blood is thicker than water')">
+        <div class="pi-phrase">"Blood is thicker than water."</div>
+        <div class="pi-context">The most common argument against cutting family off — and the one people use to make you feel guilty for protecting yourself.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('You only get one family')">
+        <div class="pi-phrase">"You only get one family."</div>
+        <div class="pi-context">Said to someone who is exhausted, hurt, and seriously considering cutting contact. Rarely helpful.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('That\'s just how they are')">
+        <div class="pi-phrase">"That's just how they are."</div>
+        <div class="pi-context">The phrase that normalizes bad behavior from family members and teaches you to accept it.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I\'m done making excuses for them')">
+        <div class="pi-phrase">"I'm done making excuses for them."</div>
+        <div class="pi-context">The sentence someone says right before they finally decide to stop tolerating the behavior.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('You can love someone and still walk away')">
+        <div class="pi-phrase">"You can love someone and still walk away."</div>
+        <div class="pi-context">The hardest truth about family estrangement — and the one that gives people permission to protect themselves.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four positions on one of the most taboo decisions a person can make. Choose carefully.</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">💪</div>
+          <div>
+            <div class="op-name">Marcela, 38</div>
+            <div class="op-role">Entrepreneur · Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I cut my mother off three years ago. It was the hardest thing I've ever done. And <strong>it was also the best decision I've ever made.</strong> She was emotionally abusive my entire life — and everyone around me kept telling me 'but she's your mom.' The day I stopped taking her calls, I started sleeping without anxiety for the first time in 15 years. I don't need anyone's approval for that."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🙏</div>
+          <div>
+            <div class="op-name">Jorge, 55</div>
+            <div class="op-role">Retired Teacher · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I understand that families can be difficult. But <strong>completely cutting someone off — especially a parent — is something you can never take back.</strong> What happens when they get sick? What happens when they die? The guilt of not being there will follow you forever. I believe you can protect yourself and still maintain contact. Distance is not the same as abandonment."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🧠</div>
+          <div>
+            <div class="op-name">Daniela, 33</div>
+            <div class="op-role">Psychologist · Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "In my practice, I've worked with people on both sides of this. What I've found is that estrangement is rarely dramatic or sudden. <strong>It's usually a last resort, after years of trying everything else.</strong> The people who make this decision don't do it lightly. What's actually harmful is the cultural pressure to forgive and maintain contact regardless of the cost to your own mental health."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🔪</div>
+          <div>
+            <div class="op-name">Tomás, 44</div>
+            <div class="op-role">Business Consultant · CDMX</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I'm going to say what nobody wants to say: <strong>the 'toxic family' narrative is partly a product of therapy culture and social media.</strong> Every difficult relationship is now called abuse. Every imperfect parent is a narcissist. People are using these labels to justify running away from relationships that require real work. Not every uncomfortable family dynamic is a reason to burn everything down."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people would you be most afraid to disagree with in real life? Which one do you think is the most wrong?" Tomás is the provocateur — his argument is culturally provocative because it mirrors what many Mexican families actually say. Some students will agree with him more than they'd like to admit. That discomfort is exactly right.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Handle with care. This is real territory.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever had a family relationship that felt consistently draining, painful, or unfair — not just occasionally, but as a pattern?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This opener is careful — "have you ever" gives them distance. They don't have to name anyone. Listen for the vocabulary: toxic dynamic, enable, guilt. Don't push for names or details. The experience is what matters, not the identity of the person.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Think of someone in your life who you've had to limit contact with — for any reason, family or not. What made you finally take that step?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          "Any reason" broadens it — they can talk about a friend, colleague, or acquaintance, which keeps it safe. But often students will go straight to family. Listen for the moment of decision — what was the final event? That's the heart of the story.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever felt judged — by family, friends, or society — for protecting yourself from someone? What was that like?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This surfaces the cultural layer: in Mexico and Latin America broadly, protecting yourself from family often comes with enormous social cost. Listen for the internalized guilt — "I know I shouldn't feel bad but I do." That's the core tension of this topic.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is there a meaningful difference between "toxic" and "difficult"? Where's the line between a relationship worth fixing and one worth leaving?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This directly challenges Tomás's argument from the Opinion Wall. Push them to give criteria, not just feelings. What specific behaviors cross the line? Consistent gaslighting? Emotional abuse? Or is it purely subjective? Best students will say: the difference is whether the harmful person is willing and able to change.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think the obligation to maintain family relationships is genuinely moral — or is it a cultural expectation that we've confused with ethics?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is the philosophical core of the session. In many cultures, family loyalty is treated as an intrinsic moral value — but is it? Or is it a social norm that benefits those in power within families? Push for a real position, not a diplomatic non-answer.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Tomás argued that "toxic family" is partly a product of therapy culture — that we're labeling too much as abuse. Is he completely wrong?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The spiciest question — because "completely wrong" invites nuance. Some students will reluctantly agree that there's overcorrection in therapy culture. Others will push back hard. Both are fine. The goal is a position + a reason + an acknowledgment of the counterargument.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If a close friend told you they were thinking about cutting off a parent who had consistently hurt them, what would you say — and what would you avoid saying?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + empathy language. The "what would you avoid" part is key — it forces them to confront the platitudes: "but she's your mom," "blood is thicker than water," "you'll regret it." Great for the colloquial phrases from Phase 2.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">If you knew for certain you would feel better in 3 years but worse for the next 12 months — would you still cut someone toxic off today?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + will. This question tests how much they actually believe in long-term thinking versus short-term pain avoidance. Most students know intellectually that they should. The real answer is often more complicated. Don't judge it — just explore it.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Are there people in your family right now whose behavior you are tolerating — not because it's okay, but because the alternative feels too complicated?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This question often produces silence first. That silence is the answer. Don't rush to fill it. If they do answer, listen for the "enable" pattern — staying in the dynamic because leaving seems harder than staying. That's the real thing to explore.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Have you ever been the difficult family member in someone else's story — the one they might have needed to distance themselves from?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The hardest question of the session — because it inverts the narrative. All conversation so far has positioned the student as the one who might need to walk away. This asks them to consider the other role. Give them space. Don't push if they're not ready. But for students who engage with it, this produces the most authentic and memorable conversation of the lab.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. No comfortable answer. Record your response.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B2.1 Cutting Toxic Family Off</div>
+      <div class="exit-question">Your sibling has been emotionally manipulative your entire life — 35 years of it. You've tried everything: conversations, therapy, distance. Nothing changes. They just had a baby. The baby has nothing to do with any of this. Do you cut your sibling off — knowing that decision also means missing that child growing up?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. What do you do — and why? And if you're not sure, tell me that too. Uncertainty is a real answer.
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The baby detail is what makes this exit shot exceptional — it adds an innocent third party that has nothing to do with the conflict, which is exactly how these situations play out in real life. The student can't say "protect yourself" without also saying "miss the baby." There's no clean answer. End with: <em>"Send me your voice note. I'll listen before our next session — and I want to hear your actual opinion, not the one you think sounds right."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Cutting Toxic Family Members Off · Relationships & Personality</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.88; u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

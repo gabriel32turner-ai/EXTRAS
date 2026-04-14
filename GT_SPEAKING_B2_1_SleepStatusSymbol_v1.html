@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B2.1 · Sleep as the New Status Symbol</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#FFB800;--ac2:#FFD54F;--gold:#FFB800;
+  --green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(255,184,0,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px}
+.badge-b2{background:rgba(255,184,0,.1)}
+.mode-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--mt);padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+.mode-btn:hover{border-color:var(--ac);color:var(--ac)}
+body.student-mode .mode-btn{background:rgba(255,184,0,.1);border-color:var(--ac);color:var(--ac)}
+
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(255,184,0,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.gold{background:rgba(255,184,0,.1);border-color:rgba(255,184,0,.3);color:var(--ac2)}
+
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,184,0,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(255,184,0,.055);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(255,184,0,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(255,184,0,.15);border:1px solid rgba(255,184,0,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+
+.tn{margin-top:18px;border:1px solid rgba(255,184,0,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(255,184,0,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(255,184,0,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none;padding:0}
+.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(255,184,0,.1)}
+.tn-c1{border-left:3px solid rgba(255,184,0,.6)}
+.tn-c2{border-left:3px solid rgba(0,207,255,.5)}
+.tn-c3{border-left:3px solid rgba(0,230,118,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}
+.tn-c3 .tn-cl{color:var(--green)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}
+.tn-txt li{margin-bottom:5px}
+.tn-txt strong{color:var(--txt)}
+
+/* §1 HOOK */
+.hook-stat-card{background:linear-gradient(135deg,rgba(255,184,0,.08) 0%,rgba(255,184,0,.03) 100%);border:1px solid rgba(255,184,0,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(255,184,0,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,184,0,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(255,184,0,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,184,0,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(255,184,0,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(255,184,0,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+
+/* §2 VOCAB */
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(255,184,0,.3)}
+.vc.noun-c{border-top:2px solid rgba(255,184,0,.4)}
+.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(255,184,0,.6)}
+.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(255,213,79,.8);font-style:italic;border-left:2px solid rgba(255,184,0,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(255,184,0,.07);border:1px solid rgba(255,184,0,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(255,184,0,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+.challenge-btn:hover{background:rgba(255,184,0,.18)}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(255,184,0,.2);color:#000}
+.vocab-challenge{background:rgba(255,184,0,.04);border:1px solid rgba(255,184,0,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+
+/* §3 PERSPECTIVES */
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(255,184,0,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px;display:flex;align-items:flex-end;gap:10px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(255,184,0,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(255,184,0,.05);border:1px solid rgba(255,184,0,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+
+/* §4 CONVERSATION */
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(255,184,0,.12);border:1px solid rgba(255,184,0,.3);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;position:relative;transition:border-color .2s}
+.q-card:hover{border-color:rgba(255,184,0,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(255,184,0,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(255,184,0,.1);border-color:rgba(255,184,0,.3);color:var(--ac2)}
+.q-tn{margin-top:10px;font-size:12px;color:rgba(255,184,0,.6);background:rgba(255,184,0,.04);border:1px solid rgba(255,184,0,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(255,184,0,.3)}
+.q-tn strong{color:rgba(255,184,0,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(255,184,0,.05);border:1px solid rgba(255,184,0,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-ic{font-size:16px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(255,184,0,.8)}
+
+/* §5 EXIT SHOT */
+.exit-hero{background:linear-gradient(135deg,rgba(255,184,0,.1) 0%,rgba(255,184,0,.04) 50%,transparent 100%);border:1px solid rgba(255,184,0,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(255,184,0,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.7rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.25);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:14px;color:rgba(0,230,118,.9);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(255,184,0,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#000}
+
+@media(max-width:768px){
+  .persp-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-title{font-size:2rem}
+  .hsc-stats{grid-template-columns:1fr}
+  .sec{padding:30px 20px}
+  .hdr{padding:0 16px}
+  .snav{padding:0 16px}
+}
+</style>
+</head>
+<body ontouchstart="">
+
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+  <div class="brand">
+    <div class="dot"></div>
+    <div>
+      <div class="bname">Gabriel Turner</div>
+      <div class="bsub">Speaking Lab</div>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge badge-b2">B2.1 · Speaking Lab</div>
+    <button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1400&q=80" alt="Sleep">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B2.1 · Health &amp; Wellness</div>
+    <div class="hero-title">SLEEP AS THE<br><em>NEW STATUS</em></div>
+    <div class="hero-sub">Hustle culture said "sleep is for the weak." Now the CEOs are in bed by 9pm — and posting about it.</div>
+    <div class="hero-chips">
+      <span class="hchip gold">~50 min</span>
+      <span class="hchip">No grammar</span>
+      <span class="hchip">No reading</span>
+      <span class="hchip">No listening</span>
+      <span class="hchip gold">100% Conversation</span>
+      <span class="hchip">Medium Edge</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- ═══════════════ §1 THE TRIGGER ═══════════════ -->
+<div class="sec-outer" id="s1">
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 01 · The Trigger</div>
+      <div class="sec-title">🪝 The Data That Started a Culture War</div>
+      <div class="sec-sub">Project or read aloud · First reaction only · No debate yet · 4 min max</div>
+    </div>
+    <div class="sec-wm">01</div>
+    <div class="sec-time teacher-only">4 min</div>
+  </div>
+
+  <div class="hook-stat-card">
+    <div class="hsc-deco">💤</div>
+    <div class="hsc-label">McKinsey Health Institute + Matthew Walker, "Why We Sleep" — 2023–2024</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat">
+        <div class="hsc-num">1 in 3</div>
+        <div class="hsc-desc">Adults globally are chronically sleep-deprived — getting less than 7 hours per night</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">$411B</div>
+        <div class="hsc-desc">Annual economic loss attributed to sleep deprivation in the US alone — more than obesity</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">+34%</div>
+        <div class="hsc-desc">Higher mortality risk for employees sleeping under 6 hours vs those getting 7–9 hours</div>
+      </div>
+      <div class="hsc-stat">
+        <div class="hsc-num">82%</div>
+        <div class="hsc-desc">Of high-performing CEOs surveyed by Huffington Post now report sleeping 7–8 hours — and tracking it</div>
+      </div>
+    </div>
+    <div class="hsc-source">Sources: McKinsey Health Institute (2024) · Matthew Walker, "Why We Sleep" (2017, updated data 2023) · Arianna Huffington, "The Sleep Revolution" · RAND Corporation sleep economics report</div>
+  </div>
+
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Trigger — Read this, then point at someone</div>
+    <div class="hq-text">"Arianna Huffington collapsed from exhaustion, hit her head on her desk, and woke up in a pool of blood. She ran one of the world's most successful companies. She was sleeping 4 hours a night and thought she was winning. Was she?"</div>
+  </div>
+
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the Huffington story once, slowly. Then point directly at one student: "First reaction — was she winning or losing?" Do not validate. Do not explain. Wait 5 seconds if silence. The tension is the activation. After 2–3 responses, say: "Hold everything you just said — it all comes back in §4."
+  </div>
+
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 The Trigger <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1">
+        <div class="tn-cl">Capa 1 · Pedagogical</div>
+        <div class="tn-txt"><ul>
+          <li>The Huffington story is deliberately personal and physical — "pool of blood" creates visceral impact. Let it land without softening it.</li>
+          <li>If students immediately say "of course she wasn't winning" — push back: <strong>"But her company was worth $350 million. She was making decisions that worked. Explain that."</strong></li>
+          <li>Don't let anyone give a one-word answer here. Minimum: one sentence with a reason. <strong>"Because…"</strong> is your redirect tool.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c2">
+        <div class="tn-cl">Capa 2 · Engagement</div>
+        <div class="tn-txt"><ul>
+          <li>Most Mexican professionals in manufacturing/corporate settings normalize 5–6 hours of sleep as "just how it is." This stat challenges that directly — expect defensiveness. That's the goal.</li>
+          <li>If someone says "I only sleep 5 hours and I'm fine" — smile and say: <strong>"That's exactly what we're going to talk about."</strong> Don't argue. Save it for §4 Q4.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c3">
+        <div class="tn-cl">Capa 3 · Growth &amp; Retention</div>
+        <div class="tn-txt"><ul>
+          <li>The $411B stat is shareable on WhatsApp. After the session: <strong>"Send one of those stats to a colleague today — in English. That's real-world B2 output."</strong></li>
+          <li>Retention hook: <strong>"In 50 minutes, you're going to have a position on something that's quietly reshaping how companies think about performance. That's the conversation."</strong></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════ §2 VOCAB INJECTION ═══════════════ -->
+<div class="sec-outer" id="s2">
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 02 · Vocab Injection</div>
+      <div class="sec-title">💉 20 Words That Matter</div>
+      <div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs simultaneous · Production challenge after</div>
+    </div>
+    <div class="sec-wm">02</div>
+    <div class="sec-time teacher-only">8 min</div>
+  </div>
+
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocabulary">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B produces the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" id="challengeBtn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word card to hear pronunciation</span>
+  </div>
+
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Sleep, Performance &amp; Corporate Reality</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What People Do About Sleep (or Don't)</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Each person picks <em>3 words</em>. One sentence each, about your <em>real sleep habits right now</em>. Be honest. No writing. No thinking time. Just English.</div>
+  </div>
+
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 Vocab <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1">
+        <div class="tn-cl">Capa 1 · Pedagogical</div>
+        <div class="tn-txt"><ul>
+          <li>Pairs mechanic: Person A covers the word, reads the definition aloud, Person B says the word from memory. Then switch roles. This is retrieval practice — far more effective than passive reading.</li>
+          <li>If a student gets stuck on "burnout" vs "fatigue" — clarify: burnout is chronic and psychological; fatigue is physical and can be fixed with one good night. Both are in today's vocab for that reason.</li>
+          <li>Production challenge tip: If someone says "I sleep well" — push: <strong>"Use 'recharge' and 'peak performance' in the same sentence about a real situation at work."</strong></li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c2">
+        <div class="tn-cl">Capa 2 · Engagement</div>
+        <div class="tn-txt"><ul>
+          <li>These words show up in real corporate wellness conversations: HR wellness programs, executive coaching, productivity reports. Say it: <strong>"These are the words your HR department in Chicago or New York is using right now."</strong></li>
+          <li>Best production challenge trigger: <strong>"Which 3 words describe your Monday morning at work? Go."</strong></li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c3">
+        <div class="tn-cl">Capa 3 · Growth &amp; Retention</div>
+        <div class="tn-txt"><ul>
+          <li>Homework trigger (optional): <strong>"Before next session — use one of these words in a real conversation at work. In English. It can be in writing. Bring the screenshot."</strong></li>
+          <li><strong>"These 20 words connect directly to performance reviews, wellness initiatives, and leadership conversations. You will hear them in meetings with American or European counterparts."</strong></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════ §3 OPINION WALL ═══════════════ -->
+<div class="sec-outer" id="s3">
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 03 · Opinion Wall</div>
+      <div class="sec-title">🧱 4 Real Voices. 4 Different Realities.</div>
+      <div class="sec-sub">Read or project each card · Pairs discuss 90 sec · Group shares · Same processing question each time</div>
+    </div>
+    <div class="sec-wm">03</div>
+    <div class="sec-time teacher-only">10 min</div>
+  </div>
+
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who makes you most uncomfortable? Why?"</div></div><div class="sbo-badge">Don't vary the question</div></div>
+  </div>
+
+  <div class="persp-grid" id="perspGrid"></div>
+
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group (ask after all 4)</div>
+    <div class="pq-text">"Who do you agree with most — and who makes you most uncomfortable? Why?"</div>
+  </div>
+
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 Opinion Wall <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1">
+        <div class="tn-cl">Capa 1 · Pedagogical</div>
+        <div class="tn-txt"><ul>
+          <li>Read all 4 cards before opening discussion — don't stop after each one. The contrast between all 4 is more powerful than reacting to each individually.</li>
+          <li>The provocateur is <strong>Rodrigo</strong>. His opinion will be the most uncomfortable for anyone who normalizes overwork. Watch for students who dismiss him too quickly — push: <strong>"But what if he's right? What's your evidence?"</strong></li>
+          <li>Don't let discussion become a health lecture. Redirect with: <strong>"This isn't a doctor's appointment. We're talking about what this means at work, for your career, for your team."</strong></li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c2">
+        <div class="tn-cl">Capa 2 · Engagement</div>
+        <div class="tn-txt"><ul>
+          <li>If the group is shy: read each card in a slightly dramatic voice — the characters have personality. Play Rodrigo as slightly arrogant. Play Daniela as genuinely tired. The contrast is the spark.</li>
+          <li>Best follow-up: <strong>"Which one of these four people do you actually know at your company?"</strong></li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c3">
+        <div class="tn-cl">Capa 3 · Growth &amp; Retention</div>
+        <div class="tn-txt"><ul>
+          <li>Testimonial trigger: <strong>"In one sentence — which of these four voices has described how you've been living the last 6 months?"</strong> The honest answer is usually a great testimonial in disguise.</li>
+          <li>Retention: <strong>"Next session we go deeper into wellbeing and leadership. Today was the personal. Next time it gets systemic."</strong></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════ §4 THE CONVERSATION ENGINE ═══════════════ -->
+<div class="sec-outer" id="s4">
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 04 · The Conversation Engine</div>
+      <div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div>
+      <div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · No round-robin · Point and push</div>
+    </div>
+    <div class="sec-wm">04</div>
+    <div class="sec-time teacher-only">23 min</div>
+  </div>
+
+  <div class="conv-bar">
+    <div class="conv-bar-ic">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule of the Engine:</strong> Minimum 2 sentences per answer. First sentence = position. Second sentence = why or example. If a student stops at one sentence, hold up two fingers. That's your redirect.</div>
+  </div>
+
+  <div id="conversationPhases"></div>
+
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 Conversation Engine <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1">
+        <div class="tn-cl">Capa 1 · Pedagogical</div>
+        <div class="tn-txt"><ul>
+          <li>Block 3 (Hypothetical) is where B2 grammar naturally appears — second conditional and "would." Don't correct in the moment. Note the errors and recycle them at the end: <strong>"Three of you said 'If I would sleep more' — the correct form is 'If I slept more, I would.' Heard it?"</strong></li>
+          <li>Q7 and Q8 (Provocative block) should feel uncomfortable. If the student tries to answer academically — push back: <strong>"I didn't ask what you think in theory. I asked what you would actually do."</strong></li>
+          <li>Timing: 2–2.5 min per question. If a question generates organic debate, let it run 1 extra minute max. Then cut.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c2">
+        <div class="tn-cl">Capa 2 · Engagement</div>
+        <div class="tn-txt"><ul>
+          <li>Best moment to celebrate: when a student uses a word from §2 naturally in their answer. Point it out immediately: <strong>"You just used 'recharge' in a real sentence. That's the goal."</strong></li>
+          <li>Q9 (self-reflection) often produces the most honest answers. Don't rush it. Let the silence after the question work.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c3">
+        <div class="tn-cl">Capa 3 · Growth &amp; Retention</div>
+        <div class="tn-txt"><ul>
+          <li>After Q10: <strong>"You just had a conversation that most people can't have in their first language — because they've never been asked to think this carefully about it. You did it in English."</strong></li>
+          <li>Upsell trigger: <strong>"Next Speaking Lab goes into a topic that connects directly to this one: stress and how high-performers manage it. Same format, same depth."</strong></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════ §5 EXIT SHOT ═══════════════ -->
+<div class="sec-outer" id="s5">
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <div class="sec-lbl">§ 05 · The Exit Shot</div>
+      <div class="sec-title">💣 One Question. No Easy Answer.</div>
+      <div class="sec-sub">5 min · No tips · No chips · Just position + reason · Then the loop</div>
+    </div>
+    <div class="sec-wm">05</div>
+    <div class="sec-time teacher-only">5 min</div>
+  </div>
+
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">
+      Your company offers you a <em>40% salary raise</em> — but as part of a new "high performance culture," you're expected to be reachable by 10pm and work through at least one day every weekend. You have a partner and two kids, ages 6 and 9. You haven't slept more than 6 hours in two years. <em>Do you take the deal?</em>
+    </div>
+    <div class="exit-rule">Answer in at least 3 sentences. Start with your decision. Then explain the real reason — not the one that sounds best, the one that's true. No right answer. No wrong answer.</div>
+  </div>
+
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B2.1 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I wouldn't take it — and honestly, I've been in a version of that deal for the last year without the raise. What I've noticed is that the 40% doesn't fix anything when you're running on empty every day. My kids are at an age where they actually notice when I'm not present — not just physically, but mentally. If I took that deal, I'd be buying things with money I don't have time to spend. I'd rather negotiate a smaller raise with clear boundaries than accept a number that costs me more than it gives me."</div>
+  </div>
+
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — The WhatsApp Homework</strong>
+    "Before our next session — record a 60-second voice note in English on WhatsApp. Your answer to today's Exit Shot. Don't write it first. Don't rehearse it. Just talk. That's B2 output. Send it to [teacher number]."
+  </div>
+
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 Exit Shot <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1">
+        <div class="tn-cl">Capa 1 · Pedagogical</div>
+        <div class="tn-txt"><ul>
+          <li>The question has real numbers (40%, age 6 and 9, two years) because vague dilemas produce vague answers. The specificity forces a real decision, not a theoretical one.</li>
+          <li>If a student says "it depends" — respond immediately: <strong>"You have 30 seconds. Make a decision. It depends is not a sentence."</strong></li>
+          <li>After the student answers: ask one follow-up only — <strong>"What would have to change for your answer to be different?"</strong> This activates the second conditional naturally.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c2">
+        <div class="tn-cl">Capa 2 · Engagement</div>
+        <div class="tn-txt"><ul>
+          <li>The WhatsApp homework works because it's asynchronous and private — students are more honest in a voice note alone than in the group. The loop also keeps them thinking in English between sessions.</li>
+          <li>If a student says they would take the deal: <strong>"Okay. What do you tell your 6-year-old on a Sunday when you're working?"</strong> Don't moralize — just make it concrete.</li>
+        </ul></div>
+      </div>
+      <div class="tn-capa tn-c3">
+        <div class="tn-cl">Capa 3 · Growth &amp; Retention</div>
+        <div class="tn-txt"><ul>
+          <li>The voice note homework is the single most powerful retention tool in this format. Students who send it come back the next session with something to talk about. Students who don't send it feel the gap — and that's also a retention driver.</li>
+          <li>Closing line: <strong>"You just spent 50 minutes thinking, arguing, and deciding — in English. Not translating. Thinking. That's the difference between B2.1 and everyone else."</strong></li>
+          <li>Referral trigger: <strong>"If a colleague of yours is stuck in a basic English program doing grammar exercises, this is what they're missing. You can tell them that."</strong></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Sleep as the New Status Symbol · Health &amp; Wellness · Medium</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div>
+    <div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div>
+    <div class="flv on">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns = [
+  {w:"sleep debt",    def:"Accumulated lack of sleep that builds up over days or weeks",          ex:"After three years of 5-hour nights, her sleep debt was affecting every decision she made."},
+  {w:"burnout",       def:"Complete physical and mental exhaustion from chronic overwork",         ex:"He didn't see the burnout coming until he couldn't get out of bed on Monday morning."},
+  {w:"peak performance", def:"The state of performing at your highest possible level",            ex:"The data shows peak performance is directly linked to consistent, quality sleep."},
+  {w:"recovery",      def:"The process of returning to full energy and capacity after effort",    ex:"Elite athletes schedule recovery the same way they schedule training — as non-negotiable."},
+  {w:"fatigue",       def:"Physical or mental exhaustion that makes it hard to function",         ex:"Decision fatigue hits hardest at 3pm when you've been running on 5 hours since Monday."},
+  {w:"wellness",      def:"The active pursuit of physical and mental health as a lifestyle",      ex:"The company's new wellness policy includes 8-hour sleep targets for senior managers."},
+  {w:"productivity",  def:"How much quality output you generate in a given time",                 ex:"Studies consistently show that productivity drops sharply after six hours of wakefulness."},
+  {w:"boundaries",    def:"Limits you set to protect your time, energy, and wellbeing",          ex:"She set a hard boundary: no work emails after 9pm, no exceptions."},
+  {w:"mindset",       def:"The set of beliefs and attitudes that shape how you approach things",  ex:"The hustle mindset treats sleep as a weakness — the data says the opposite."},
+  {w:"recharge",      def:"The process of restoring your energy, usually through rest",          ex:"He blocks one hour after lunch to recharge — it's in his calendar like a meeting."}
+];
+
+const verbs = [
+  {w:"burn out",        def:"To reach a state of total exhaustion from overwork",                   ex:"She burned out at 34 — two weeks after her biggest promotion."},
+  {w:"crash",           def:"To suddenly collapse from exhaustion or sleep deprivation",             ex:"He would push through the week and crash every Saturday for 12 hours straight."},
+  {w:"track",           def:"To monitor and record data about a habit or metric over time",          ex:"She tracks her sleep with a wearable device — and shares the data with her coach."},
+  {w:"set boundaries",  def:"To establish and communicate clear limits about your availability",     ex:"He finally set a boundary: no calls after 8pm unless it is a genuine emergency."},
+  {w:"prioritize",      def:"To decide what matters most and focus energy there first",              ex:"She prioritized sleep over networking events and her performance scores went up."},
+  {w:"push through",    def:"To continue working despite exhaustion or discomfort",                  ex:"He used to push through fatigue until his body made the decision for him."},
+  {w:"wind down",       def:"To gradually relax and prepare your body for sleep",                    ex:"She winds down for 30 minutes before bed — no screens, no email, no news."},
+  {w:"underperform",    def:"To perform below your actual capacity or the expected standard",        ex:"The team had been underperforming for months — nobody connected it to the 6am calls."},
+  {w:"recharge",        def:"To restore your energy by resting, sleeping, or disconnecting",         ex:"He takes a real lunch break to recharge instead of eating in front of his screen."},
+  {w:"log off",         def:"To disconnect from work, digitally and mentally, at the end of the day",ex:"She started logging off at 6:30pm and noticed her mornings became sharper within a week."}
+];
+
+const perspectives = [
+  {
+    name:"Daniela Ruiz",
+    meta:"33 · Marketing Manager · Mexico City",
+    flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I used to <strong>brag</strong> about sleeping 5 hours. My team thought I was a machine. Last year I started tracking my sleep — 7 hours minimum — and honestly, my output in the first 3 hours of the morning is now better than what I used to produce all day. The hustle culture thing is a trap. You think you're winning, but you're actually just slowly degrading. Nobody tells you that."
+  },
+  {
+    name:"Rodrigo Palafox",
+    meta:"47 · Operations Director · Monterrey",
+    flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"Sleep optimization is a <strong>luxury</strong> for people who don't have real deadlines. I'm managing 4 plants, 200 employees, and a board that wants results every quarter. When there's a crisis at 2am, I answer. That's what leadership means in the real world. I've slept 6 hours a night for 20 years and I'm still standing. The soft productivity crowd has never had a client call them at midnight to say the line stopped."
+  },
+  {
+    name:"Sofía Cárdenas",
+    meta:"29 · UX Designer · Guadalajara",
+    flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"What gets me is how <strong>companies</strong> suddenly care about wellness when the research becomes mainstream. Three years ago, working 12 hours a day was a badge of honor here. Now HR sends us articles about sleep hygiene. The culture didn't change — the PR did. I don't trust it until I see managers actually log off before 8pm and nobody gets penalized for not answering on weekends."
+  },
+  {
+    name:"Andrés Villegas",
+    meta:"55 · CEO · Celaya — el provocateur",
+    flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I started sleeping 8 hours at 50 and it was the <strong>best business decision</strong> I ever made — better than any hire, any deal, any strategy. The problem is we've built entire companies on the assumption that exhaustion equals commitment. If your team is chronically sleep-deprived, that's a <strong>management failure</strong>, not a work ethic success story. I was that manager for 20 years. I cost myself and my people more than I'll ever be able to calculate."
+  }
+];
+
+const phases = [
+  {
+    num:"BLOCK 1",
+    name:"Personal Experience",
+    mech:"2 min per question · Point directly · No round-robin",
+    questions:[
+      {
+        num:"Q1",
+        text:"How many hours do you actually sleep on a normal weeknight? And when did that become your normal?",
+        chips:["I usually sleep around...","That became normal when...","To be honest...","I've been sleeping less since..."],
+        tn:"Most answers here will be 5–6 hours. Don't comment on the health implications yet. Just listen and note who seems resigned vs who seems bothered by their own answer. Those are your best speakers for Q4."
+      },
+      {
+        num:"Q2",
+        text:"Have you ever had a period where you were sleeping really well — consistently? What was happening in your life then?",
+        chips:["There was a time when...","I've noticed that when I sleep well...","The difference was...","That was before..."],
+        tn:"This question often unlocks surprising answers — vacations, sabbaticals, periods between jobs, or even early career when there was less pressure. The contrast with now is the emotional hook."
+      },
+      {
+        num:"Q3",
+        text:"What's the most obvious sign in your body or behavior that tells you you haven't slept enough?",
+        chips:["For me it's always...","I get really...when I haven't slept","My concentration...","I've noticed I make more mistakes when..."],
+        tn:"Common answers: irritability, bad decisions, craving sugar, slower reading, shorter fuse with people. If someone says they have no symptoms — push gently: \"And your family or colleagues would agree with that?\""
+      }
+    ]
+  },
+  {
+    num:"BLOCK 2",
+    name:"Opinion",
+    mech:"2 min per question · Challenge weak answers · Minimum 2 sentences",
+    questions:[
+      {
+        num:"Q4",
+        text:"Some people say 'I only need 5 hours and I'm fine.' The science says that's almost never true. Who do you believe — the person or the data?",
+        chips:["I think the science is right because...","But in practice...","The problem with that argument is...","I know people who..."],
+        tn:"This is the flashpoint question for anyone who said 5–6 hours in Q1. Don't let them off the hook easily. The research on sleep deprivation is overwhelming — push: \"What would have to be true for you to change your mind?\""
+      },
+      {
+        num:"Q5",
+        text:"Is sleep becoming a privilege? If you have two jobs, a long commute, or young kids — is 8 hours of sleep even realistic for most people?",
+        chips:["That's a fair point because...","The reality is that...","It depends on whether...","I think the system..."],
+        tn:"This opens up the class dimension of sleep — an angle many students haven't considered. It can generate genuine debate. Let it run if it does, but keep it to 3 minutes max."
+      },
+      {
+        num:"Q6",
+        text:"Should companies be responsible for protecting their employees' sleep — limiting after-hours emails, ending late meetings? Or is that too much?",
+        chips:["I think companies should...","The problem with that is...","In my company right now...","Honestly, the culture here..."],
+        tn:"This directly connects to Sofia's perspective from §3. If students agreed with her, this is where they have to decide whether that opinion leads to real policy — or just remains talk."
+      }
+    ]
+  },
+  {
+    num:"BLOCK 3",
+    name:"Hypothetical / Future",
+    mech:"Second conditional natural here · Don't correct in the moment · Note and recycle at the end",
+    questions:[
+      {
+        num:"Q7",
+        text:"If you slept 8 hours consistently for the next 3 months, what do you think would be the first thing to change — at work or at home?",
+        chips:["I think I would probably...","The first thing would be...","I imagine my...","My colleagues would probably notice..."],
+        tn:"Watch for 'If I would sleep' — that's the most common Mexican Spanish interference error with the second conditional. Note it. Recycle at end: 'If I slept, I would.' Don't interrupt the flow."
+      },
+      {
+        num:"Q8",
+        text:"If your company announced a policy next Monday — no calls or emails after 7pm, no exceptions — would that actually change how you work? Or would the pressure just move underground?",
+        chips:["Honestly, I think...","The culture would probably...","It would depend on whether...","I've seen what happens when..."],
+        tn:"The 'underground' option is realistic — many students will recognize that in their company, informal expectations override formal policies. This tension is good. Let it land."
+      }
+    ]
+  },
+  {
+    num:"BLOCK 4",
+    name:"Provocative",
+    mech:"No chips · No tips · Just position + reason · Push anyone who gives a safe answer",
+    questions:[
+      {
+        num:"Q9",
+        text:"Self-reflection question: In the last 6 months, have you been choosing work over sleep — or has sleep been forced out of you? Be honest. Which one?",
+        chips:[],
+        tn:"This is the most personal question of the session. Silence after the question is normal — let it breathe for 5 full seconds before redirecting. The student who gives an honest answer here will often give the best Exit Shot later."
+      },
+      {
+        num:"Q10",
+        text:"Is someone who sleeps 8 hours, leaves at 6pm, and refuses weekend work — a person with good boundaries, or a person who isn't serious about their career? Pick a side.",
+        chips:[],
+        tn:"This is the synthesis question. There is no neutral answer. If someone says 'it depends' — respond: 'Pick a side. Then explain the exception.' Strong B2 answers will acknowledge the complexity while still committing to a position."
+      }
+    ]
+  }
+];
+
+// BUILD VOCAB
+function buildVocab(data, containerId, type) {
+  const g = document.getElementById(containerId);
+  data.forEach(item => {
+    const c = document.createElement("div");
+    c.className = "vc " + (type === "noun" ? "noun-c" : "verb-c");
+    c.innerHTML = `
+      <div class="vtype">${type === "noun" ? "NOUN" : "VERB"}</div>
+      <div class="vw">${item.w}</div>
+      <div class="vdef">${item.def}</div>
+      <div class="vex">${item.ex}</div>
+      <button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>
+    `;
+    g.appendChild(c);
+  });
+}
+buildVocab(nouns, "nounGrid", "noun");
+buildVocab(verbs, "verbGrid", "verb");
+
+// BUILD PERSPECTIVES
+const pg = document.getElementById("perspGrid");
+perspectives.forEach(p => {
+  pg.innerHTML += `
+    <div class="persp-card">
+      <div class="pc-img-wrap">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="pc-img-overlay"></div>
+        <div class="pc-flag">${p.flag}</div>
+        <div class="pc-profile">
+          <div><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-quote">${p.quote}</div>
+      </div>
+    </div>`;
+});
+
+// BUILD CONVERSATION
+const convEl = document.getElementById("conversationPhases");
+phases.forEach(phase => {
+  let qHTML = "";
+  phase.questions.forEach(q => {
+    const chips = q.chips.map(c => `<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");
+    qHTML += `
+      <div class="q-card">
+        <div class="q-num">${q.num}</div>
+        <div class="q-text">${q.text}</div>
+        ${chips ? `<div class="q-chips">${chips}</div>` : ""}
+        ${q.tn ? `<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div>` : ""}
+      </div>`;
+  });
+  convEl.innerHTML += `
+    <div class="conv-phase">
+      <div class="phase-hd">
+        <div class="phase-num">${phase.num}</div>
+        <div class="phase-name">${phase.name}</div>
+        <div class="phase-mech teacher-only">${phase.mech}</div>
+      </div>
+      ${qHTML}
+    </div>`;
+});
+
+// SPEECH
+function speak(text, e) {
+  if(e) e.stopPropagation();
+  if(!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-US"; u.rate = 0.88; u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+function speakChip(text, e) {
+  if(e) e.stopPropagation();
+  speak(text, null);
+}
+
+// TEACHER TOGGLE
+function toggleMode(btn) {
+  document.body.classList.toggle("student-mode");
+  btn.textContent = document.body.classList.contains("student-mode") ? "👤 Teacher Mode" : "👁 Student Mode";
+}
+
+// TEACHER NOTES
+function toggleTN(btn) {
+  const body = btn.nextElementSibling;
+  btn.classList.toggle("open");
+  body.classList.toggle("open");
+}
+
+// CHALLENGE MODE
+function toggleChallenge(btn) {
+  document.body.classList.toggle("challenge-mode");
+  btn.textContent = document.body.classList.contains("challenge-mode")
+    ? "✅ Exit Challenge Mode — Show Definitions"
+    : "🧠 Challenge Mode — Hide Definitions";
+}
+
+// PROGRESS BAR
+window.addEventListener("scroll", () => {
+  const p = document.getElementById("prog");
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  p.style.width = h > 0 ? (window.scrollY / h * 100) + "%" : "0%";
+});
+
+// ACTIVE NAV
+const sections = ["s1","s2","s3","s4","s5"];
+const navLinks = document.querySelectorAll(".sni");
+function updateNav() {
+  let cur = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 80) cur = id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle("active", a.getAttribute("href") === "#" + cur);
+  });
+}
+window.addEventListener("scroll", updateNav, {passive:true});
+</script>
+</body>
+</html>

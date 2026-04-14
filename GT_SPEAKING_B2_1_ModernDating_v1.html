@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Modern Dating · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;--ac2:#FFB800;
+  --green:#00e676;--red:rgba(255,31,92,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:transparent;border:1px solid var(--bd);color:var(--mt);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{border-color:var(--ac);color:var(--ac);background:rgba(255,184,0,.06)}
+
+/* HERO */
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1516589091380-5d8e87df6999?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.7) 50%,rgba(15,25,35,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,184,0,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+/* CONTAINER */
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+/* SECTION */
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+/* TRIGGER BOX */
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,184,0,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+/* OPINION WALL */
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,184,0,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+/* QUESTIONS */
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,184,0,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+/* EXIT SHOT */
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+/* FOOTER */
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag">Relationships & Personality</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Modern Dating: Apps vs. Real Life</div>
+    <div class="hero-sub">Swipe right on the algorithm, swipe left on human connection — or are we overthinking a tool that actually works?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One stat. Let them react before they intellectualize.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Pew Research Center · 2023</div>
+      <div class="trigger-quote">"53% of Americans say dating apps have had a mostly negative effect on dating and relationships. Yet 3 in 10 adults have used one — and 12% found a committed relationship or marriage through them."</div>
+      <div class="trigger-script">Despite widespread criticism, dating app use continues to grow globally — including in Latin America, where Tinder and Bumble have seen double-digit growth year-over-year. The disconnect between what people say about apps and what they actually do with them is one of the most interesting contradictions in modern relationships.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Put the two numbers up: 53% hate it, 12% found love through it. Then ask: <em>"Which number surprises you more?"</em> Then: <em>"Quick — how many of you have used a dating app? Or know someone who has?"</em> You don't need them to raise their hands — just let them answer. The goal is to make it feel like a normal conversation, not a taboo topic.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. These words will come up naturally in Phase 4.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('swipe culture')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">swipe culture</div>
+        <div class="vc-def">The habit of judging people instantly based on a photo</div>
+      </div>
+      <div class="vocab-card" onclick="speak('deal-breaker')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">deal-breaker</div>
+        <div class="vc-def">A condition that makes someone completely unacceptable as a partner</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ghosting')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">ghosting</div>
+        <div class="vc-def">Suddenly cutting off all contact without any explanation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('red flag')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">red flag</div>
+        <div class="vc-def">A warning sign that something is wrong with a person or situation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('compatibility')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">compatibility</div>
+        <div class="vc-def">How well two people fit together in values, lifestyle, and personality</div>
+      </div>
+      <div class="vocab-card" onclick="speak('algorithm')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">algorithm</div>
+        <div class="vc-def">The system apps use to decide who you see and who sees you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('catfishing')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">catfishing</div>
+        <div class="vc-def">Creating a fake identity online to deceive someone romantically</div>
+      </div>
+      <div class="vocab-card" onclick="speak('attachment style')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">attachment style</div>
+        <div class="vc-def">The pattern of how you emotionally connect with and depend on partners</div>
+      </div>
+      <div class="vocab-card" onclick="speak('vulnerability')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">vulnerability</div>
+        <div class="vc-def">The willingness to be emotionally open and risk getting hurt</div>
+      </div>
+      <div class="vocab-card" onclick="speak('chemistry')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">chemistry</div>
+        <div class="vc-def">The intangible connection you feel with someone in person</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('match with')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">match with</div>
+        <div class="vc-def">To connect with someone on a dating app who also liked your profile</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ghost someone')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">ghost someone</div>
+        <div class="vc-def">To disappear from someone's life without warning or explanation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('settle for')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">settle for</div>
+        <div class="vc-def">To accept someone less than what you actually want</div>
+      </div>
+      <div class="vocab-card" onclick="speak('swipe right')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">swipe right</div>
+        <div class="vc-def">To show interest in someone on a dating app</div>
+      </div>
+      <div class="vocab-card" onclick="speak('put yourself out there')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">put yourself out there</div>
+        <div class="vc-def">To take risks socially and try to meet new people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('idealize')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">idealize</div>
+        <div class="vc-def">To see someone as perfect based on limited information</div>
+      </div>
+      <div class="vocab-card" onclick="speak('filter out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">filter out</div>
+        <div class="vc-def">To eliminate people who don't meet your criteria before meeting them</div>
+      </div>
+      <div class="vocab-card" onclick="speak('keep your options open')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">keep your options open</div>
+        <div class="vc-def">To avoid committing to one person while still dating others</div>
+      </div>
+      <div class="vocab-card" onclick="speak('burn out on dating')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">burn out on dating</div>
+        <div class="vc-def">To become emotionally exhausted from repeated failed connections</div>
+      </div>
+      <div class="vocab-card" onclick="speak('click with someone')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">click with someone</div>
+        <div class="vc-def">To instantly feel a natural connection with a person</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('We matched but never actually talked')">
+        <div class="pi-phrase">"We matched but never actually talked."</div>
+        <div class="pi-context">The most common outcome of dating apps that nobody mentions in the marketing.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('He was completely different in real life')">
+        <div class="pi-phrase">"He was completely different in real life."</div>
+        <div class="pi-context">Said after every first date that comes from an app profile that was a little too curated.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I deleted the app again')">
+        <div class="pi-phrase">"I deleted the app again."</div>
+        <div class="pi-context">The cycle everyone knows: delete it, reinstall it, delete it again.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('We have a lot in common on paper')">
+        <div class="pi-phrase">"We have a lot in common on paper."</div>
+        <div class="pi-context">Translation: the profile looked great. The coffee was a disaster.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I\'m just not ready to put a label on it')">
+        <div class="pi-phrase">"I'm just not ready to put a label on it."</div>
+        <div class="pi-context">The modern way of saying "I like you enough to keep dating you but not enough to stop using the app."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four real positions. None of them entirely wrong. Which one annoys you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">📱</div>
+          <div>
+            <div class="op-name">Sofía, 31</div>
+            <div class="op-role">Marketing Analyst · Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I met my boyfriend on Tinder and we've been together three years. I'm so tired of the 'apps are ruining dating' narrative. <strong>Apps give introverts like me access to people we would literally never meet otherwise.</strong> A bar doesn't work for everyone. The gym doesn't work for everyone. Apps are just a tool — and you can use any tool badly."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😒</div>
+          <div>
+            <div class="op-name">Daniel, 43</div>
+            <div class="op-role">Civil Engineer · Puebla</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I spent two years on apps. Dozens of matches, maybe 15 actual dates, zero real connections. <strong>Apps train you to treat people like products.</strong> You're always looking for the next option. The moment something gets difficult, you just open the app again. It destroyed my ability to be present in a conversation with someone I actually liked."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Lucía, 36</div>
+            <div class="op-role">Therapist · CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "As a therapist, what I've noticed is that <strong>apps are a mirror, not a cause.</strong> People who struggle with commitment struggle with it on apps and in real life. People who are emotionally healthy tend to use apps as a starting point, not the whole relationship. The app isn't the problem — your attachment style follows you everywhere."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Roberto, 28</div>
+            <div class="op-role">Freelance Designer · Guadalajara</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "Honestly? People complaining about apps are just bad at apps. Or bad at dating. <strong>If you keep meeting the wrong people, you need to look at your own choices — not blame the platform.</strong> Tinder has the same people as the bar on a Friday night. You're just more honest about why you're there. At least apps are efficient. Real life dating is just apps with worse lighting."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people would you most want to have this conversation with? Which one are you most tempted to argue with?" Roberto is the provocateur — his "you're just bad at it" argument shifts blame from the app to the user in a way that's uncomfortable but hard to fully dismiss. Let the class decide if that's brave honesty or just arrogance.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Go wherever the conversation goes — just keep it in English.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever used a dating app — or do you know someone who has? What was that experience actually like?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is the opener — make it safe. "Or someone you know" gives people an exit if they don't want to share personally. But most B2.1 adults have a story. Listen for vocabulary opportunities: ghosting, chemistry, red flag, catfishing.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">How do you typically meet new people in your life — at work, through friends, by chance? When was the last time you met someone new in a situation that surprised you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Great for past tense and storytelling. Push for specifics — where were they? What happened? This creates natural contrast with the "app vs real life" debate. Some students will realize they haven't met new people organically in years.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever clicked instantly with someone — in any context? What made that connection feel different from other interactions?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is about chemistry — that ineffable quality apps can't replicate. Get them to describe the actual feeling: what did they notice? What did the other person do? This builds toward the "what apps can't replace" thread of the conversation.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is it possible to really know someone through a profile and text messages — before you've ever been in the same room? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Push for specifics: what can you know? What can't you know? Interesting vocabulary: idealize, vulnerability, attachment style. The best students will recognize that pre-meeting communication can both help and hurt — you build expectations before reality can correct them.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Apps let you filter by height, age, job, even political views. Is that more efficient — or does it eliminate the best surprises life has to offer?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is a genuine tension. Efficiency is valuable — but many real relationships started because someone broke a "rule" the other person didn't know they had. Great for the "filter out" and "compatibility" vocabulary. Ask: "What would you filter out — and have you ever dated someone who would have been filtered?"
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think ghosting is worse on apps than in real life — or is it the same behavior with a different name?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Interesting ethical angle. Apps lower the cost of disappearing — you never have to face the other person. But ghosting existed before apps. Push them: "Have you ever been ghosted? Have you ever ghosted someone?" The honesty is the interesting part.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If dating apps completely disappeared tomorrow, how would your generation find partners? Would that actually be better or worse?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional: "If apps disappeared, people would…" Push them to think practically: where would they go? What social infrastructure has been lost? This often leads to a surprising realization that we've stopped building real-life social habits.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">In 10 years, will AI-powered matchmaking replace dating apps — or even replace the early stages of dating altogether? Would you use it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will + prediction + conditional. AI dating is already being built — apps that send messages on your behalf, AI companions, etc. Push them: where's the line? Would they use an AI to screen dates? Would they be okay knowing the other person did? Great for the "algorithm" vocabulary.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Have apps made people's standards unrealistically high — or have they just given people the courage to finally ask for what they actually want?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is a real debate. "Paradox of choice" research shows that more options often leads to less satisfaction. But the counter-argument is that people — especially women — historically settled for less because they had fewer options. Both arguments are defensible. Don't resolve it — let it sit.
+        </div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Honestly — when you think about what you look for in a partner, how much of that list is based on who you actually are, and how much is based on who you think you should be with?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The deepest question of the session — and the one most connected to the apps debate. Apps make the list explicit and public, which forces a kind of honesty about our criteria that real life doesn't. This question is about self-awareness, not just dating. Give them time. Don't rush.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. No right answer. Record your response.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B2.1 Modern Dating</div>
+      <div class="exit-question">Someone you've been talking to on an app for 3 weeks — great conversations, real connection, shared values — tells you they've been using AI to help write their messages. The feelings are real. The words weren't entirely theirs. Do you keep going?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Is this cheating — or just using the tools available? And be honest: have you ever been more articulate in writing than in person? Is this really so different?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      This exit shot works because it's already happening — AI writing assistants in dating apps are a real and growing phenomenon. It connects the whole session (apps, authenticity, connection) into one concrete personal decision. End with: <em>"Send me your voice note. I want to hear your argument — not ChatGPT's."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Modern Dating: Apps vs. Real Life · Relationships & Personality</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.88; u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

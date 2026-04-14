@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · The Death of Small Talk · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--ac2:rgba(255,184,0,0.12);--ac3:rgba(255,184,0,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:var(--navy)}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1515169067868-5387ec356754?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:580px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(255,184,0,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B2.1</span>
+      <span class="htag">Social Issues &amp; Society</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">The Death of Small Talk</div>
+    <div class="hero-sub">"How are you?" "Fine." We've said this a thousand times and meant it zero. Is polite conversation dead — or was it never really alive?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Harvard Business Review · 2022</div>
+    <div class="trigger-quote">"Research shows that strangers who engage in meaningful conversation — not small talk — report significantly higher levels of connection and happiness. Yet most of us default to weather and weekend plans. Why do we keep choosing the conversation we like least?"</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then: "Think about the last real conversation you had at work — not 'how's it going' — but something that actually mattered. How long ago was it? Who was it with?" Let them answer. Then: "Today we're asking whether small talk is a social lubricant or a social prison — and what we actually want from the people we spend 8 hours a day with."</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Office Language</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one is you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😌</div><div><div class="op-name">Lucía · 44</div><div class="op-role">Operations Director · Monterrey</div></div></div>
+      <div class="op-text">Small talk is the social glue of every functional workplace. <strong>Before you can have a hard conversation with someone, you need 100 easy ones.</strong> People who skip straight to "meaningful" conversations usually come across as intense, self-absorbed, or desperate. The weather, the weekend, the commute — it's not shallow. It's how you build trust slowly and safely.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😩</div><div><div class="op-name">Miguel · 33</div><div class="op-role">Software Engineer · CDMX · Remote</div></div></div>
+      <div class="op-text">I switched to remote work and I thought I'd miss the office social life. I don't. I don't miss 20 minutes of filler conversation before a meeting starts. I don't miss "how was your weekend" from people who won't remember my answer. <strong>Remote work taught me that most in-person small talk was just people performing friendliness.</strong> I'd rather have one real conversation a week than 40 fake ones.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Valentina · 29</div><div class="op-role">Brand Strategist · Guadalajara</div></div></div>
+      <div class="op-text">Small talk isn't dying — it's evolving. And the people who complain about it are usually the ones who are terrible at it. <strong>The real issue is that we've become too fragile for ambiguity.</strong> We want every conversation to have a point and a takeaway and a purpose. But human connection doesn't work that way. Sometimes talking about nothing is exactly what builds everything. <strong>The problem isn't small talk. It's that you're doing it wrong.</strong></div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🤔</div><div><div class="op-name">Jorge · 51</div><div class="op-role">HR Manager · Querétaro</div></div></div>
+      <div class="op-text">I've worked in both cultures — Mexico and the US. In Mexico, <strong>small talk is relationship-building; in the US, it's just a transaction before the real meeting starts.</strong> What we call "small talk" is actually very different depending on where you are. The problem isn't the conversation — it's that we've stopped understanding what conversation is actually for.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which voice sounds most like yours? Which one would irritate you most at a company event — and why?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">How do you usually respond when someone asks "How are you?" at work? Do you ever actually answer it — or do you just say "fine" and move on?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone says "fine." Push further: "When was the last time you gave an honest answer to that question at work? What happened?" The contrast between the script and the truth is where the real conversation starts.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever been stuck in a conversation at a work event that felt completely pointless — and you couldn't escape? What did you do?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for humor and storytelling. "What was the topic? How long did it last? What strategies did you use to escape?" Push for vivid detail — this is where B2.1 vocabulary flows most naturally.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Think of a colleague you genuinely like at work. How did that relationship start — small talk, a real conversation, or something else?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "We started with small talk — for months. Then one day the project went badly and we had a completely honest conversation about how we both felt. That one conversation changed everything. So maybe the small talk was necessary — it was the warmup."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is small talk a social skill or a social obligation? Do you think people who are good at it have an unfair advantage at work?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The "unfair advantage" angle is provocative. Push: "Have you ever seen someone get promoted partly because they were good at office conversation — regardless of their actual work? How did that make you feel?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think remote and hybrid work has made people worse at in-person conversation — or just more honest about what they actually want from it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think it revealed that a lot of in-office interaction was performed rather than genuine. When you remove the obligation to be physically present together, you find out which conversations people actually want to have — and which ones they were only having because they had no choice."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Some companies now have "no small talk" meeting policies — you come in, discuss the agenda, and leave. Good idea or terrible idea?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This one divides people cleanly. "Would you want that policy in your company? What would you lose? What would you gain?" Ask them to commit to a verdict — not just see both sides.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If you could redesign the social norms of your workplace from scratch — what would conversations actually look like? Would small talk have a place?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I'd keep small talk — but I'd make it optional and shorter. I'd also create actual space for honest conversations about work, stress, and relationships. Right now we have a lot of the first and almost none of the second. That imbalance is what makes the small talk feel empty."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If a new colleague on their first day skipped all the small talk and asked you a genuinely personal question — something real — how would you react?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This tests where their real comfort line is. "Would you find it refreshing or alarming? What would the question need to be for you to appreciate it rather than feel invaded?" Push for the specific threshold.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">How many of your work relationships would survive if you removed all the small talk — if you only talked when you had something real to say?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This question lands hard because the honest answer for most people is "very few." Give them time. "What does that tell you about those relationships — or about what you want from them?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">When was the last time you had a conversation at work — or anywhere — that you still think about? What made it different?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "About six months ago. A colleague told me she was thinking about quitting and explained exactly why. No script, no pleasantries. She just said what was true. I still think about it because it was the only completely honest conversation I'd had at work in months. And that felt wrong."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your company is launching a new internal initiative: every team meeting must start with 10 minutes of structured "connection time" — no work topics, just personal conversation. Your manager is excited. Half your team thinks it's forced and awkward. The other half thinks the team desperately needs it. You're asked to lead the first session tomorrow. Do you commit fully, go through the motions, or push back on the whole idea?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: What do you actually do — and what does your choice say about how you feel about authentic connection at work?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B2.1 · Social Issues &amp; Society · The Death of Small Talk · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv on">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"small talk",def:"Light, social conversation about unimportant topics",ex:'"She was brilliant at small talk — which helped her survive every company event."'},
+  {w:"connection",def:"A genuine feeling of closeness or understanding with another person",ex:'"The team had plenty of meetings but almost no real connection."'},
+  {w:"awkward silence",def:"An uncomfortable pause in conversation that no one knows how to fill",ex:'"The merger announcement created a 30-second awkward silence in the all-hands meeting."'},
+  {w:"rapport",def:"A comfortable, harmonious relationship built through conversation",ex:'"He built rapport with clients slowly — and they stayed for years because of it."'},
+  {w:"authenticity",def:"Being genuine and honest rather than performing or pretending",ex:'"Employees said they wanted authenticity from leadership — then panicked when they got it."'},
+  {w:"loneliness",def:"The feeling of being disconnected from others, even when surrounded by them",ex:'"Office loneliness is real — you can share a space with 50 people and feel completely alone."'},
+  {w:"icebreaker",def:"An activity or question designed to start conversation in a group setting",ex:'"The icebreaker was worse than the awkward silence it was trying to fix."'},
+  {w:"boundaries",def:"Personal limits on what someone is comfortable sharing or discussing",ex:'"She kept strict professional boundaries — and it made her hard to actually know."'},
+  {w:"vulnerability",def:"The willingness to show your real feelings, even at the risk of being judged",ex:'"He showed real vulnerability in that meeting. People respected him more for it."'},
+  {w:"chitchat",def:"Casual, informal conversation about everyday topics",ex:'"The best deals she ever closed started with chitchat about football."'},
+];
+const verbs=[
+  {w:"break the ice",def:"To start a conversation or ease tension in a new social situation",ex:'"He told a self-deprecating joke to break the ice. It worked perfectly."'},
+  {w:"open up",def:"To share personal thoughts or feelings more honestly than usual",ex:'"She rarely opened up at work — until the team trip changed everything."'},
+  {w:"make conversation",def:"To talk with someone, especially when it requires effort",ex:'"He was terrible at making conversation. He knew it and hated it."'},
+  {w:"connect with",def:"To form a real personal bond or understanding with someone",ex:'"I can work with anyone — but I only truly connect with about 3 people here."'},
+  {w:"fill the silence",def:"To talk in order to avoid an uncomfortable pause",ex:'"She filled the silence with facts no one needed. It made everything worse."'},
+  {w:"keep it professional",def:"To avoid personal topics and focus on work-related conversation",ex:'"He kept it strictly professional for years — then left without anyone really knowing him."'},
+  {w:"drift apart",def:"To gradually become less close to someone over time",ex:'"After remote work started, the team drifted apart faster than anyone expected."'},
+  {w:"check in",def:"To briefly make contact with someone to see how they are",ex:'"She checked in with her team every Monday — not about work, about life."'},
+  {w:"put up a wall",def:"To emotionally distance yourself from others to avoid being known",ex:'"He had put up a wall so long that he had forgotten why he built it."'},
+  {w:"get personal",def:"To move from surface-level to more honest or intimate conversation",ex:'"The conversation got personal fast — and neither of them was prepared for it."'},
+];
+const phrases=[
+  {t:'"How\'s it going?"',c:"The most universal small talk opener — and usually the least answered honestly."},
+  {t:'"Let\'s catch up soon."',c:"Said constantly at the end of hallway conversations. Rarely followed up on."},
+  {t:'"We should grab coffee."',c:"Corporate for 'I like you enough to say this but probably not enough to schedule it.'"},
+  {t:'"Same old, same old."',c:"The universal non-answer to 'what's new?' — signals comfort with surface-level talk."},
+  {t:'"You had to be there."',c:"Used when a shared experience is too real or specific to explain to someone outside it."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

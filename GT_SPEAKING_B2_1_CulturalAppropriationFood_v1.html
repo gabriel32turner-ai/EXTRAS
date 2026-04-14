@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Cultural Appropriation in Food · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Travel &amp; Culture</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Cultural Appropriation<br>in Food</h1>
+    <p>When a French chef wins a Michelin star for "elevated" tacos, is that a tribute — or is something being taken without credit?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocative Headline</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The New York Times · Food Section · 2021</div>
+    <div class="trigger-quote">"A white chef in Portland opened a burrito cart after a trip to Mexico. Local Latina food vendors — some of whom had been selling burritos for decades — were pushed out of the market within months. The cart was featured in every food blog in the city. The women who taught themselves the same recipes were not."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the quote slowly. Then ask: <em>"What's your reaction? Is this a story about food — or about something bigger?"</em> Let students name the issue before you name it. Then: <em>"Does this story feel familiar? Has something like this ever happened with Mexican food — or any food from your culture?"</em> Mexican students often have strong feelings about how their food is represented (or misrepresented) abroad.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨‍🍳</span>
+        <div><div class="bub-name">Tomás · 34</div><div class="bub-role">Chef · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"I love it when foreign chefs get inspired by Mexican food. It means our cuisine is <strong>respected globally</strong>. The problem isn't inspiration — it's when they get the credit and we don't. Give us a mention, learn the real history, bring us into the conversation. Inspiration with acknowledgment is called cuisine. Inspiration without it is called theft."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍🎓</span>
+        <div><div class="bub-name">Adriana · 29</div><div class="bub-role">Cultural Studies grad student · CDMX</div></div>
+      </div>
+      <div class="bub-body">"Food has <strong>always traveled</strong>. Tomatoes came to Italy from the Americas. Chili went from Mexico to Thailand. Pasta was influenced by China. The idea of 'pure' national cuisine is a myth. What we should care about is economic justice — who profits, who gets the platform, who gets told their version is 'authentic' and who gets told theirs is 'street food.'"</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">🧑‍🏫</span>
+        <div><div class="bub-name">Omar · 47</div><div class="bub-role">Anthropology professor · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"Cultural appropriation in food becomes a problem when it erases the original source. When a foreign chef's version of your dish is considered more legitimate than yours — <strong>that's not fusion, that's a power imbalance</strong>. The question isn't 'can you cook it?' The question is 'why does your version get the Michelin star and the original gets ignored?'"</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🍜</span>
+        <div><div class="bub-name">Isabelle · 41</div><div class="bub-role">Food critic · Paris</div></div>
+      </div>
+      <div class="bub-body">"I'm tired of this conversation. <strong>Cuisine is not property.</strong> No country owns a dish. Mexicans didn't invent the chile — it existed in the Americas long before nations did. The idea that a French chef can't cook tacos is as absurd as saying a Mexican chef can't make croissants. We should be celebrating the best version of a dish — not policing who is allowed to cook it."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Isabelle is the provocateur because she rejects the premise entirely and frames the debate as "policing" — language that will irritate students who care about this. Push: <em>"Is Isabelle ignoring the economic and power dimension — or is she making a genuinely valid point about the freedom of culinary creativity?"</em> Mexican students will often have a personal stake here, which is exactly what makes it rich territory.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever eaten a "Mexican" dish abroad — or seen one described on a menu — and felt like it had nothing to do with the real thing? What was missing?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Rich territory for Mexican students. Most have a "fake Mexican food" story — Tex-Mex, hard shell tacos, cheese on everything. Let them vent. Then shift: "Is a bad version of your food offensive — or just bad cooking?" Target: present perfect for experience + past simple for the specific story.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever cooked or eaten food from another culture and felt you were doing something meaningful — connecting to another place or people through food?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Flips the script — makes the student the "outsider" cooking another culture's food. Push: "Does that feeling of connection justify cooking it — or do you feel like you need permission?" This is the emotional counterpoint to the critical questions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Can you think of a dish from your own culture that has been adopted — or changed — by another country? Does the new version bother you, or do you see it as a compliment?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Mexico is rich with examples: Taco Bell, "Mexican pizza," matcha tacos in Japan. But also consider the reverse: mole, pozole, and mezcal have been elevated globally in ways that sometimes benefit Mexican producers. Push: "Is there a difference between adapting a dish and distorting it?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is there a real difference between "cultural exchange" and "cultural appropriation" when it comes to food — or is it just about who profits?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The definitional question. Adriana and Omar both offer different answers. Push: "What's the key variable — intent, acknowledgment, or money?" Target: present simple for beliefs + modals for judgment (should, ought to, must). Don't let students give vague answers — press for the specific factor that makes the difference.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should foreign chefs be required to credit the culture a dish comes from — the way musicians credit a sample? Is a recipe more like art or more like a technique?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The music sampling analogy is useful and accessible for most students. Push: "If a musician has to pay royalties for sampling 3 seconds of a song — shouldn't a chef do something equivalent?" Target: conditional + should. Key vocab: credit, acknowledge, intellectual property, inspiration vs. theft.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is Isabelle right — does "cultural ownership" of food make any sense? Or does the history of how food travels make ownership impossible to define?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Steel-manning Isabelle. The historical point is real — food has always traveled across cultures. Push: "If tomatoes are from the Americas and now define Italian food — does Italy 'own' pasta with tomato sauce?" The goal is intellectual honesty, not comfortable answers. Target: modals for uncertainty + present perfect for historical patterns.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If a Japanese chef opened a high-end taquería in Mexico City, learned the recipes authentically, credited the origins, and employed local cooks — would that still be appropriation? Where exactly is the line?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + nuanced position-taking. This scenario removes most of the easy objections — the chef is respectful, knowledgeable, and gives back economically. Push: "Is the remaining discomfort rational — or is it something else?" This is where the conversation gets genuinely interesting.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If a Mexican chef opened a very successful French restaurant in Paris — and the French press started crediting a "Mexican twist" on classical cuisine — would that be appropriation or contribution? Does direction matter?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The power-direction flip. Push: "Does the concept of 'appropriation' only work in one direction — from powerful cultures toward less powerful ones?" Target: second conditional + modals. This question often shifts students who have held a rigid position — in a productive way.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is the anger around cultural appropriation in food sometimes more about marketing and visibility than about actual harm — or is visibility itself the harm?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Meta-question about the debate itself. The argument: a foreign chef getting Michelin stars for "elevated" tacos doesn't physically harm anyone — but it does reshape what the world considers "legitimate" cuisine. Push: "Can something be unfair without causing direct harm?" Target: present simple for principles + conditional for consequences.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Have you ever eaten at a restaurant that was doing something "wrong" with a food you care about — and said nothing because you didn't want to seem difficult? Why didn't you say something?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The personal accountability closer. Brings the abstract debate into a real, everyday moment. Push: "Is staying silent about that a small version of the same problem?" Target: past simple + reflection on choice. The student who has a strong opinion about cultural appropriation but never corrects a bad taco needs to sit with that tension.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">A well-known American food magazine publishes a feature on "the best tacos in the world." Every single restaurant on the list is in the US or Europe, run by non-Mexican chefs. The magazine says they chose based purely on quality and innovation. You're a food journalist with a platform and 50,000 followers. Do you write about it — and if so, what exactly do you say?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me: do you write about it? And give me your first paragraph — in English — out loud. No editing. Your real reaction."
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Cultural Appropriation in Food · Travel &amp; Culture · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'fusion',def:'The combination of elements from two or more culinary traditions',ex:'"Fusion can be brilliant — or it can be an excuse to avoid doing the homework."'},
+  {w:'authenticity',def:'Being genuine and true to the original source or tradition',ex:'"Authenticity in food is about intent and knowledge, not just passport."'},
+  {w:'credit',def:'Recognition given to the original source of an idea, recipe, or technique',ex:'"She cooked it beautifully — but gave zero credit to where it came from."'},
+  {w:'heritage',def:'Traditions, values, and cultural practices passed down through generations',ex:'"Mole is not just a sauce. It\'s living culinary heritage."'},
+  {w:'platform',def:'A position of influence that allows someone to reach a large audience',ex:'"He had the platform to make their food famous — and he used it for himself."'},
+  {w:'narrative',def:'The story told about something — who controls it matters',ex:'"The narrative about Mexican food abroad is still written by outsiders."'},
+  {w:'erasure',def:'The act of removing or ignoring the original source or identity of something',ex:'"Erasure happens when the copy becomes more famous than the original."'},
+  {w:'representation',def:'How a culture, group, or idea is shown or described to the world',ex:'"Taco Bell is representation — just not accurate or fair representation."'},
+  {w:'intellectual property',def:'Legal ownership of creative work, ideas, or original content',ex:'"Can a recipe be intellectual property? Courts have said it\'s complicated."'},
+  {w:'power dynamic',def:'The imbalance of influence or advantage between two groups or individuals',ex:'"The power dynamic between a Michelin-star restaurant and a street vendor is the whole story."'},
+];
+const verbs=[
+  {w:'appropriate',def:'To take something from another culture without proper credit or understanding',ex:'"There\'s a fine line between appreciating a culture and appropriating it."'},
+  {w:'credit',def:'To acknowledge the original source of an idea or creation',ex:'"He credited the abuela who taught him the recipe. That made all the difference."'},
+  {w:'commercialize',def:'To turn something cultural into a product primarily for profit',ex:'"When you commercialize a dish, you often lose what made it meaningful."'},
+  {w:'misrepresent',def:'To give a false or inaccurate version of something',ex:'"That menu completely misrepresents what tamales actually are."'},
+  {w:'elevate',def:'To improve or raise the status of something — often used (controversially) for food',ex:'"Chefs who say they\'re \'elevating\' a dish often mean they\'re Europeanizing it."'},
+  {w:'challenge',def:'To question or dispute an idea, claim, or situation',ex:'"She challenged the magazine\'s list publicly — and it went viral."'},
+  {w:'acknowledge',def:'To recognize and accept that something exists or is true',ex:'"Acknowledge where the recipe came from. It costs nothing."'},
+  {w:'cash in',def:'To take financial advantage of something — often implies opportunism',ex:'"He cashed in on the Mexican food trend without ever visiting Mexico."'},
+  {w:'trace back',def:'To find the origin or source of something',ex:'"Most of what we call Italian food traces back to ingredients from the Americas."'},
+  {w:'reclaim',def:'To take back ownership or recognition of something that was taken',ex:'"Mexican chefs abroad are reclaiming the narrative around their own cuisine."'},
+];
+const phrases=[
+  {p:'That\'s not how we make it',ctx:'The instinctive reaction to seeing your food misrepresented'},
+  {p:'It\'s inspired by...',ctx:'The polite way to borrow something without fully crediting it'},
+  {p:'It\'s just food',ctx:'Used to dismiss the cultural weight of culinary appropriation debates'},
+  {p:'They made it their own',ctx:'Can mean creative adaptation — or erasing where it came from'},
+  {p:'Respect the culture',ctx:'The minimum bar most people agree on — but hard to define in practice'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){const isStudent=document.body.classList.toggle('student');const btn=document.getElementById('modeToggle');btn.textContent=isStudent?'Teacher Mode':'Student Mode';btn.classList.toggle('on',isStudent)}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Ozempic and Easy Weight Loss · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .vocab-card .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(255,184,0,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(255,184,0,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(255,184,0,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B2.1</span>
+      <span class="tag">Health &amp; Wellness</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Ozempic and Easy Weight Loss</h1>
+    <p>A drug designed for diabetes is now a celebrity shortcut for weight loss. Is that a medical breakthrough — or are we cheating our way to health?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"Ozempic has created a global shortage of a life-saving diabetes medication — because wealthy people are using it for cosmetic weight loss. Novo Nordisk, the manufacturer, became Europe's most valuable company in 2023. Diabetic patients in several countries are being rationed their medication."</div>
+      <div class="quote-source">— The Guardian / Bloomberg, 2023</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Before we start — raise your hand if you've heard of Ozempic." [Pause.] "Now — do you know anyone who's taken it? Or wanted to?" [Pause.] "Here's the twist: it was originally made for type 2 diabetes patients. Let's talk about what happened when Hollywood found out about it."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('obesity')">
+        <div class="vocab-word">obesity</div>
+        <div class="vocab-def">a medical condition where excess body fat creates serious health risks</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('shortage')">
+        <div class="vocab-word">shortage</div>
+        <div class="vocab-def">a situation where there is not enough of something available</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('side effect')">
+        <div class="vocab-word">side effect</div>
+        <div class="vocab-def">an unintended consequence of a medication or treatment</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('prescription')">
+        <div class="vocab-word">prescription</div>
+        <div class="vocab-def">an official medical instruction to take a specific drug</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('body image')">
+        <div class="vocab-word">body image</div>
+        <div class="vocab-def">how a person perceives and feels about their own physical appearance</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('metabolism')">
+        <div class="vocab-word">metabolism</div>
+        <div class="vocab-def">the process by which your body converts food into energy</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('shortcut')">
+        <div class="vocab-word">shortcut</div>
+        <div class="vocab-def">a faster or easier way to achieve something, sometimes at a cost</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pressure')">
+        <div class="vocab-word">pressure</div>
+        <div class="vocab-def">the social or emotional force that pushes you to do or look a certain way</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('dosage')">
+        <div class="vocab-word">dosage</div>
+        <div class="vocab-def">the amount of a medicine taken at one time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('willpower')">
+        <div class="vocab-word">willpower</div>
+        <div class="vocab-def">the ability to control your behavior through discipline and determination</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('lose weight')">
+        <div class="vocab-word">lose weight</div>
+        <div class="vocab-def">to reduce your body weight, often intentionally</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('cheat')">
+        <div class="vocab-word">cheat</div>
+        <div class="vocab-def">to gain an advantage by bypassing the expected effort or rules</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('abuse')">
+        <div class="vocab-word">abuse</div>
+        <div class="vocab-def">to misuse something in a way it was not designed for</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('regulate')">
+        <div class="vocab-word">regulate</div>
+        <div class="vocab-def">to control or supervise something through official rules</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('judge')">
+        <div class="vocab-word">judge</div>
+        <div class="vocab-def">to form a critical opinion about someone's choices</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('depend on')">
+        <div class="vocab-word">depend on</div>
+        <div class="vocab-def">to need something consistently in order to function</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('struggle with')">
+        <div class="vocab-word">struggle with</div>
+        <div class="vocab-def">to have ongoing difficulty managing or controlling something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('put on weight')">
+        <div class="vocab-word">put on weight</div>
+        <div class="vocab-def">to gain body weight over a period of time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('run out of')">
+        <div class="vocab-word">run out of</div>
+        <div class="vocab-def">to have no more of something left — like a diabetic with no medication</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('normalize')">
+        <div class="vocab-word">normalize</div>
+        <div class="vocab-def">to make something widely accepted as typical or standard</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I have been on a diet my whole life.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I've been on a diet my whole life."</div>
+          <div class="phrase-context">Describes chronic, exhausting dieting without lasting results.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is not cheating, it is a tool.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It's not cheating, it's a tool."</div>
+          <div class="phrase-context">How Ozempic users defend their choice to those who judge them.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('My body, my choice.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"My body, my choice."</div>
+          <div class="phrase-context">A way to shut down external judgment about personal health decisions.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('There is no magic pill.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"There's no magic pill."</div>
+          <div class="phrase-context">The classic response from people skeptical of medical shortcuts.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I have tried everything.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I've tried everything."</div>
+          <div class="phrase-context">Said by people who feel medication is their last reasonable option.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">💊</div>
+          <div>
+            <div class="op-name">Valeria, 41</div>
+            <div class="op-role">Sales Manager, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I struggled with my weight for 15 years. I exercised, I dieted, nothing stuck. Ozempic changed my life in 4 months. <strong>People who judge me have never really struggled with their weight.</strong> When something is a medical condition, you use medicine. End of discussion."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😠</div>
+          <div>
+            <div class="op-name">Miguel, 49</div>
+            <div class="op-role">Type 2 Diabetic, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"I'm diabetic. My doctor told me Ozempic was no longer available because of high demand — and that 'high demand' is celebrities wanting to lose 10 kilos for an awards show. <strong>People are dying because the rich want to be thinner.</strong> This is what inequality looks like in medicine."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Sofía, 36</div>
+            <div class="op-role">Nutritionist, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I support Ozempic for clinical obesity cases. But most people using it don't have obesity — they just want to look thinner faster. <strong>And the moment they stop, the weight comes back.</strong> We're treating a symptom without addressing the behavior. It's a patch, not a solution."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">💀</div>
+          <div>
+            <div class="op-name">Daniel, 38</div>
+            <div class="op-role">Bioethicist, UNAM</div>
+          </div>
+        </div>
+        <div class="op-text">"We need to stop pretending this is about health. <strong>Ozempic is being used because society punishes fat people socially and professionally.</strong> People aren't taking it to live longer — they're taking it to be treated better at work, on dates, in photos. The real problem is the discrimination, not the drug."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which position is hardest to argue against? Who do you feel most sympathy for — and who makes you most uncomfortable? Is anyone completely wrong here?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever tried to lose weight — or been around someone who did? How long did it take, and did it last?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very personal but universal. Most Mexican adults have experience with this topic — either personally or through family. Listen for present perfect + past simple contrast: "I've tried... but it didn't work."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever felt pressure to look a certain way at work, in social situations, or because of social media?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Surfaces the real driver behind Ozempic demand: social pressure, not health. Follow up: "Where does that pressure come from most — Instagram, your company, your family?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Do you know anyone who has tried Ozempic or a similar medication? What was your reaction when you found out?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very current in Mexico — Ozempic is widely discussed. If they say "no," ask: "Would you tell anyone if you were using it?" That follow-up is often more honest.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Is using Ozempic for weight loss "cheating" — or is that an unfair judgment of people who struggle with their weight?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "cheating" framing is the core moral debate. Push them: "Do you judge people who take medication for anxiety? For high blood pressure? Why is weight different?" Very generative.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Should access to Ozempic be restricted only to people with a clinical diagnosis — or should anyone who wants it be able to use it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Regulation debate. "Should it be restricted?" triggers modals: "It should / shouldn't be available to..." Connects to the shortage crisis and fairness issue.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think weight discrimination is a real problem at work in Mexico? Could that explain why people feel desperate about their weight?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Daniel's provocateur point. Many professionals have seen or experienced this. "Discrimination" is a strong word — some students will push back, others will have direct experiences to share.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">If Ozempic were affordable, safe, and available to everyone, would you take it to lose weight — even if you didn't "need" to medically?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional — clean and honest. "If it were safe... I would / wouldn't..." The honesty often surprises students themselves. No wrong answer; the goal is real reflection.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">If you found out a colleague got a promotion partly because they lost 20 kilos and "looked more professional," how would you react?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Connects the weight discussion directly to professional life. "I would feel..." triggers conditional naturally. This scenario is not far-fetched and most students will have an instinct about it.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Is it ethical for wealthy people to use a drug that creates shortages for diabetic patients who actually need it for survival?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This is the hardest moral edge of the topic. "Ethical" is the key word — push them to define it. Many students haven't considered the shortage angle. This is where the conversation gets real.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">If you could take a pill that made you look exactly how you wanted — but you had to take it every day for the rest of your life and stop eating the foods you love — would you?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The real Ozempic deal — the weight comes back when you stop. This question forces students to weigh appearance vs quality of life. Designed to leave them thinking after class. Let the silence land.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your doctor offers you Ozempic. You are not diabetic. You are not clinically obese. But you have gained 18 kilos since your 30s and you feel bad about it. The injection costs $400 a month. You can afford it — but just barely. Do you take it?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note answering the Exit Shot in English. Be specific: yes or no, and why. No diplomatic non-answers — commit to a position.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B2.1 · Health &amp; Wellness · Ozempic and Easy Weight Loss
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

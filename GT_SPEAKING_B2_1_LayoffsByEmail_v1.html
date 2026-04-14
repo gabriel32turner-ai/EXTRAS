@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Layoffs by Email · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#FFB800;--s2:#121D28;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.98) 0%,rgba(10,16,24,.7) 55%,rgba(10,16,24,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:580px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+
+/* REAL EMAIL RECREATION — special trigger element */
+.email-card{background:#0d1824;border:1px solid #2a3a4a;border-radius:10px;overflow:hidden;margin-top:20px}
+.email-header{background:#111e2b;padding:14px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.email-from{font-size:12px;color:var(--muted)}
+.email-from strong{color:var(--text)}
+.email-subject{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ac)}
+.email-body{padding:20px 24px;font-size:14px;line-height:1.8;color:#c8d0db}
+.email-note{font-size:11px;color:var(--muted);font-style:italic;padding:12px 20px;border-top:1px solid var(--border)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+
+@media(max-width:600px){
+  .wall{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .wrap{padding:0 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Work &amp; Corporate Life</span>
+      <span class="tag spicy">🔥 Spicy Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Layoffs by Email</h1>
+    <p>Tech giants fired thousands of employees via form email — sometimes with 10 years of loyalty in the balance. Is this the new normal, or a moral failure?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">Phase 1 · Provocative Headline</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The New York Times · Tech Layoffs · 2022–2023</div>
+    <div class="trigger-quote">"Thousands of Twitter and Meta employees found out they had been laid off when their work laptops suddenly stopped working — or when they received a form email at 3am. No call. No meeting. No goodbye. Just: access denied."</div>
+  </div>
+
+  <!-- RECONSTRUCTED LAYOFF EMAIL — fictionalized -->
+  <div class="email-card">
+    <div class="email-header">
+      <div class="email-from">From: <strong>hr-noreply@company.com</strong> · To: All Team Members</div>
+      <div class="email-subject">Important Company Update</div>
+    </div>
+    <div class="email-body">
+      Dear Team,<br><br>
+      After careful consideration of our business needs and current economic conditions, we have made the difficult decision to reduce our workforce by approximately <strong>18%</strong>.<br><br>
+      If you are impacted, you will receive a separate email within the next 30 minutes with details about your severance package and transition resources. We deeply value your contributions and wish you all the best in your next chapter.<br><br>
+      Thank you for everything you have done for this company.<br><br>
+      — The Leadership Team
+    </div>
+    <div class="email-note">Fictionalized composite based on real layoff communications from 2022–2023. The language and format are real.</div>
+  </div>
+
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Script:</strong> Show the email. Read it slowly. Then ask: <em>"If this email arrived at 3am and it was about your job — how long would it take you to actually process what just happened?"</em> Let that land. Then: <em>"Notice the language: 'difficult decision,' 'deeply value your contributions,' 'next chapter.' What do you feel when you read those words?"</em> Target: emotional vocabulary + critical reading of corporate language.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Phase 2 · Click to Hear</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👩‍💼</span>
+        <div>
+          <div class="bub-name">Camila · 33</div>
+          <div class="bub-role">Senior Developer · CDMX</div>
+        </div>
+      </div>
+      <div class="bub-body">"I was laid off by email after 6 years. Six years. Not a call, not a meeting — an email. I found out when my <strong>laptop stopped connecting</strong>. I don't care about the money. I care that the company treated me like a subscription they cancelled. You don't do that to a human being. Ever."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👨‍💻</span>
+        <div>
+          <div class="bub-name">Javier · 44</div>
+          <div class="bub-role">CFO · Monterrey</div>
+        </div>
+      </div>
+      <div class="bub-body">"I've had to lead layoffs. It's the worst part of this job. But there's a real operational reason for doing it by email simultaneously — if you call people one by one, <strong>information leaks, panic spreads</strong>, people start making decisions before they have the full picture. It's not heartless. It's containment. I hate it — but I understand it."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">🧑‍🎓</span>
+        <div>
+          <div class="bub-name">Fernanda · 27</div>
+          <div class="bub-role">HR Coordinator · Guadalajara</div>
+        </div>
+      </div>
+      <div class="bub-body">"The real problem isn't the email — it's that companies <strong>build a 'family' narrative</strong> for years, and then the moment business conditions change, you're a spreadsheet item. If companies were honest from day one — 'this is a transaction, not a family' — the email would still hurt, but at least it wouldn't feel like a betrayal."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head">
+        <span class="bub-avatar">👨‍🏦</span>
+        <div>
+          <div class="bub-name">Eduardo · 55</div>
+          <div class="bub-role">Board Member · Querétaro</div>
+        </div>
+      </div>
+      <div class="bub-body">"Look — when you accepted that salary, you accepted the risk. <strong>Employment is a business agreement</strong>, not a marriage. The emotional reaction to a layoff email reveals a fundamental misunderstanding: your loyalty was always one-directional. Companies don't owe you a tearful goodbye. They owe you the severance package they promised. Nothing more."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Eduardo is the provocateur because he attacks the emotional premise of the discussion — the idea that loyalty deserves anything in return. His position is logically defensible but emotionally brutal, which is exactly what makes it useful for debate. Push: <em>"Is Eduardo describing how business actually works, or how it should work?"</em> Then: <em>"Has anyone ever made you feel like Eduardo's perspective is the real one?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever been laid off, or have you witnessed someone close to you being let go? What was the experience like — and how was it communicated?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">If the student has personal experience, this conversation will run itself — your job is to keep them in English and ask follow-up questions. If they haven't: "What's the worst way you could imagine finding out?" Target: past simple for the narrative, present perfect for the connection to now.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever worked somewhere that said "we're a family here"? Looking back, was it true — or was it just a way to get more out of you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This question targets the "family" trap that Fernanda describes. Most students will smile with recognition. Push: "What specifically made you feel it was — or wasn't — a real family?" Key vocab: loyalty, reciprocal, commitment, disposable. The dissonance between the "family" narrative and a layoff email is the emotional core of this session.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">How much notice do you think an employee deserves before being let go? Does it depend on how many years they've worked there?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for modals: "I think you should get at least..." / "After 5 years, a company ought to..." Push: "Is there a number of years after which a layoff by email becomes categorically unacceptable?" Get them to commit to a position.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is there a "right" way to lay someone off? What would a dignified, respectful layoff actually look like — step by step?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Model: "I think a respectful layoff means a private meeting — in person if possible — with a direct explanation of why. Not 'business conditions,' but actual reasons. Give them time to ask questions. Let them keep their dignity." Push: "Is that realistic when you're letting 5,000 people go at once?" Target: would + conditional for prescriptive positions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think companies that do mass layoffs by email face real long-term consequences — or do people forget quickly and apply there again in 2 years?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The honest answer: most companies don't face serious long-term consequences for this. Talent markets are tight. People reapply. Push: "Should we as workers do something different? Or is this just how it works?" Target: modals for obligation + present perfect for patterns.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is Javier right — is there a legitimate operational reason to do it by email? Or is that just a convenient justification?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is the "steel man" question — it asks students to defend a position they might not personally hold. Push: "Even if he's logistically right, does that make it ethical?" Target: distinguish between legal, practical, and ethical — three different standards. Rich vocabulary opportunity.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If you were a senior manager and had to lay off 3 people from your own team — people you know personally — would you do it by email, by call, or in person? And what would you actually say?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + specific language. Push: "Say it out loud — in English — what are the first words you'd actually use?" Role-play if the student is willing. This is the kinesthetic pivot of the session — from abstract opinion to real language production. Key phrases to activate: "I wanted to speak with you directly", "This wasn't about your performance", "I'm sorry this is happening."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you knew your company was planning a big round of layoffs, would you start looking for another job immediately — even if your position felt safe? At what point do you stop trusting a company?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + modals. Model: "If I knew layoffs were coming, I'd definitely update my LinkedIn and have a few conversations — just to keep my options open. I wouldn't wait to feel the impact." Push: "Is that loyalty or pragmatism? Is there a difference?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is employee loyalty dead — or did companies kill it? And does it matter anymore in a world where everyone is always looking for the next thing anyway?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Big picture question — no single answer. Push both directions: "If loyalty is dead, what replaces it as the foundation of a good work relationship?" / "Or do you think there's still a generation of workers — maybe your parents' — who genuinely felt loyal and got burned?" Target: present perfect + present simple for patterns and beliefs.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Uncomfortable question: if your company offered you a significant raise to be the person who has to write and send those layoff emails — would you take it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is the moral accountability question. It forces the student to stop judging companies abstractly and consider their own participation. There's no right answer — but the reasoning matters. Target: second conditional + conditional clause with because/unless/even if. The student who says "never" and the student who says "depends on the raise" both have something real to say.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">Phase 5 · One Final Dilemma</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You've just been offered your dream job — 40% more salary, better title, a company you genuinely admire. The only condition: you have to start in 2 weeks. Your current company has been good to you and your team is in the middle of a critical project that won't be finished for 3 months. Your resignation will put 4 colleagues under enormous pressure. Do you take the job — and how do you tell your team?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me: do you take the job? And give me the first 3 sentences you'd say to your team — in English. Not a script. Your actual words."
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Layoffs by Email · Work &amp; Corporate Life · Spicy Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'severance',def:'Money paid to an employee when they are let go',ex:'"They offered 3 months of severance — which wasn\'t enough after 7 years."'},
+  {w:'headcount',def:'The number of employees in a company or team',ex:'"The board said we need to reduce headcount by 15% this quarter."'},
+  {w:'loyalty',def:'A strong commitment to a person, company, or cause over time',ex:'"After 10 years, I expected more loyalty in return."'},
+  {w:'redundancy',def:'When a job position is eliminated because it\'s no longer needed',ex:'"They called it a redundancy — but it felt like rejection."'},
+  {w:'settlement',def:'An agreement — usually including money — to end a work dispute',ex:'"She signed a settlement in exchange for not talking about the layoff publicly."'},
+  {w:'morale',def:'The overall mood and motivation of a team',ex:'"Morale collapsed after the layoffs — even for the people who kept their jobs."'},
+  {w:'package',def:'The total severance offer given to a laid-off employee',ex:'"The package was decent, but nobody thought it was fair."'},
+  {w:'announcement',def:'An official statement shared with employees or the public',ex:'"The announcement came at 6am on a Tuesday. Nobody saw it coming."'},
+  {w:'restructuring',def:'A reorganization of a company\'s structure, often involving layoffs',ex:'"They called it a restructuring, but really it was just firing people cheaper."'},
+  {w:'dignity',def:'Being treated with respect and care, especially in difficult moments',ex:'"You can let someone go and still protect their dignity. They chose not to."'},
+];
+const verbs=[
+  {w:'let go',def:'To end someone\'s employment — a softer way to say "fire"',ex:'"We had to let go of 200 people in one afternoon."'},
+  {w:'downsize',def:'To reduce the number of employees in a company',ex:'"The company downsized after losing its two biggest clients."'},
+  {w:'cut ties',def:'To end a relationship or connection completely',ex:'"They cut ties with the entire marketing department overnight."'},
+  {w:'notify',def:'To officially inform someone of a decision',ex:'"Employees were notified by email at 3am. Most were asleep."'},
+  {w:'sign off',def:'To formally approve or agree to something',ex:'"The CEO signed off on the layoffs from a different country."'},
+  {w:'negotiate',def:'To discuss terms until both parties reach an agreement',ex:'"She negotiated her severance package up to 6 months."'},
+  {w:'bounce back',def:'To recover from a difficult situation',ex:'"He bounced back fast — had a new job within 3 weeks."'},
+  {w:'gut-punch',def:'(informal) To deliver a deeply shocking or painful blow',ex:'"Getting laid off by email after 8 years — that was a gut-punch."'},
+  {w:'transition',def:'To move from one situation or role to another',ex:'"HR told her she was \'transitioning to the next chapter.\' She laughed."'},
+  {w:'owe',def:'To have an obligation or responsibility toward someone',ex:'"What does a company actually owe the people who built it?"'},
+];
+const phrases=[
+  {p:'It\'s just business',ctx:'Said to justify a decision that caused personal harm'},
+  {p:'The writing was on the wall',ctx:'The signs were clear — it shouldn\'t have been a surprise'},
+  {p:'I got the call — well, the email',ctx:'Dark humor for being notified of your own layoff digitally'},
+  {p:'They walked me out',ctx:'When security physically escorts you out after a layoff'},
+  {p:'I\'m actively exploring opportunities',ctx:'LinkedIn-speak for "I just got laid off and I\'m looking for work"'},
+];
+
+function buildCards(data,cid){
+  const el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('');
+}
+function buildPhrases(data,cid){
+  const el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('');
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const open=tip.style.display==='block';
+  tip.style.display=open?'none':'block';
+  btn.textContent=open?'Show Tip':'Hide Tip';
+}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  btn.textContent=isStudent?'Teacher Mode':'Student Mode';
+  btn.classList.toggle('on',isStudent);
+}
+buildCards(nouns,'nouns-grid');
+buildCards(verbs,'verbs-grid');
+buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

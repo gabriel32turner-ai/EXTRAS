@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Solo Travel vs. Couple Travel · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Travel &amp; Culture</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Solo Travel vs.<br>Couple Travel</h1>
+    <p>Two people, one destination — sounds simple. But who you travel with reveals more about you than where you go.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocative Headline</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Forbes Travel · "What Your Travel Style Says About You" · 2022</div>
+    <div class="trigger-quote">"Solo travel is rising fastest among people in long-term relationships — not single people. Relationship therapists say this is healthy. Couples who take at least one solo trip per year report significantly higher satisfaction with their partners than those who always travel together."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the stat and let it land. Then: <em>"Does that surprise you — that people in relationships are the ones traveling solo most?"</em> Follow with: <em>"Has a trip ever taught you something about yourself that surprised you — or shown you a side of your travel companion you weren't expecting?"</em> This is a personal, warm topic — perfect for building authentic conversation energy quickly.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">🧳</span>
+        <div><div class="bub-name">Renata · 32</div><div class="bub-role">Marketing Manager · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I've traveled solo and with partners. There's simply <strong>no comparison</strong>. Solo travel is the only kind where you're fully present — every decision is yours, every mistake is yours, every beautiful moment is yours. When you travel with someone, you're always negotiating. Even with someone you love. I need trips that are just mine."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👫</span>
+        <div><div class="bub-name">Carlos &amp; Sofía · 36 &amp; 34</div><div class="bub-role">Couple · CDMX · 8 years together</div></div>
+      </div>
+      <div class="bub-body">"Traveling together is <strong>how we grew as a couple</strong>. You figure out fast who someone really is when you're lost in a foreign city at midnight with a dead phone. We've had fights, we've gotten it wrong — and we always come back stronger. Solo travel sounds romantic until you don't have anyone to share the view with."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">🌍</span>
+        <div><div class="bub-name">Andrés · 44</div><div class="bub-role">Travel writer · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"The debate is a false choice. <strong>Both are necessary.</strong> I travel with my partner for comfort and depth. I travel solo for growth and challenge. The problem is when couples start believing they have to do everything together — that's not love, that's codependence dressed up as romance. Healthy relationships have some solo miles in them."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🔍</span>
+        <div><div class="bub-name">Mariana · 39</div><div class="bub-role">Psychologist · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"When people say they 'need' solo travel to 'find themselves' — I get curious. <strong>What are they running from?</strong> In my experience, the compulsive solo traveler often has trouble tolerating intimacy. The freedom they're chasing is sometimes just distance. Travel doesn't build you — the relationships you have when you come back do."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Mariana is the provocateur because she pathologizes the solo travel preference — implying it might be avoidance behavior. This will land hard for students who have used travel as an escape. Push: <em>"Is Mariana being perceptive — or is she projecting her professional framework onto a personal choice?"</em> Then: <em>"Have you ever used travel to avoid something?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever traveled alone — even for a work trip that you turned into something personal? What did you do differently than when you travel with others?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Broadens the question to include people who haven't done "real" solo travel. Work trips often offer surprising pockets of independence — a solo dinner, an unplanned walk. Push: "What did you do that you wouldn't have done with a travel companion?" Target: present perfect for experience + past simple for the specific memory.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever had a serious disagreement with a travel companion — a partner, friend, or family member — during a trip? How did it affect the experience?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Almost everyone has a "trip fight" story. Push: "Did you resolve it during the trip — or did it follow you home?" Key vocab: tension, compromise, call it off, push through. This is also a good moment to discuss: "What is it about travel that makes arguments feel more intense?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Think of a trip that was better than expected and one that was worse. What made the difference — the destination, the companion, or your own mindset?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Gets the student to reflect on what they actually control in travel experiences. Push: "If the worst trip had been solo — would it have been better or worse?" Target: past simple + comparative structures. The goal is to connect external experience to internal state.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think couples who always travel together are healthier — or more dependent — than couples who sometimes travel separately?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Directly engages the Forbes stat from the trigger. Push: "Is always wanting to be together romantic — or a sign of insecurity?" Target: modals for judgment (might, could, tend to). Good moment to bring in Andrés's "codependence vs. romance" framing. Let students disagree with each other if in a group.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is solo travel inherently selfish — or is it one of the healthiest things a person can do for themselves and their relationships?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The "selfish" framing is intentionally provocative. Push: "Selfish to whom — your partner? Your family? Society?" Different students will land differently on this. Target: present simple for principles + modals for nuance. Key: push students beyond "it depends" to actually take a position.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Should couples talk explicitly about how they want to travel — separately vs. together — before committing to a relationship? Is travel style a compatibility issue?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Reframes travel as a relationship compatibility variable — like values or money. Push: "Have you ever discovered too late that a partner had a completely different travel style?" Target: should/ought to + conditional. Good for activating relationship vocabulary: compromise, deal-breaker, non-negotiable, aligned.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your partner told you they wanted to do a 2-week solo trip to another continent — just for personal growth — how would you actually feel? What would you say?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional + honest emotional vocabulary. Push past the "politically correct" answer: "I'd be completely supportive." Ask: "But what would you actually feel at 2am on day 10?" The goal is authentic emotional vocabulary: jealousy, trust, insecurity, pride, freedom. These feelings are all valid and all rich English territory.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you had unlimited budget and time, would your ideal trip be solo, with your partner, with friends, or with family — and why that combination specifically?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The "fantasy trip" question. Light, personal, and revealing. Push: "And where would you go — and what would you do on day one?" Gets students to use future conditional + specific planning vocabulary. Good energy shift from the more emotionally heavy Q7.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is the romanticization of solo travel on social media just another way of selling loneliness as freedom? Or does it genuinely inspire people to live more independently?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Mariana's point made broader: social media has created a "solo traveler" identity that may not reflect the actual experience. Push: "What's the difference between the Instagram version of solo travel and the 3am-in-a-hostel version?" Target: present simple for media critique + modals for speculation. Good for students who consume a lot of travel content.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Be honest: have you ever used a trip — solo or with someone — to avoid dealing with something at home? What were you running from, and did it work?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Mariana's full argument, directed at the student personally. Let the silence sit. This question is designed to not be answered immediately — give the student 5 seconds. If they laugh nervously, that's the answer. Target: past simple + honest reflection. The student who answers this genuinely is having a real English conversation, not a lesson.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You've been planning a 10-day trip to Japan for 3 years — it's your dream trip. Your partner announces they can finally join you. But you realize, as you look at your itinerary, that everything you planned is exactly what you would have done alone: quiet temples at 6am, train rides to nowhere, 2 hours in a single bookshop. Your partner is more of a restaurants-and-nightlife person. Do you redesign the trip — or do you go alone?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me your decision — and tell me what you say to your partner. In English. Not a script. The actual words."
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Solo Travel vs. Couple Travel · Travel &amp; Culture · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'itinerary',def:'A detailed plan of where you will go and what you will do on a trip',ex:'"My itinerary was 4 pages long — my partner lasted 2 days before going rogue."'},
+  {w:'compromise',def:'An agreement where both sides give up something to reach a solution',ex:'"Every couple trip is a series of compromises. Some of them hurt."'},
+  {w:'independence',def:'The freedom to make your own choices without needing others',ex:'"Solo travel gave her a sense of independence she hadn\'t felt since her twenties."'},
+  {w:'comfort zone',def:'The range of situations where you feel safe and in control',ex:'"Solo travel forces you out of your comfort zone in ways couple travel never will."'},
+  {w:'pace',def:'The speed or rhythm at which you move through an experience',ex:'"We had totally different travel paces — it almost broke us on day 3."'},
+  {w:'connection',def:'A feeling of closeness — with a person, a place, or a moment',ex:'"The deepest travel connections I\'ve made were all when I was alone."'},
+  {w:'itinerary clash',def:'When two travelers want to do completely different things at the same time',ex:'"The museum vs. the beach. Classic itinerary clash. We split up for the afternoon."'},
+  {w:'layover',def:'A stop between flights — can be a few hours or an overnight stay',ex:'"I turned a 12-hour layover in Istanbul into the best solo afternoon of my life."'},
+  {w:'travel companion',def:'The person or people you travel with',ex:'"Choosing your travel companion is almost as important as choosing the destination."'},
+  {w:'spontaneity',def:'Doing things without planning — acting on impulse in the moment',ex:'"Solo travel is spontaneity. Couple travel is negotiated spontaneity — which is different."'},
+];
+const verbs=[
+  {w:'compromise',def:'To reach a middle ground by each person giving up something',ex:'"We compromised: she got the beach day, I got the ruins. It actually worked."'},
+  {w:'wander',def:'To walk or travel without a specific destination or plan',ex:'"The best moments of any solo trip happen when you just wander."'},
+  {w:'clash',def:'To conflict or strongly disagree',ex:'"Our travel styles clash badly — she wants structure, I want chaos."'},
+  {w:'recharge',def:'To restore your energy, often through rest or time alone',ex:'"Some people travel to connect. I travel to recharge. Big difference."'},
+  {w:'split up',def:'To temporarily separate during a trip to do different things',ex:'"We split up at the market and met back for dinner. Best decision of the trip."'},
+  {w:'go off-script',def:'To deviate from the plan and do something unexpected',ex:'"I went off-script on day 4 and found the best place I\'ve ever eaten."'},
+  {w:'push through',def:'To continue despite difficulties or disagreements',ex:'"We were both exhausted and frustrated — but we pushed through and it paid off."'},
+  {w:'travel light',def:'To bring very few things — physically or emotionally — on a trip',ex:'"Solo travel teaches you to travel light in every sense of the word."'},
+  {w:'get lost',def:'To lose your way — literally or metaphorically — and find something unexpected',ex:'"Getting lost in Oaxaca was the point. I planned for it."'},
+  {w:'disconnect',def:'To step away from digital devices, routines, or obligations',ex:'"I went to disconnect — but I ended up calling her every night anyway."'},
+];
+const phrases=[
+  {p:'Go with the flow',ctx:'Adjusting plans on the spot — a personality trait that defines travel compatibility'},
+  {p:'We needed some space',ctx:'Used when a couple discovers that constant proximity is too much'},
+  {p:'It was a trip I needed',ctx:'Said about a solo journey that served a deeper personal purpose'},
+  {p:'I could have done without the company',ctx:'Polite way of saying the travel companion made things harder'},
+  {p:'We made it work',ctx:'Said after navigating a difficult trip — with some pride and some relief'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){const isStudent=document.body.classList.toggle('student');const btn=document.getElementById('modeToggle');btn.textContent=isStudent?'Teacher Mode':'Student Mode';btn.classList.toggle('on',isStudent)}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

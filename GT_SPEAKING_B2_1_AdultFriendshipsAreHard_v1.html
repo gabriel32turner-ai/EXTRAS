@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B2.1 — Adult Friendships Are Hard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); }
+
+  /* HEADER */
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .toggle-btn:hover { background: var(--accent); color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    height: 340px; position: relative; display: flex; align-items: flex-end;
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80') center/cover no-repeat;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(15,25,35,0.45) 0%, rgba(15,25,35,0.92) 100%);
+  }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px;
+  }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  /* MAIN */
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .teacher-only { /* visible by default */ }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  /* TRIGGER */
+  .trigger-box {
+    border-left: 4px solid var(--accent);
+    background: var(--card);
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script {
+    background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2);
+    border-radius: 10px; padding: 16px 20px; margin-top: 16px;
+  }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* VOCAB */
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; margin-bottom: 8px; }
+  .vocab-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+    user-select: none;
+  }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .speak-hint { font-size: 11px; color: var(--border); margin-top: 4px; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; transition: border-color 0.2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* OPINION WALL */
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; position: relative; transition: border-color 0.2s;
+  }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .provocateur-tag {
+    position: absolute; top: -10px; right: 16px;
+    background: var(--accent); color: var(--navy);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  /* QUESTIONS */
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(255,184,0,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 10px;
+  }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px;
+    cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s;
+  }
+  .show-tip-btn:hover { background: var(--accent); color: var(--navy); }
+  .tip-content {
+    display: none; margin-top: 14px;
+    background: rgba(255,184,0,0.06); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 12px 16px;
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+  }
+  .tip-content.open { display: block; }
+
+  /* EXIT SHOT */
+  .exit-box {
+    border: 2px solid var(--accent); border-radius: 16px;
+    padding: 32px; background: rgba(255,184,0,0.04); margin-bottom: 24px;
+  }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* FOOTER */
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag plain">Daily Life &amp; Lifestyle</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Adult Friendships Are Hard</h1>
+    <p>Why making and keeping real friends after 30 is harder than anyone admits — and what that says about us.</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1: THE TRIGGER -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Harvard Study of Adult Development — The Longest Happiness Study</div>
+      <div class="trigger-quote">"The quality of your relationships at age 50 is a better predictor of healthy aging than your cholesterol level. Yet most adults report that making new close friends after 30 is extremely difficult — and most don't even try."</div>
+    </div>
+
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the headline out loud, slowly. Let it land. Then ask: <em>"Do you agree with this? When was the last time you actually made a NEW friend — not a work contact, but a real friend?"</em> Wait for reactions. Don't rescue the silence. If the group is quiet, ask: <em>"How many of your current close friends did you meet after age 28?"</em> That usually unlocks everything.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2: VOCAB INJECTION -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('drift')">
+        <div class="vocab-word">drift</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The slow, gradual distance that grows between two people with no single reason</div>
+      </div>
+      <div class="vocab-card" onclick="speak('acquaintance')">
+        <div class="vocab-word">acquaintance</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Someone you know but not closely — between stranger and friend</div>
+      </div>
+      <div class="vocab-card" onclick="speak('bandwidth')">
+        <div class="vocab-word">bandwidth</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Your mental or emotional capacity to handle things (not just tech)</div>
+      </div>
+      <div class="vocab-card" onclick="speak('investment')">
+        <div class="vocab-word">investment</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The time and energy you put into a relationship to make it grow</div>
+      </div>
+      <div class="vocab-card" onclick="speak('proximity')">
+        <div class="vocab-word">proximity</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Physical closeness — being near someone regularly is what builds friendships</div>
+      </div>
+      <div class="vocab-card" onclick="speak('vulnerability')">
+        <div class="vocab-word">vulnerability</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Being open about your real feelings or struggles with someone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('loneliness')">
+        <div class="vocab-word">loneliness</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The feeling of being disconnected even when surrounded by people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('effort')">
+        <div class="vocab-word">effort</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The active, conscious work required to maintain a friendship over time</div>
+      </div>
+      <div class="vocab-card" onclick="speak('routine')">
+        <div class="vocab-word">routine</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A repeated pattern — shared routines are what deepen friendships</div>
+      </div>
+      <div class="vocab-card" onclick="speak('commitment')">
+        <div class="vocab-word">commitment</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The decision to stay present in someone's life even when life is busy</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('drift apart')">
+        <div class="vocab-word">drift apart</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To slowly lose contact with someone without a specific reason</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reconnect')">
+        <div class="vocab-word">reconnect</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To re-establish contact with someone after a period of distance</div>
+      </div>
+      <div class="vocab-card" onclick="speak('show up')">
+        <div class="vocab-word">show up</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To be present and reliable for someone when they need you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reach out')">
+        <div class="vocab-word">reach out</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To initiate contact with someone first — to make the first move</div>
+      </div>
+      <div class="vocab-card" onclick="speak('maintain')">
+        <div class="vocab-word">maintain</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To actively keep a relationship going with consistent effort</div>
+      </div>
+      <div class="vocab-card" onclick="speak('outgrow')">
+        <div class="vocab-word">outgrow</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To evolve past a relationship — when you and a friend are no longer compatible</div>
+      </div>
+      <div class="vocab-card" onclick="speak('bond')">
+        <div class="vocab-word">bond</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To create a strong emotional connection with someone over time</div>
+      </div>
+      <div class="vocab-card" onclick="speak('prioritize')">
+        <div class="vocab-word">prioritize</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To consciously choose to put friendships first in your schedule</div>
+      </div>
+      <div class="vocab-card" onclick="speak('flake out')">
+        <div class="vocab-word">flake out</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To cancel plans or not follow through — a friendship killer</div>
+      </div>
+      <div class="vocab-card" onclick="speak('invest in')">
+        <div class="vocab-word">invest in</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To dedicate real time and energy to building a relationship</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('We keep saying we\'ll get together, but it never actually happens.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"We keep saying we'll get together, but it never actually happens."</div>
+          <div class="phrase-context">What we say when a friendship is slowly fading without admitting it</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('We grew apart. Life just got in the way.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"We grew apart. Life just got in the way."</div>
+          <div class="phrase-context">The most common explanation for losing a close friendship</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I don\'t have the energy to maintain new friendships right now.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I don't have the energy to maintain new friendships right now."</div>
+          <div class="phrase-context">What adults say when social life feels like another obligation</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('They\'re more of an acquaintance than a real friend.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"They're more of an acquaintance than a real friend."</div>
+          <div class="phrase-context">The honest distinction most adults make privately but rarely say out loud</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I miss having people I can just hang out with, no agenda.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I miss having people I can just hang out with, no agenda."</div>
+          <div class="phrase-context">The kind of casual, effortless friendship adults quietly mourn</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3: THE OPINION WALL -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Lucía, 34</div>
+        <div class="opinion-role">UX Designer, Guadalajara</div>
+        <div class="opinion-text">"Making friends after 30 isn't hard — it's just different. When I was 20, I had time to waste on shallow friendships. Now I'm selective. I have <strong>3 or 4 people I can call at midnight</strong> and that's more than enough. Quality over quantity. I'll take that."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🔧</div>
+        <div class="opinion-name">Rodrigo, 41</div>
+        <div class="opinion-role">Operations Manager, Monterrey</div>
+        <div class="opinion-text">"I'll be honest. I have zero close male friends. My wife is my best friend, my coworkers are nice people, but a real <strong>deep friendship with another man?</strong> I don't even know how to start that conversation as an adult. It feels weird. Nobody talks about how lonely that is."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👩‍🏫</div>
+        <div class="opinion-name">Valeria, 46</div>
+        <div class="opinion-role">HR Director, CDMX</div>
+        <div class="opinion-text">"We need to stop pretending adult loneliness is a life-stage problem. It's a <strong>character problem</strong>. If you don't have close friends at 40, maybe you've been too selfish, too distracted, or too comfortable. Friendships don't maintain themselves — you either showed up or you didn't."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍💻</div>
+        <div class="opinion-name">Andrés, 29</div>
+        <div class="opinion-role">Data Analyst, Celaya</div>
+        <div class="opinion-text">"The real issue is that <strong>society isn't designed for adult friendships</strong>. In college, you live together, eat together, you see people by default. After graduation, you have to schedule a coffee 3 weeks in advance. That's not a personal failure — that's a structural problem. We need third places back."</div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Which opinion hits closest to home? Is adult loneliness a <em>personal failure</em> (Valeria) or a <em>structural problem</em> (Andrés)? Can both be true at the same time?
+    </div>
+  </section>
+
+  <!-- PHASE 4: THE CONVERSATION ENGINE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Think about your closest friendship right now. How did you actually meet that person? Was it luck, proximity, or effort?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Push for specifics: where they met, how long it took to feel close, who reached out first. This question usually unlocks unexpected honesty.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever drifted apart from someone who used to be a close friend? Do you know exactly why it happened — or was it just... gradual?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "We were really close in university. Then I moved, she got married, and we kept saying 'let's catch up' but never actually did. It wasn't a fight. We just stopped showing up."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Have you made any genuinely new close friends in the last 3 years — not work contacts, not your partner's friends — someone you actually chose?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most students will say no. Let that silence do the work. Then ask: "Why do you think that is?" Don't rescue the discomfort — that's the learning.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Do you think adults use "I'm too busy" as an excuse to avoid the vulnerability that real friendship requires?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This is the polarizing question. Some students will defend the "busy" claim — push them: "Busy compared to what? You have time for Netflix." Others will agree immediately. Let both sides debate.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Is it possible to have a real friendship with a coworker — or does power, competition, and office politics always get in the way?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I think you can be friendly with coworkers, but real friendship requires honesty you can't always afford at work. You edit yourself too much."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you think men and women experience adult loneliness differently — or is it the same pain with different labels?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">High-engagement question in mixed groups. Men often admit they don't talk about emotions with other men. Women often say their friendships are deeper but more exhausting to maintain. Neither is better — just different.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">If you knew that investing just 2 hours a week consistently would guarantee you 2 or 3 deep friendships in 2 years, would you do it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Follow up: "So... why aren't you doing that now?" The logic gap between knowing and doing is where the real conversation lives.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">If you moved to a completely new city next month with no contacts at all, how would you actually go about building friendships? Be specific.</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Honestly? I'd join a sports team or a running club. You need repeated, low-stakes contact. You can't just hope to meet people — you have to create the routine."</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Valeria said loneliness is a character problem, not a life-stage problem. Is she being too harsh — or is there real truth in that?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Don't let students dismiss this too quickly with "she's too harsh." Ask: "What would you have to believe about yourself to agree with her? Even 30%?" That's the uncomfortable edge.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Honestly — if your closest friend moved to another country tomorrow, how long do you think the friendship would last? One year? Three years? Forever?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Self-reflection closer. Most people pause here. The honest answer often reveals how much of their friendship depends on proximity vs. real emotional investment. No right or wrong — just truth.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5: THE EXIT SHOT -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">Your best friend from college — the person who knows everything about you — just told you they want to reconnect. But to do it right, you'd need to commit to calling them every Sunday for 30 minutes, no cancellations, for one year. Your Sundays are already chaotic — kids, laundry, meal prep. Do you make the commitment? Or do you let the friendship fade — and live with that?</div>
+    </div>
+
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp answering this question. No script, no editing — just your honest answer. Send it before the next session. Your teacher will listen and give you feedback on your fluency and vocabulary use.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B2.1 · Adult Friendships Are Hard · Daily Life &amp; Lifestyle</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    document.getElementById('modeToggle').textContent = studentMode ? 'Teacher Mode' : 'Student Mode';
+  }
+</script>
+</body>
+</html>

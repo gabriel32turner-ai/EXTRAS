@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Influencer Burnout · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:transparent;border:1px solid var(--bd);color:var(--mt);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{border-color:var(--ac);color:var(--ac);background:rgba(255,184,0,.06)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.7) 50%,rgba(15,25,35,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,184,0,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,184,0,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,184,0,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,184,0,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Influencer Burnout</div>
+    <div class="hero-sub">The dream job of a generation is quietly falling apart. What happens when your personality is the product — and the algorithm never takes a day off?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One creator's crisis — and what it reveals about the entire model.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">The New York Times · 2023 · Creator Economy Report</div>
+      <div class="trigger-quote">"MrBeast, the most-subscribed individual YouTuber in history, recently said: 'The video is never good enough. I haven't taken a vacation in years. If I take a week off, I feel like I'm falling behind.' He was 24 years old."</div>
+      <div class="trigger-script">The creator economy is now valued at over $250 billion globally, with more than 50 million people identifying as content creators. Yet burnout rates among full-time influencers are skyrocketing. A 2023 Adobe survey found that 48% of creators have considered quitting in the past year — citing the relentless pressure to post, perform, and maintain audience numbers that the algorithm can withdraw at any moment.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the MrBeast quote. Then ask: <em>"He has 250 million subscribers and hasn't taken a vacation in years. At what point does success stop being success?"</em> Then: <em>"Quick — would any of you want to be an influencer? Seriously. Think about it for 10 seconds before you answer."</em> The hesitation or immediate "no" in the room is worth exploring. Some will say yes for the money. Push: "Even knowing what he just said?"
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. This vocabulary applies to creators — and to any professional whose output is judged publicly.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('burnout')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">burnout</div>
+        <div class="vc-def">Total physical and emotional exhaustion from sustained overwork and pressure</div>
+      </div>
+      <div class="vocab-card" onclick="speak('content')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">content</div>
+        <div class="vc-def">Anything created and published online — videos, posts, reels, stories</div>
+      </div>
+      <div class="vocab-card" onclick="speak('follower count')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">follower count</div>
+        <div class="vc-def">The number that determines your reach, your income, and often your sense of worth</div>
+      </div>
+      <div class="vocab-card" onclick="speak('sponsorship')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">sponsorship</div>
+        <div class="vc-def">A brand deal where a creator is paid to promote a product to their audience</div>
+      </div>
+      <div class="vocab-card" onclick="speak('posting schedule')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">posting schedule</div>
+        <div class="vc-def">The relentless calendar of content a creator must maintain to stay relevant</div>
+      </div>
+      <div class="vocab-card" onclick="speak('parasocial relationship')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">parasocial relationship</div>
+        <div class="vc-def">When an audience feels emotionally close to a creator who doesn't know they exist</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pivot')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">pivot</div>
+        <div class="vc-def">A deliberate change in content type, platform, or career direction</div>
+      </div>
+      <div class="vocab-card" onclick="speak('authenticity')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">authenticity</div>
+        <div class="vc-def">Being genuinely yourself — the quality audiences claim to want, but creators must perform</div>
+      </div>
+      <div class="vocab-card" onclick="speak('backlash')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">backlash</div>
+        <div class="vc-def">A strong negative reaction from the public — the occupational hazard of being online</div>
+      </div>
+      <div class="vocab-card" onclick="speak('mental health')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">mental health</div>
+        <div class="vc-def">Emotional and psychological wellbeing — increasingly part of creator conversations</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('go viral')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">go viral</div>
+        <div class="vc-def">When content spreads rapidly and reaches a massive audience — unpredictably</div>
+      </div>
+      <div class="vocab-card" onclick="speak('burn out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">burn out</div>
+        <div class="vc-def">To reach a point of total exhaustion where you can no longer perform at the expected level</div>
+      </div>
+      <div class="vocab-card" onclick="speak('monetize')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">monetize</div>
+        <div class="vc-def">To turn your audience, content, or platform into income</div>
+      </div>
+      <div class="vocab-card" onclick="speak('overshare')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">overshare</div>
+        <div class="vc-def">To reveal more personal information than is appropriate or comfortable</div>
+      </div>
+      <div class="vocab-card" onclick="speak('keep up with')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">keep up with</div>
+        <div class="vc-def">To maintain the pace the algorithm and audience demand — a treadmill that never stops</div>
+      </div>
+      <div class="vocab-card" onclick="speak('take a break from')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">take a break from</div>
+        <div class="vc-def">To step away from content or social media — often announced, sometimes permanent</div>
+      </div>
+      <div class="vocab-card" onclick="speak('perform')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">perform</div>
+        <div class="vc-def">To present a version of yourself for public consumption — whether it is authentic or not</div>
+      </div>
+      <div class="vocab-card" onclick="speak('set boundaries')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">set boundaries</div>
+        <div class="vc-def">To decide what parts of your life will never become content</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lose yourself')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lose yourself</div>
+        <div class="vc-def">To forget who you were before your public persona took over your identity</div>
+      </div>
+      <div class="vocab-card" onclick="speak('cash out')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">cash out</div>
+        <div class="vc-def">To leave while you still can — taking your money and your sanity before the platform takes both</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I have been on and off with posting')">
+        <div class="pi-phrase">"I've been on and off with posting."</div>
+        <div class="pi-context">The polite way of saying the algorithm punished you for taking a break and you're still recovering your reach.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I need to take a break for my mental health')">
+        <div class="pi-phrase">"I need to take a break for my mental health."</div>
+        <div class="pi-context">The announcement every large creator makes eventually — and the comment section tells them they can not afford to.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('My audience expects me to post every day')">
+        <div class="pi-phrase">"My audience expects me to post every day."</div>
+        <div class="pi-context">The invisible contract that no one signed but everyone enforces — including the creator themselves.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('It stopped being fun a long time ago')">
+        <div class="pi-phrase">"It stopped being fun a long time ago."</div>
+        <div class="pi-context">Said by creators who built something bigger than they can carry — and are not sure how to put it down.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not know where the content ends and I begin')">
+        <div class="pi-phrase">"I don't know where the content ends and I begin."</div>
+        <div class="pi-context">The identity crisis that happens when your personality has been a product for long enough.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four perspectives on the influencer economy. Which one is closest to the truth?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Patricia, 42</div>
+            <div class="op-role">Operations Manager · Puebla</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I have zero sympathy. <strong>Nobody forced these people to build their entire identity around social media.</strong> They chose this career knowing exactly what it was. The fact that it got too big to handle isn't a tragedy — it's a consequence. My job is stressful too. I don't get to announce a 'mental health break' and expect my clients to wait."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😔</div>
+          <div>
+            <div class="op-name">Sebastián, 27</div>
+            <div class="op-role">Content Creator · CDMX · 180K followers</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I've been doing this for four years. Last year I made good money. This year I'm burnt out and my reach has dropped 40% because I took two weeks off. <strong>The algorithm doesn't care about your mental health.</strong> You miss the schedule, you lose the audience, you lose the income. People talk about 'boundaries' like the platform has any interest in respecting them."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Lucía, 35</div>
+            <div class="op-role">Brand Strategist · Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "We're talking about influencer burnout like it's a content creator problem. It's not. <strong>It's the same overwork culture that exists in every corporate job</strong> — just more visible because creators post about their lives. The difference is that influencers at least chose to be public. Most office workers are just as burned out, just less photographed."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🧊</div>
+          <div>
+            <div class="op-name">Marco, 48</div>
+            <div class="op-role">Venture Capitalist · Monterrey</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I invest in creator businesses. And what I've noticed is that <strong>the influencers who burn out are almost always the ones who never treated it like a business.</strong> They over-invested emotionally and under-invested operationally. Build a team. License your format. Diversify your income. The ones who last aren't the most authentic — they're the most strategic. Burnout is a business failure, not a mental health crisis."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people makes the most uncomfortable point? Which one do you think is the most wrong — and why?" Marco is the provocateur because he reframes burnout as a business failure rather than a mental health issue, which is both brutally pragmatic and deliberately avoids the human cost. His point is partially valid — which makes it more provocative, not less.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Their relationship with creators is in this room too.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Do you follow any creator or influencer consistently? What do you actually get from watching or reading their content?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This surfaces the "parasocial relationship" dynamic without naming it. Push: "Would you say you feel like you know this person? What do you know about their life?" The gap between "I follow them" and "I feel like I know them" is the interesting psychological territory.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever stopped following someone — a creator, an account, even a celebrity — because they changed? What changed exactly?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Great present perfect story question. Common answers: they started doing sponsored content constantly, their personality seemed fake, they got "too big." This connects to the authenticity vs. monetization tension — audiences often punish creators for the exact thing that makes the business sustainable.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever felt pressure in your own job to perform — to appear more engaged, more positive, or more "on" than you actually felt?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This bridges creator burnout to their own experience. Lucía makes this point in the Opinion Wall. Most professionals can identify with "performing" their role — especially in client-facing jobs. The difference is they go home and turn it off. Creators can't.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is influencing a real job — or is it something else? What makes something a "real" career in your mind?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This question often reveals class and generational assumptions. Push for criteria: income? Skill? Social value? Stability? Then ask: "If someone makes $300,000 per year as a creator, is that still 'not a real job'? Why?" The discomfort is productive.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do audiences have a responsibility to give creators space to take breaks — or is the expectation of constant content part of what they signed up for?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The audience accountability question. Most people are both consumer and judge — they might say "of course they deserve breaks" while also clicking away when their favorite creator goes quiet. Push them to name their own behavior, not just the ethical principle.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Marco said burnout is a business failure, not a mental health crisis. Is that callous — or is there something true in it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The spiciest question of Block 2. Both things can be true simultaneously — that burnout has systemic causes AND that better business decisions could have prevented it. The tension is worth exploring without resolving. Best B2.1 students will argue both sides before taking a position.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If you had 1 million followers and a brand offering you $50,000 to promote a product you personally don't believe in — would you do it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + ethics. The number is specific enough to make it real. Most people say no in principle. Push: "What if it was your only significant income that month? What if you had a mortgage? At what point does the number change your answer?" Authenticity is expensive.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">In 10 years, will the influencer economy grow, collapse, or transform into something we can't recognize yet?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will + future speculation. Connect to AI: AI-generated influencers already exist and are growing. What happens when a brand can create a perfect, tireless, never-burnt-out digital creator? Does that make human authenticity more or less valuable? No right answer — just push them to commit to a prediction.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">When a creator announces they're taking a break for mental health — do you actually believe them, or do you assume it's a strategy?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This surfaces the cynicism that creator culture has generated — and forces students to examine their own skepticism. Sometimes the break is real. Sometimes it's engineered for engagement. The fact that they can't always tell is part of what makes the relationship parasocial rather than real.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Is there any part of your own professional life where you perform a version of yourself that isn't entirely real — and what does that cost you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The closing question — and the one that brings the conversation home. Everyone performs at work to some degree. The question is the cost. For creators, the cost is burnout. For your students, it might be exhaustion, disconnection, or a quiet resentment they've never named in English before. Give them space. This is the moment of real fluency.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. No comfortable answer. Record your response.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B2.1 Influencer Burnout</div>
+      <div class="exit-question">You've built a following of 500,000 people over 3 years. It's your main income. You are exhausted, your personal life is suffering, and you genuinely don't want to make content anymore. But if you stop for 6 months, you'll likely lose 60% of your audience and your income. Do you keep going — or do you walk away?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. What do you do? And — before you answer — replace "500,000 followers" with whatever you've built in your own career. Does your answer change?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The substitution at the end is the key — "replace 500,000 followers with whatever you've built." This reframes the influencer's dilemma as a universal one: what do you do when the thing you built starts to own you? Every professional at B2.1 level has a version of this question. End: <em>"Send me your voice note. And tell me honestly — did the substitution exercise make the question harder or easier to answer?"</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Influencer Burnout · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

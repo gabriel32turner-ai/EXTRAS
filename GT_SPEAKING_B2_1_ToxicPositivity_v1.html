@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Toxic Positivity at Work · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#FFB800;--s2:#121D28;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+
+@media(max-width:600px){
+  .wall{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .wrap{padding:0 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Work &amp; Corporate Life</span>
+      <span class="tag spicy">🔥 Spicy Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Toxic Positivity at Work</h1>
+    <p>"Good vibes only" sounds harmless — until it silences every real problem in your company.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">Phase 1 · Provocative Headline</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Harvard Business Review · "The Problem with Being Too Positive at Work" · 2021</div>
+    <div class="trigger-quote">"Toxic positivity silences legitimate concerns, invalidates real emotions, and creates cultures where people feel they have to perform happiness — rather than actually feel it. The result: employees disengage, hide problems, and eventually quit."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the quote, then pause. Ask: <em>"Have you ever been in a meeting where someone said 'let's stay positive' right when you were about to raise a real problem? How did that feel?"</em> Expect a long pause followed by recognition. Follow with: <em>"We're going to talk about why saying 'everything is fine' can actually destroy a company."</em>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Phase 2 · Click to Hear</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👩‍🏫</span>
+        <div>
+          <div class="bub-name">Lucía · 36</div>
+          <div class="bub-role">HR Business Partner · Monterrey</div>
+        </div>
+      </div>
+      <div class="bub-body">"I've seen managers destroy entire teams with toxic positivity. When someone raises a concern and the response is <strong>'let's focus on solutions!'</strong> — that person feels unheard. Three months later they've resigned. Emotional reality has to be acknowledged before you can move to solutions. That's not weakness. That's leadership."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👨‍💼</span>
+        <div>
+          <div class="bub-name">Carlos · 45</div>
+          <div class="bub-role">Sales Director · CDMX</div>
+        </div>
+      </div>
+      <div class="bub-body">"I get it — nobody wants to work in a place that's always negative. But there's a difference between <strong>toxic positivity and optimism</strong>. If my team is constantly complaining and I redirect to solutions, that's not toxic — that's management. Not every feeling needs to be processed in a team meeting. Save it for therapy."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">🧑‍💻</span>
+        <div>
+          <div class="bub-name">Diego · 29</div>
+          <div class="bub-role">Product Manager · Guadalajara</div>
+        </div>
+      </div>
+      <div class="bub-body">"The worst part about toxic positivity is that it <strong>hides real problems</strong> until it's too late. At my last company, everyone kept saying 'we're great, we're growing!' — right up until they laid off 40% of the team. Nobody was allowed to talk about the issues. The positivity was just a way to control the narrative."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head">
+        <span class="bub-avatar">👩‍⚕️</span>
+        <div>
+          <div class="bub-name">Mariana · 51</div>
+          <div class="bub-role">CEO · Querétaro</div>
+        </div>
+      </div>
+      <div class="bub-body">"Honestly? Most people who complain about 'toxic positivity' just want <strong>permission to be negative</strong>. Companies aren't therapy centers. I pay people to solve problems, not to express their feelings about problems. If the culture is too positive for you, that's a compatibility issue — not a company problem. Leave."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Mariana is the provocateur because she reframes the entire debate — she's not defending toxic positivity, she's attacking the premise that feelings belong at work. Most students will react strongly. Push: <em>"Is Mariana's position a management style or a red flag?"</em> And then: <em>"Have you ever worked for a Mariana?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever raised a real concern at work and been told to "stay positive" or "focus on solutions"? How did that make you feel?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Most students have this experience but may not have named it as "toxic positivity." Help them articulate: "So you felt dismissed?" / "Did the problem get solved or did it just get silenced?" Target: present perfect for experience + past simple for the story.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Think about your current or last workplace. On a scale of 1-10, how much space was there to say "this isn't working" — without consequences?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The number is just a conversation starter. Push: "What would make it a 10?" / "What happened when someone actually said something negative — was there a consequence?" Key vocabulary: psychological safety, speak up, consequences, retaliation.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever forced yourself to smile or act enthusiastic at work when you were actually exhausted or frustrated? How long can a person do that before burning out?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is a deeply personal question — most adults have done this, especially in client-facing roles. Target: past continuous ("I was pretending to be fine every day") + modals for speculation ("I think a person can only do it for so long before...").</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">What's the difference between "toxic positivity" and just being a good, optimistic leader? Where does the line get crossed?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Model answer: "I think the line gets crossed when positivity starts being used to shut people down instead of lift them up. Optimism is 'we can solve this.' Toxic positivity is 'stop talking about the problem.' One acknowledges reality — the other denies it." Push for their own line in the sand.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think companies that promote "good vibes only" cultures are hiding something — or do they genuinely believe it works?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Interesting split: some toxic positivity is deliberate (control), some is naive (the manager genuinely doesn't want conflict). Push: "Which is worse — a company that knows it's silencing you, or one that doesn't even realize it?" Target: modals for speculation (might, could, may).</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it possible to build a high-performing team that also allows people to express frustration, doubt, and failure openly — or does that kind of honesty slow everything down?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The research says yes — Google's Project Aristotle found psychological safety is the #1 predictor of high-performing teams. Share this if students are skeptical. Push: "What would that culture actually look like day-to-day in a Mexican company?" Localization matters here.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your boss said "we don't do negativity here" every time you raised a problem, what would you do? How long would you stay?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional (would + base verb). Model: "If my boss said that regularly, I'd probably start documenting the issues myself and looking for another job within 6 months. You can't fix a company that won't acknowledge its problems." Push: "6 months — why not 3? Why not 12?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you were a team leader, how would you create a culture where people could raise hard truths — without the team becoming constantly negative or unmotivated?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: conditional + would + specific actions. Push for concrete tools: "regular 1-on-1s" / "anonymous feedback channels" / "blameless post-mortems." If students give vague answers ("I would be open"), ask: "What does 'open' look like on a Tuesday afternoon?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is the rise of toxic positivity at work partly our own fault — because we've trained ourselves to want constant validation and can't handle being told something isn't working?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This flips the narrative — instead of blaming managers, it asks about the employee's own role. Some students will strongly disagree (good — debate it). Others will pause and reflect. The goal isn't agreement; it's real, complex English thinking. Push: "Is this a generational thing, or has it always been this way?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">When was the last time you told someone at work something they really didn't want to hear — and you told them anyway? What stopped you before? What made you finally say it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is the uncomfortable self-reflection question. It forces the student to examine their own role in maintaining toxic positivity by staying silent. Let silence sit. If the student says "I've never done it," push: "Why not? What are you afraid of?"</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">Phase 5 · One Final Dilemma</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You've been at your company for 4 years. You have evidence — real data — that a major project is heading toward failure. You've tried to raise it twice and both times your manager said "let's stay solution-focused." The project launches in 60 days. If it fails, 15 people could lose their jobs. Do you go over your manager's head — knowing you might lose yours?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me: do you go over your manager's head or not? And what would you actually say — in English — to whoever you're talking to? I want to hear the words you'd use."
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Toxic Positivity at Work · Work &amp; Corporate Life · Spicy Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'validation',def:'Feeling that your emotions or ideas are accepted and understood',ex:'"She just needed some validation — not a solution."'},
+  {w:'burnout',def:'Physical and emotional exhaustion from sustained stress at work',ex:'"You can\'t cure burnout with a motivational poster."'},
+  {w:'feedback',def:'Information about someone\'s performance — can be positive or critical',ex:'"Real feedback has to include the bad stuff too."'},
+  {w:'culture',def:'The shared values and behaviors that define how a company operates',ex:'"A culture of toxic positivity is hard to spot from inside."'},
+  {w:'morale',def:'The overall confidence and mood of a team or organization',ex:'"Morale was high on the surface — but people were quietly quitting."'},
+  {w:'red flag',def:'A warning sign that something is wrong',ex:'"When HR sends a \'we\'re one big family\' email, that\'s a red flag."'},
+  {w:'narrative',def:'The version of events that an organization wants people to believe',ex:'"They controlled the narrative — nobody dared say things were bad."'},
+  {w:'resilience',def:'The ability to recover from difficulty',ex:'"Resilience doesn\'t mean pretending problems don\'t exist."'},
+  {w:'dissonance',def:'A disconnect between what someone says and what is actually true',ex:'"The cognitive dissonance in that meeting was exhausting."'},
+  {w:'turnover',def:'The rate at which employees leave and are replaced',ex:'"High turnover is always a symptom of a deeper culture problem."'},
+];
+const verbs=[
+  {w:'invalidate',def:'To dismiss or reject someone\'s feelings or experience',ex:'"Saying \'look on the bright side\' can actually invalidate real pain."'},
+  {w:'suppress',def:'To stop yourself from expressing something',ex:'"She suppressed her frustration for months — until she quit."'},
+  {w:'acknowledge',def:'To recognize or accept that something exists or is true',ex:'"Just acknowledge the problem first before jumping to solutions."'},
+  {w:'reframe',def:'To present something in a different way to change how it\'s perceived',ex:'"He reframed every failure as a \'learning opportunity.\' People stopped reporting problems."'},
+  {w:'speak up',def:'To say something — especially when it feels risky',ex:'"I\'ve learned that speaking up early saves a lot of pain later."'},
+  {w:'dismiss',def:'To treat something as unimportant or not worth discussing',ex:'"She dismissed every concern with \'we\'ll figure it out.\'"'},
+  {w:'disengage',def:'To mentally pull back from work or a team',ex:'"People disengage when they feel their voice doesn\'t matter."'},
+  {w:'mask',def:'To hide your real feelings behind a professional exterior',ex:'"He masked his frustration perfectly — until the resignation letter."'},
+  {w:'validate',def:'To make someone feel heard, seen, and understood',ex:'"You don\'t have to solve it — just validate that it\'s hard."'},
+  {w:'push back',def:'To resist or challenge a direction or decision',ex:'"I pushed back in the meeting and my manager made a note of it."'},
+];
+const phrases=[
+  {p:'Let\'s stay solution-focused',ctx:'Polite way to shut down a problem before it\'s discussed'},
+  {p:'Good vibes only',ctx:'Used to signal that negativity is not welcome in the team'},
+  {p:'Every challenge is an opportunity',ctx:'Classic toxic positivity line — often used to avoid accountability'},
+  {p:'I hear you, but...',ctx:'Appears to validate, then immediately dismisses'},
+  {p:'That\'s above my pay grade',ctx:'Used to avoid engaging with a hard truth that\'s inconvenient'},
+];
+
+function buildCards(data,cid){
+  const el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('');
+}
+function buildPhrases(data,cid){
+  const el=document.getElementById(cid);if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('');
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const open=tip.style.display==='block';
+  tip.style.display=open?'none':'block';
+  btn.textContent=open?'Show Tip':'Hide Tip';
+}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  btn.textContent=isStudent?'Teacher Mode':'Student Mode';
+  btn.classList.toggle('on',isStudent);
+}
+buildCards(nouns,'nouns-grid');
+buildCards(verbs,'verbs-grid');
+buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

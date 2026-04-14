@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Phone-Free Restaurants · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:#0F1923}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.38)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:580px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B2.1</span>
+      <span class="htag">Technology & Media</span>
+      <span class="htag">⚡ Edge: Medium</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">Phone-Free<br>Restaurants</div>
+    <div class="hero-sub">Some restaurants are banning phones at the table. Is this a brilliant idea — or a business committing social suicide?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real headline. A real debate.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The New York Times · 2024</div>
+    <div class="trigger-quote">"Restaurants across the U.S. are experimenting with phone-free dining rooms. Some report the best reviews they've ever received. Others report walkouts at the door. The same policy is dividing customers straight down the middle."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Imagine you sit down at a restaurant and the server says: 'We ask all guests to put their phones away for the duration of your meal.' What's your first reaction — relief, annoyance, or something in between? Be honest. That reaction tells us everything about today's topic."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('distraction')"><div class="vword">distraction</div><div class="vdef">Anything that pulls your attention away from what's in front of you</div><div class="vex">"My phone is my biggest distraction at dinner — even when I don't look at it."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('policy')"><div class="vword">policy</div><div class="vdef">A formal rule a business sets for how customers or staff must behave</div><div class="vex">"A phone-free policy sounds strict until you actually sit down without one."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('presence')"><div class="vword">presence</div><div class="vdef">Being mentally and emotionally in the moment — not physically, but fully</div><div class="vex">"Real presence at dinner is something most of us have lost without noticing."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('boundary')"><div class="vword">boundary</div><div class="vdef">A limit — here, the line between public space and personal behavior</div><div class="vex">"Where's the boundary between a restaurant's rights and a customer's freedom?"</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('autonomy')"><div class="vword">autonomy</div><div class="vdef">The right to make your own decisions without someone else controlling you</div><div class="vex">"I pay for my meal. My autonomy should include how I use my phone."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('experience')"><div class="vword">experience</div><div class="vdef">The full feeling of being somewhere — not just the food, but the atmosphere</div><div class="vex">"A great restaurant sells an experience, not just a plate."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('nostalgia')"><div class="vword">nostalgia</div><div class="vdef">A warm longing for how things used to be</div><div class="vex">"Phone-free dining sells nostalgia — the idea that meals used to mean more."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('review')"><div class="vword">review</div><div class="vdef">A public rating or comment — now essential for any restaurant's survival</div><div class="vex">"If you ban phones, how do customers post their reviews and photos?"</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('consent')"><div class="vword">consent</div><div class="vdef">Agreement — doing something because you chose to, not because you had to</div><div class="vex">"If the policy is on the website, you've given consent when you book."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('convenience')"><div class="vword">convenience</div><div class="vdef">The quality of making life easier — often what phones provide</div><div class="vex">"Convenience is the one thing restaurants should never take away from customers."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('ban')"><div class="vword">ban</div><div class="vdef">Officially prohibit something from a space or event</div><div class="vex">"Banning phones is either visionary or tone-deaf, depending on your customer."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('disconnect')"><div class="vword">disconnect</div><div class="vdef">Step away from devices and notifications intentionally</div><div class="vex">"I want to disconnect at dinner — I just can't do it alone."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('scroll')"><div class="vword">scroll</div><div class="vdef">Move through social media or content automatically, often without purpose</div><div class="vex">"I caught myself scrolling while my partner was mid-sentence. That was the moment."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('enforce')"><div class="vword">enforce</div><div class="vdef">Make sure a rule is actually followed — not just suggested</div><div class="vex">"How do you enforce a phone ban without making customers feel like children?"</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('opt in')"><div class="vword">opt in</div><div class="vdef">Actively choose to participate in something</div><div class="vex">"A phone-free table you opt into is very different from one you're forced into."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('document')"><div class="vword">document</div><div class="vdef">Record something — with photos, video, or notes — to keep or share</div><div class="vex">"We document everything now. Food, sunsets, conversations. Is anything just lived?"</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('engage')"><div class="vword">engage</div><div class="vdef">Actively participate and pay attention to something or someone</div><div class="vex">"When did we stop knowing how to engage with the people we invited to dinner?"</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('resist')"><div class="vword">resist</div><div class="vdef">Push back against something — a rule, a habit, or an impulse</div><div class="vex">"I can't resist checking my phone when it buzzes. That's the honest truth."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('respect')"><div class="vword">respect</div><div class="vdef">Show consideration for someone's space, time, or rules</div><div class="vex">"Putting your phone down is one of the most respectful things you can do at a meal."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('push back')"><div class="vword">push back</div><div class="vdef">Disagree with or resist a rule, idea, or decision</div><div class="vex">"Customers push back on the phone ban — until they experience it."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('I just need to check one thing')"><div><div class="phrase-text">I just need to check one thing</div><div class="phrase-context">Said every five minutes at dinner — and it's never just one thing</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('It\'s for emergencies only')"><div><div class="phrase-text">It's for emergencies only</div><div class="phrase-context">The universal justification for keeping your phone on the table — rarely true</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Can you put that away for a second?')"><div><div class="phrase-text">Can you put that away for a second?</div><div class="phrase-context">What you say to someone who won't stop scrolling during a conversation</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Pics or it didn\'t happen')"><div><div class="phrase-text">Pics or it didn't happen</div><div class="phrase-context">The social media logic that turns every meal into content — even against our will</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I\'m present, I\'m here')"><div><div class="phrase-text">I'm present, I'm here</div><div class="phrase-context">What people say while half-watching their screen — the performance of presence</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🍳</div><div><div class="b-name">Elena, 44</div><div class="b-role">Restaurant Owner · Guadalajara</div></div></div>
+      <div class="b-text">"I implemented it six months ago and it was the best business decision I've ever made. My average check went up 18%. People <strong>order more, stay longer, talk more.</strong> Turns out when you're not staring at a screen, you actually notice you're still hungry. The complaints lasted two weeks. The loyalty has lasted six months."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍💼</div><div><div class="b-name">Javier, 38</div><div class="b-role">Marketing Director · CDMX</div></div></div>
+      <div class="b-text">"This is a restaurant telling me how to behave like an adult. I pay premium prices — <strong>I don't need someone managing my attention.</strong> What about parents with kids who need distraction? People waiting for an urgent call? Travelers who don't know anyone at the table? It's a policy designed by people who've forgotten that customers have real lives."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🎓</div><div><div class="b-name">Andrea, 31</div><div class="b-role">Behavioral Researcher · Monterrey</div></div></div>
+      <div class="b-text">"The data on phone-free meals is actually compelling. People report <strong>higher satisfaction, better conversation quality, and less anxiety</strong> after phone-free dinners — including people who resisted the policy. We know phones fragment attention. The question isn't whether it works. The question is who gets to make that decision."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(255,184,0,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👨‍🧑‍🤝‍🧑</div><div><div class="b-name">Tomás, 55</div><div class="b-role">Retired Professor · Querétaro</div></div></div>
+      <div class="b-text">"We didn't have phones at dinner thirty years ago and we were <strong>just as lonely, just as distracted, and just as bad at listening</strong> to each other. We read newspapers at breakfast. We watched TV during dinner. The phone is just the new thing to blame. The real problem is that we don't know how to be with other people — and we never did."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one speaks for you — and who at this table would you have the most uncomfortable conversation with?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">At your last family dinner or dinner with friends, how many times did someone check their phone? Did it bother you — or were you the one doing it?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Force the honest answer. "Everyone else was on their phone" is the easy answer. Push: "What about you specifically?" The self-awareness gap is the most interesting part of this topic.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever been in a conversation where the other person was clearly half-listening because of their phone? How did it feel?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Almost everyone has. Great vocabulary activation: "dismissed," "invisible," "disrespected." Ask: "Did you say something — or just let it go?" The letting-it-go is socially interesting.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever tried to do a phone-free dinner voluntarily — even for an hour? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most people haven't. If they have: what was the result? If they haven't: "Why not?" — is it logistical, social (fear of what others will think), or just never occurred to them?</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Does a restaurant have the right to ban phones on its premises — the same way it bans smoking or requires shoes? Where does a business's authority end?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "A business can set any rule it wants — as long as it's communicated clearly before you sit down. The issue isn't legality, it's trust. If I know the rule and still choose to go, that's on me."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is banning phones at a restaurant actually a class thing — something only upscale places can afford to do? Would it work at a family restaurant in a Mexican city?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Sharp cultural angle. The phone-free restaurant trend is mostly high-end. Would it work in Celaya, Querétaro, Monterrey? Would your parents follow the rule — or walk out? Great local anchoring moment.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Tomás says we were already bad at being present before phones existed. Is he right — or is the phone a genuinely new level of problem?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The most intellectually rich question. Push them to distinguish between "distraction always existed" and "this distraction is uniquely designed by engineers to be irresistible." That difference matters.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your favorite restaurant announced a phone-free policy starting next month, would you stop going — or would you try it at least once?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Force a real decision. "I'd try it once" is the interesting answer — because it reveals they're curious but not committed. Follow up: "And if the meal was incredible — would you go back?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you had young kids at home and the restaurant banned screens entirely — no phones, no tablets — would that be a deal-breaker for you?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Practical objection with real stakes. Great for parents in the group. The tablet-as-babysitter dynamic is real and worth discussing without judgment. Ask: "What did parents do before screens at restaurants?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">If your dinner companions are boring you — is your phone actually the problem, or is it just the symptom of a deeper issue with the people you're choosing to eat with?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The sharpest question in the lab. A phone-free rule doesn't fix a bad relationship or a forced work dinner. It might even make it worse. Let the discomfort land. Don't rush to soften it.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Be completely honest: when you're at dinner with someone, how much of what they're saying do you actually absorb — even when your phone is away?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The closer — about attention, not technology. The phone is a convenient villain. But mental distraction, planning what to say next, zoning out — those don't need a device. This question opens the door to a bigger conversation about human connection.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your company is organizing the end-of-year dinner — 40 people, nice venue. Your manager asks you to propose the format. You could suggest: (A) phones allowed as always, (B) a voluntary phone-free table for people who want it, or (C) phones away for everyone, no exceptions. Which do you choose — and how do you sell it to the team?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me which format you choose and your exact pitch to the team. Not the safe answer — the honest one. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Phone-Free Restaurants · Technology & Media</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

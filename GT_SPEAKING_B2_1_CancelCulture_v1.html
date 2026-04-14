@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Cancel Culture · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--ac2:rgba(255,184,0,0.12);--ac3:rgba(255,184,0,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:var(--navy)}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:580px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(255,184,0,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B2.1</span>
+      <span class="htag">Social Issues &amp; Society</span>
+      <span class="htag ac">🌶 Spicy</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Cancel Culture:<br>Justice or Witch Hunt?</div>
+    <div class="hero-sub">One tweet. One mistake. One lifetime of consequences. Is that accountability — or mob rule?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Pew Research Center · 2023</div>
+    <div class="trigger-quote">"44% of Americans believe cancel culture has gone too far — while 38% say it doesn't go far enough. The remaining 18% aren't sure. Neither are most of us."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then: "Before we talk about celebrities — think about your own world. Have you ever seen someone lose their job, their reputation, or their social circle because of something they said? Was it fair?" Pause ten seconds. Then: "Today we're not talking about Hollywood. We're talking about how accountability works — and when it stops being justice."</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Social Language</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Where do you stand?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">✊</div><div><div class="op-name">Camila · 31</div><div class="op-role">Communications Manager · CDMX</div></div></div>
+      <div class="op-text">For decades, powerful people said terrible things and faced zero consequences because they controlled the narrative. <strong>Cancel culture is what happens when ordinary people finally have a voice.</strong> Is it perfect? No. But I'll take messy accountability over polished impunity any day. If you say something harmful, you should feel it.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😤</div><div><div class="op-name">Roberto · 53</div><div class="op-role">Senior Partner · Law Firm · Monterrey</div></div></div>
+      <div class="op-text">I've seen innocent people destroyed by online mobs based on misunderstood context, old jokes, or outright lies. <strong>There's no due process. No presumption of innocence. No chance to explain.</strong> Just a digital execution. We used to burn witches for making people uncomfortable. We still do — we just use Twitter now.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Andrés · 27</div><div class="op-role">Content Creator · Guadalajara</div></div></div>
+      <div class="op-text">Everyone acts like cancel culture is new. <strong>It's not.</strong> Socrates was cancelled. Galileo was cancelled. Every person who ever challenged power was cancelled — just with slower technology. The difference now is that the people doing the cancelling aren't kings or priests. <strong>They're regular people with smartphones. And that terrifies the people who used to do all the cancelling.</strong></div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🤷</div><div><div class="op-name">Sofía · 39</div><div class="op-role">HR Director · Querétaro</div></div></div>
+      <div class="op-text">My problem isn't the accountability — it's the <strong>permanence</strong>. People change. Context matters. A 22-year-old who said something stupid should not have their entire professional life defined by it at 40. <strong>Consequences are necessary. Lifetime sentences for bad tweets are not.</strong> There has to be a path back.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which position do you defend? Which one is hardest to dismiss — even if you disagree?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever changed your opinion about a public figure because of something they said online? Did you stop following them — or did you give them a second chance?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Push for a specific person and a specific moment. "Who was it? What did they say? Did you feel pressure from others to react the same way — or did you form your own opinion?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever stayed silent about your real opinion on a sensitive topic at work or online — because you were afraid of how people would react?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes — more than once. There are things I genuinely believe that I keep to myself because the cost of saying them out loud feels too high. I don't know if that's wisdom or self-censorship. Probably both."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Do you know someone whose reputation was seriously damaged by something they said — online or in person? Looking back, was the reaction proportional?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Keep focus on proportion, not guilt or innocence. "Would you say the punishment matched the offense? Would your answer change if it happened to you?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is there a meaningful difference between holding someone accountable and trying to destroy them? Where exactly is the line?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Push them past agreeing the line exists. "Name the line. What specific behavior crosses from accountability into destruction? Give me a concrete example."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should things people said 10 or 15 years ago be used to judge who they are today? Does the age they were at the time matter?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Context matters enormously. A 19-year-old who said something offensive in 2009 and a 45-year-old who says the same thing today are in completely different situations. The internet doesn't age the way people do — and that's a serious design flaw."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Has cancel culture made people more careful about what they actually think — or just more careful about what they say publicly?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The distinction between genuine change and performance is where the conversation gets real. "Do people actually think differently now — or just talk differently? And which is more valuable?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If a colleague at work was publicly called out online for something offensive they said years ago — and your company was deciding whether to fire them — what would you recommend?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I'd want the full story before recommending anything. What did they say? Have they addressed it? Do they still hold those views? Firing someone based on a screenshot without any conversation feels like exactly the mob mentality we should be moving past."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you were cancelled tomorrow for something you said five years ago — taken out of context — what would you do? Who do you think would actually stand by you?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The second part — who would stand by you — reveals more than the first. "How many people? And how many would stay quiet to protect themselves? What does that tell you about the culture you work in?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Have you ever joined a pile-on — liked, shared, or commented to publicly criticize someone — and later felt uncomfortable about it? What did that feel like?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The vulnerability question. Most people have done this. Give space. "What does it feel like to be part of a crowd judging someone? Did the crowd feel righteous? Did you feel righteous — and what happened to that feeling later?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If cancel culture disappeared tomorrow — no public callouts, no viral consequences — do you think powerful people would behave better or worse? And what does your answer say about why it exists?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly, worse. A lot of people behave better because consequences exist. That doesn't mean every cancellation is fair — but zero social accountability wasn't working either. The problem isn't accountability. It's proportionality. And we haven't figured out how to calibrate that yet."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">A tweet from 2012 resurfaces. It was written by your best friend — now a respected professional with a family. It's offensive by today's standards, but they were 24 and it was a different time. You know they've changed completely. A journalist contacts you for a quote. Your friend's employer is already aware and considering termination. Do you defend them publicly — knowing it could damage your own reputation — or do you stay silent and protect yourself?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: What do you do — and why? Is loyalty to a person the same as loyalty to what they once said?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B2.1 · Social Issues &amp; Society · Cancel Culture · Spicy 🌶</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv on">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"accountability",def:"Being responsible for your actions and their consequences",ex:'"Accountability without context is just punishment dressed up as justice."'},
+  {w:"callout",def:"A public act of naming someone for harmful behavior",ex:'"The callout spread to 40,000 people overnight — most had never heard of her."'},
+  {w:"backlash",def:"A strong negative reaction from a large group of people",ex:'"The brand faced immediate backlash after the campaign launched."'},
+  {w:"mob mentality",def:"Acting with a group emotionally, without individual judgment",ex:'"Mob mentality online is fast, loud, and rarely interested in nuance."'},
+  {w:"due process",def:"The right to a fair hearing before punishment is applied",ex:'"Cancel culture has no due process — just a verdict before the facts."'},
+  {w:"reputation",def:"The general opinion others hold of you professionally or socially",ex:'"He rebuilt his reputation slowly. It took years, not months."'},
+  {w:"context",def:"The circumstances that help explain why something was said or done",ex:'"Without context, almost anything can sound offensive."'},
+  {w:"self-censorship",def:"Choosing not to say something because you fear the reaction",ex:'"Self-censorship has gone up — people share less and filter more."'},
+  {w:"redemption",def:"The act of recovering from mistakes and being accepted again",ex:'"Does cancel culture leave room for redemption? Often, it does not."'},
+  {w:"consequences",def:"The direct results or effects of a person\'s actions",ex:'"She accepted the consequences — but the internet never forgot."'},
+];
+const verbs=[
+  {w:"call out",def:"To publicly criticize someone for harmful behavior",ex:'"She called him out in a thread that got 200,000 likes by morning."'},
+  {w:"hold accountable",def:"To make someone accept responsibility for what they did",ex:'"Holding people accountable is necessary. Destroying them is something else."'},
+  {w:"pile on",def:"To join a group already criticizing or attacking someone",ex:'"Once the story broke, everyone piled on — including strangers."'},
+  {w:"stand by",def:"To publicly support someone who is being criticized",ex:'"Very few people stood by him when it mattered. That taught him a lot."'},
+  {w:"cancel",def:"To withdraw public support from someone after controversy",ex:'"They cancelled him in 48 hours — then moved on to the next one."'},
+  {w:"apologize",def:"To express genuine regret for something said or done",ex:'"He apologized — but it came too late and felt too calculated."'},
+  {w:"defend",def:"To speak in support of someone being publicly criticized",ex:'"Defending her cost him followers. He did it anyway."'},
+  {w:"draw the line",def:"To establish a clear limit on what behavior is acceptable",ex:'"Where do we draw the line between accountability and punishment?"'},
+  {w:"move on",def:"To stop focusing on past events and continue forward",ex:'"The internet never really moves on. That is the whole problem."'},
+  {w:"speak up",def:"To express your opinion, especially when it feels risky",ex:'"She spoke up when no one else would — and paid for it professionally."'},
+];
+const phrases=[
+  {t:'"That did not age well."',c:"Said when something from the past looks bad by today's standards."},
+  {t:'"They\'re cancelled."',c:"Casual declaration of withdrawn support — serious or joking depending on context."},
+  {t:'"Read the room."',c:"Advice to be aware of how your words land in a given social context."},
+  {t:'"You can\'t say anything anymore."',c:"Common complaint — sometimes valid, sometimes used to avoid accountability."},
+  {t:'"This is a teachable moment."',c:"Corporate framing for addressing harmful words as a learning opportunity."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

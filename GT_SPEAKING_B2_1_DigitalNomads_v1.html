@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Digital Nomads: Privilege or Lifestyle? · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Travel &amp; Culture</span>
+      <span class="tag spicy">🔥 Spicy Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Digital Nomads:<br>Privilege or Lifestyle?</h1>
+    <p>Working from a beach in Bali sounds like freedom — until you ask who actually gets to do it, and what it costs the city you move to.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocative Headline</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The Guardian · "The Digital Nomad Backlash" · 2023</div>
+    <div class="trigger-quote">"In Lisbon, Barcelona, and Mexico City, locals are being priced out of their own neighborhoods by remote workers earning US or European salaries and paying rent in local currency. Digital nomads call it freedom. Residents call it something else."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the quote, then ask: <em>"Have you ever seen this happen in a city you know? Or — be honest — have you ever benefited from earning a salary in one currency and spending it somewhere cheaper?"</em> Most Mexican professionals have a nuanced take here: they may earn in pesos but have seen expats reshape their cities. This session works best when the student has to argue both sides.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">🧑‍💻</span>
+        <div><div class="bub-name">Sebastián · 31</div><div class="bub-role">UX Designer · Remote · Originally from Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"I've been a digital nomad for 3 years. I pay my taxes, I respect the places I live in, and I spend money in local businesses. <strong>Why should I feel guilty for having a skill that lets me work from anywhere?</strong> People moved to cities for better jobs for generations. I just do it differently. Call it 'gentrification' if you want — it's just economic mobility."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍🏘️</span>
+        <div><div class="bub-name">Valentina · 43</div><div class="bub-role">Architect · Mexico City resident</div></div>
+      </div>
+      <div class="bub-body">"My neighborhood in Roma Norte changed completely in 4 years. My friends who grew up there can't afford to live there anymore. The coffee shops are all in English. The rent doubled. I don't hate the nomads personally — but <strong>the system that lets them reshape a city without any accountability</strong> is deeply unfair. Freedom for some isn't freedom for everyone."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨‍🌾</span>
+        <div><div class="bub-name">Rodrigo · 38</div><div class="bub-role">Business Owner · Oaxaca</div></div>
+      </div>
+      <div class="bub-body">"Nomads are great for my business. They eat out every day, pay for experiences, book local tours. Before remote work, <strong>Oaxaca was invisible to the world</strong>. Now we have direct flights and international attention. Yes, some rents went up — but the economic energy nomads bring is real. I'll take the trade-off."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">✍️</span>
+        <div><div class="bub-name">Daniela · 35</div><div class="bub-role">Journalist · Based in Berlin</div></div>
+      </div>
+      <div class="bub-body">"Digital nomadism is just <strong>colonialism with a laptop</strong>. You move to a country because it's cheap — which means it's cheap because it's poor — and you act like that's a lifestyle choice, not an economic imbalance you're exploiting. The 'freedom' you're celebrating is built on someone else's limited options. No amount of spending at local coffee shops fixes that math."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Daniela is the provocateur because the word "colonialism" is designed to provoke strong reactions — agreement or fierce rejection. Push: <em>"Is that comparison fair or is it an exaggeration?"</em> Then flip it: <em>"As a Mexican professional, are you on Daniela's side, Valentina's side, or Rodrigo's — and why does your answer depend on which city you're from?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever worked remotely for an extended period — a week, a month, longer? Where were you, and what surprised you about the experience?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Even students who haven't done it properly have worked from home, a café, or another city. The point is to activate personal experience. Push: "What did you miss about the office — if anything?" Target: present perfect for experience + past simple for the story.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you noticed changes in your city or neighborhood because of foreign workers or expats moving in? What changed — prices, culture, vibe?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is highly relevant for students in CDMX, Guadalajara, or Monterrey. Most will have an opinion. Push: "Did you feel like those changes were good, bad, or complicated?" Key vocab to activate: gentrification, displacement, local culture, rent prices.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">If you could work from anywhere in the world for 6 months — fully paid, same salary — where would you go and why?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Light question to warm up the personal imagination. Push: "Would you feel like a digital nomad — or would that just be a long business trip?" Transition into: "And would you feel weird spending a Mexican or local salary in a place where that goes much further?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it fair for someone to move to a cheaper country just because their salary allows it — even if it raises costs for the people who live there?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The moral core of the session. There's no clean answer. Push both sides: "Is individual freedom more important than collective impact?" / "Should rich-country workers be blamed for market forces they didn't create?" Target: modals for obligation (should, ought to, shouldn't).</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should digital nomads pay taxes in the countries they live in — not just where their company is based? Is it fair that they benefit from local infrastructure without contributing to it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is a real policy debate — Portugal actually introduced a digital nomad visa with specific tax obligations in 2022. Push: "Is this a problem the government should solve — or the individual nomad?" Good for modals + conditional: "If I lived somewhere for 6 months, I think I should/shouldn't..."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Daniela says digital nomadism is "colonialism with a laptop." Is that a fair comparison — or is it an exaggeration that shuts down a more nuanced conversation?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Students will split hard here. Some will embrace the comparison; others will find it reductive. Both positions are valid. Push: "What would have to be true for the comparison to be fair? What's different?" Target: present perfect + conditional. Key: don't let the student dismiss it without engaging with the actual argument.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your company offered you full remote work permanently, would you stay in your city — or move somewhere cheaper and pocket the difference? Be honest.</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional. The key word is "honest" — most people's instinct is pragmatic. Push: "Would you feel guilty? Or would you feel you've earned it?" This question makes the student step into the nomad's shoes and realize the appeal is real and personal.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If your city started attracting thousands of remote workers from the US earning 5x the local salary, what would you want the government to do about it — if anything?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Policy thinking question. Push for specifics: "Price caps? Special visa taxes? Nothing at all?" Target: second conditional + modals for policy (should, could, might). Good moment to bring in Rodrigo's perspective — economic benefit is real, even if costs are unequal.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is the digital nomad lifestyle actually lonely — or do people just not want to admit it because the Instagram version looks perfect?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Shifts the conversation from political to personal. Research consistently shows nomads report high loneliness after the novelty wears off. Push: "What does 'home' mean to you — is it a place or a feeling?" Target: present perfect + modals for speculation. Good energy shift after the heavier policy questions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Uncomfortable question: have you ever judged someone for "escaping" a responsibility — a family, a city, a community — because they could afford to? And are you sure your judgment was fair?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The self-reflection closer. Forces the student to examine their own assumptions about freedom vs. responsibility. Let silence sit. Push: "What's the difference between escaping and evolving?" The goal is real, uncomfortable self-examination in English.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Your company goes fully remote. You realize you could move from Guadalajara to a small town in Oaxaca and cut your monthly expenses in half — saving an extra $8,000 MXN per month. But your parents are getting older and live 10 minutes from your current apartment. Your partner is excited. Your siblings think you'd be abandoning the family. Do you go?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me your decision — and give me the one argument that would change your mind. In English. No script."
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Digital Nomads: Privilege or Lifestyle? · Travel &amp; Culture · Spicy Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'gentrification',def:'When wealthier people move into an area, raising prices and pushing locals out',ex:'"The gentrification of Roma Norte happened fast — too fast for most residents."'},
+  {w:'privilege',def:'An advantage available to some people but not others, often due to money or background',ex:'"Working from a beach is a privilege — not everyone has a skill that allows it."'},
+  {w:'displacement',def:'When people are forced to leave their homes or neighborhood due to rising costs',ex:'"Displacement is the ugly side of every trendy neighborhood."'},
+  {w:'visa',def:'Official permission to enter or live in a country for a specific purpose',ex:'"Several countries now offer a digital nomad visa for remote workers."'},
+  {w:'co-working space',def:'A shared office environment where people from different companies work together',ex:'"The co-working space in Tulum was full of nomads — almost no locals."'},
+  {w:'cost of living',def:'How much money is needed to cover basic expenses in a specific place',ex:'"The cost of living in Mexico City has gone up 30% in some neighborhoods."'},
+  {w:'infrastructure',def:'The basic systems a city needs to function: roads, water, internet, transport',ex:'"Nomads use the infrastructure but don\'t always pay taxes to support it."'},
+  {w:'community',def:'A group of people living in the same place and sharing a sense of belonging',ex:'"You can\'t build a real community if you\'re gone every 3 months."'},
+  {w:'currency gap',def:'The difference in value between two currencies that creates economic imbalance',ex:'"The currency gap is what makes Mexico attractive — and what makes it complicated."'},
+  {w:'accountability',def:'Being responsible for the impact of your choices on others',ex:'"Freedom without accountability is just selfishness with a passport."'},
+];
+const verbs=[
+  {w:'relocate',def:'To permanently or semi-permanently move to a different place',ex:'"She relocated to Mérida and cut her expenses by 40%."'},
+  {w:'price out',def:'To make something too expensive for someone to afford',ex:'"Long-term residents have been priced out of their own neighborhoods."'},
+  {w:'exploit',def:'To take advantage of a situation or person for personal gain',ex:'"Is it exploiting a country — or just smart financial planning?"'},
+  {w:'contribute',def:'To give something back to a place or community',ex:'"I contribute to the local economy every day — but not to the tax base."'},
+  {w:'uproot',def:'To leave a place where you have deep roots and connections',ex:'"Uprooting every 6 months sounds exciting at 28 and exhausting at 35."'},
+  {w:'blend in',def:'To fit naturally into a new environment or culture',ex:'"Most nomads don\'t blend in — they bring their own bubble with them."'},
+  {w:'cash in',def:'To take financial advantage of a situation or opportunity',ex:'"He cashed in on the remote work trend and moved to Lisbon."'},
+  {w:'settle down',def:'To stop moving and establish a stable life in one place',ex:'"At some point, everyone asks: when do I settle down?"'},
+  {w:'price in',def:'To include a cost or factor into your calculations or plans',ex:'"Did you price in the loneliness when you decided to go fully nomad?"'},
+  {w:'push back',def:'To resist or challenge a decision, idea, or social pressure',ex:'"Locals are starting to push back against the influx of remote workers."'},
+];
+const phrases=[
+  {p:'Living the dream',ctx:'Said about the nomad lifestyle — often with a hint of envy or sarcasm'},
+  {p:'My office is wherever I open my laptop',ctx:'Classic nomad self-description — can sound liberating or disconnected'},
+  {p:'I\'m based out of...',ctx:'Nomad-speak for "I technically live there but I move a lot"'},
+  {p:'The world is my office',ctx:'Aspirational phrase that locals in "the world" don\'t always appreciate'},
+  {p:'It\'s not for everyone',ctx:'What nomads say to acknowledge the privilege without really examining it'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){const isStudent=document.body.classList.toggle('student');const btn=document.getElementById('modeToggle');btn.textContent=isStudent?'Teacher Mode':'Student Mode';btn.classList.toggle('on',isStudent)}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

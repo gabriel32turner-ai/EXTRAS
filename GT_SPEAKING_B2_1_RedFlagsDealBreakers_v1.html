@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B2.1 — Red Flags vs Deal-Breakers</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .toggle-btn:hover { background: var(--accent); color: var(--navy); }
+
+  .hero {
+    height: 340px; position: relative; display: flex; align-items: flex-end;
+    background: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&q=80') center/cover no-repeat;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(15,25,35,0.45) 0%, rgba(15,25,35,0.92) 100%);
+  }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px;
+  }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap;
+  }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box {
+    border-left: 4px solid var(--accent); background: var(--card);
+    border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px;
+  }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script {
+    background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2);
+    border-radius: 10px; padding: 16px 20px; margin-top: 16px;
+  }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none;
+  }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; transition: border-color 0.2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; position: relative; transition: border-color 0.2s;
+  }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .provocateur-tag {
+    position: absolute; top: -10px; right: 16px;
+    background: var(--accent); color: var(--navy);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(255,184,0,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 10px;
+  }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px;
+    cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s;
+  }
+  .show-tip-btn:hover { background: var(--accent); color: var(--navy); }
+  .tip-content {
+    display: none; margin-top: 14px;
+    background: rgba(255,184,0,0.06); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 12px 16px;
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+  }
+  .tip-content.open { display: block; }
+
+  .exit-box {
+    border: 2px solid var(--accent); border-radius: 16px;
+    padding: 32px; background: rgba(255,184,0,0.04); margin-bottom: 24px;
+  }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* COMPARISON TABLE */
+  .compare-intro { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .compare-table { width: 100%; border-collapse: collapse; }
+  .compare-table th {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 12px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent); text-align: left;
+  }
+  .compare-table td {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 12px 16px; font-size: 14px; color: var(--text); vertical-align: top;
+  }
+  .compare-table tr:hover td { background: rgba(255,184,0,0.03); }
+  .flag-red { color: #FF4D4D; font-weight: 700; }
+  .flag-gold { color: var(--accent); font-weight: 700; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .compare-table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag plain">Relationships &amp; Personality</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Red Flags vs. Deal-Breakers</h1>
+    <p>Not every red flag is a deal-breaker. But how do you know the difference — and what does your list say about you?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">The Atlantic — "The Rise of the Deal-Breaker List"</div>
+      <div class="trigger-quote">"Dating apps have given people an unprecedented ability to filter out partners before ever meeting them. Psychologists warn that our deal-breaker lists have become so long that we're filtering out perfectly compatible people based on superficial incompatibilities we'd adapt to in real life."</div>
+    </div>
+
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the headline. Then pivot immediately: <em>"Before we talk about relationships — do you even know the difference between a red flag and a deal-breaker?"</em> Let students try to define both. Most will confuse them. That confusion is the hook. Then ask: <em>"Give me one of yours. What's something that's a deal-breaker for you — no exceptions?"</em> The first real answer unlocks the whole room.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <p class="compare-intro teacher-only">Quick warm-up table before vocab cards — run this as a group discussion: "Red flag or deal-breaker?"</p>
+
+    <div class="vocab-group-label">The Core Distinction — Red Flag vs. Deal-Breaker</div>
+    <div style="overflow-x:auto; margin-bottom: 24px;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="flag-red">🚩 Red Flag</th>
+            <th class="flag-gold">🚫 Deal-Breaker</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Definition</strong></td>
+            <td>A warning sign — something that could become a problem. Requires attention.</td>
+            <td>An absolute limit — if this exists, the relationship ends or never starts.</td>
+          </tr>
+          <tr>
+            <td><strong>Can you work with it?</strong></td>
+            <td>Maybe. It depends on context, pattern, and communication.</td>
+            <td>No. It's non-negotiable, regardless of other positives.</td>
+          </tr>
+          <tr>
+            <td><strong>Example</strong></td>
+            <td>They cancel plans once in a while with vague excuses.</td>
+            <td>They are dishonest with money — hidden debts, lies about finances.</td>
+          </tr>
+          <tr>
+            <td><strong>Emotional response</strong></td>
+            <td>"I'm watching this carefully."</td>
+            <td>"I'm out. No second chances."</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('deal-breaker')">
+        <div class="vocab-word">deal-breaker</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">An absolute limit that ends a relationship or negotiation — non-negotiable</div>
+      </div>
+      <div class="vocab-card" onclick="speak('red flag')">
+        <div class="vocab-word">red flag</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A warning sign that something might be wrong — worth watching, not necessarily leaving</div>
+      </div>
+      <div class="vocab-card" onclick="speak('compatibility')">
+        <div class="vocab-word">compatibility</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How well two people's values, habits, and goals actually fit together</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pattern')">
+        <div class="vocab-word">pattern</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Repeated behavior — one incident is a red flag, a pattern is a deal-breaker</div>
+      </div>
+      <div class="vocab-card" onclick="speak('boundary')">
+        <div class="vocab-word">boundary</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A personal limit you set to protect your wellbeing in a relationship</div>
+      </div>
+      <div class="vocab-card" onclick="speak('dealmaker')">
+        <div class="vocab-word">dealmaker</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A green flag — something that makes you actively want this person in your life</div>
+      </div>
+      <div class="vocab-card" onclick="speak('gut feeling')">
+        <div class="vocab-word">gut feeling</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">An instinctive reaction — something feels wrong even if you can not explain it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('resentment')">
+        <div class="vocab-word">resentment</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The bitter feeling that builds when you ignore a deal-breaker and stay anyway</div>
+      </div>
+      <div class="vocab-card" onclick="speak('standard')">
+        <div class="vocab-word">standard</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The minimum level of treatment or behavior you expect from a partner</div>
+      </div>
+      <div class="vocab-card" onclick="speak('trade-off')">
+        <div class="vocab-word">trade-off</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Accepting someone's negative quality in exchange for their positive ones</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('overlook')">
+        <div class="vocab-word">overlook</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To choose to ignore or minimize a problem — sometimes healthy, often dangerous</div>
+      </div>
+      <div class="vocab-card" onclick="speak('rationalize')">
+        <div class="vocab-word">rationalize</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To create logical-sounding reasons to justify something you emotionally want</div>
+      </div>
+      <div class="vocab-card" onclick="speak('walk away')">
+        <div class="vocab-word">walk away</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To end a relationship or situation — requires courage when feelings are involved</div>
+      </div>
+      <div class="vocab-card" onclick="speak('settle for')">
+        <div class="vocab-word">settle for</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To accept something less than what you actually want or need</div>
+      </div>
+      <div class="vocab-card" onclick="speak('confront')">
+        <div class="vocab-word">confront</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To directly address a problem or behavior — difficult but necessary</div>
+      </div>
+      <div class="vocab-card" onclick="speak('compromise')">
+        <div class="vocab-word">compromise</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To meet halfway — healthy in relationships, dangerous when it crosses your limits</div>
+      </div>
+      <div class="vocab-card" onclick="speak('red-flag')">
+        <div class="vocab-word">red-flag (sb)</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To mentally mark someone as a warning — used colloquially: "I red-flagged him immediately"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('project')">
+        <div class="vocab-word">project</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To see your own fears or flaws in another person — a psychological trap</div>
+      </div>
+      <div class="vocab-card" onclick="speak('tolerate')">
+        <div class="vocab-word">tolerate</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To put up with something — different from accepting it genuinely</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ghost')">
+        <div class="vocab-word">ghost</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To abruptly cut off all contact with someone without explanation</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('That was a major red flag and I completely ignored it.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That was a major red flag and I completely ignored it."</div>
+          <div class="phrase-context">The most common sentence in every breakup story told in retrospect</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I knew from day one it was a deal-breaker. I just didn\'t want to admit it.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I knew from day one it was a deal-breaker. I just didn't want to admit it."</div>
+          <div class="phrase-context">When emotions override your own standards — one of the most honest things adults say</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I don\'t want to be too picky, but...')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I don't want to be too picky, but..."</div>
+          <div class="phrase-context">The classic disclaimer before someone mentions a completely valid limit</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('You can\'t change people. Either you accept it or you don\'t.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"You can't change people. Either you accept it or you don't."</div>
+          <div class="phrase-context">The adult version of a boundary — direct and unsentimental</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I gave it too many chances. There\'s a limit to how much you overlook.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I gave it too many chances. There's a limit to how much you overlook."</div>
+          <div class="phrase-context">When a red flag that was ignored long enough becomes a deal-breaker too late</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💻</div>
+        <div class="opinion-name">Sofía, 31</div>
+        <div class="opinion-role">Marketing Lead, Monterrey</div>
+        <div class="opinion-text">"My deal-breaker list is non-negotiable and I'm not ashamed of it. <strong>Dishonesty, no ambition, bad relationship with money, and disrespect</strong> — if any of those appear, I'm out. No exceptions. It's not being picky. It's called knowing what you need."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🍳</div>
+        <div class="opinion-name">Marco, 44</div>
+        <div class="opinion-role">Operations Director, Querétaro</div>
+        <div class="opinion-text">"I've been married 15 years. My wife had things I would've called red flags at 28. <strong>Thank God I didn't have a list then.</strong> If you filter people too aggressively before you even know them, you're not protecting yourself — you're protecting yourself from connection."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👩‍🎓</div>
+        <div class="opinion-name">Renata, 38</div>
+        <div class="opinion-role">Therapist, CDMX</div>
+        <div class="opinion-text">"Here's what I see in my office: most deal-breakers are just <strong>wounds wearing disguises</strong>. Someone says 'I can't be with a person who's emotionally unavailable' — and they're describing their father. Someone's deal-breaker for 'ambition' is really their own fear of being outgrown. Your list tells you more about your past than your future."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍💼</div>
+        <div class="opinion-name">Luis, 29</div>
+        <div class="opinion-role">Sales Rep, Celaya</div>
+        <div class="opinion-text">"I think the distinction between red flag and deal-breaker is underrated. <strong>Not everything is catastrophic.</strong> If someone's a little messy, that's not a deal-breaker — it's an adaptation. But if someone lies to me twice about the same thing? That's a pattern. That's different. Context matters."</div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Renata says your deal-breakers reveal your wounds more than your wisdom. Do you agree? And is having a strict list a sign of <em>self-respect</em> — or <em>self-protection</em>? What's the difference?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Have you ever ignored a red flag in a relationship — romantic, friendship, or professional — and regretted it later? What was the flag?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Allow vulnerability here. If students hesitate, normalize it: "Most adults have at least one. You don't need to give details — just the type: dishonesty? Temper? Bad communication?" The first person who shares usually unlocks the group.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever ended a relationship — or a job — because of something that felt like a deal-breaker at the time? Looking back, was it really?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I ended a job because my boss would criticize me publicly. At the time it felt like a personal attack. Looking back, it was still a deal-breaker — but now I understand it was about his management style, not about me."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Have your deal-breakers changed as you've gotten older? Something that was non-negotiable at 22 that you'd overlook now — or vice versa?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">High engagement question. Most adults will say their list has shifted. The direction of that shift (stricter or more flexible) reveals a lot about their experiences. Let them explore it without judging either direction.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">What's the line between having standards and being too picky? How do you know when your list is healthy — and when it's protecting you from real connection?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This is Renata's question in conversation form. Push them: "Is there a difference between a standard that protects you and a standard that keeps everyone out?" Both can look identical from the outside.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Can a deal-breaker apply to friendships and work — or is it only a relationship word? What are your professional deal-breakers?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This pivots the conversation to work, which is more comfortable for professional students. Common answers: dishonest bosses, no recognition, micromanagement, toxic teams. Let them list theirs. Then ask: "Have you ever stayed in a job past a deal-breaker?"</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">If someone you're interested in has a genuine deal-breaker for other people — like they never want children, or they have a different religion — but you're not sure it matters to you yet, do you stay or leave?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I think you stay and have the honest conversation early. A deal-breaker you discover on month 6 is more painful than one you discover on week 2. The earlier, the better — even if it's uncomfortable."</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">Imagine you've been in a relationship for 2 years and you discover your partner has hidden debt — significant debt they never mentioned. Is that a red flag or an automatic deal-breaker?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This polarizes groups every time. Some say it depends on the amount and the reason. Others say the hiding is the deal-breaker, not the debt itself. Both are valid — let both sides make their case.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">If you could show your 22-year-old self your current deal-breaker list, what would they think? And what would your 60-year-old self change about today's list?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Creative and personal. The time-travel frame helps students articulate things they wouldn't otherwise say. Let the answers be as specific or abstract as they want.</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Renata said most deal-breakers are "wounds wearing disguises." Do you think that's true for you — even a little? Is any of your list actually about your past, not your future?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The most uncomfortable question in the session. Don't pressure. But also don't rescue it too quickly. Silence here is productive. If a student says "maybe" — follow with: "What would have to change for that item to move from deal-breaker to red flag?"</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Honestly: have you ever been someone else's red flag? What was it — and did you know it at the time?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The perspective-flip closer. Most people only think about red flags in others. Being asked to reflect on themselves is unexpected and powerful. Model answer: "Yes. I was inconsistent with my time and attention. I knew, but I justified it. It was a pattern."</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">You've been with someone for 3 years. Everything is good — compatibility, values, communication. Then you find out they had one episode of infidelity 5 years before they met you, with their previous partner. They told you voluntarily. They've never done it again. Is that a deal-breaker — or does the past stay in the past?</div>
+    </div>
+
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp answering this question. Be direct — deal-breaker or not, and exactly why. No diplomatic non-answers. Your teacher will give you feedback on your vocabulary use and fluency before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B2.1 · Red Flags vs. Deal-Breakers · Relationships &amp; Personality</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    document.getElementById('modeToggle').textContent = studentMode ? 'Teacher Mode' : 'Student Mode';
+  }
+</script>
+</body>
+</html>

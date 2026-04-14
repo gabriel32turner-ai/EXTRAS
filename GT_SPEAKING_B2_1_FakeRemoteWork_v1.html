@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Fake Remote Work · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#FFB800;--s2:#121D28;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+a{color:var(--ac)}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog:hover,.tog.on{background:var(--ac);color:#000;border-color:var(--ac)}
+
+/* HERO */
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.6) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,184,0,.12);color:var(--ac);border:1px solid rgba(255,184,0,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+
+/* LAYOUT */
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+
+/* SECTION */
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,184,0,.1);border:1px solid rgba(255,184,0,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+
+/* TRIGGER BOX */
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,184,0,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+
+/* PHRASES */
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,184,0,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+
+/* OPINION WALL */
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+
+/* CONVERSATION ENGINE */
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,184,0,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,184,0,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,184,0,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+
+/* EXIT SHOT */
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,184,0,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+
+/* FOOTER */
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+
+/* TEACHER-ONLY */
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+
+@media(max-width:600px){
+  .wall{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .wrap{padding:0 16px 40px}
+  .trigger-box{padding:18px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B2.1</span>
+      <span class="tag">Work &amp; Corporate Life</span>
+      <span class="tag spicy">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Fake Remote Work</h1>
+    <p>Are your remote employees actually working — or just pretending to? And are you sure you're not doing the same?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- PHASE 1: TRIGGER -->
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">Phase 1 · Provocative Headline</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Microsoft Work Trend Index · 2023</div>
+    <div class="trigger-quote">"85% of leaders say the shift to hybrid work has made it harder to be confident that employees are being productive. Meanwhile, 87% of employees say they work just as hard or harder from home."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Put the stat on screen and ask: <em>"So who's lying — the bosses or the employees?"</em> Let that sit for 5 seconds. Then: <em>"Have you ever pretended to be working when you weren't? Be honest — I won't tell anyone."</em> If students stay silent, share a relatable example yourself. The goal is to crack the professional armor in the first 60 seconds.
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: VOCAB INJECTION -->
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Phase 2 · Click to Hear</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<!-- PHASE 3: OPINION WALL -->
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👩‍💼</span>
+        <div>
+          <div class="bub-name">Valeria · 34</div>
+          <div class="bub-role">Marketing Manager · Monterrey</div>
+        </div>
+      </div>
+      <div class="bub-body">"Remote work <strong>saved my life</strong>. I get more done in 4 hours at home than in 8 hours in the office. The difference is zero commute, zero office gossip, and zero micromanagement. If my boss needs to see me on camera to trust me, that's <strong>his insecurity problem</strong>, not mine."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👨‍💻</span>
+        <div>
+          <div class="bub-name">Andrés · 41</div>
+          <div class="bub-role">IT Director · CDMX</div>
+        </div>
+      </div>
+      <div class="bub-body">"I manage 12 people remotely and I can tell you — at least 3 of them are <strong>absolutely faking it</strong>. Green status on Teams all day, replies in 30 seconds, but their deliverables are always late. Remote work only works if you hire the right people. Most companies didn't."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head">
+        <span class="bub-avatar">👩‍🎓</span>
+        <div>
+          <div class="bub-name">Sofía · 28</div>
+          <div class="bub-role">UX Designer · Guadalajara</div>
+        </div>
+      </div>
+      <div class="bub-body">"The real problem isn't fake remote work — it's <strong>fake office work</strong>. I spent 2 years sitting at a desk for 9 hours, doing maybe 3 hours of real work. Nobody called that 'faking it.' Now I do the same from home and suddenly it's a crisis? The double standard is exhausting."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head">
+        <span class="bub-avatar">👨‍⚖️</span>
+        <div>
+          <div class="bub-name">Roberto · 52</div>
+          <div class="bub-role">CEO · Querétaro</div>
+        </div>
+      </div>
+      <div class="bub-body">"If you need to hide what you're doing during work hours, you're stealing from your employer. Simple as that. I don't care if you're 'productive' — <strong>you made a commitment</strong> when you accepted the salary. Fake remote work isn't a gray area. It's fraud. And I've fired people for it."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Roberto is the provocateur because he uses the word "fraud" and "stealing" — language most employees will instinctively reject. Push students: <em>"Is Roberto right? Is fake remote work actually fraud?"</em> Then: <em>"What's the difference between working slow and faking it?"</em>
+  </div>
+</section>
+
+<!-- PHASE 4: CONVERSATION ENGINE -->
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever worked remotely — even for a day? What was the hardest part about staying focused?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push for specifics: time of day, type of distraction, how they dealt with it. Avoid: "Yes, it was hard." Target: "I've noticed that I tend to lose focus around 3pm when there's no one checking on me."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever felt like a colleague wasn't really working remotely — but you couldn't prove it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Model answer: "Yes — there was someone on my team who was always online but never responded to messages for hours. We all assumed he was doing something else, but his numbers were fine, so nobody said anything." Push: "Did you say anything? Should someone have?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Be honest — have you ever been "at work" but not really working? What were you doing instead?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This question breaks the professional mask. Most students will laugh nervously. Give them permission: "I'm not your boss — this is English practice." Target answers that use past continuous: "I was watching Netflix during a meeting" or "I was texting the whole afternoon."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think companies have the right to monitor their remote employees — cameras, screen tracking, keyloggers? Where's the line?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push back if they say "yes, fully." Try: "What if your company installed a camera in your home office — would that be okay?" Target B2.1 language: "I think it depends on the industry" / "There should be a limit" / "That crosses the line."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should salary be based on hours worked or results delivered? Which system is more fair — and which is easier to fake?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Model: "I think results-based is more fair, but it's also easier to fake in creative roles. At least with hours, there's some accountability — even if it's not a perfect measure." Target: comparative structures and modals (should, would, might).</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is there a difference between "working slow" and "faking it"? Can you draw a clear line between the two?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Key vocab to target: intention, commitment, deliberate, output. Push: "If someone is paid to be available 8 hours and they're not actually available — is that the same as theft, like Roberto said?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your company installed software to track every app you open during work hours, what would you do? Would you stay?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional (would + base verb). Model: "If my company did that, I'd probably start looking for another job — not because I'm faking it, but because it would feel like I'm not trusted." Push: "But if you have nothing to hide, why would it bother you?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you could design your company's remote work policy from zero, what would it look like? Would you include any monitoring?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push for specifics: "3 days a week?" / "Core hours?" / "Results-only?" Good target for modals + conditionals: "I'd probably require one check-in per day and measure people by deliverables, not hours."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Have companies earned the right to demand 8 hours of visible work from their employees — or did they lose that right when they started paying as little as possible?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is intentionally one-sided to provoke disagreement. Let the student push back or agree — both are valid. Target: present perfect for experience, modals for obligation. Watch for students who suddenly become very passionate. That's exactly what you want.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Here's the uncomfortable one: on a scale of 1 to 10, how productive are YOU during a typical 8-hour workday — remote or in the office? Be honest.</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">This is the self-reflection question. Most adults will say 5 or 6 and feel slightly guilty. The goal isn't to make them confess — it's to get real, personal English. Push: "What happens during the hours when you're NOT productive? What's going on in your head?"</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: EXIT SHOT -->
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">Phase 5 · One Final Dilemma</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Your company has always trusted you completely — no tracking, no monitoring. Then you discover that a colleague who does exactly your same job earns 20% more than you. Starting next Monday, you could "fake it" for 2 hours a day and use that time for a freelance project. Nobody would ever find out. Do you do it?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message answering this question — in English. No script. Tell me what you'd actually do and why. I want to hear your real opinion, not the 'correct' answer."
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B2.1 · Speaking Lab · Fake Remote Work · Work &amp; Corporate Life · Medium Edge</div>
+</footer>
+
+<script>
+// ── DATA ──
+const nouns=[
+  {w:'output',def:'The amount of work or results produced',ex:'"Her output doubled when she switched to remote."'},
+  {w:'accountability',def:'Being responsible for your actions and results',ex:'"There\'s zero accountability in that team — nobody owns anything."'},
+  {w:'trust',def:'The belief that someone will do what they say',ex:'"Remote work only works when there\'s real trust on both sides."'},
+  {w:'surveillance',def:'Watching or monitoring people closely',ex:'"Installing screen trackers feels like workplace surveillance."'},
+  {w:'flexibility',def:'Freedom to manage your own time and location',ex:'"The flexibility is the whole point of remote work."'},
+  {w:'deliverable',def:'A specific task or result you need to produce',ex:'"I don\'t care where you work — just hit your deliverables."'},
+  {w:'presence',def:'Being visible and available at work',ex:'"My boss values presence over performance. It\'s frustrating."'},
+  {w:'baseline',def:'The minimum expected level of performance',ex:'"We need to set a clear baseline — what does \'working\' actually mean?"'},
+  {w:'autonomy',def:'The freedom to make your own decisions about how you work',ex:'"Autonomy is what separates good employees from average ones."'},
+  {w:'performance',def:'How well someone does their job',ex:'"Judge me by performance — not by how many hours I\'m online."'},
+];
+const verbs=[
+  {w:'monitor',def:'To watch or track someone\'s activity',ex:'"The company monitors all remote employees\' screen time."'},
+  {w:'slack off',def:'To work less than expected',ex:'"He\'s been slacking off since he started working from home."'},
+  {w:'log in',def:'To connect to a system or appear online at work',ex:'"She logs in at 9 but doesn\'t actually start until 11."'},
+  {w:'fake it',def:'To pretend to be doing something you\'re not',ex:'"Everyone fakes it sometimes — in the office too."'},
+  {w:'set expectations',def:'To clearly define what is required',ex:'"The problem started because nobody set expectations from day one."'},
+  {w:'hold accountable',def:'To make someone answer for their results',ex:'"It\'s hard to hold people accountable when you can\'t see them."'},
+  {w:'check in',def:'To briefly report or confirm your status',ex:'"We check in once a day on video — just to stay connected."'},
+  {w:'underperform',def:'To perform below expectations',ex:'"Three people on that team have been underperforming for months."'},
+  {w:'disengage',def:'To mentally disconnect from work or the team',ex:'"When people feel untrusted, they disengage fast."'},
+  {w:'earn trust',def:'To build trust through consistent, reliable behavior',ex:'"Trust isn\'t given in remote work — you have to earn it."'},
+];
+const phrases=[
+  {p:'I\'m technically at work',ctx:'Said when you\'re logged in but not really focused'},
+  {p:'Out of sight, out of mind',ctx:'When remote workers feel ignored by management'},
+  {p:'Green on Teams, gone in reality',ctx:'Slang for someone who appears online but isn\'t working'},
+  {p:'I\'m all over it',ctx:'Said to reassure your boss you\'re handling something (even if you\'re not)'},
+  {p:'Just ping me',ctx:'Tell me via message — used to avoid actual accountability calls'},
+];
+
+function buildCards(data,containerId){
+  const el=document.getElementById(containerId);
+  if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('');
+}
+function buildPhrases(data,containerId){
+  const el=document.getElementById(containerId);
+  if(!el)return;
+  el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('');
+}
+
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const open=tip.style.display==='block';
+  tip.style.display=open?'none':'block';
+  btn.textContent=open?'Show Tip':'Hide Tip';
+}
+
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeToggle');
+  const isStudent=body.classList.toggle('student');
+  btn.textContent=isStudent?'Teacher Mode':'Student Mode';
+  btn.classList.toggle('on',isStudent);
+}
+
+buildCards(nouns,'nouns-grid');
+buildCards(verbs,'verbs-grid');
+buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

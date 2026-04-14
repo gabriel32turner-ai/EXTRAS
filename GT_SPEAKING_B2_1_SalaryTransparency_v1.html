@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Salary Transparency · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--ac2:rgba(255,184,0,0.12);--ac3:rgba(255,184,0,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+a{color:var(--ac)}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:var(--navy)}
+
+/* HERO */
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.7) 60%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+
+/* CONTAINER */
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+
+/* SECTION */
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+
+/* TRIGGER BOX */
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px;margin-top:4px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+
+/* OPINION WALL */
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.badge-provocateur{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+
+/* CONVERSATION ENGINE */
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+
+/* EXIT SHOT */
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px;margin-top:0}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(255,184,0,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+
+/* TEACHER ONLY */
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+
+/* FOOTER */
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;min-height:300px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .ftr{flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body id="bod">
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B2.1</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag ac">🌶 Spicy</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Salary Transparency</div>
+    <div class="hero-sub">Should everyone know what everyone earns? The conversation companies fear most.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- PHASE 1: TRIGGER -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">Phase 1 · Provocation &amp; Opening</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Harvard Business Review · 2023</div>
+    <div class="trigger-quote">"Pay transparency laws are spreading fast — and companies that resist them are losing top talent to competitors who don't hide the numbers."</div>
+    <div class="trigger-script teacher-only">
+      <span>Teacher script:</span> Read the headline aloud. Then ask: "Have you ever found out a colleague earns more than you? What happened?" Pause. Let the silence work. Then: "Today we're going to talk about whether salaries should be public information — at your company, in your industry, everywhere."
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: VOCAB -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+
+  <div class="vocab-label">Colloquial Phrases · Office Reality</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<!-- PHASE 3: OPINION WALL -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Phase 3 · 4 Perspectives · Who are you?</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+
+  <div class="opinion-grid">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">😤</div>
+        <div>
+          <div class="op-name">Sofía · 34</div>
+          <div class="op-role">Marketing Manager · Monterrey</div>
+        </div>
+      </div>
+      <div class="op-text">I found out last year that my male colleague — same title, same experience — was making <strong>18% more than me</strong>. When I pushed back, HR said salaries are "confidential." Confidential for who? For them to keep underpaying people like me. <strong>Transparency is the only way to fix this.</strong></div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">🤐</div>
+        <div>
+          <div class="op-name">Ricardo · 48</div>
+          <div class="op-role">Operations Director · CDMX</div>
+        </div>
+      </div>
+      <div class="op-text">I manage a team of 12. If everyone knew each other's salary, I'd spend every Monday dealing with resentment instead of results. Some people earn more because they <strong>negotiate harder</strong>, not because they work harder. <strong>Transparency sounds fair — in practice, it creates chaos.</strong></div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-badge badge-provocateur">🌶 Provocateur</div>
+      <div class="op-header">
+        <div class="op-avatar">🔥</div>
+        <div>
+          <div class="op-name">Andrés · 29</div>
+          <div class="op-role">Software Engineer · Remote</div>
+        </div>
+      </div>
+      <div class="op-text">My entire team posts salaries publicly on LinkedIn. It's not uncomfortable — it's <strong>liberating</strong>. The companies that refuse transparency aren't protecting privacy. <strong>They're protecting their ability to underpay you.</strong> If your company won't show you the numbers, that tells you everything you need to know about how they value you.</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">🤷</div>
+        <div>
+          <div class="op-name">Camila · 41</div>
+          <div class="op-role">HR Business Partner · Guadalajara</div>
+        </div>
+      </div>
+      <div class="op-text">Transparency is a spectrum. Publishing everyone's salary publicly? That creates problems. But <strong>giving people clear pay bands for every role</strong>? That's just basic respect. The issue isn't transparency vs. secrecy — it's <strong>how much information is actually useful</strong> versus how much just feeds anxiety.</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 Which person sounds most like you? Which one makes you most uncomfortable? Start there.</div>
+</div>
+
+<!-- PHASE 4: CONVERSATION ENGINE -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever accidentally found out a colleague's salary — or told someone yours? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has a story here. Push for details: "How did you find out? How did it make you feel about your job after that?"</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Has your company ever given you a raise without explaining why? Or denied one without a clear reason?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This often leads to stories of frustration. Useful vocab to push: "Did you push back? Did you negotiate? Did you feel underpaid?"</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Do you know what your direct colleagues earn? Would you want to?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly, no — and I'm not sure I'd want to. I think it would change how I feel about my work if I knew someone doing the same job made significantly more. But I also think I deserve to know if I'm being underpaid."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think salary transparency is fundamentally a fairness issue, or does it create more problems than it solves?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Push them to take a side. "Which one more — fairness or problems? Give me a percentage." Forces commitment and richer language.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should companies be legally required to publish salary ranges for every position — like they are in Colorado and the UK?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think publishing ranges — not exact salaries — makes sense. That way candidates can negotiate from a real baseline, not from a position of total ignorance. But I'm not sure I want my boss knowing exactly what I make either."</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think salary secrecy benefits companies more than employees? Why do most companies prefer it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for pushing critical thinking. Target phrase: "It benefits them because it lets them exploit people who don't negotiate." See if they can make that argument even if they disagree with it.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If your company made all salaries public tomorrow, how do you think your team would react? Would you be okay with people knowing yours?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly, I think there would be a lot of tension in the first week. People would compare and feel either guilty or resentful. But after a few months? Maybe it would actually make things more honest. I'd be nervous about mine being known, but I think that's exactly the point."</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you found out a colleague doing the same job earns 20% more than you, what would you do — and what do you wish you had the confidence to do?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Two-part question — what they'd do vs. what they wish they'd do. The gap between those answers is where the real conversation lives.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Have you ever stayed quiet about a salary injustice at work because you were afraid of the consequences? What did that cost you?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is the vulnerability question. Give them space. Don't rush. If they open up, the language they use will be their most authentic of the session.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If you're being honest — do you think you're paid what you're worth? What would it take for you to actually believe that?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "That's hard to answer. I think I've been paid fairly — but I've also never fully pushed for what I'm worth. I've accepted what they offered because I didn't want to seem difficult. Which probably means I've been underpaid and accepted it."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5: EXIT SHOT -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your company posts all salaries internally. You discover you earn 25% less than a colleague you trained two years ago. HR says it's because they "negotiated better" when they joined. You have two options: negotiate hard and risk being labeled "difficult," or say nothing and keep the peace — but know the number every day. What do you do?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record a 60-second voice message in English answering this: Do you negotiate, or stay quiet? And what does your answer say about you?
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B2.1 · Money &amp; Finance · Salary Transparency · Spicy 🌶</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv on">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+// VOCAB DATA
+const nouns=[
+  {w:'pay gap',def:'The difference in earnings between two groups or individuals',ex:'"The pay gap between her and her colleague was 18% — same title, same team."'},
+  {w:'pay band',def:'A salary range set by a company for a specific job level',ex:'"HR finally shared the pay band for my role — I was at the bottom."'},
+  {w:'benchmark',def:'A standard used to compare salaries or performance',ex:'"She used industry benchmarks to prove she was being underpaid."'},
+  {w:'leverage',def:'Advantage or power used in a negotiation',ex:'"A competing job offer gave her real leverage in the salary conversation."'},
+  {w:'transparency',def:'Openness about information, policies, or decisions',ex:'"The company\'s lack of salary transparency was the main reason people quit."'},
+  {w:'resentment',def:'Bitter feelings caused by a sense of unfair treatment',ex:'"When the team found out about the pay gap, the resentment was immediate."'},
+  {w:'negotiation',def:'A discussion to reach a mutually acceptable agreement',ex:'"He was terrible at salary negotiation — and it cost him years of income."'},
+  {w:'headcount',def:'The total number of employees in a company or department',ex:'"They froze headcount, so no one got promoted — or a raise."'},
+  {w:'burnout',def:'Physical and emotional exhaustion from chronic work stress',ex:'"She was making less than her peers and working twice as hard. Burnout was inevitable."'},
+  {w:'retention',def:'A company\'s ability to keep its employees from leaving',ex:'"Salary transparency improved retention — people stopped leaving for better offers."'},
+];
+const verbs=[
+  {w:'negotiate',def:'To discuss and reach an agreement on terms, especially salary',ex:'"He learned to negotiate — and got 15% more than the original offer."'},
+  {w:'disclose',def:'To officially reveal information that was private',ex:'"Some states now require companies to disclose salary ranges in job postings."'},
+  {w:'underpay',def:'To pay someone less than they deserve or the market rate',ex:'"She discovered she had been underpaid for three years."'},
+  {w:'push back',def:'To disagree with or resist a decision or pressure',ex:'"She pushed back on the low offer — and they raised it immediately."'},
+  {w:'benchmark',def:'To compare salaries or results against an industry standard',ex:'"He benchmarked his salary against similar roles and realized he was 20% below."'},
+  {w:'withhold',def:'To deliberately keep information from someone',ex:'"The company withheld salary data, claiming it was confidential."'},
+  {w:'advocate',def:'To actively support a cause or a person\'s rights',ex:'"She had to advocate for herself — no one was going to do it for her."'},
+  {w:'set expectations',def:'To make clear what you expect from the start',ex:'"Setting salary expectations early avoids awkward conversations later."'},
+  {w:'close the gap',def:'To reduce the difference between two amounts or situations',ex:'"The new policy was designed to close the gap between male and female salaries."'},
+  {w:'level the playing field',def:'To make conditions fair for everyone',ex:'"Posting salary bands publicly would level the playing field for new hires."'},
+];
+const phrases=[
+  {t:'"What\'s the budget for this role?"',c:'The professional way to ask about salary without sounding desperate.'},
+  {t:'"I\'ve done my research on market rates."',c:'Signals you know your worth before the negotiation starts.'},
+  {t:'"That\'s not in line with my expectations."',c:'A firm but professional way to push back on a low offer.'},
+  {t:'"Let\'s talk numbers."',c:'Direct, confident — cuts through the vagueness companies prefer.'},
+  {t:'"I\'m not at liberty to share that."',c:'What HR says when they don\'t want to tell you what your colleagues earn.'},
+];
+
+function speak(txt){
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.9;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function buildCards(arr,containerId,type){
+  const c=document.getElementById(containerId);
+  arr.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='vocab-card';
+    d.onclick=()=>speak(item.w);
+    d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;
+    c.appendChild(d);
+  });
+}
+
+function buildPhrases(arr,containerId){
+  const c=document.getElementById(containerId);
+  arr.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='phrase-item';
+    d.onclick=()=>speak(item.t.replace(/"/g,''));
+    d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;
+    c.appendChild(d);
+  });
+}
+
+buildCards(nouns,'nouns-grid','Noun');
+buildCards(verbs,'verbs-grid','Verb');
+buildPhrases(phrases,'phrases-list');
+
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const open=tip.style.display==='block';
+  tip.style.display=open?'none':'block';
+  btn.textContent=open?'Show Tip':'Hide Tip';
+}
+
+function toggleMode(){
+  const bod=document.getElementById('bod');
+  const btn=document.querySelector('.htoggle');
+  const student=bod.classList.toggle('student-mode');
+  btn.textContent=student?'👁 Teacher Mode':'👁 Student Mode';
+}
+</script>
+</body>
+</html>

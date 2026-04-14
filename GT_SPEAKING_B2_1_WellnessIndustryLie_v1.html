@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · The Wellness Industry Lie · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); }
+
+  /* HEADER */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6);
+  }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+
+  /* MAIN */
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* SECTION */
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.3);
+    color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px;
+  }
+  .teacher-only { /* visible by default */ }
+  body.student-mode .teacher-only { display: none !important; }
+
+  /* TRIGGER QUOTE */
+  .quote-box {
+    background: var(--card); border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px;
+  }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script {
+    background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2);
+    border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic;
+  }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+
+  /* VOCAB */
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .vocab-card .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+
+  /* OPINION WALL */
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width: 600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px; transition: border-color 0.2s;
+  }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent);
+    padding: 2px 8px; border-radius: 4px; margin-bottom: 8px;
+  }
+  .opinion-prompt { margin-top: 16px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+
+  /* CONVERSATION ENGINE */
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn {
+    margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    background: none; border: 1px solid rgba(255,184,0,0.3); color: var(--accent);
+    padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .show-tip-btn:hover { background: rgba(255,184,0,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(255,184,0,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+
+  /* EXIT SHOT */
+  .exit-box {
+    background: var(--card); border: 2px solid var(--accent); border-radius: 12px;
+    padding: 28px; margin-bottom: 24px;
+  }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+
+  @media(max-width:600px){
+    .hero { height: auto; padding-top: 60px; }
+    .hero-content { padding: 24px 16px; }
+    .main { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B2.1</span>
+      <span class="tag">Health &amp; Wellness</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>The Wellness Industry Lie</h1>
+    <p>Is the $5 trillion wellness industry actually making us healthier — or just making us anxious, broke, and obsessed?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1: THE TRIGGER -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"The global wellness market is worth $5.6 trillion — and growing. But research shows that most wellness products have little to no scientific backing, and the industry profits from making people feel perpetually unwell."</div>
+      <div class="quote-source">— Harvard Business Review / Global Wellness Institute, 2023</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Before we start — how much did you spend on wellness last month? Supplements, gym, apps, anything. Don't answer yet. Just think about it." [Pause 5 seconds.] "Now — how much healthier are you because of it? That's what we're talking about today."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2: VOCAB INJECTION -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('wellness')">
+        <div class="vocab-word">wellness</div>
+        <div class="vocab-def">the state of being in good health, especially as an active goal</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('supplement')">
+        <div class="vocab-word">supplement</div>
+        <div class="vocab-def">a product taken to add nutrients or benefits to your diet</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('placebo')">
+        <div class="vocab-word">placebo</div>
+        <div class="vocab-def">something that works because you believe it will, not because it's real</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('influencer')">
+        <div class="vocab-word">influencer</div>
+        <div class="vocab-def">a person who shapes others' opinions and buying choices online</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('anxiety')">
+        <div class="vocab-word">anxiety</div>
+        <div class="vocab-def">a persistent feeling of worry or unease about something uncertain</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('detox')">
+        <div class="vocab-word">detox</div>
+        <div class="vocab-def">a process of removing toxins — often more marketing than medicine</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('burnout')">
+        <div class="vocab-word">burnout</div>
+        <div class="vocab-def">complete physical and mental exhaustion from chronic stress</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('mindfulness')">
+        <div class="vocab-word">mindfulness</div>
+        <div class="vocab-def">the practice of focusing on the present moment without judgment</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('claim')">
+        <div class="vocab-word">claim</div>
+        <div class="vocab-def">a statement that something is true, especially without full proof</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('routine')">
+        <div class="vocab-word">routine</div>
+        <div class="vocab-def">a regular set of habits or actions done consistently</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('optimize')">
+        <div class="vocab-word">optimize</div>
+        <div class="vocab-def">to make something as effective as possible</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('promote')">
+        <div class="vocab-word">promote</div>
+        <div class="vocab-def">to actively support or advertise something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('fall for')">
+        <div class="vocab-word">fall for</div>
+        <div class="vocab-def">to be tricked into believing something false</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('exploit')">
+        <div class="vocab-word">exploit</div>
+        <div class="vocab-def">to use someone's insecurity or vulnerability for profit</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('validate')">
+        <div class="vocab-word">validate</div>
+        <div class="vocab-def">to confirm that something is true, effective, or acceptable</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('set boundaries')">
+        <div class="vocab-word">set boundaries</div>
+        <div class="vocab-def">to decide what you will and won't accept in your life</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('push back')">
+        <div class="vocab-word">push back</div>
+        <div class="vocab-def">to resist or challenge something you disagree with</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('cut through')">
+        <div class="vocab-word">cut through</div>
+        <div class="vocab-def">to identify the truth behind all the noise and marketing</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('invest in')">
+        <div class="vocab-word">invest in</div>
+        <div class="vocab-def">to put time, money, or effort into something for future benefit</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('scroll')">
+        <div class="vocab-word">scroll</div>
+        <div class="vocab-def">to move through social media content continuously</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('That\'s a total scam.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That's a total scam."</div>
+          <div class="phrase-context">When something is clearly designed to take your money, not help you.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I bought into the hype.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I bought into the hype."</div>
+          <div class="phrase-context">When you believed the marketing and spent money on it.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It works for me, so whatever.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It works for me, so whatever."</div>
+          <div class="phrase-context">Defending a personal choice even if others disagree.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I feel guilty if I miss a day.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I feel guilty if I miss a day."</div>
+          <div class="phrase-context">When a wellness habit becomes a source of anxiety, not peace.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('My body, my rules.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"My body, my rules."</div>
+          <div class="phrase-context">Asserting personal autonomy over health decisions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3: OPINION WALL -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🧘</div>
+          <div>
+            <div class="op-name">Sofia, 34</div>
+            <div class="op-role">Marketing Manager, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"Look, I know not everything is scientifically proven, but my morning routine — journaling, supplements, cold water — genuinely changed my life. I'm more focused, less stressed. <strong>If it's not hurting me, why does it matter if it's a placebo?</strong> Science doesn't know everything either."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Andrés, 48</div>
+            <div class="op-role">CFO, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"I see smart people spend $300 a month on supplements, apps, and retreats while ignoring sleep and stress. <strong>The wellness industry sells anxiety as a product.</strong> They make you feel broken so they can sell you the fix. My employees need a raise and real days off — not a meditation app."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🔬</div>
+          <div>
+            <div class="op-name">Camila, 31</div>
+            <div class="op-role">Biochemist, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"There's a real problem when people replace actual medical care with $60 herbal teas. <strong>Some wellness practices are evidence-based</strong> — exercise, sleep, stress management. But most of what's sold online is pure marketing. The danger is that people feel healthy while skipping actual healthcare."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">💀</div>
+          <div>
+            <div class="op-name">Roberto, 52</div>
+            <div class="op-role">Entrepreneur, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"Honestly? Wellness is the new religion. People who can't deal with the uncertainty of life need a ritual to feel in control. Cold showers, fasting, journaling — it's not about health, <strong>it's about feeling morally superior.</strong> 'I woke up at 5am and meditated' is just the new 'I go to church every Sunday.'"</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which opinion do you agree with most? Which one makes you uncomfortable — and why? Be specific. Use real examples from your own life.</div>
+  </section>
+
+  <!-- PHASE 4: CONVERSATION ENGINE -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever bought a wellness product or service that didn't actually work? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Push for specifics: Was it a supplement? App? Retreat? Did they feel embarrassed? This often triggers honest, funny stories that open up real conversation.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Do you have a wellness routine? What's in it — and what made you start?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Great for present simple + frequency adverbs. Listen for "I do it every day" — follow up with "What happens if you miss a day? Do you feel guilty?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Has your relationship with wellness changed in the last 5 years? What's different now compared to before?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Natural present perfect trigger. Model answer: "It has changed a lot. I used to ignore everything, but now I've become more aware — maybe too aware."</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Do you think wellness influencers do more harm than good? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Expect polarized answers. If student agrees, ask: "But some people genuinely changed because of them, right?" If they disagree, ask: "What about the ones promoting unproven supplements to sick people?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Is the wellness industry exploiting people's insecurities — or responding to a real need?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This is the core tension of the topic. Strong students can say "both." Model: "I think it does both — there's a real need for stress management, but the industry monetizes that need aggressively."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Should companies be legally required to prove their wellness claims before selling? Or is that too much regulation?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Great for modals of obligation: "They should / shouldn't have to..." Connects to professional world — many students work in regulated industries.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">If you found out your favorite wellness product was basically a placebo, would you stop using it — even if you felt better with it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. The "placebo paradox" — if it works, does it matter why? Encourage: "If I found out... I would probably..." This is philosophically rich and genuinely divides people.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">If your boss offered you free therapy sessions as a company benefit, would you use them — or would it feel too personal?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Bridges health and work. Reveals attitudes toward vulnerability in professional settings. Many Mexican professionals feel stigma around mental health — this surfaces it naturally.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Is wellness culture a luxury for people who can afford it — and just another way to make poor people feel like they're failing at life?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Spicy socioeconomic angle. "You can't practice self-care if you work two jobs." Great for strong opinions. If student hesitates, push: "Do you think wellness is truly accessible to everyone in Mexico?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Honestly — when you take care of yourself, is it for your health, or is part of it about how it looks to other people?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Self-reflection bomb. The honest answer for most people is "both." This question creates real intimacy in the classroom. Don't rush through it. Silence after this is productive.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5: EXIT SHOT -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">You have a chronic health issue. Your doctor recommends a treatment that costs $200/month. An influencer promotes a "natural alternative" for $60/month with thousands of five-star reviews and no clinical evidence. Your insurance covers neither. What do you do?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note answering the Exit Shot in English. Send it before your next session. Be honest — there's no wrong answer.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B2.1 · Health &amp; Wellness · The Wellness Industry Lie
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

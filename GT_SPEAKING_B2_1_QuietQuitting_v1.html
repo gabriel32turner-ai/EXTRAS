@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Lab · Quiet Quitting · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1923;
+    --bg-2: #151f2e;
+    --accent: #FFB800;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --border: #243243;
+    --card: #18222f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1, h2, h3 { font-family: 'Syne', sans-serif; font-weight: 800; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: var(--accent); letter-spacing: 1px; }
+  .brand span { color: var(--text); }
+  .mode-toggle {
+    background: var(--accent); color: #0F1923; border: none;
+    padding: 8px 16px; border-radius: 20px; font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 13px; cursor: pointer; transition: transform 0.2s;
+  }
+  .mode-toggle:hover { transform: translateY(-1px); }
+  .mode-toggle.student { background: #2a3a4e; color: white; }
+
+  /* Hero */
+  .hero {
+    height: 340px;
+    background-image: linear-gradient(rgba(15,25,35,0.4), rgba(15,25,35,0.95)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px 24px;
+  }
+  .hero-meta {
+    display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--accent); color: #0F1923;
+    padding: 4px 12px; border-radius: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .tag.alt { background: rgba(255,255,255,0.15); color: white; backdrop-filter: blur(10px); }
+  .hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.05; max-width: 800px; }
+  .hero p { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+  /* Container */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* Section */
+  section.lab {
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-head {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  }
+  .section-emoji { font-size: 48px; line-height: 1; }
+  .section-title { flex: 1; }
+  .section-title h2 { font-size: 28px; color: var(--text); }
+  .section-title .sub {
+    color: var(--accent); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .timer {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 700; color: var(--accent);
+  }
+
+  /* Trigger */
+  .headline-box {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 28px 32px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  .headline-box .quote {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .headline-box .source {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Vocab grid */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .vocab-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .vocab-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(255,184,0,0.15);
+  }
+  .vocab-card .word {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .vocab-card .meaning {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .vocab-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 28px 0 8px;
+  }
+  .phrases-list {
+    display: flex; flex-direction: column; gap: 10px; margin-top: 16px;
+  }
+  .phrase {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 15px;
+  }
+  .phrase:hover {
+    border-color: var(--accent);
+    background: #1e2a3a;
+  }
+  .phrase .ctx {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* Opinion Wall - chat bubbles */
+  .opinions { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+  .bubble {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .bubble:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .bubble .who {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+  }
+  .bubble .avatar { font-size: 28px; }
+  .bubble .name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+  }
+  .bubble .role { font-size: 12px; color: var(--muted); }
+  .bubble .text { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+  /* Conversation questions */
+  .questions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+  .block-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 18px 0 4px;
+  }
+  .q-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .q-text {
+    font-size: 15px;
+    color: var(--text);
+    display: flex;
+    gap: 12px;
+  }
+  .q-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    color: var(--accent);
+    min-width: 24px;
+  }
+  .tip-btn {
+    margin-top: 10px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .tip-btn:hover { background: var(--accent); color: #0F1923; }
+  .tip-content {
+    display: none;
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: rgba(255,184,0,0.08);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .tip-content.show { display: block; }
+  .tip-content strong { color: var(--accent); }
+
+  /* Exit Shot */
+  .exit-box {
+    background: linear-gradient(135deg, #1f1a14 0%, #2a2418 100%);
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 36px 32px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .exit-box .label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .exit-box .question {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    font-style: italic;
+  }
+  .exit-box .homework {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--muted);
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,184,0,0.3);
+  }
+
+  /* Teacher-only elements */
+  .teacher-only {
+    background: rgba(255,184,0,0.05);
+    border: 1px dashed rgba(255,184,0,0.4);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .teacher-only strong { color: var(--accent); }
+  body.student-mode .teacher-only,
+  body.student-mode .tip-btn,
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer { display: none !important; }
+
+  /* Footer */
+  footer {
+    padding: 30px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  footer .brand-foot { color: var(--accent); font-weight: 700; letter-spacing: 1px; }
+
+  @media (max-width: 600px) {
+    .section-emoji { font-size: 36px; }
+    .section-title h2 { font-size: 22px; }
+    .hero { height: 280px; padding: 30px 20px; }
+    .headline-box .quote { font-size: 18px; }
+    .exit-box .question { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">GABRIEL TURNER <span>· Speaking Lab</span></div>
+  <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="container" style="padding:0;">
+    <div class="hero-meta">
+      <span class="tag">B2.1</span>
+      <span class="tag alt">Work & Corporate Life</span>
+      <span class="tag alt">🟠 Medium</span>
+      <span class="tag alt">⏱ 50 min</span>
+    </div>
+    <h1>Quiet Quitting</h1>
+    <p>The new way of working — or just laziness with a fancy name?</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- FASE 1 - TRIGGER -->
+  <section class="lab">
+    <div class="section-head">
+      <div class="section-emoji">🪝</div>
+      <div class="section-title">
+        <div class="sub">Phase 1 · The Trigger</div>
+        <h2>Read this and react</h2>
+      </div>
+      <span class="timer">4 min</span>
+    </div>
+
+    <div class="headline-box">
+      <div class="quote">"50% of US workers are quiet quitting. They show up, do the bare minimum, and go home. They are not lazy — they are tired of giving 110% for nothing."</div>
+      <div class="source">— Gallup Workplace Report</div>
+    </div>
+
+    <div class="teacher-only">
+      <strong>Teacher script:</strong> "Have you heard about quiet quitting? It's everywhere on LinkedIn. Some people say it's the smartest thing workers can do. Others say it's a slow career killer. Today we'll talk about both sides — and your honest opinion." Let the student react in 2-3 sentences. Don't correct. Just activate.
+    </div>
+  </section>
+
+  <!-- FASE 2 - VOCAB -->
+  <section class="lab">
+    <div class="section-head">
+      <div class="section-emoji">💉</div>
+      <div class="section-title">
+        <div class="sub">Phase 2 · Vocab Injection</div>
+        <h2>Install the words</h2>
+      </div>
+      <span class="timer">8 min</span>
+    </div>
+
+    <div class="teacher-only">
+      <strong>How to run it:</strong> These are natural professional words — not academic. Click each card to hear pronunciation. Student repeats and gives a quick example from their own work life. The goal is recognition + activation, not memorization.
+    </div>
+
+    <div class="vocab-section-title">🔹 10 Nouns</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('burnout')"><div class="word">burnout</div><div class="meaning">total work exhaustion</div></div>
+      <div class="vocab-card" onclick="speak('boundaries')"><div class="word">boundaries</div><div class="meaning">limits between work and life</div></div>
+      <div class="vocab-card" onclick="speak('workload')"><div class="word">workload</div><div class="meaning">amount of work assigned</div></div>
+      <div class="vocab-card" onclick="speak('overtime')"><div class="word">overtime</div><div class="meaning">extra hours after work</div></div>
+      <div class="vocab-card" onclick="speak('raise')"><div class="word">raise</div><div class="meaning">salary increase</div></div>
+      <div class="vocab-card" onclick="speak('promotion')"><div class="word">promotion</div><div class="meaning">moving up in your job</div></div>
+      <div class="vocab-card" onclick="speak('hustle culture')"><div class="word">hustle culture</div><div class="meaning">always working hard mindset</div></div>
+      <div class="vocab-card" onclick="speak('mindset')"><div class="word">mindset</div><div class="meaning">the way you think</div></div>
+      <div class="vocab-card" onclick="speak('paycheck')"><div class="word">paycheck</div><div class="meaning">your monthly salary</div></div>
+      <div class="vocab-card" onclick="speak('loyalty')"><div class="word">loyalty</div><div class="meaning">commitment to a company</div></div>
+    </div>
+
+    <div class="vocab-section-title">🔸 10 Verbs</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('disengage')"><div class="word">disengage</div><div class="meaning">to mentally check out</div></div>
+      <div class="vocab-card" onclick="speak('underperform')"><div class="word">underperform</div><div class="meaning">do less than expected</div></div>
+      <div class="vocab-card" onclick="speak('overdeliver')"><div class="word">overdeliver</div><div class="meaning">do more than expected</div></div>
+      <div class="vocab-card" onclick="speak('set boundaries')"><div class="word">set boundaries</div><div class="meaning">say no to extra work</div></div>
+      <div class="vocab-card" onclick="speak('push back')"><div class="word">push back</div><div class="meaning">resist a request politely</div></div>
+      <div class="vocab-card" onclick="speak('go above and beyond')"><div class="word">go above and beyond</div><div class="meaning">make extra effort</div></div>
+      <div class="vocab-card" onclick="speak('coast')"><div class="word">coast</div><div class="meaning">work with minimum effort</div></div>
+      <div class="vocab-card" onclick="speak('exploit')"><div class="word">exploit</div><div class="meaning">take advantage of someone</div></div>
+      <div class="vocab-card" onclick="speak('reward')"><div class="word">reward</div><div class="meaning">give something back</div></div>
+      <div class="vocab-card" onclick="speak('thrive')"><div class="word">thrive</div><div class="meaning">grow and succeed</div></div>
+    </div>
+
+    <div class="vocab-section-title">💬 Colloquial Phrases</div>
+    <div class="phrases-list">
+      <div class="phrase" onclick="speak(this.dataset.en)" data-en="I'm just here for the paycheck.">
+        "I'm just here for the paycheck."
+        <span class="ctx">— the quiet quitter's anthem</span>
+      </div>
+      <div class="phrase" onclick="speak(this.dataset.en)" data-en="That's above my pay grade.">
+        "That's above my pay grade."
+        <span class="ctx">— polite way to say "not my job"</span>
+      </div>
+      <div class="phrase" onclick="speak(this.dataset.en)" data-en="I'm running on empty.">
+        "I'm running on empty."
+        <span class="ctx">— totally exhausted</span>
+      </div>
+      <div class="phrase" onclick="speak(this.dataset.en)" data-en="They don't pay me enough for this.">
+        "They don't pay me enough for this."
+      </div>
+      <div class="phrase" onclick="speak(this.dataset.en)" data-en="Work to live, don't live to work.">
+        "Work to live, don't live to work."
+        <span class="ctx">— the philosophy behind quiet quitting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FASE 3 - OPINION WALL -->
+  <section class="lab">
+    <div class="section-head">
+      <div class="section-emoji">🧱</div>
+      <div class="section-title">
+        <div class="sub">Phase 3 · The Opinion Wall</div>
+        <h2>Who do you agree with?</h2>
+      </div>
+      <span class="timer">10 min</span>
+    </div>
+
+    <p style="color: var(--muted); margin-bottom: 10px;">Read the 4 opinions. Choose one. Explain: <em>"I agree with [name] because..."</em></p>
+
+    <div class="opinions">
+      <div class="bubble">
+        <div class="who">
+          <span class="avatar">👩</span>
+          <div>
+            <div class="name">Sofia, 38</div>
+            <div class="role">Project Manager</div>
+          </div>
+        </div>
+        <div class="text">"Quiet quitting saved my mental health. I used to answer emails at 11 PM and work weekends. For what? They never gave me a raise. Now I work my 8 hours and go home. My results are the same — and I sleep better."</div>
+      </div>
+
+      <div class="bubble">
+        <div class="who">
+          <span class="avatar">👨</span>
+          <div>
+            <div class="name">Daniel, 47</div>
+            <div class="role">Sales Director</div>
+          </div>
+        </div>
+        <div class="text">"Quiet quitting is a fancy word for being mediocre. The people who succeed in business are the ones who go above and beyond. Doing the bare minimum is how you become invisible — and the first one fired in a crisis."</div>
+      </div>
+
+      <div class="bubble">
+        <div class="who">
+          <span class="avatar">👩‍💼</span>
+          <div>
+            <div class="name">Camila, 31</div>
+            <div class="role">Software Engineer</div>
+          </div>
+        </div>
+        <div class="text">"It's not 'quitting' — it's just doing your actual job. The problem is that companies started expecting unpaid extra work as 'normal.' Setting boundaries shouldn't be controversial. It should be standard."</div>
+      </div>
+
+      <div class="bubble">
+        <div class="who">
+          <span class="avatar">👨‍💼</span>
+          <div>
+            <div class="name">Roberto, 55</div>
+            <div class="role">CEO of a small company</div>
+          </div>
+        </div>
+        <div class="text">"As a boss, I see it clearly. When my team disengages, the company loses. But when my team overdelivers and I don't reward them, I lose them. Quiet quitting is not a worker problem — it's a leadership problem. Bad bosses create quiet quitters."</div>
+      </div>
+    </div>
+
+    <div class="teacher-only">
+      <strong>Key move:</strong> Roberto is the surprise — a CEO who blames bosses, not workers. Push the student to react: "Do you trust a boss who says this?" Camila reframes the whole concept ("it's not quitting"). Daniel is the old-school voice. Sofia is the lived experience. Each opinion targets a different angle — the conversation should naturally flow into "well, it depends on your situation..."
+    </div>
+  </section>
+
+  <!-- FASE 4 - CONVERSATION -->
+  <section class="lab">
+    <div class="section-head">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-title">
+        <div class="sub">Phase 4 · The Conversation Engine</div>
+        <h2>Now you talk</h2>
+      </div>
+      <span class="timer">23 min</span>
+    </div>
+
+    <div class="teacher-only">
+      <strong>Golden rule:</strong> Student speaks 80% of the time. At B2.1, push for longer answers and follow-up questions. Don't accept short responses — ask "Why?" and "Can you give an example?" Recast errors silently. Encourage the use of the new vocab and colloquial phrases naturally.
+    </div>
+
+    <div class="questions">
+
+      <div class="block-label">Block 1 · Personal experience</div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">1</span><span>Have you ever been a quiet quitter? When? Be honest.</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Teacher tip:</strong> Vulnerability opener. Most professionals have done it at least once. If they say no, ask: "Not even after a bad performance review or no raise?" Push gently.</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">2</span><span>Tell me about a time you went above and beyond at work. Did the company reward you?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Model answer:</strong> "Once I worked weekends for two months on a big project. We delivered on time. My boss said 'great job' — and that was it. No raise, no promotion. After that, I stopped working weekends."</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">3</span><span>How easy is it for you to set boundaries with your boss? Why?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Teacher tip:</strong> Cultural angle. In Mexico/LATAM, saying no to a boss is harder than in the US. Explore that — it makes the conversation rich and personal.</div>
+      </div>
+
+      <div class="block-label">Block 2 · Opinion</div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">4</span><span>Is quiet quitting smart strategy or career suicide? Defend your answer.</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Model answer:</strong> "I think it depends on the company. In a company that rewards effort, quiet quitting is suicide. In a company that exploits people, it's the only smart option. The problem is most companies pretend to reward effort but actually don't."</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">5</span><span>Whose fault is quiet quitting — workers, bosses, or the system?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Teacher tip:</strong> No right answer. Push for a specific position. If the student says "all of them," ask "Yes, but who is MOST responsible? Pick one."</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">6</span><span>Is hustle culture dead, or is it just being criticized by lazy people?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Model answer:</strong> "Hustle culture is not dead — but it's losing power. The new generation grew up watching their parents work themselves to exhaustion for nothing. They saw the result and said 'no thanks.' That's not lazy. That's smart."</div>
+      </div>
+
+      <div class="block-label">Block 3 · Hypothetical</div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">7</span><span>If your boss asked you to work this weekend without extra pay, what would you say?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Grammar focus:</strong> Second conditional. Push for longer answer with a real explanation. Model: "I would say no, politely. I would explain that I have personal commitments. If it happened often, I would start looking for a new job."</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">8</span><span>If you were a CEO, how would you stop your team from quiet quitting?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Model answer:</strong> "I would actually reward people who work hard — with money, not just words. I would also give people real boundaries: no emails after 7 PM, no weekend work. Most quiet quitters just want to feel respected."</div>
+      </div>
+
+      <div class="block-label">Block 4 · Provocative</div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">9</span><span>Be honest — would you respect a coworker who openly says "I'm just here for the paycheck"?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Teacher tip:</strong> The honesty test. Many people sympathize with quiet quitters in theory but judge them in practice. Push the contradiction: "So you support it for yourself but not for your coworker?"</div>
+      </div>
+
+      <div class="q-item">
+        <div class="q-text"><span class="q-num">10</span><span>In 10 years, will quiet quitting be normal or will hustle culture come back?</span></div>
+        <button class="tip-btn" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content"><strong>Model answer:</strong> "I think quiet quitting will become the new normal. The economy is changing, AI is doing more of the work, and people don't believe in lifetime loyalty anymore. The companies that survive will be the ones that respect their workers' time."</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FASE 5 - EXIT SHOT -->
+  <section class="lab" style="border-bottom: none;">
+    <div class="section-head">
+      <div class="section-emoji">💣</div>
+      <div class="section-title">
+        <div class="sub">Phase 5 · The Exit Shot</div>
+        <h2>Take this home</h2>
+      </div>
+      <span class="timer">5 min</span>
+    </div>
+
+    <div class="exit-box">
+      <div class="label">Think about this tonight</div>
+      <div class="question">"Your company offers you a 30% raise — but you have to work every weekend for the next year. No exceptions. Your kids are 8 and 10 years old. Do you take the deal? Why or why not?"</div>
+      <div class="homework">📱 Homework: Send me a 1-minute voice message on WhatsApp with your answer. In English.</div>
+    </div>
+
+    <div class="teacher-only">
+      <strong>Retention loop:</strong> The Exit Shot puts the abstract debate into a concrete personal dilemma. Money vs family. There is no right answer — but the student will think about it all week. Their WhatsApp answer becomes the warm-up for the next session.
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="brand-foot">GABRIEL TURNER · ENGLISH TRAINING</div>
+  <div>Speaking Lab · B2.1 · Work & Corporate Life</div>
+</footer>
+
+<script>
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+
+  function toggleMode() {
+    const btn = document.getElementById('modeToggle');
+    document.body.classList.toggle('student-mode');
+    if (document.body.classList.contains('student-mode')) {
+      btn.textContent = 'Student Mode';
+      btn.classList.add('student');
+    } else {
+      btn.textContent = 'Teacher Mode';
+      btn.classList.remove('student');
+    }
+  }
+
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('show');
+    btn.textContent = tip.classList.contains('show') ? 'Hide tip' : 'Show tip';
+  }
+</script>
+
+</body>
+</html>

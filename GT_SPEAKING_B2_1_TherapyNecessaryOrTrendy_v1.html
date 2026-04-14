@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Therapy: Necessary or Trendy? · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .vocab-card .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(255,184,0,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(255,184,0,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(255,184,0,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B2.1</span>
+      <span class="tag">Health &amp; Wellness</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Therapy: Necessary or Trendy?</h1>
+    <p>Everyone's talking to a therapist. But are we genuinely healing — or just making trauma a personality?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"42% of Americans have seen a therapist — a record high. But mental health professionals warn that 'therapy culture' on social media is creating a generation of people who self-diagnose, over-pathologize normal emotions, and avoid real-life challenges by reframing them as trauma."</div>
+      <div class="quote-source">— The Atlantic / American Psychological Association, 2024</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Quick show of hands — or just tell me: has anyone here ever seen a therapist, or considered it? No judgment at all." [Pause, let students respond naturally.] "And what about your parents? Would they have gone to therapy? Let's talk about where that shift happened — and whether it's a good thing."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('therapy')">
+        <div class="vocab-word">therapy</div>
+        <div class="vocab-def">professional treatment for mental or emotional difficulties</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stigma')">
+        <div class="vocab-word">stigma</div>
+        <div class="vocab-def">a strong social disapproval or shame around a topic</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('trauma')">
+        <div class="vocab-word">trauma</div>
+        <div class="vocab-def">a deeply distressing experience that affects mental health long-term</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('coping mechanism')">
+        <div class="vocab-word">coping mechanism</div>
+        <div class="vocab-def">a strategy used to manage stress or difficult emotions</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('vulnerability')">
+        <div class="vocab-word">vulnerability</div>
+        <div class="vocab-def">the willingness to show emotional openness or weakness</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('diagnosis')">
+        <div class="vocab-word">diagnosis</div>
+        <div class="vocab-def">an official identification of a condition by a professional</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('resilience')">
+        <div class="vocab-word">resilience</div>
+        <div class="vocab-def">the ability to recover quickly from difficulties</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('boundaries')">
+        <div class="vocab-word">boundaries</div>
+        <div class="vocab-def">limits you set to protect your emotional or physical space</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('session')">
+        <div class="vocab-word">session</div>
+        <div class="vocab-def">a scheduled appointment with a therapist or coach</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('breakdown')">
+        <div class="vocab-word">breakdown</div>
+        <div class="vocab-def">a moment when someone can no longer cope emotionally or mentally</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('process')">
+        <div class="vocab-word">process</div>
+        <div class="vocab-def">to work through an emotion or experience mentally over time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('open up')">
+        <div class="vocab-word">open up</div>
+        <div class="vocab-def">to share personal feelings or experiences with someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('self-diagnose')">
+        <div class="vocab-word">self-diagnose</div>
+        <div class="vocab-def">to identify your own condition without a professional evaluation</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('seek help')">
+        <div class="vocab-word">seek help</div>
+        <div class="vocab-def">to actively look for professional or personal support</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('normalize')">
+        <div class="vocab-word">normalize</div>
+        <div class="vocab-def">to make something socially accepted and no longer taboo</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('overshare')">
+        <div class="vocab-word">overshare</div>
+        <div class="vocab-def">to share too much personal information in an inappropriate context</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('suppress')">
+        <div class="vocab-word">suppress</div>
+        <div class="vocab-def">to push down or hide your emotions instead of dealing with them</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('afford')">
+        <div class="vocab-word">afford</div>
+        <div class="vocab-def">to have the financial or emotional resources to do something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('relate to')">
+        <div class="vocab-word">relate to</div>
+        <div class="vocab-def">to understand or connect with someone else's experience</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('push through')">
+        <div class="vocab-word">push through</div>
+        <div class="vocab-def">to continue despite difficulty without stopping to address it</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I need to unpack that.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I need to unpack that."</div>
+          <div class="phrase-context">Therapy speak for "I need to think about this more carefully."</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('That is triggering for me.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That's triggering for me."</div>
+          <div class="phrase-context">Originally clinical, now used very casually — sometimes too casually.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I am working on myself.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I'm working on myself."</div>
+          <div class="phrase-context">A common way to say you're in therapy or going through personal growth.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('That is a lot to carry.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That's a lot to carry."</div>
+          <div class="phrase-context">An empathetic response when someone shares something difficult.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just bottle everything up.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just bottle everything up."</div>
+          <div class="phrase-context">To avoid expressing emotions and keep them hidden inside.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">💙</div>
+          <div>
+            <div class="op-name">Lucía, 33</div>
+            <div class="op-role">HR Business Partner, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I started therapy after my divorce and it genuinely saved my career. <strong>Without that space to process things, I would have made terrible decisions at work.</strong> People act like therapy is for 'weak' people — it's actually the most self-aware thing you can do. I wish I'd started at 25."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🙄</div>
+          <div>
+            <div class="op-name">Javier, 51</div>
+            <div class="op-role">Plant Manager, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"My generation pushed through. We didn't have therapy — we had work, family, and getting on with it. Now everyone's using mental health as an excuse not to deal with life. <strong>Real problems need real action, not talking in circles for $100 an hour.</strong> I'm not saying it's useless. I'm saying it's overused."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Daniela, 28</div>
+            <div class="op-role">UX Designer, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"I think therapy is great — but TikTok therapy culture is dangerous. Everyone's suddenly 'traumatized', everyone has ADHD or anxiety. <strong>We've made self-diagnosis and oversharing a personality.</strong> Real mental illness is serious. When we use the language casually, we actually make it harder for truly sick people to be taken seriously."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">🧐</div>
+          <div>
+            <div class="op-name">Andrés, 44</div>
+            <div class="op-role">Psychologist, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"Here's the uncomfortable truth: most people don't need therapy — they need better friendships, more sleep, a less toxic job, and less time on their phones. <strong>Therapy is being sold as the solution to problems that are actually systemic.</strong> We're medicating individuals for what are fundamentally social and economic failures."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which of these do you most agree with? Which hits closest to home — and why? Have you ever used "therapy language" outside of an actual therapy context?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever talked to a therapist, a coach, or even a close friend about something you were struggling with? How did it help — or not?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very open first question. Don't push for therapy specifically — "a close friend" gives an exit for students who feel uncomfortable. Present perfect triggers naturally here.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Growing up, how did people in your family deal with stress or emotional problems? Was talking about it encouraged?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This surfaces generational and cultural differences around mental health. Mexican culture often has a "strong family but no therapy" pattern. Let students explore this without judgment.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Have you ever felt like you couldn't talk about your real problems at work? What did you do instead?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Bridges personal and professional worlds. Strong present perfect + past usage. Model: "I've never felt safe enough to be honest about stress at work. I just pushed through."</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Do you think therapy is more effective than talking to a good friend? What can a therapist do that a friend can't?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Draws out the "professional objectivity" vs "genuine human connection" tension. Both are valid. Push: "What are the limits of each?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Should companies provide free mental health support to employees? Or is that too personal for the workplace?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Great for modals of obligation + professional opinions. Many Mexican companies now offer EAP programs. "Should companies...?" = natural B2 debate territory.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Is it a problem that mental health language — "triggered," "toxic," "trauma" — has become so casual? Or is that a sign of progress?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This is the "therapy speak" debate. Both sides are strong. Normalization = good. Trivialization = bad. Push them to take a clear side, not sit in the middle.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">If therapy were completely free and anonymous, would you go? What would you want to talk about?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. The anonymity angle often unlocks honesty — "If it were anonymous, I would..." removes the shame barrier. Don't press for what specifically they'd discuss.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">If you found out a colleague was seeing a therapist, would it change how you see them — even slightly?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">This tests actual vs stated attitudes toward stigma. Most people say "no" — then pause. Follow up: "What about a boss? A direct report? Would that change anything?" Very revealing.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Is therapy a privilege? If it costs $80–$150 a session, who actually gets to "work on themselves" — and who just has to cope?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Class and access angle. Very real in Mexico. The irony: the people who need it most can afford it least. Strong opinions here. Let the room breathe.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Have you ever used "I need to take care of my mental health" as an excuse to avoid something hard — instead of actually dealing with it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The self-reflection bomb. Honest answer: yes, most people have. This is about the difference between genuine self-care and avoidance dressed up in therapeutic language. Let the silence work.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your 16-year-old son or daughter tells you they want to see a therapist. They say they feel "overwhelmed and anxious" — but from what you can see, their life is fine. Do you pay for it without question, or do you talk to them first to understand if they really need it?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note answering the Exit Shot in English. What would you actually do — and why? Be honest, not perfect.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B2.1 · Health &amp; Wellness · Therapy: Necessary or Trendy?
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

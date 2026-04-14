@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B2.1 — Living for the Weekend</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #FFB800;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  a { color: var(--accent); }
+
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .toggle-btn:hover { background: var(--accent); color: var(--navy); }
+
+  .hero {
+    height: 340px; position: relative; display: flex; align-items: flex-end;
+    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80') center/cover no-repeat;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.92) 100%);
+  }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px;
+  }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap;
+  }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box {
+    border-left: 4px solid var(--accent); background: var(--card);
+    border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px;
+  }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script {
+    background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2);
+    border-radius: 10px; padding: 16px 20px; margin-top: 16px;
+  }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none;
+  }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; transition: border-color 0.2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px; position: relative; transition: border-color 0.2s;
+  }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,184,0,0.4); }
+  .provocateur-tag {
+    position: absolute; top: -10px; right: 16px;
+    background: var(--accent); color: var(--navy);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(255,184,0,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 10px;
+  }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn {
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px;
+    cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s;
+  }
+  .show-tip-btn:hover { background: var(--accent); color: var(--navy); }
+  .tip-content {
+    display: none; margin-top: 14px;
+    background: rgba(255,184,0,0.06); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 12px 16px;
+    font-size: 14px; color: var(--muted); line-height: 1.6;
+  }
+  .tip-content.open { display: block; }
+
+  .exit-box {
+    border: 2px solid var(--accent); border-radius: 16px;
+    padding: 32px; background: rgba(255,184,0,0.04); margin-bottom: 24px;
+  }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B2.1</span>
+      <span class="hero-tag plain">Daily Life &amp; Lifestyle</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Living for the Weekend</h1>
+    <p>If you're mentally checking out every Monday morning, something is wrong. But is it your job — or you?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Gallup State of the Global Workplace Report 2023</div>
+      <div class="trigger-quote">"Only 23% of workers worldwide are engaged at work. That means 77% of employees — nearly 4 in 5 — are either not engaged or actively disengaged. Most people are spending 5 days waiting for 2."</div>
+    </div>
+
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the stat, then pause. Ask: <em>"Is that you? When you wake up on Monday, what's your first thought?"</em> Let students answer honestly. Follow with: <em>"And when you're finally on Friday afternoon, what does that feel like?"</em> The contrast between those two feelings is the whole conversation.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('dread')">
+        <div class="vocab-word">dread</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A heavy, anxious feeling about something coming — like Monday morning</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fulfillment')">
+        <div class="vocab-word">fulfillment</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A deep sense that your work or life actually means something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('grind')">
+        <div class="vocab-word">grind</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The daily routine of working hard with no end in sight — the treadmill</div>
+      </div>
+      <div class="vocab-card" onclick="speak('purpose')">
+        <div class="vocab-word">purpose</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A clear reason for doing what you do — beyond just money</div>
+      </div>
+      <div class="vocab-card" onclick="speak('downtime')">
+        <div class="vocab-word">downtime</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Time with no obligations — when you fully decompress</div>
+      </div>
+      <div class="vocab-card" onclick="speak('engagement')">
+        <div class="vocab-word">engagement</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How emotionally invested and present you are in your work</div>
+      </div>
+      <div class="vocab-card" onclick="speak('resentment')">
+        <div class="vocab-word">resentment</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A slow-building bitterness toward your job, boss, or situation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('recharge')">
+        <div class="vocab-word">recharge</div>
+        <div class="vocab-pos">noun/verb</div>
+        <div class="vocab-def">The act of recovering your energy — what weekends are supposed to do</div>
+      </div>
+      <div class="vocab-card" onclick="speak('trade-off')">
+        <div class="vocab-word">trade-off</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Accepting something bad in exchange for something good — a conscious compromise</div>
+      </div>
+      <div class="vocab-card" onclick="speak('mindset')">
+        <div class="vocab-word">mindset</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Your fundamental attitude toward work, life, and what you deserve</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('dread')">
+        <div class="vocab-word">dread</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To feel a heavy anxiety about something coming — "I dread Mondays"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check out')">
+        <div class="vocab-word">check out</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To mentally disengage — your body is there but your mind is somewhere else</div>
+      </div>
+      <div class="vocab-card" onclick="speak('burn out')">
+        <div class="vocab-word">burn out</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To hit a point of complete exhaustion where you can't perform anymore</div>
+      </div>
+      <div class="vocab-card" onclick="speak('clock in')">
+        <div class="vocab-word">clock in</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">To arrive at work and start your shift — often used literally or sarcastically</div>
+      </div>
+      <div class="vocab-card" onclick="speak('disconnect')">
+        <div class="vocab-word">disconnect</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To separate yourself from work notifications and obligations after hours</div>
+      </div>
+      <div class="vocab-card" onclick="speak('endure')">
+        <div class="vocab-word">endure</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To get through something painful because you feel you have no choice</div>
+      </div>
+      <div class="vocab-card" onclick="speak('settle')">
+        <div class="vocab-word">settle</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To accept something less than what you wanted or deserved</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reclaim')">
+        <div class="vocab-word">reclaim</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To take back control of your time or your professional life</div>
+      </div>
+      <div class="vocab-card" onclick="speak('drag on')">
+        <div class="vocab-word">drag on</div>
+        <div class="vocab-pos">phrasal verb</div>
+        <div class="vocab-def">When time feels impossibly slow because you're bored or disengaged</div>
+      </div>
+      <div class="vocab-card" onclick="speak('look forward to')">
+        <div class="vocab-word">look forward to</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To feel genuine excitement about something coming — the opposite of dread</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m just counting down to Friday.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I'm just counting down to Friday."</div>
+          <div class="phrase-context">What people say when Monday through Thursday are just survival</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Sunday night anxiety is real.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Sunday night anxiety is real."</div>
+          <div class="phrase-context">The dread that hits Sunday evening when the weekend is almost over</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('The weekend goes by in a blink.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"The weekend goes by in a blink."</div>
+          <div class="phrase-context">The painful contrast — 5 days drag, 2 days disappear</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I work to live, I don\'t live to work.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I work to live, I don't live to work."</div>
+          <div class="phrase-context">The classic reframe — but is it healthy or just a cope?</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just can\'t get motivated on Mondays.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just can't get motivated on Mondays."</div>
+          <div class="phrase-context">Sounds harmless but might be saying something bigger about the job</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Carmen, 36</div>
+        <div class="opinion-role">Finance Manager, Querétaro</div>
+        <div class="opinion-text">"I don't think there's anything wrong with living for the weekend. Work is a transaction — I give my time, I get money. My <strong>real life is outside the office</strong>. My family, my hobbies, my travels. I don't need my job to be my passion. That's a privilege most people can't afford."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍💻</div>
+        <div class="opinion-name">Javier, 33</div>
+        <div class="opinion-role">Product Manager, CDMX</div>
+        <div class="opinion-text">"I used to think like that. Then I realized I was spending <strong>71% of my waking adult life</strong> doing something I didn't care about. That's not a transaction — that's throwing your life away. I changed jobs, took a pay cut, and Monday mornings actually feel okay now."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👩‍🏭</div>
+        <div class="opinion-name">Beatriz, 52</div>
+        <div class="opinion-role">Plant Director, Celaya</div>
+        <div class="opinion-text">"Living for the weekend is a <strong>symptom, not a lifestyle</strong>. If you're mentally checking out every Monday, you have one of two problems: either your job is wrong for you, or your attitude is wrong for your job. Either way, that's your problem to solve — not something to normalize with a meme about hating Mondays."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍🎓</div>
+        <div class="opinion-name">Diego, 27</div>
+        <div class="opinion-role">Junior Engineer, Guadalajara</div>
+        <div class="opinion-text">"Honestly? My generation was sold the idea that <strong>passion = career</strong>. Follow your dreams, do what you love. But that's caused massive frustration because most jobs — even good ones — aren't exciting every day. Maybe it's okay for work to just be okay. Not every hour has to be meaningful."</div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Is "living for the weekend" a lifestyle choice — or a warning sign? And who has the most realistic take: Carmen (acceptance), Javier (change), Beatriz (accountability), or Diego (reframing expectations)?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">On a scale from 1 to 10, how much do you look forward to Monday morning? What's actually holding back that number?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This opens vulnerably fast. Let the numbers speak — if most say 3-5, celebrate the honesty. Don't moralize. Ask: "What would need to change for it to be a 7?"</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever had a job — or a period in your current job — where you actually didn't dread going in? What was different about that time?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Yes, when I first started. Everything was new, I had something to learn every day. Now I could do my job in my sleep. The boredom is the problem, not the work itself."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">What do you actually do on weekends? Is it real rest — or are you just recovering from the week so you can survive the next one?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This distinction hits hard. Recovery ≠ living. If weekends are just "recharging for work," the question becomes: who is the weekend actually for?</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Do you think it's realistic — or even healthy — to expect your job to be meaningful and fulfilling? Or is that an unrealistic standard most people can't meet?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">No right answer. Push both sides: "If you agree it's unrealistic, how do you feel about spending 35 years at something that just... pays?" And: "If you expect meaning, what are you doing to create it?"</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Is there a difference between "I work to live" as a healthy mindset — and "I work to live" as an excuse not to try to improve your situation?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This is the nuance question. Both can be true at the same time. The honest test: are you at peace with your situation — or are you using acceptance to avoid the fear of change?</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">If you had kids, would you want them to see your relationship with work — and think it's normal? Why or why not?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Deeply personal and usually the most honest answer of the session. Don't rush it. Let the silence do the work if someone pauses.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">If you won 5 million pesos tomorrow and didn't need to work, would you still work? What would you do — and why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Classic engagement test. Follow up: "If what you'd do with 5 million is completely different from what you do now — what does that tell you?" Don't answer it for them.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">If you could redesign your current job — same salary, same company — but change 3 things about it, what would you change first?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This reveals what's actually wrong. Most people name: the commute, their boss, or the meetings. Rarely the actual work. That's the insight.</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Beatriz said that if you're mentally checking out every Monday, it's your problem to solve. Is she right — or is that victim-blaming people who are stuck in bad jobs?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Push them to hold both: "Can Beatriz be right AND can the system be unfair at the same time?" The most mature answer is yes — and it's uncomfortable.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">If you knew you'd be doing exactly this job for the next 20 years — no promotion, no change — would you be okay with that? Be honest.</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The hardest question. It forces students to confront whether they're investing in their current role or just enduring it. There's no right answer — but the honest answer always matters.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">You're offered a job that pays 15% less than your current salary — but it's something you'd actually enjoy going to every day. You have a mortgage, a car payment, and two kids in private school. The numbers barely work. Do you take it — or do you stay where you are and keep counting down to Fridays?</div>
+    </div>
+
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp answering this question. Be specific — don't just say "it depends." What would you actually do, and why? Your teacher will give you feedback on your fluency and vocabulary use before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B2.1 · Living for the Weekend · Daily Life &amp; Lifestyle</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    document.getElementById('modeToggle').textContent = studentMode ? 'Teacher Mode' : 'Student Mode';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Lifestyle Inflation · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FFB800;--ac2:rgba(255,184,0,0.12);--ac3:rgba(255,184,0,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:var(--navy)}
+
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.7) 60%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px;margin-top:4px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.badge-provocateur{background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px;margin-top:0}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(255,184,0,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;min-height:300px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .ftr{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body id="bod">
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B2.1</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Lifestyle Inflation</div>
+    <div class="hero-sub">You earn more every year. But somehow, you never have more. Why?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- PHASE 1 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">Phase 1 · Provocation &amp; Opening</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">McKinsey &amp; Company · Consumer Survey · 2023</div>
+    <div class="trigger-quote">"As incomes rise, spending rises at the same rate or faster for 74% of professionals — meaning higher earnings rarely translate into actual financial progress."</div>
+    <div class="trigger-script teacher-only">
+      <span>Teacher script:</span> Read it. Then: "Think about the last time you got a raise. What changed in your spending? Did you actually feel richer — or did the money just disappear into new things?" Pause for 10 seconds. Let them sit with the question before anyone speaks.
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+
+  <div class="vocab-label">Colloquial Phrases · Office &amp; Life Reality</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Phase 3 · 4 Perspectives · Who sounds like you?</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+
+  <div class="opinion-grid">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">🛍️</div>
+        <div>
+          <div class="op-name">Lucía · 32</div>
+          <div class="op-role">Account Executive · Querétaro</div>
+        </div>
+      </div>
+      <div class="op-text">I doubled my salary in three years. I also doubled my rent, bought a car I don't need, and upgraded my phone twice. <strong>I'm not ashamed of it.</strong> I worked hard and I deserve to enjoy the money. Life is short. I can invest when I'm 40. Right now I want to live.</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">💰</div>
+        <div>
+          <div class="op-name">Javier · 45</div>
+          <div class="op-role">Finance Director · Monterrey</div>
+        </div>
+      </div>
+      <div class="op-text">I've seen colleagues earn 4 times what I earn and retire with nothing. <strong>Lifestyle inflation is the most expensive trap professionals fall into.</strong> Every peso you spend upgrading your life when you get a raise is a peso you'll never get back. The only thing that should inflate with your income is your investment portfolio.</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-badge badge-provocateur">🌶 Provocateur</div>
+      <div class="op-header">
+        <div class="op-avatar">🎭</div>
+        <div>
+          <div class="op-name">Valeria · 38</div>
+          <div class="op-role">Brand Manager · CDMX</div>
+        </div>
+      </div>
+      <div class="op-text">Most people don't have a spending problem — <strong>they have an income problem.</strong> The conversation about lifestyle inflation is mostly used to shame people who earn average salaries for wanting to live like human beings. If you earn $15,000 pesos a month and your expenses go up, that's not inflation — that's <strong>inflation and poverty, which are two completely different things.</strong></div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">🤔</div>
+        <div>
+          <div class="op-name">Daniel · 51</div>
+          <div class="op-role">Operations Manager · Guadalajara</div>
+        </div>
+      </div>
+      <div class="op-text">I think some lifestyle inflation is healthy. When you earn more, spending a little more on <strong>quality, health, and experiences</strong> genuinely improves your life. The problem isn't upgrading — it's upgrading on <strong>things that don't matter</strong>: the car that's 30% more expensive but gets you to the same destination.</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 Which perspective resonates most? Which one made you slightly defensive — and why?</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Has your salary increased significantly in the last 3 years? Did your savings increase at the same rate — or did your spending absorb most of the raise?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Most people will admit the spending absorbed it. Don't let them generalize — push for a specific example. "What specifically did you start spending on?"</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">What's something you spend money on now that felt like a luxury three years ago but feels completely normal today?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is the core of lifestyle inflation — normalization. Great answers: Uber instead of bus, restaurants twice a week, Spotify AND Netflix AND Apple TV. Let them list it out.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever made a financial decision — a car, apartment, phone — mainly because of what other people would think? Be honest.</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes. I bought a car that was way above my budget partly because I was embarrassed about the one I had. I told myself it was an investment. It wasn't. It was ego. And I paid for that ego for four years."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is lifestyle inflation inevitable — or is it a choice? Do you think most people are aware they're doing it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Push them on the "choice" angle. "If it's a choice, why don't more people choose differently?" Great entry into social pressure and marketing psychology.</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think companies take advantage of lifestyle inflation — raising your cost of living so you can't afford to quit?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think it's not always intentional, but it works that way. If you've upgraded your apartment, your car, your kids' school — you need your job more than you did when you were earning less. That's leverage for the company, even if they didn't plan it."</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">At what point does enjoying your money become a financial trap? Is there a number, a percentage, a feeling?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Encourage creative answers. There's no right answer. Push for specifics: "Is it when you can't say no to a bad job? When you have no savings buffer? When you feel trapped?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If you got a 40% raise tomorrow, what would you actually do with it — and what do you think you should do with it? Are those two answers the same?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "If I'm honest — I'd upgrade my apartment. What I should do is invest 70% and keep my lifestyle exactly the same. Those two answers are very different, and the distance between them is probably what's keeping me from being financially free."</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you had to go back to the lifestyle you had 5 years ago — same apartment, same phone, same budget — could you do it? How would it feel?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is the trap question. If they can't go back — lifestyle inflation has already worked on them. A great moment to use the word "trap" and ask: "Does that bother you?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Do you think your current spending reflects your values — or are you spending to manage stress, impress others, or feel in control?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is the deepest question in the block. Give it time. If they go quiet, that's good data. "Take your time. This one's worth thinking about."</div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If you kept earning exactly what you earn now for the next 10 years — no raises, no promotions — would your current lifestyle be sustainable? Would you be okay?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly, no. And that's the problem. I've built a lifestyle that depends on continuous income growth. If that growth stops — for any reason — I'm in trouble. That's not financial security. That's a very expensive kind of anxiety."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div>
+    </div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">You've just calculated that you spend 92% of your monthly income — and you've been doing it for years. You have almost no savings, but you live comfortably, eat well, travel twice a year, and feel good day to day. Your colleague earns 30% less, lives more modestly, and has 18 months of savings in the bank. Who has the better life — and whose choices would you actually make if you could restart?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: What is one expense in your life right now that you know, deep down, is lifestyle inflation — not a need? What would you do with that money if you cut it?
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B2.1 · Money &amp; Finance · Lifestyle Inflation · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv on">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'lifestyle inflation',def:'The tendency to increase spending as income increases',ex:'"He got a 30% raise — and lifestyle inflation ate all of it within 6 months."'},
+  {w:'savings rate',def:'The percentage of income you actually save each month',ex:'"Her savings rate was 3%. She earned well — but had almost nothing to show for it."'},
+  {w:'fixed cost',def:'A regular expense that doesn\'t change month to month',ex:'"His fixed costs — rent, car, insurance — left him no flexibility when things went wrong."'},
+  {w:'net worth',def:'Everything you own minus everything you owe',ex:'"High income doesn\'t equal high net worth. Many high earners have almost nothing."'},
+  {w:'financial freedom',def:'Having enough savings or income to live without depending on a job',ex:'"Her goal wasn\'t retirement — it was financial freedom by 45."'},
+  {w:'upgrade',def:'Moving to something more expensive or of higher quality',ex:'"Every raise triggered an upgrade: bigger apartment, newer car, better gym."'},
+  {w:'trap',def:'A situation that is difficult or impossible to escape',ex:'"He was in the lifestyle trap — earning well but unable to quit a job he hated."'},
+  {w:'runway',def:'The amount of time you can survive financially without income',ex:'"She had 3 months of runway. One bad month and she\'d be in real trouble."'},
+  {w:'discretionary spending',def:'Money spent on non-essential items or experiences',ex:'"He cut all discretionary spending for 6 months and saved more than in the last 3 years."'},
+  {w:'hedonic treadmill',def:'The tendency to return to a baseline level of happiness after getting what you wanted',ex:'"The new car felt amazing for 2 weeks. Then it was just the car. Hedonic treadmill."'},
+];
+const verbs=[
+  {w:'scale up',def:'To increase spending or lifestyle as income grows',ex:'"Every time he got a bonus, he scaled up — and ended the year with the same balance."'},
+  {w:'downsize',def:'To reduce expenses, space, or possessions voluntarily',ex:'"She downsized her apartment to save $4,000 pesos a month — and felt lighter."'},
+  {w:'accumulate',def:'To build up or collect over time',ex:'"The goal isn\'t to spend more — it\'s to accumulate assets that work for you."'},
+  {w:'rationalize',def:'To invent logical reasons for a decision that was actually emotional',ex:'"He rationalized the car as a business expense. It wasn\'t — it was ego."'},
+  {w:'cut back',def:'To reduce spending in a specific area',ex:'"She had to cut back on restaurants to afford the investment she actually wanted."'},
+  {w:'invest',def:'To put money into something with the expectation of a return',ex:'"He finally started investing when he realized his savings account was losing to inflation."'},
+  {w:'lock in',def:'To commit to a fixed expense or contract',ex:'"They locked in a premium apartment lease before thinking about the long-term cost."'},
+  {w:'overspend',def:'To spend more than is wise or sustainable',ex:'"It\'s easy to overspend when everything feels like it\'s finally within reach."'},
+  {w:'resist',def:'To avoid doing something tempting but financially harmful',ex:'"She resisted the upgrade for 6 months — then bought a car half the price she originally wanted."'},
+  {w:'audit',def:'To review and evaluate your own spending behavior',ex:'"He audited his expenses for one month and was genuinely shocked by what he found."'},
+];
+const phrases=[
+  {t:'"I work hard, I deserve this."',c:'The classic rationalization — and often the beginning of lifestyle inflation.'},
+  {t:'"I\'ll save more next month."',c:'The most expensive sentence in personal finance. Usually not true.'},
+  {t:'"It\'s a quality-of-life thing."',c:'Used to justify any upgrade, whether it actually improves quality of life or not.'},
+  {t:'"I can\'t afford not to look the part."',c:'Common in corporate environments — using appearance as a financial excuse.'},
+  {t:'"My money, my rules."',c:'True — but sometimes used to avoid thinking about the long-term cost of today\'s choices.'},
+];
+
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+
+function buildCards(arr,cid,type){
+  const c=document.getElementById(cid);
+  arr.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='vocab-card';
+    d.onclick=()=>speak(item.w);
+    d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;
+    c.appendChild(d);
+  });
+}
+
+function buildPhrases(arr,cid){
+  const c=document.getElementById(cid);
+  arr.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='phrase-item';
+    d.onclick=()=>speak(item.t.replace(/"/g,''));
+    d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;
+    c.appendChild(d);
+  });
+}
+
+buildCards(nouns,'nouns-grid','Noun');
+buildCards(verbs,'verbs-grid','Verb');
+buildPhrases(phrases,'phrases-list');
+
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const open=tip.style.display==='block';
+  tip.style.display=open?'none':'block';
+  btn.textContent=open?'Show Tip':'Hide Tip';
+}
+
+function toggleMode(){
+  const bod=document.getElementById('bod');
+  const btn=document.querySelector('.htoggle');
+  const student=bod.classList.toggle('student-mode');
+  btn.textContent=student?'👁 Teacher Mode':'👁 Student Mode';
+}
+</script>
+</body>
+</html>

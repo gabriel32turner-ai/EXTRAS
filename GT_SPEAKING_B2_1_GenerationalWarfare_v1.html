@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Generational Warfare · B2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FFB800;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .2s}
+.htoggle:hover{background:var(--ac);color:#0F1923}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.35)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.htag.spicy{border-color:rgba(255,80,60,.7);color:rgba(255,120,80,1)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:580px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B2.1</span>
+      <span class="htag">Social Issues & Society</span>
+      <span class="htag spicy">🌶 Edge: Spicy</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">Generational Warfare:<br>Boomers vs. Millennials vs. Gen Z</div>
+    <div class="hero-sub">Every generation thinks the next one is too soft. Every generation thinks the previous one ruined everything. Who's actually right?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real headline. A real debate.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Gallup Workplace Report · 2024</div>
+    <div class="trigger-quote">"Gen Z employees are the most disengaged generation in workplace history — and the most vocal about why. Meanwhile, Boomer managers say they've never worked with a generation more entitled and less resilient. Both sides are convinced the other one doesn't get it."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Quick question: when you see a 22-year-old at work set boundaries on day one and leave at exactly 5 PM — what's your first thought? And when you see a 58-year-old expect 60-hour weeks and no complaints — what's your first thought about that? Keep both of those reactions in mind. We're going to explore both of them honestly today."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('entitlement')"><div class="vword">entitlement</div><div class="vdef">The belief that you deserve things without having earned them</div><div class="vex">"Entitlement isn't a Gen Z invention — every generation thinks the next one has it."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('resilience')"><div class="vword">resilience</div><div class="vdef">The ability to recover from difficulty without falling apart</div><div class="vex">"Older managers use resilience as code for: put up with bad conditions and say nothing."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('privilege')"><div class="vword">privilege</div><div class="vdef">An advantage you have that others don't — often invisible to the person who has it</div><div class="vex">"Boomers bought houses on one salary. That wasn't discipline — that was privilege."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('loyalty')"><div class="vword">loyalty</div><div class="vdef">A commitment to staying with an employer or institution long-term</div><div class="vex">"Companies killed loyalty first — then complained when employees returned the favor."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('gap')"><div class="vword">gap</div><div class="vdef">A difference in values, expectations, or experience between groups</div><div class="vex">"The generational gap at work isn't about age — it's about what each side was promised."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('stereotype')"><div class="vword">stereotype</div><div class="vdef">A fixed, oversimplified idea about a group of people</div><div class="vex">"Not every Millennial is in debt and not every Boomer is closed-minded. Stereotypes are lazy."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('burnout')"><div class="vword">burnout</div><div class="vdef">Total exhaustion from sustained overwork — now documented at every age group</div><div class="vex">"Burnout isn't a Millennial invention. Boomers just called it a heart attack."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('accountability')"><div class="vword">accountability</div><div class="vdef">Taking responsibility for your actions and their consequences</div><div class="vex">"Accountability goes both ways — but we only seem to demand it from younger workers."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('expectation')"><div class="vword">expectation</div><div class="vdef">What you believe should happen, based on experience or promises</div><div class="vex">"The problem isn't Gen Z expectations. It's that no one told them the rules had changed."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('work ethic')"><div class="vword">work ethic</div><div class="vdef">The belief in the value of hard work as a core personal virtue</div><div class="vex">"Work ethic is real — but whose definition of it are we using?"</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('complain')"><div class="vword">complain</div><div class="vdef">Express dissatisfaction — seen as weakness by older generations, as honesty by younger ones</div><div class="vex">"We stopped complaining and called it professionalism. Gen Z complains and calls it feedback."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('adapt')"><div class="vword">adapt</div><div class="vdef">Change your behavior to fit new conditions or expectations</div><div class="vex">"Both sides need to adapt — but right now only one side is being asked to."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('blame')"><div class="vword">blame</div><div class="vdef">Hold someone responsible for a problem</div><div class="vex">"We blame the economy on Boomers. They blame attitude on us. Nobody wins."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('push back')"><div class="vword">push back</div><div class="vdef">Resist or challenge a decision, expectation, or norm</div><div class="vex">"Gen Z pushes back on everything. Boomers say that's a problem. I say it's a skill."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('inherit')"><div class="vword">inherit</div><div class="vdef">Receive something — wealth, debt, problems — from a previous generation</div><div class="vex">"We inherited the housing crisis, the climate crisis, and the student debt. Thanks."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('mentor')"><div class="vword">mentor</div><div class="vdef">Guide and teach someone less experienced</div><div class="vex">"The best managers mentor across generations — they don't mock the ones that are different."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('dismiss')"><div class="vword">dismiss</div><div class="vdef">Reject someone's opinion or experience as unimportant</div><div class="vex">"Older managers dismiss Gen Z concerns because they survived the same things. That's not empathy."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('set boundaries')"><div class="vword">set boundaries</div><div class="vdef">Define what you will and won't do — professionally or personally</div><div class="vex">"My boss said setting boundaries is unprofessional. My therapist said it's essential."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('earn')"><div class="vword">earn</div><div class="vdef">Get something through effort, not expectation</div><div class="vex">"You have to earn respect. But first, the company has to earn your commitment."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('validate')"><div class="vword">validate</div><div class="vdef">Acknowledge that someone's experience or feeling is real and reasonable</div><div class="vex">"We never validated Millennial struggles — so now nobody validates Gen Z ones either."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('OK Boomer')"><div><div class="phrase-text">OK Boomer</div><div class="phrase-context">The phrase Gen Z uses to dismiss older generations — dismissive but also a symptom of exhaustion</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Back in my day')"><div><div class="phrase-text">Back in my day</div><div class="phrase-context">How every generation begins the sentence that proves they've stopped listening</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('You can\'t even take criticism anymore')"><div><div class="phrase-text">You can't even take criticism anymore</div><div class="phrase-context">What older managers say — often about feedback that was actually destructive, not constructive</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('We had it harder and we didn\'t complain')"><div><div class="phrase-text">We had it harder and we didn't complain</div><div class="phrase-context">Boomer argument — ignores that not complaining didn't make things better for anyone</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('This generation is different')"><div><div class="phrase-text">This generation is different</div><div class="phrase-context">Said about every generation, by every generation, forever — and always with suspicion</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👴</div><div><div class="b-name">Don Carlos, 61</div><div class="b-role">Plant Director · Guanajuato</div></div></div>
+      <div class="b-text">"I started in this plant sweeping floors and worked my way up in 30 years. Nobody gave me anything. <strong>The problem with young people today is they want the title before they've earned the experience.</strong> Resilience isn't a personality type — it's a requirement. My generation built the infrastructure these kids are complaining from."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍💻</div><div><div class="b-name">Valeria, 26</div><div class="b-role">Data Analyst · CDMX</div></div></div>
+      <div class="b-text">"My parents bought a house at 28. I'm 26 with a master's degree and I can't afford a studio apartment in my city. <strong>The rules changed and nobody told us.</strong> I'm not entitled — I'm doing everything I was told to do, and it's still not enough. When I set limits at work, it's not laziness. It's survival."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍💼</div><div><div class="b-name">Rodrigo, 42</div><div class="b-role">HR Director · Monterrey</div></div></div>
+      <div class="b-text">"I manage four generations in one office. And I can tell you: <strong>the conflict isn't about values — it's about communication styles.</strong> Boomers don't say what they feel. Gen Z says everything they feel. Millennials are exhausted trying to translate between the two. The good news: all three generations want the same things. They just ask for them differently."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(255,184,0,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👩‍🎓</div><div><div class="b-name">Dra. Isabel, 53</div><div class="b-role">Organizational Psychologist · Guadalajara</div></div></div>
+      <div class="b-text">"The generational war is a distraction. <strong>It's companies that created the conditions for conflict</strong> and now sit back while employees fight each other over crumbs. Boomers and Gen Z don't disagree as much as the media says they do. But it's very convenient for employers that we're debating work ethic instead of wages, job security, and who actually owns the value workers create."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one lands closest to your reality — and who in this Opinion Wall would you have the hardest conversation with?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever had a conflict at work that was partly about generational differences — different expectations, different ways of communicating, different ideas about effort? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Almost everyone has a story here. Watch for: was the conflict named as generational at the time, or only in retrospect? That difference reveals whether they were analyzing or just surviving. Push for specifics: what did each side actually want?</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Which generation do you belong to — and do you feel like your generation is understood at work, or constantly misread?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Millennials (1981–1996) and Gen Z (1997–2012) are the most likely in your classroom. But don't assume. Some students are older. The personal stake changes the conversation dramatically — let each person situate themselves first.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did your parents' generation have a better or worse deal than yours economically — housing, job security, salary growth? Be specific.</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Ground the abstract in real numbers. "My dad bought a house at 30 on one salary." "My mom retired with a pension." These concrete comparisons make the privilege conversation land without becoming political — it becomes personal.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is Gen Z actually more entitled — or are they just the first generation willing to say out loud what everyone else was thinking?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I think they say things we were trained not to say. 'This workload is unreasonable.' 'This meeting could have been an email.' 'I need time to recover.' We thought those things — we just swallowed them. They don't. Whether that's entitlement or honesty depends on whether you think the system deserved the silence."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should young employees have to "pay their dues" — take bad projects, long hours, lower pay — before they earn respect and flexibility? Or is that just hazing with a professional name?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The spiciest opinion question. Push for specifics: what does "paying dues" actually teach? Is it skills, or is it submission? Ask: "Would you put your own kid through it?" That personal test usually changes the answer.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is Dra. Isabel right that the generational war is a distraction — designed to keep workers fighting each other instead of questioning the system?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The structural question. This one divides people between the individual-responsibility camp and the systemic-critique camp. Both are valid. The goal is to see that the two aren't mutually exclusive — personal agency AND systemic unfairness can both be real at the same time.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">If you were a manager tomorrow and had to lead a team of 22-year-olds who expect full flexibility, constant feedback, and psychological safety from day one — what would you do differently from the way you were managed?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Great role reversal. Forces them to design the management they wish they'd had. Model: "I'd be explicit about expectations from day one — not assume they know the unwritten rules. I'd give feedback weekly, not annually. And I'd actually listen when they pushed back instead of filing it under 'attitude problem.'"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If a 58-year-old colleague dismisses your idea in a meeting because "that's not how we do things here" — what do you actually do? And what do you wish you could do?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The gap between "what I do" and "what I wish I could do" is gold. Most professionals swallow it. The ones who've found ways to navigate it have real stories. Ask for the technique — how do you get an idea through without creating an enemy?</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest: have you ever dismissed a younger colleague's concern because you thought "I survived that, so can you"? What does that say about you?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The self-implication question. Most people over 35 will recognize this moment. It doesn't make them bad — it makes them human. The goal is recognition, not shame. "I survived it" is also how cycles of harm get passed down with a clean conscience.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If your 22-year-old self showed up at your office tomorrow — would you manage them with patience and respect, or would you expect them to just figure it out the way you did?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The closer. Forces them to confront the gap between what they needed and what they'd give. The honest answer usually sounds like: "I'd probably be harder on them than I should be — because that's what I was taught competence looks like." That's the conversation worth having.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your company is hiring for a senior role. Two final candidates: a 55-year-old with 28 years of experience, deep institutional knowledge, and zero digital skills — and a 27-year-old with 4 years of experience, strong data skills, and a reputation for setting hard limits on their time. You're the tiebreaker vote. Who do you hire — and what does your answer say about what you really value?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me who you hire and why — but also tell me what you're afraid of getting wrong. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B2.1 · Speaking Lab · Generational Warfare · Social Issues & Society</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>
