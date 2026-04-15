@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab B1.1 · Bad Habits I Can't Stop</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#10B981;--ac2:#34D399;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.1)}
+.mode-btn{background:var(--ac);border:none;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(16,185,129,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.3);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.3);color:rgba(255,31,92,.8);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(16,185,129,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(16,185,129,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(16,185,129,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(16,185,129,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+  <div class="brand">
+    <div class="dot"></div>
+    <div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">B1.1 · Daily Life & Lifestyle</div></div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge">B1.1</div>
+    <button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=1400&q=80&fit=crop" alt="bad habits phone late night junk food">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">BH</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Daily Life & Lifestyle</div>
+    <div class="hero-title">Bad Habits<br>I <em>Can't Stop</em></div>
+    <div class="hero-sub">You know it's bad. You've tried to stop a hundred times. And here you are again.</div>
+    <div class="hero-chips">
+      <span class="hchip em">B1.1</span>
+      <span class="hchip">Daily Life & Lifestyle</span>
+      <span class="hchip">🟡 Medium</span>
+      <span class="hchip">50 min</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<!-- PHASE 1 -->
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🪝 Phase 1 — The Trigger</div>
+        <div class="sec-title">The Headline</div>
+        <div class="sec-sub">Read it aloud. Then ask the first question.</div>
+      </div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">BBC Health</div>
+      <div class="trigger-quote">"Experts say it takes an average of 66 days to form a new habit. Breaking a bad one takes much longer — and most people fail at least 8 times before they succeed."</div>
+      <div class="trigger-sub">— Which means every time you've tried and failed, you were statistically on track</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">The Guardian · Psychology</div>
+      <div class="trigger-quote">"The most common bad habits people report: checking their phone constantly, eating late at night, procrastinating, and going to bed too late. Sound familiar?"</div>
+      <div class="trigger-sub">— If you said yes to all four — welcome to the club. You're in the majority.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body">
+        <strong>Launch line:</strong> "Quick question — what time did you go to bed last night? And what time did you want to go to bed?" [Let them answer.] "That gap — that's a bad habit. Today we talk about the things we do that we know we shouldn't. No judgment. Just honesty."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💉 Phase 2 — Vocab Injection</div>
+        <div class="sec-title">Power Words</div>
+        <div class="sec-sub">Click any card to hear it. Use at least 4 of these today.</div>
+      </div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=1000&q=80&fit=crop" alt="bad habits nouns">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Habits, Feelings & Daily Life</div><div class="sbo-sub">Click each card · Web Speech · B1.1 calibrated</div></div>
+        <div class="sbo-badge">Nouns</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('habit')"><div class="v-word">habit</div><div class="v-pos">noun</div><div class="v-def">Something you do regularly — often without thinking about it</div></div>
+      <div class="v-card" onclick="speak('temptation')"><div class="v-word">temptation</div><div class="v-pos">noun</div><div class="v-def">The strong feeling that you want to do something you should not do</div></div>
+      <div class="v-card" onclick="speak('excuse')"><div class="v-word">excuse</div><div class="v-pos">noun</div><div class="v-def">A reason you give for doing something bad — often not the real reason</div></div>
+      <div class="v-card" onclick="speak('willpower')"><div class="v-word">willpower</div><div class="v-pos">noun</div><div class="v-def">The ability to control yourself and resist bad habits</div></div>
+      <div class="v-card" onclick="speak('junk food')"><div class="v-word">junk food</div><div class="v-pos">noun</div><div class="v-def">Food that tastes good but is bad for your health — chips, fast food, sweets</div></div>
+      <div class="v-card" onclick="speak('stress')"><div class="v-word">stress</div><div class="v-pos">noun</div><div class="v-def">A feeling of pressure or worry — the number one trigger for bad habits</div></div>
+      <div class="v-card" onclick="speak('promise')"><div class="v-word">promise</div><div class="v-pos">noun</div><div class="v-def">When you tell yourself you will stop — often broken by Tuesday</div></div>
+      <div class="v-card" onclick="speak('sleep')"><div class="v-word">sleep</div><div class="v-pos">noun</div><div class="v-def">Something most people don't get enough of — related to almost every bad habit</div></div>
+      <div class="v-card" onclick="speak('screen')"><div class="v-word">screen</div><div class="v-pos">noun</div><div class="v-def">Your phone, tablet, or TV — the center of most modern bad habits</div></div>
+      <div class="v-card" onclick="speak('trigger')"><div class="v-word">trigger</div><div class="v-pos">noun</div><div class="v-def">The thing that starts a bad habit — stress, boredom, or seeing someone else do it</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1483058712412-4245e9b90184?w=1000&q=80&fit=crop" alt="bad habits verbs">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What We Do (Even When We Shouldn't)</div><div class="sbo-sub">Click to hear · Natural pace</div></div>
+        <div class="sbo-badge">Verbs</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('procrastinate')"><div class="v-word">procrastinate</div><div class="v-pos">verb</div><div class="v-def">To delay doing something important — "I'll do it later" (you won't)</div></div>
+      <div class="v-card" onclick="speak('skip')"><div class="v-word">skip</div><div class="v-pos">verb</div><div class="v-def">To not do something you planned — skip the gym, skip breakfast, skip the meeting</div></div>
+      <div class="v-card" onclick="speak('give up')"><div class="v-word">give up</div><div class="v-pos">verb</div><div class="v-def">To stop trying — happens a lot when breaking habits gets hard</div></div>
+      <div class="v-card" onclick="speak('lie in bed')"><div class="v-word">lie in bed</div><div class="v-pos">verb</div><div class="v-def">To stay in bed much longer than you planned — usually with your phone</div></div>
+      <div class="v-card" onclick="speak('scroll')"><div class="v-word">scroll</div><div class="v-pos">verb</div><div class="v-def">To move through social media — usually for "5 minutes" that become 45</div></div>
+      <div class="v-card" onclick="speak('complain')"><div class="v-word">complain</div><div class="v-pos">verb</div><div class="v-def">To say that something is bad or wrong — without doing anything about it</div></div>
+      <div class="v-card" onclick="speak('try again')"><div class="v-word">try again</div><div class="v-pos">verb</div><div class="v-def">To make another attempt after failing — the real key to changing habits</div></div>
+      <div class="v-card" onclick="speak('spend')"><div class="v-word">spend</div><div class="v-pos">verb</div><div class="v-def">To use money — often too much, on things you don't need</div></div>
+      <div class="v-card" onclick="speak('ignore')"><div class="v-word">ignore</div><div class="v-pos">verb</div><div class="v-def">To not pay attention to something — like your alarm, or your doctor</div></div>
+      <div class="v-card" onclick="speak('admit')"><div class="v-word">admit</div><div class="v-pos">verb</div><div class="v-def">To say that something is true, even when it is uncomfortable — "I admit I have a problem"</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases habits">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Habit Talk</div><div class="sbo-sub">Things people actually say · Click to hear</div></div>
+        <div class="sbo-badge">Colloquial</div>
+      </div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Just one more')"><div class="p-text">"Just one more."</div><div class="p-context">Said before every bad decision — one more episode, one more cookie, one more drink</div></div>
+      <div class="phrase-item" onclick="speak('I\'ll start on Monday')"><div class="p-text">"I'll start on Monday."</div><div class="p-context">The most repeated sentence in the history of bad habits — said on Tuesday</div></div>
+      <div class="phrase-item" onclick="speak('I deserve this')"><div class="p-text">"I deserve this."</div><div class="p-context">The most effective excuse for any bad habit — usually said after a hard day</div></div>
+      <div class="phrase-item" onclick="speak('I know, I know')"><div class="p-text">"I know, I know."</div><div class="p-context">What you say when someone points out your bad habit — and you have no defense</div></div>
+      <div class="phrase-item" onclick="speak('It\'s not that bad')"><div class="p-text">"It's not that bad."</div><div class="p-context">The classic self-deception — said about something that is, in fact, pretty bad</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">
+        After phrases, ask: "Which of these sentences did you say this week?" Most students laugh and admit to at least two. Use that moment of recognition to launch the Opinion Wall: "Okay — let's see what other people think about bad habits."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div>
+        <div class="sec-title">Four Voices. One Topic.</div>
+        <div class="sec-sub">Read all four. Choose one. Tell me why — 60 seconds.</div>
+      </div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">😤</div>
+        <div class="op-name">Sofía, 33</div>
+        <div class="op-role">Admin · Querétaro</div>
+        <div class="op-text">"I check my phone every 5 minutes. I know it's bad. I've tried to stop. I can't. <strong>But honestly? It doesn't affect my work.</strong> I'm still productive. I still do everything. So maybe it's not as bad as people say. Or maybe I'm just really good at making excuses."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🍕</div>
+        <div class="op-name">Diego, 44</div>
+        <div class="op-role">Chef · Monterrey</div>
+        <div class="op-text">"I eat terribly after midnight. I know it's bad. My doctor told me. My wife tells me. But after a long day in the kitchen, <strong>that plate of tacos at 1am is the best part of my day.</strong> Some habits are bad for your body but good for your soul. Not everything needs to be fixed."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">📱</div>
+        <div class="op-name">Andrea, 28</div>
+        <div class="op-role">Marketing · CDMX</div>
+        <div class="op-text">"I wasted 3 years of my life on social media and Netflix. Now I deleted the apps and I read every night. <strong>Bad habits aren't just annoying — they steal your time.</strong> That time never comes back. I wish someone had told me that at 22."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">😐</div>
+        <div class="op-name">Fernando, 50</div>
+        <div class="op-role">Manager · Guadalajara</div>
+        <div class="op-text">"Adults with bad habits are making a choice. <strong>You know it's bad. You choose to do it anyway.</strong> Don't call it an addiction or a problem — that's just a word we use to avoid responsibility. If you wanted to stop, you would stop. Simple as that."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body">
+        <strong>Provocateur rationale:</strong> Fernando eliminates the concept of habit as something beyond our control — reducing it to simple choice and responsibility. This is harsh and partly wrong (neuroscience disagrees), but it's a very common belief. Students who feel guilty about their habits will react strongly. <br><br>
+        <strong>Facilitation move:</strong> After the student picks their opinion, ask: "And Fernando — is he 100% wrong? Or does he have even a small point?" Don't let them dismiss him without engaging.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div>
+        <div class="sec-title">10 Questions · 4 Blocks</div>
+        <div class="sec-sub">Personal and honest. Show tips only after the student answers.</div>
+      </div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What is your worst bad habit right now? Be honest — the one you know you should stop but don't.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The direct opener. Most B1.1 students enjoy this because it's personal and there's no wrong answer. Common answers: phone, late nights, junk food, procrastination. Model: "My worst habit is looking at my phone in bed. I know it affects my sleep. I do it anyway." Activate: habit, screen, stress, trigger.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever successfully stopped a bad habit? How long did it take — and did it come back?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Present perfect + past simple combination. Model: "Yes — I stopped drinking soda for 6 months. Then I had one at a birthday party. And then I was back to one a day." The relapse story is very common and very B1.1 appropriate. Activate: give up, try again, willpower, promise.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever had a bad habit that affected someone else — your partner, your family, your coworkers?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">This adds a social dimension — bad habits as a relationship issue. Common: coming home late, being on the phone at dinner, procrastinating on shared tasks. Model: "Yes — I used to complain all the time at home. My partner finally said: 'Please stop. You're making everything feel negative.'" Activate: complain, admit, stress.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think bad habits are a choice — or do some people really can't control them?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Fernando's position. Most B1.1 students will give a nuanced answer: "Some are a choice, some are not." That's the right answer — push for examples. "Which of your bad habits do you think is a choice — and which one do you really struggle to control?" Activate: willpower, temptation, admit.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it OK to have bad habits — as long as they only affect you?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple, direct opinion. Diego's position. Most say yes. Push: "But what about your health, your energy, your mood? Don't those affect other people too?" Good for modals: "You should be able to... but maybe you shouldn't..." Activate: excuse, stress, trigger.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think phones and social media have created new bad habits that didn't exist before — or were we always like this?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Light societal question — B1.1 friendly. Most students find this easy and opinionated. Model: "I think phones made everything worse. Before, if you were bored, you had to sit with it. Now you just scroll. The boredom was actually useful." Activate: scroll, screen, habit, trigger.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if your doctor told you to stop one habit immediately — or face serious health problems?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Second conditional with real stakes. Most say they would stop — but push: "And would you? Really? Or would you try for two weeks and then go back?" Some students are more honest than others. The honest ones produce the best conversation. Activate: stress, give up, try again, willpower.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if a good friend told you: "Your habit is affecting our friendship — I can't keep doing this with you"?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Emotional and personal. What's the habit? Complaining, being late, canceling plans, being on the phone? The friend as a mirror — would that be enough to change? Model: "If my best friend said that to me, I think I would really try. Because it's easier to fail yourself than to fail someone who loves you." Activate: promise, admit, try again.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">What excuse do you use most for your bad habits? "I'm stressed," "I deserve it," "just this once," or something else? Be honest.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Very personal and a little funny. Students love this because everyone recognizes their own excuse. Give them a moment to think before answering. Model: "My excuse is always 'I'm stressed.' And it's true — but it's also just an excuse." Activate: excuse, stress, temptation, deserve.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">If someone who loves you could see all your bad habits clearly — what do you think they would ask you to change first?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The closing self-reflection. Gentle but personal — asks them to see themselves through someone else's eyes. Most students already know the answer. Give them space. The silence before they answer is part of the practice. Activate: admit, promise, habit, stress.</div>
+      </div>
+    </div>
+
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body">
+        <strong>B1.1 grammar check:</strong> Q2 = present perfect + past simple. Q7–Q8 = second conditional. Keep the conditionals simple: "What would you do if...? / I would..." If students say "I will stop" instead of "I would stop" — model once and move on. <br><br>
+        <strong>Energy note:</strong> This is a high-laughing-per-minute topic for B1.1. The honesty is funny and universal. Keep the energy up in Blocks 1–2 and get quieter for Q9 and Q10.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💣 Phase 5 — The Exit Shot</div>
+        <div class="sec-title">The Final Question</div>
+        <div class="sec-sub">One question. One honest answer.</div>
+      </div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Your partner, your family, or your best friend — the person who knows you best — makes you a deal: "If you stop [your worst habit] for 30 days, I will do one thing you've always wanted me to do." They name your habit. They name their thing. Is that enough for you to stop?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me your worst bad habit. When did it start? Have you ever tried to stop? What happened?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body">
+        <strong>Why it works:</strong> The Exit Shot uses the one person who knows the student best as the mirror — and turns change into a relationship exchange. The "they name your habit" detail is the uncomfortable part. Most students feel a small jolt of recognition: "Oh no, I know exactly which habit they'd pick." <br><br>
+        <strong>Homework note:</strong> The recording prompt is a storytelling task in three simple past + present perfect steps. Very natural for B1.1. Almost everyone can speak for 60 seconds about their own bad habits. <br><br>
+        <strong>Upsell moment:</strong> "Next session we talk about the things we enjoy but feel a little guilty about — our guilty pleasures. A lighter version of today's topic, but just as honest."
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">B1.1 · Daily Life & Lifestyle · Bad Habits I Can't Stop · Medium</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+function toggleMode(btn){
+  const isStudent=document.body.classList.toggle('student-mode');
+  btn.textContent=isStudent?'Student Mode':'Teacher Mode';
+}
+function toggleTN(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.toggle('open');
+  btn.querySelector('span').textContent=isOpen?'−':'+';
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide tip':'Show tip';
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+},{passive:true});
+</script>
+</body>
+</html>

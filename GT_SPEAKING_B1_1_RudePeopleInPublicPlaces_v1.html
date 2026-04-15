@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.1 — Rude People in Public Places</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #10B981;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn { background: var(--accent); color: #0F1923; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .toggle-btn.student { background: #2a3a4e; color: white; }
+
+  .hero { height: 340px; position: relative; display: flex; align-items: flex-end; background: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&q=80') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.92) 100%); }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(16,185,129,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: #0F1923; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(16,185,129,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: #0F1923; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(16,185,129,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(16,185,129,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.1</span>
+      <span class="hero-tag plain">Social Issues &amp; Society</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Rude People in Public Places</h1>
+    <p>Someone is rude to you on the street, in a line, or on the bus. Do you say something — or do you just stay quiet?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">BBC — Social Behavior Study, 2023</div>
+      <div class="trigger-quote">"68% of people say they see rude behavior in public every week. But only 1 in 5 people say anything. Most people prefer to stay quiet and avoid conflict — even when they are angry."</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the stat, then ask immediately: <em>"Are you in the 1 in 5 — or do you usually stay quiet?"</em> Go around the room fast. Don't analyze yet — just collect answers. Then ask: <em>"Tell me about the last time someone was rude to you in public. What happened?"</em> Stories start flowing right away with this topic.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('stranger')">
+        <div class="vocab-word">stranger</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Someone you don't know at all</div>
+      </div>
+      <div class="vocab-card" onclick="speak('line')">
+        <div class="vocab-word">line</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A queue of people waiting — the bus line, the supermarket line</div>
+      </div>
+      <div class="vocab-card" onclick="speak('argument')">
+        <div class="vocab-word">argument</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A loud disagreement between two people — not a physical fight</div>
+      </div>
+      <div class="vocab-card" onclick="speak('attitude')">
+        <div class="vocab-word">attitude</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The way someone behaves — can be good or bad</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reaction')">
+        <div class="vocab-word">reaction</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">What you do or feel when something happens to you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('respect')">
+        <div class="vocab-word">respect</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Treating other people well, like they matter</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scene')">
+        <div class="vocab-word">scene</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A public problem or embarrassing situation — "make a scene"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('complaint')">
+        <div class="vocab-word">complaint</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When you say officially that something is wrong or bad</div>
+      </div>
+      <div class="vocab-card" onclick="speak('nerve')">
+        <div class="vocab-word">nerve</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The courage to do something difficult — "I didn't have the nerve"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('crowd')">
+        <div class="vocab-word">crowd</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A lot of people together in the same place</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('cut in line')">
+        <div class="vocab-word">cut in line</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To go in front of people who were already waiting — very rude</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vocab-word">ignore</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To not react — to pretend you didn't see or hear something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('confront')">
+        <div class="vocab-word">confront</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To talk directly to someone about their bad behavior</div>
+      </div>
+      <div class="vocab-card" onclick="speak('snap')">
+        <div class="vocab-word">snap</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To suddenly get angry and say something — "I snapped at him"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stare')">
+        <div class="vocab-word">stare</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To look at someone for a long time in an uncomfortable way</div>
+      </div>
+      <div class="vocab-card" onclick="speak('apologize')">
+        <div class="vocab-word">apologize</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To say sorry for something you did wrong</div>
+      </div>
+      <div class="vocab-card" onclick="speak('complain')">
+        <div class="vocab-word">complain</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To say that something is wrong or you are not happy</div>
+      </div>
+      <div class="vocab-card" onclick="speak('walk away')">
+        <div class="vocab-word">walk away</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To leave a situation without saying anything</div>
+      </div>
+      <div class="vocab-card" onclick="speak('embarrass')">
+        <div class="vocab-word">embarrass</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To make someone feel ashamed or uncomfortable in public</div>
+      </div>
+      <div class="vocab-card" onclick="speak('put up with')">
+        <div class="vocab-word">put up with</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To accept something bad without complaining</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I was so angry, I couldn\'t say a word.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I was so angry, I couldn't say a word."</div>
+          <div class="phrase-context">When you are furious but you freeze — very common reaction</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Who does he think he is?')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Who does he think he is?"</div>
+          <div class="phrase-context">What you think — or say — when someone is very arrogant</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I didn\'t want to make a scene.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I didn't want to make a scene."</div>
+          <div class="phrase-context">The main reason people stay quiet in public situations</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just let it go.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just let it go."</div>
+          <div class="phrase-context">To decide not to react and move on — sometimes wise, sometimes frustrating</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Some people have no manners.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Some people have no manners."</div>
+          <div class="phrase-context">A classic comment after someone is rude to you or someone else</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍⚕️</div>
+        <div class="opinion-name">Carolina, 36</div>
+        <div class="opinion-role">Nurse, Guadalajara</div>
+        <div class="opinion-text">"If someone is rude to me, I say something. Always. <strong>Staying quiet teaches them it's OK.</strong> I'm polite, but I don't accept bad treatment. Not from anyone."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍💼</div>
+        <div class="opinion-name">Mateo, 42</div>
+        <div class="opinion-role">Accountant, Monterrey</div>
+        <div class="opinion-text">"I prefer to ignore it. <strong>You don't know why that person is having a bad day.</strong> Maybe they lost their job. Maybe someone died. I don't want to make things worse."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👴</div>
+        <div class="opinion-name">Don Roberto, 58</div>
+        <div class="opinion-role">Retired, Celaya</div>
+        <div class="opinion-text">"People are more rude today because <strong>nobody says anything.</strong> We are all too afraid of conflict. In my time, if you were rude, someone corrected you immediately. Now everyone just looks at their phone."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍🍳</div>
+        <div class="opinion-name">Valeria, 30</div>
+        <div class="opinion-role">Chef, CDMX</div>
+        <div class="opinion-text">"It depends on the situation. <strong>If it's a stranger, I let it go.</strong> But if it happens to someone weaker — an old person, a child — I always say something. You have to protect others."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Don Roberto says we are more rude today because nobody says anything. Do you agree? Are we part of the problem when we stay quiet?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Have you ever had a bad experience with a rude person in public? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Every student has a story. Let them tell it with detail — where, what happened, how they felt. The storytelling itself is the speaking practice. Don't interrupt for corrections here — let it flow.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever said something to a rude stranger — or did you stay quiet? How did you feel after?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I stayed quiet. I was so angry in the moment I couldn't think. But later I felt bad — I wished I had said something. Like I let them win."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Have you ever seen someone else be rude to another person in public? Did you do anything?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The bystander question. Most people do nothing — and feel guilty. Valeria's principle applies here: "Was it a stranger or a vulnerable person?" Let them reflect on when they would or wouldn't intervene.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Is it better to say something to a rude person — or ignore them? What do you usually do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The core debate. Carolina vs. Mateo. Let students defend their position — and challenge each other. There is no right answer and students usually know it, which makes the discussion more honest.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Do you think people are more rude today than before? Why do you think that?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Don Roberto's question in conversation form. Common answers: phones, stress, less community, COVID. No wrong answers — push for their real personal opinion, not the "safe" answer.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Is being rude sometimes OK? For example, if you are very tired, very stressed, or if someone did something really wrong first?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The empathy question. Most people have been rude once and know it. This allows students to be honest without judging others too harshly. Model answer: "I think we all have a bad day sometimes. But there is a difference between being a little short with someone and being really disrespectful."</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">What would you do if someone cut in front of you in a long line at the supermarket?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Very concrete and relatable — everyone has been in this situation. Encourage specific answers: "Would you say something directly? What exactly would you say?" Role-play the interaction briefly if the group is ready.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">What would you do if a waiter in a restaurant was very rude to you in front of your family?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I would speak to the manager, not the waiter. I don't want to argue in front of my family. But I wouldn't leave a tip and I would never go back."</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Have you ever been rude to someone in public — maybe without wanting to? Be honest.</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The self-reflection question. Be warm here — normalize it. Almost everyone has snapped at a waiter or been short with a stranger. The honest admission is what makes this question valuable.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">If someone is rude to you and you say nothing, are you being polite — or are you just afraid?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The uncomfortable closer. Push them to be honest about the difference. "Polite" and "afraid" often look exactly the same from the outside — but feel very different inside.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">You are on the bus. A man is very rude to an old woman — he shouts at her because she was slow. Nobody says anything. You are nervous, but you feel it's wrong. You have 5 seconds to decide: do you say something — or do you stay quiet like everyone else?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. Answer this question: what do you do on the bus — and why? Be specific and honest. Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B1.1 · Rude People in Public Places · Social Issues &amp; Society</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    if (studentMode) { btn.textContent = 'Teacher Mode'; btn.classList.add('student'); }
+    else { btn.textContent = 'Student Mode'; btn.classList.remove('student'); }
+  }
+</script>
+</body>
+</html>

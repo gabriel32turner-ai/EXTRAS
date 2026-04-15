@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.1 · I Got Lost in a Foreign Place</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#10B981;--ac2:#34D399;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.08)}
+.mode-btn{background:#10B981;border:1px solid #10B981;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(16,185,129,.1)}
+.tn-c1{border-left:3px solid rgba(16,185,129,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(16,185,129,.08) 0%,rgba(16,185,129,.03) 100%);border:1px solid rgba(16,185,129,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(16,185,129,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(16,185,129,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(16,185,129,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(16,185,129,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(16,185,129,.3)}
+.vc.noun-c{border-top:2px solid rgba(16,185,129,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(16,185,129,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(52,211,153,.8);font-style:italic;border-left:2px solid rgba(16,185,129,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(16,185,129,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(16,185,129,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(16,185,129,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(16,185,129,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(16,185,129,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(16,185,129,.65);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(16,185,129,.3)}
+.q-tn strong{color:rgba(16,185,129,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(16,185,129,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(16,185,129,.1) 0%,rgba(16,185,129,.04) 50%,transparent 100%);border:1px solid rgba(16,185,129,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">B1.1 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?w=1400&q=80" alt="Lost traveler">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Travel &amp; Culture</div>
+    <div class="hero-title">I GOT LOST<br><em>IN A FOREIGN PLACE</em></div>
+    <div class="hero-sub">No map. No signal. Nobody speaks your language. And it was one of the best things that ever happened.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 When Getting Lost Changes Everything</div><div class="sec-sub">Read aloud · First reaction only · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🗺️</div>
+    <div class="hsc-label">Booking.com Travel Report + Travel + Leisure Survey 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">72%</div><div class="hsc-desc">Of travelers say getting lost abroad was one of their most memorable travel experiences — even though it was scary at first</div></div>
+      <div class="hsc-stat"><div class="hsc-num">1 in 3</div><div class="hsc-desc">Tourists say they found their favorite restaurant, neighborhood, or friend by accident — because they were lost</div></div>
+      <div class="hsc-stat"><div class="hsc-num">54%</div><div class="hsc-desc">Of people say getting lost abroad made them feel more confident and independent after the experience</div></div>
+      <div class="hsc-stat"><div class="hsc-num">2 hrs</div><div class="hsc-desc">The average time travelers spent truly lost on their most memorable trip — long enough to panic, short enough to laugh about later</div></div>
+    </div>
+    <div class="hsc-source">Sources: Booking.com Traveler Report 2023 · Travel + Leisure Annual Survey · Lonely Planet "Why Getting Lost Is the Best Travel Plan"</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read this, then point at someone</div>
+    <div class="hq-text">"You are in a city you don't know. Your phone has no battery. You don't speak the language. You need to find your hotel before dark. What do you do first?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read slowly. Let the "before dark" detail create urgency. Point at one student: "What do you do — right now?" No judgment. 2–3 reactions max. Say: "We come back to all of this in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The 72% "memorable experience" stat reframes being lost as positive — but the trigger presents it as scary. Both are true. That tension is the activation.</li>
+        <li>If nobody has traveled abroad: <strong>"Has anyone been lost in a city in Mexico they didn't know well? The feeling is the same."</strong> The experience is universal even if the travel isn't.</li>
+        <li>Watch for students who have a strong story — they will carry §4 Block 1. Note them now.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The "no battery, no language" detail is intentional — it strips away modern safety nets and creates a real problem students feel immediately.</li>
+        <li>Best activation if quiet: <strong>"Raise your hand if you've ever been lost somewhere — in Mexico or abroad — and didn't know how to get back."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Next Travel lab we talk about food you tried and regretted. Same trip energy — different disaster."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Travel &amp; Getting Lost</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Lost Travelers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>a real travel moment — good or bad.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Stranger" — important at B1.1: not someone strange or scary, but someone you don't know. Model: "The stranger helped me find the bus station. I didn't even know his name."</li>
+        <li>Best production trigger: <strong>"Which 3 words describe your most chaotic travel moment? Go."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words are your survival kit for travel. If you're ever lost abroad and need to explain yourself in English — this is what you need."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Travel vocabulary in English is one of the most immediately useful skills. These words will come up in your next trip — guaranteed."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Ways to Get Lost.</div><div class="sec-sub">Read each card · Pairs 90 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who do you think made the best decision? Why?"</div></div><div class="sbo-badge">Don't change the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who do you think made the best decision? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Karla</strong>. Her position — that getting lost is irresponsible and you should always plan — will clash with anyone who has had a great accidental discovery. Push: <strong>"Is Karla wrong? Or is she just a different kind of traveler?"</strong></li>
+        <li>Read all 4 before opening debate. The contrast between Tomás (chaos as adventure) and Karla (plan everything) drives the session.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Read Tomás with enthusiasm. Read Karla with firm confidence. The tonal contrast sparks the reaction before students even process the words.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"One sentence — which of these four travelers are you? Be honest."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · Point and push · No round-robin</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> At least 2 sentences. Say what happened — then say how you felt. Or say your opinion — then say why.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 is storytelling-heavy — the best B1.1 output comes from narrative. If a student gives a one-sentence answer, push: <strong>"And then what happened? How did you feel when you found the hotel?"</strong></li>
+        <li>Block 3 second conditional: watch for "If I would get lost" — note and recycle at end only. Don't interrupt stories.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When a student tells a travel disaster story with detail: let it run 45 seconds. Then: <strong>"Now say the best part of that story in one English sentence."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just told travel stories in English. That's a real social skill — not just grammar. Next lab we talk about travel food disasters."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. No Easy Answer.</div><div class="sec-sub">5 min · No chips · Position + reason · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">You are traveling alone in a city you don't know. You have <em>2 hours</em> before your bus. You get lost. A local stranger offers to show you the way — but it means going through a part of the city that looks <em>a little dark and empty.</em> <em>Do you follow them?</em></div>
+    <div class="exit-rule">3 sentences minimum. Yes or no first. Then tell me what you would actually feel in that moment — not what sounds brave.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.1 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"Honestly, I don't know. I would look at the person very carefully first — their face, their eyes. If they seemed kind, I would probably follow them, because I was scared anyway and they were the only person who offered help. But I would text my location to a friend first, just in case."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. No preparation. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The scenario is ambiguous by design — no clear right answer. Trust vs safety. Practical need vs fear. That tension produces the most honest voice notes.</li>
+        <li>Follow-up: <strong>"What would you do differently if you were traveling with a friend instead of alone?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer is honest and practical — "text my location first." Point out: <strong>"That last sentence — 'just in case' — is B1.1 English that works in a real situation."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You just described a real decision moment — in English. That's useful language. Not textbook. Real."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · I Got Lost in a Foreign Place · Travel &amp; Culture · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div><div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"stranger",   def:"A person you don't know",                                            ex:"A stranger helped me find the bus station. I never knew his name."},
+  {w:"direction",  def:"Information about how to get somewhere — left, right, straight ahead",ex:"I asked three people for directions. Every answer was different."},
+  {w:"signal",     def:"The phone connection you need to use maps or call someone",           ex:"I had no signal. That was the moment I started to panic."},
+  {w:"map",        def:"A drawing or image that shows you where places are",                  ex:"I had a paper map but I couldn't read it in the dark."},
+  {w:"panic",      def:"A sudden strong feeling of fear that makes it hard to think",         ex:"The panic lasted about 5 minutes. Then I took a breath and asked someone."},
+  {w:"neighborhood",def:"The area of a city where you are — the streets and buildings around you",ex:"I was in the wrong neighborhood. It took me an hour to figure that out."},
+  {w:"landmark",   def:"A building, statue, or place that is easy to recognize and remember", ex:"I finally found a landmark — a big church — and I knew where I was."},
+  {w:"hostel",     def:"A cheap place to sleep when you travel, often shared with other people",ex:"I finally found my hostel at 11pm. The door was still open."},
+  {w:"adventure",  def:"An exciting experience that is often surprising or a little scary",   ex:"Getting lost in Lisbon was the best adventure of my whole trip."},
+  {w:"mistake",    def:"Something you did that was wrong — and you know it",                  ex:"My mistake was leaving the hotel without writing down the address."}
+];
+const verbs=[
+  {w:"get lost",    def:"To not know where you are or how to get to where you want to go",   ex:"I got lost in the subway. Every train looked the same."},
+  {w:"ask for help",def:"To say to someone that you need assistance",                        ex:"I finally asked for help after walking in circles for 30 minutes."},
+  {w:"wander",      def:"To walk without a clear plan or destination",                       ex:"I wandered around the old town for two hours. It was actually beautiful."},
+  {w:"panic",       def:"To suddenly feel very scared and not know what to do",              ex:"I panicked when my phone died. I just stood there for a moment."},
+  {w:"find",        def:"To discover where something or someone is",                         ex:"I found the hotel by accident — I walked past it three times."},
+  {w:"trust",       def:"To believe that someone is safe or honest",                         ex:"I trusted the old woman who pointed me to the right bus. She was right."},
+  {w:"follow",      def:"To go behind someone or to take the same path",                     ex:"I followed the signs for the city center. It took 40 minutes."},
+  {w:"explore",     def:"To go around a new place to discover what is there",                ex:"I explored the market by accident — and I found the best food of the trip."},
+  {w:"recognize",   def:"To see something and know what it is because you saw it before",    ex:"I finally recognized the corner near my hotel and I felt so relieved."},
+  {w:"survive",     def:"To manage to get through a difficult or dangerous situation",        ex:"I survived three days in Tokyo without speaking a word of Japanese."}
+];
+const perspectives=[
+  {
+    name:"Tomás Ávila",meta:"33 · Graphic Designer · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"Getting lost is my <strong>favorite part of traveling.</strong> I turn off Google Maps on purpose when I arrive somewhere new. That's when the real trip starts — when you have no idea where you are and you just have to figure it out. My best memories from every trip are from when I was completely lost."
+  },
+  {
+    name:"Karla Medrano",meta:"41 · Accountant · Guadalajara — la provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I don't think getting lost is romantic. I think it's <strong>irresponsible.</strong> I travel to enjoy the place — not to spend 2 hours stressed in the wrong neighborhood. I plan everything before I go. I download offline maps. I have a printed list of addresses. Getting lost is what happens when you don't prepare. It's not an adventure. It's a mistake."
+  },
+  {
+    name:"Sofía Reyes",meta:"27 · Nurse · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I got lost in Barcelona alone and I was <strong>terrified</strong> for the first 20 minutes. Then a local couple invited me to eat with them. We spent 3 hours together. I still talk to them. That would never have happened if I had known where I was going. Sometimes the best things start with a wrong turn."
+  },
+  {
+    name:"Don Felipe",meta:"55 · Retired Teacher · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"When I was young, getting lost was normal. We had no GPS, no smartphone, no data. We just walked, asked people, and figured it out. <strong>Young people today panic too fast.</strong> A dead phone is not an emergency. Two legs and a voice are enough to find your way in any city in the world."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Past simple + present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever been really lost — in a city, a neighborhood, or a trip? What happened?",chips:["I got lost once in...","The worst part was...","I was completely lost when...","I felt..."],tn:"Almost every adult has a getting-lost story — in Mexico or abroad. The storytelling here is the vocabulary exercise. Let the story run 45 seconds, then ask: 'How did you finally find your way?'"},
+    {num:"Q2",text:"Have you ever asked a stranger for help when you were lost or confused? How did it go?",chips:["I asked a stranger in...","The person was very...","They couldn't speak my language but...","I was surprised because..."],tn:"'Stranger' and 'ask for help' are key vocab activations. Push for the specific detail: 'What did you say to them? Did you use gestures? What language?'"},
+    {num:"Q3",text:"Did you ever discover something amazing because you went the wrong way?",chips:["I found an incredible...","It happened when I...","The wrong turn led me to...","I wouldn't have found it if..."],tn:"This is the positive version of getting lost — the accidental discovery. It reframes the experience and sets up the debate in Block 2. If nobody has a story: 'What about in your own city? Have you found something great by accident?'"}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for a reason · Not just 'I agree'",questions:[
+    {num:"Q4",text:"Is getting lost while traveling a good thing, a bad thing, or both? Why?",chips:["I think it's usually...","It depends on...","For me personally, getting lost makes me feel...","The good part is... but the bad part is..."],tn:"Tomás vs Karla from §3. Both are valid. Push: 'Give me one specific good thing and one specific bad thing — not just a general opinion.'"},
+    {num:"Q5",text:"Do you think it's OK to ask a stranger for directions — or is that dangerous?",chips:["I think it's usually safe because...","It depends on the city because...","You can tell if a person is safe by...","In my experience, most strangers..."],tn:"This connects to the Exit Shot scenario. Explore the cultural dimension: 'Do you think Mexicans are more or less helpful to lost strangers than people in other countries?'"},
+    {num:"Q6",text:"Is it better to travel with a plan — or to be spontaneous? Which kind of traveler are you?",chips:["I prefer to plan because...","I like to be spontaneous because...","I'm a mix of both because...","When I travel with family I..."],tn:"Karla (plan) vs Tomás (spontaneous) from §3. This is a personality question as much as a travel question. Push: 'Give me a specific example from a real trip.'"}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Short direct questions · Note errors at end",questions:[
+    {num:"Q7",text:"What would you do if you got lost in a foreign city with no phone signal and no money?",chips:["I would...","The first thing I would do is...","I would try to find...","I would feel... but then I would..."],tn:"This removes the modern safety nets — no phone, no money. Push students past 'I would panic' to specific actions: 'OK, after the panic — what's the first real step?'"},
+    {num:"Q8",text:"What would you do if you were traveling with a friend and they wanted to go one way — but you thought they were wrong?",chips:["I would say...","I would try to...","If I was sure, I would...","I would compromise because..."],tn:"This adds a social dimension to navigation — who leads, who follows, how you disagree. More interesting than pure logistics. Push: 'Has this actually happened to you?'"}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · The honest answer matters",questions:[
+    {num:"Q9",text:"Honest question: Have you ever pretended you knew where you were going — but you were completely lost?",chips:[],tn:"Almost everyone has done this. The admission is funny and honest. Let the laughter happen — it's productive. Then push: 'Why did you pretend? Who were you trying to impress?'"},
+    {num:"Q10",text:"Final question: Would your life be better if you traveled more — or do you think travel is overrated?",chips:[],tn:"The synthesis question. 'Travel is overrated' is a genuinely controversial position for a travel lab. Push anyone who says 'more travel' — what specifically would change? Push anyone who says 'overrated' — give me one reason."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

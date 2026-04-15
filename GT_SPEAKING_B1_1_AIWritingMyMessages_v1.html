@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.1 — AI Writing My Messages</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #10B981;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn {
+    background: var(--accent); color: #0F1923;
+    border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .toggle-btn.student { background: #2a3a4e; color: white; }
+
+  .hero {
+    height: 340px; position: relative; display: flex; align-items: flex-end;
+    background: url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80') center/cover no-repeat;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.92) 100%);
+  }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(16,185,129,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: #0F1923; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(16,185,129,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: #0F1923; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(16,185,129,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(16,185,129,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.1</span>
+      <span class="hero-tag plain">Technology &amp; Media</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>AI Writing My Messages</h1>
+    <p>Is it OK to use AI to write your texts, emails, and messages — or is that a little bit dishonest?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">The New York Times — 2024</div>
+      <div class="trigger-quote">"More and more people are using AI to write their texts, emails, and even love messages. Some people say it saves time. Others say: if AI wrote it, it isn't really from you."</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the headline out loud. Then ask: <em>"Have you ever used AI to write a message? Or do you know someone who does?"</em> Wait for reactions. If nobody talks first, try: <em>"What about a work email? Or a message to say sorry?"</em> Most students have done it at least once — this question unlocks the honesty fast.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('message')">
+        <div class="vocab-word">message</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A text, email, or note you send to someone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reply')">
+        <div class="vocab-word">reply</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Your answer to a message — what you write back</div>
+      </div>
+      <div class="vocab-card" onclick="speak('tone')">
+        <div class="vocab-word">tone</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How a message sounds — friendly, cold, serious, warm</div>
+      </div>
+      <div class="vocab-card" onclick="speak('trust')">
+        <div class="vocab-word">trust</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When you believe someone is honest and real with you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('shortcut')">
+        <div class="vocab-word">shortcut</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A faster or easier way to do something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('apology')">
+        <div class="vocab-word">apology</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A message or words to say sorry to someone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('habit')">
+        <div class="vocab-word">habit</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Something you do regularly, almost without thinking</div>
+      </div>
+      <div class="vocab-card" onclick="speak('opinion')">
+        <div class="vocab-word">opinion</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">What you think about something — your personal view</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vocab-word">lie</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When you say something that is not true</div>
+      </div>
+      <div class="vocab-card" onclick="speak('tool')">
+        <div class="vocab-word">tool</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Something you use to help you do a job better</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('type')">
+        <div class="vocab-word">type</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To write something on your phone or computer</div>
+      </div>
+      <div class="vocab-card" onclick="speak('copy')">
+        <div class="vocab-word">copy</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To take text from somewhere and use it yourself</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pretend')">
+        <div class="vocab-word">pretend</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To act like something is true when it isn't</div>
+      </div>
+      <div class="vocab-card" onclick="speak('save time')">
+        <div class="vocab-word">save time</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To do something faster so you have more time for other things</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check')">
+        <div class="vocab-word">check</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To look at something carefully to see if it is OK</div>
+      </div>
+      <div class="vocab-card" onclick="speak('depend on')">
+        <div class="vocab-word">depend on</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To need something or someone to do a job</div>
+      </div>
+      <div class="vocab-card" onclick="speak('sound like')">
+        <div class="vocab-word">sound like</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To seem a certain way when someone reads or hears you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('express')">
+        <div class="vocab-word">express</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To show what you feel or think in words</div>
+      </div>
+      <div class="vocab-card" onclick="speak('replace')">
+        <div class="vocab-word">replace</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To use something new instead of the old thing</div>
+      </div>
+      <div class="vocab-card" onclick="speak('admit')">
+        <div class="vocab-word">admit</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To say that something is true, even when it is hard</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I just copied what AI said.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I just copied what AI said."</div>
+          <div class="phrase-context">When you use AI text without changing it</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It doesn\'t sound like me at all.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It doesn't sound like me at all."</div>
+          <div class="phrase-context">When a message is too formal or too perfect — not your style</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Come on, everybody does it.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Come on, everybody does it."</div>
+          <div class="phrase-context">When you defend something others might judge</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I had no idea what to write.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I had no idea what to write."</div>
+          <div class="phrase-context">A common reason people use AI — they feel stuck</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is what it is.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It is what it is."</div>
+          <div class="phrase-context">When you accept something and move on without making a big deal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Andrea, 33</div>
+        <div class="opinion-role">Sales Rep, Querétaro</div>
+        <div class="opinion-text">"I use AI for work emails. <strong>It saves me a lot of time.</strong> My boss doesn't care how I write it — he cares about the result. If the client is happy, I'm happy."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🏫</div>
+        <div class="opinion-name">Ricardo, 45</div>
+        <div class="opinion-role">Teacher, Celaya</div>
+        <div class="opinion-text">"For me, a message is personal. If AI wrote it, <strong>it's not really from you.</strong> It's like sending someone a card you didn't sign. What's the point?"</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👩‍💻</div>
+        <div class="opinion-name">Sofía, 29</div>
+        <div class="opinion-role">Designer, CDMX</div>
+        <div class="opinion-text">"I used AI to write a message to my boyfriend after a fight. He <strong>loved it.</strong> He said it was the most beautiful thing I ever wrote. I didn't tell him. I don't feel bad about it."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍🔧</div>
+        <div class="opinion-name">Fernando, 38</div>
+        <div class="opinion-role">Technician, Monterrey</div>
+        <div class="opinion-text">"It depends on the message. <strong>Work emails? Fine.</strong> A message to my mom or my best friend? Never. Some things need to come from me."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Sofía used AI for a personal message and didn't tell her boyfriend. Is that OK — or is it a kind of <em>lie</em>? And does it matter if the result was good?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Have you ever used AI to write a message, email, or text? What was the situation?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most students will say yes — work emails are the most common. Let them be specific. Ask: "Did you change anything or just copy it?" That's where it gets interesting.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever received a message and thought "this doesn't sound like that person"? What did you think?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Yes! My coworker sent me an email that was super formal and perfect. He never writes like that. I think he used AI. It felt a bit strange."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Did you ever have trouble writing a message — maybe a difficult one, like saying sorry or asking for help? What did you do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This opens up vulnerability. Students often admit they rewrite difficult messages many times. Ask: "Would you use AI for that kind of message?" Let opinions divide naturally.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Is it OK to use AI for work emails? What about personal messages to friends or family?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most students draw the line at personal messages. Push them: "Why? The words are still about what you feel, right?" Let them defend their boundary.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Do you think AI messages are dishonest — or are they just a tool, like a dictionary or a spell-checker?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The core debate question. Some students say it's just a tool. Others feel the words should come from you. No right answer — let both sides talk.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you think younger people use AI more for messages than older people? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Generational debate — fun and easy to discuss. Model answer: "I think younger people are more comfortable with technology. But older people maybe think it's not right to use a machine for personal things."</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">What would you do if you found out your partner used AI to write a romantic message to you?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This is Sofía's situation reversed. Some students say they wouldn't care. Others say they would feel it wasn't real. Let both sides share without judging.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">What would you do if your boss asked you to always use AI to write client emails — no personal style, just the AI version?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I think I would do it. If the boss says so, it's the job. But I would feel a little strange. Like I'm not really there in my work."</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">If the message gets the right result — the person feels happy, the problem is solved — does it matter who or what wrote it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The philosophical closer for B1.1. Keep it simple: "Is the result more important than the process?" Most students have a strong feeling about this — let them defend it.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Be honest: do you think you write better messages than AI? Or does AI do it better?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Fun self-reflection closer. Most students laugh but then get honest. Some say AI is more correct but cold. Others say they prefer the human version, mistakes and all. Great ending energy.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">Your best friend is very sick in hospital. You don't know what to say. You use AI to write the message — and it comes out beautiful. Your friend says it made them feel much better. Do you tell them AI wrote it — or do you keep the secret?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. Answer this question: do you tell your friend — or not? Give your real reason. Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B1.1 · AI Writing My Messages · Technology &amp; Media</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    if (studentMode) { btn.textContent = 'Teacher Mode'; btn.classList.add('student'); }
+    else { btn.textContent = 'Student Mode'; btn.classList.remove('student'); }
+  }
+</script>
+</body>
+</html>

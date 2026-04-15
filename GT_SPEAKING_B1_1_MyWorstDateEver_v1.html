@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · My Worst Date Ever · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#10B981;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#10B981;border:1px solid #10B981;color:#0F1923;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1485182708500-e8f1f318ba72?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(16,185,129,.12);color:var(--ac);border:1px solid rgba(16,185,129,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(16,185,129,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(16,185,129,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(16,185,129,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(16,185,129,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(16,185,129,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">B1.1</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>My Worst<br>Date Ever</h1>
+    <p>Everyone has a story. The person who didn't stop talking. The restaurant that was closed. The moment you wanted to disappear. Let's hear yours.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · True Story Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">YouGov Survey · Dating Habits · 2022</div>
+    <div class="trigger-quote">"76% of people say they have had at least one date so bad they still talk about it years later. The most common reasons: the other person talked only about themselves, someone arrived very late, and one person was clearly still in love with their ex."</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the stat, then laugh a little. Ask: <em>"76% — that's almost everyone. Have you ever had a date like that?"</em> If the student is single or has been single, they'll have a story. If they've been with their partner for a long time, ask: <em>"What about before your relationship — or a friend's story?"</em> The goal is to get them laughing and talking fast. Bad date stories are the perfect B1.1 warm-up: they're short, funny, personal, and don't require abstract vocabulary.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Carolina · 29</div><div class="bub-role">Teacher · Celaya</div></div>
+      </div>
+      <div class="bub-body">"My worst date arrived 45 minutes late and didn't say sorry. Then he talked about his ex the whole time. <strong>I paid for my food and left.</strong> You have to respect yourself. If someone treats you badly on the first date, it doesn't get better."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Ricardo · 34</div><div class="bub-role">Chef · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I had a terrible first date — I spilled coffee on her, I forgot my wallet, and I got the restaurant name wrong. <strong>We've been together for 6 years.</strong> Sometimes a bad date is funny later. Don't judge everything on the first night."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍💼</span>
+        <div><div class="bub-name">Valeria · 38</div><div class="bub-role">HR Manager · CDMX</div></div>
+      </div>
+      <div class="bub-body">"I think most bad dates are bad because of nerves, not because of the person. <strong>First dates are very stressful.</strong> I always give a second chance if the person is kind, even if the first date was a disaster. One bad night doesn't tell you everything."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Diego · 42</div><div class="bub-role">Salesman · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"If you had a really bad date, maybe the problem was you too. <strong>We always tell the story from our side.</strong> What if you were boring? What if you were too nervous? Maybe the other person also has a bad date story — and you are the main character."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Diego is the provocateur because he flips the perspective — the student is always the victim in their own story. Push: <em>"Is Diego right? Could you be the bad date in someone else's story?"</em> This gets students to laugh and also think. It's a light but effective provocation for B1.1.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever had a really bad date? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The main story question. Let the student tell it from start to finish without interrupting. Then ask short follow-up questions: "How did you feel?" / "What did you do?" / "Did you see that person again?" Target: past simple storytelling. Key verbs: arrived, said, left, felt, thought.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever left a date early — or wanted to but didn't? Why?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push: "What stopped you from leaving?" Key vocab: excuse, polite, escape, stay, leave. Model: "I wanted to leave after 20 minutes but I felt bad. So I stayed 2 hours and checked my phone the whole time." Target: past simple + past continuous for what was happening at the time.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did you ever go on a date with someone you already knew it was a bad idea — but you went anyway?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Most people have a "I knew it was a bad idea" story. Push: "Why did you go?" / "Was it as bad as you thought?" Target: past simple + simple reason clauses (because, so, but). Fun, low-pressure storytelling question.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it OK to leave a date early if it's clearly not going well — or is that rude?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for: should, can, it's OK to / it's not OK to. Push: "How would you feel if someone left YOUR date early?" Model: "I think it's OK to leave if the person is rude or you feel uncomfortable. But if it's just boring — maybe stay 1 hour and be polite." Target: modals + opinion phrases.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think you can know in the first 10 minutes if a date is going to work — or do you need more time?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Push: "What do you feel in those first 10 minutes? Is it the same as love at first sight?" Target: present simple for beliefs + can/can't. Model: "I think I know very fast — not about love, but about if I want to see this person again. It's a feeling."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Who should pay on the first date? Is the old rule still OK today?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Polarizing but fun for B1.1. Push: "Has this ever been awkward — the moment of paying?" Target: should + cultural comparison. Key phrases: split the bill, take turns, offer to pay, feel awkward. No single right answer — the goal is opinion production.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your date arrived and looked completely different from their photos?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: second conditional (would + base verb). Push: "Would you stay? Would you say something?" Model: "I would stay for one coffee — because it's not nice to leave immediately. But I wouldn't go on a second date." Good for activating: honest, polite, fair, disappointed, surprised.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if a friend asked you: "How was your date?" — but it was a disaster? Would you tell the truth?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Light and fun. Target: second conditional + reported speech basics. Push: "What would you actually say?" Get the student to produce a short sentence: "I would probably say 'it was fine' and then change the subject." Role-play with teacher if possible.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is online dating a good way to meet people — or does it make everything worse?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Broad opinion question. Push: "Have you or someone you know tried it? What happened?" Target: present simple + past simple example. Key vocab: app, profile, swipe, match, meet in person, fake. Good for generating 3-4 exchanges if the student has a story or strong opinion.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Diego says maybe YOU were the bad date in someone's story. Could he be right about you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The self-reflection closer. Let the student think. Push: "Was there ever a date where you know you weren't your best? What were you like?" Most people will admit to one bad-date-self story — being too nervous, too distracted, too cold. Target: past simple + honest self-description adjectives: nervous, distracted, boring, unfair.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Dilemma</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">You are on a first date. After 20 minutes you know — 100% — that this is not the person for you. But you can see that they are really excited. They think it's going well. Dinner is just starting. What do you do?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me what you do — and give me the exact words you would say to that person. In English. No script."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">B1.1 · Speaking Lab · My Worst Date Ever · Relationships &amp; Personality · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'date',def:'A meeting with someone you might want to have a romantic relationship with',ex:'"I had a date last Saturday. It was a disaster."'},
+  {w:'nerves',def:'The feeling of being worried or scared before something important',ex:'"I had terrible nerves on my first date. I couldn\'t speak."'},
+  {w:'ex',def:'A past boyfriend, girlfriend, or partner',ex:'"He talked about his ex the whole time. It was so uncomfortable."'},
+  {w:'awkward',def:'Uncomfortable and difficult — a situation nobody knows how to handle',ex:'"The silence was so awkward. Nobody said anything for 2 minutes."'},
+  {w:'excuse',def:'A reason you give to explain or avoid something',ex:'"I invented an excuse to leave early — I said I had work tomorrow."'},
+  {w:'chemistry',def:'A natural connection or attraction between two people',ex:'"There was zero chemistry. We just had nothing to talk about."'},
+  {w:'compliment',def:'Something nice you say about a person',ex:'"He didn\'t give me one compliment the whole night. Not one."'},
+  {w:'check',def:'The bill at a restaurant',ex:'"When the check arrived, he looked at his phone. I paid for everything."'},
+  {w:'profile',def:'The information and photos someone puts on a dating app',ex:'"His profile said he was 32. He was at least 50."'},
+  {w:'connection',def:'A feeling that two people understand each other',ex:'"I felt an instant connection — and then she told me she had a boyfriend."'},
+];
+const verbs=[
+  {w:'arrive',def:'To get to a place',ex:'"He arrived 40 minutes late. No message, no call."'},
+  {w:'escape',def:'To leave a bad situation',ex:'"I escaped after the main course. I said I didn\'t feel well."'},
+  {w:'lie',def:'To say something that is not true',ex:'"I lied about my job. I don\'t know why — I was just nervous."'},
+  {w:'pretend',def:'To act as if something is true when it is not',ex:'"I pretended to enjoy the evening. Inside I was dying."'},
+  {w:'ghost',def:'To stop all contact with someone without saying goodbye',ex:'"He ghosted me after the date. No message, nothing."'},
+  {w:'spill',def:'To accidentally drop a liquid',ex:'"I spilled red wine on her dress. I wanted to disappear."'},
+  {w:'apologize',def:'To say sorry for something you did wrong',ex:'"He was 1 hour late and didn\'t apologize once."'},
+  {w:'text',def:'To send a message on your phone',ex:'"She was texting someone else the whole dinner. Very rude."'},
+  {w:'cancel',def:'To say you will not go to a plan you already made',ex:'"He cancelled 30 minutes before the date. By text."'},
+  {w:'pay',def:'To give money for something',ex:'"We both paid. But it felt weird — nobody offered first."'},
+];
+const phrases=[
+  {p:'It was so awkward',ctx:'Said when a situation was uncomfortable for everyone'},
+  {p:'I wanted to disappear',ctx:'Said when you feel extremely embarrassed or uncomfortable'},
+  {p:'There was zero chemistry',ctx:'When two people have no natural attraction or connection'},
+  {p:'I made an excuse to leave',ctx:'When you invented a reason to go home early'},
+  {p:'No way am I seeing them again',ctx:'After a date so bad you are 100% sure about your decision'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

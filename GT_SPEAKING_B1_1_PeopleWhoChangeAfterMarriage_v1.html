@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · People Who Change After Marriage · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#10B981;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#0F1923;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.33)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B1.1</span>
+      <span class="htag">Relationships & Personality</span>
+      <span class="htag">⚡ Edge: Medium</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">People Who Change<br>After Marriage</div>
+    <div class="hero-sub">You married one person. Now you live with someone different. Is this normal — or is it a problem nobody wants to talk about honestly?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real fact. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Gallup Wellbeing Report · 2023</div>
+    <div class="trigger-quote">"Married couples who say 'my partner has changed since we got married' are three times more likely to report feeling lonely at home. Change itself is not the problem. The surprise is."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Quick question — and you don't have to answer out loud if you don't want to: do you think you are the same person your partner married? Are they the same person you married? Today we're going to talk about how people change after marriage — and whether that's a problem or just life."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('habit')"><div class="vword">habit</div><div class="vdef">Something you do regularly, often without thinking about it</div><div class="vex">"After marriage, his bad habits became my daily problem."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('promise')"><div class="vword">promise</div><div class="vdef">Something you say you will do — or not do</div><div class="vex">"She made a lot of promises before the wedding. I remember all of them."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('effort')"><div class="vword">effort</div><div class="vdef">The energy and work you put into something</div><div class="vex">"Before the wedding, he made so much effort. After — nothing."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('space')"><div class="vword">space</div><div class="vdef">Time and freedom to be alone or to be yourself</div><div class="vex">"I need my own space. After marriage, that became a problem."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('routine')"><div class="vword">routine</div><div class="vdef">The regular pattern of your daily life</div><div class="vex">"Our routine became so boring. We stopped being interesting to each other."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('pressure')"><div class="vword">pressure</div><div class="vdef">A feeling that you have to do something — from family, society, or a partner</div><div class="vex">"The pressure to be perfect after marriage is real. Nobody talks about it."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('expectations')"><div class="vword">expectations</div><div class="vdef">What you think will happen — or what you think someone should be</div><div class="vex">"My expectations were too high. Or maybe he just stopped trying."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('communication')"><div class="vword">communication</div><div class="vdef">How you share your thoughts and feelings with another person</div><div class="vex">"We stopped communicating. We talked every day but said nothing real."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('honeymoon phase')"><div class="vword">honeymoon phase</div><div class="vdef">The exciting beginning of a relationship, before real problems appear</div><div class="vex">"The honeymoon phase lasted six months. Then reality arrived."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('independence')"><div class="vword">independence</div><div class="vdef">The freedom to make your own decisions and live your own life</div><div class="vex">"I lost my independence after marriage. I didn't expect that."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('change')"><div class="vword">change</div><div class="vdef">Become different from before</div><div class="vex">"He changed completely after the wedding. Like a different person."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('complain')"><div class="vword">complain</div><div class="vdef">Say that you are not happy with something</div><div class="vex">"She complains about everything now. Before the wedding — never."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('ignore')"><div class="vword">ignore</div><div class="vdef">Not pay attention to someone or something</div><div class="vex">"He ignores me when he gets home. He used to call me three times a day."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('pretend')"><div class="vword">pretend</div><div class="vdef">Act like something is true when it is not</div><div class="vex">"I think he pretended to be someone different until after the wedding."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('accept')"><div class="vword">accept</div><div class="vdef">Decide that something is okay, even if it is not perfect</div><div class="vex">"I had to accept that she changed — or leave. I chose to accept."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('adapt')"><div class="vword">adapt</div><div class="vdef">Change yourself to fit a new situation</div><div class="vex">"Marriage means adapting. The problem is when only one person adapts."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('grow')"><div class="vword">grow</div><div class="vdef">Develop and change in a positive way over time</div><div class="vex">"Some people grow together. Others grow in different directions."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('fight')"><div class="vword">fight</div><div class="vdef">Have a serious argument with your partner</div><div class="vex">"We fight about the same things every week. Nothing ever changes."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('settle down')"><div class="vword">settle down</div><div class="vdef">Become more calm and serious, usually after getting married</div><div class="vex">"He used to be fun. Then he settled down and became boring."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('talk about it')"><div class="vword">talk about it</div><div class="vdef">Have an honest conversation about a problem — instead of avoiding it</div><div class="vex">"I never wanted to talk about it. That was the real problem."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('He\'s not the same person I married')"><div><div class="phrase-text">He's not the same person I married</div><div class="phrase-context">The phrase people say when they feel their partner has changed too much — or showed their true self</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('The honeymoon is definitely over')"><div><div class="phrase-text">The honeymoon is definitely over</div><div class="phrase-context">Said when the exciting beginning of the relationship has ended and real life has started</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('We just stopped trying')"><div><div class="phrase-text">We just stopped trying</div><div class="phrase-context">When both people in the relationship stopped making an effort — and nobody talked about it</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('That\'s just who he is')"><div><div class="phrase-text">That's just who he is</div><div class="phrase-context">Accepting that a person will not change — sometimes with peace, sometimes with resignation</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Marriage is work')"><div><div class="phrase-text">Marriage is work</div><div class="phrase-context">The standard advice — but nobody explains what that work actually looks like day to day</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🦳</div><div><div class="b-name">Doña Carmen, 54</div><div class="b-role">Housewife · Celaya</div></div></div>
+      <div class="b-text">"Of course people change after marriage. <strong>That's not a problem — that's life.</strong> You change too. The secret is changing together. My husband and I are completely different from 25 years ago. But we grew in the same direction. That's the work."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍💻</div><div><div class="b-name">Mateo, 35</div><div class="b-role">Systems Analyst · CDMX</div></div></div>
+      <div class="b-text">"My ex-wife changed completely after the wedding. Before: kind, patient, romantic. After: cold, critical, always angry. <strong>I think some people show you a fake version until the ring is on.</strong> That's not change. That's a performance."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🎓</div><div><div class="b-name">Lucía, 31</div><div class="b-role">Psychologist · Monterrey</div></div></div>
+      <div class="b-text">"People don't change after marriage. <strong>They relax.</strong> Before, they were trying to impress you. After, they stop hiding. The real person was always there. We just didn't see it because we didn't want to."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(16,185,129,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👨‍🍳</div><div><div class="b-name">Fernando, 47</div><div class="b-role">Restaurant Owner · Guadalajara</div></div></div>
+      <div class="b-text">"People say their partner changed. But <strong>you also changed — you just don't see it.</strong> Maybe you became more critical. More tired. Less fun. The problem is not that they changed. The problem is that you both changed and nobody talked about it."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one sounds most true to you — and which one is the most uncomfortable to hear?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever seen someone change a lot after getting married — a friend, a family member, or a colleague? How did they change?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">If they're married, let them choose to talk about themselves or someone else. If they're single, this is great as observation. Push for specifics: "What exactly changed? Their personality, their habits, or their priorities?" Each answer needs a different vocabulary set.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever lost a close friendship because your friend got married and disappeared? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Very common story in Mexico. The married friend who stops going out, cancels plans, puts their partner first completely. Key vocabulary: "They changed priorities" / "Their partner didn't like us" / "They disappeared." Real and relatable for everyone in the room.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did you ever look at a married couple and think "they are not happy" — but they stayed together? What do you think kept them together?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Opens the conversation about why people stay. Options: kids, money, family pressure, habit, fear, hope. Each option tells you something about what that student believes love and marriage are really for. Great cultural and personal discussion.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think it's normal to change after getting married — or should a person stay the same as before?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The answer is almost always "it's normal to change a little." Push: "How much change is too much? When does 'natural growth' become 'you're a different person'?" The line is where the real conversation is.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it OK to ask your partner to change something about themselves — their habits, their friends, their style? Or is that controlling?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Great B1.1 debate. The "asking vs. controlling" question has no clean answer. Push: "What's the difference between 'I need you to stop doing X' and 'please change this because I love you'?" The intention, the frequency, and the thing being asked all matter.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Lucía says people don't change — they just stop pretending. Do you think that's true? Is the person before the wedding the real person, or the person after?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The psychologist's opinion is the most interesting because it reframes the whole question. "Which version is real?" Push: "If you were really in love before the wedding — was that feeling for a fake person? What does that mean?" Let the discomfort of that question stay.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your partner told you: "You're not the same person I married. I don't recognize you anymore"?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">High emotional charge, simple grammar. Push for three things: their first feeling (defensive? sad? guilty?), their first response, and what they'd actually do next. The distance between those three things is the most interesting part of their answer.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you realized, after 5 years of marriage, that you had changed too much — and you were not happy with the person you had become?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This turns the question inward — not about the partner, but about themselves. "Can you change back? Do you want to? What would that cost?" Model answer: "I would have to be honest with myself first. Then with my partner. That conversation would be very hard."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest: have you ever acted like a different person to impress someone — and then had to keep the act going for a long time?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Everyone has done this. The interesting question is: "How long did you keep the act? Did you ever tell them? Or did they just slowly find out who you really were?" Mateo's "fake version" opinion comes alive here — not from judgment, but from self-recognition.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Do you think you have changed since you got married — or since you started a serious relationship? Ask yourself honestly: is the change good, bad, or both?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The closer. This puts the question on the student — not their partner, not their friend, not a person they observed. Give time. If they say "I haven't changed" — gently: "Really? Do you think the people who love you would agree?" That's the real test.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your best friend comes to you and says: "My husband has completely changed since we got married. I don't love who he is now. But we have two kids, a house, and 8 years together. I don't know what to do." What do you say to her?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me what you say to your friend — word by word. Not what you think the right advice is. What you would really say. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · People Who Change After Marriage · Relationships & Personality</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

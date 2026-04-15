@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Netflix and the End of Real TV · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#10B981;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#0F1923;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(16,185,129,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(16,185,129,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(16,185,129,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(16,185,129,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(16,185,129,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Netflix and the End of Real TV</div>
+    <div class="hero-sub">Remember waiting all week for your favorite show? Remember watching commercials with your family? That world is gone — and nobody asked if we wanted to keep it.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One number that says everything about how TV watching has changed.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Nielsen Media Research · 2023</div>
+      <div class="trigger-quote">"For the first time in history, streaming services like Netflix and YouTube now get more viewing time than traditional TV in the United States. In Mexico, the number of cable TV subscribers has dropped 40% in five years."</div>
+      <div class="trigger-script">In 2010, almost every Mexican family had cable TV. Today, many households have cancelled it completely — replacing it with Netflix, Amazon, YouTube, and TikTok. Traditional TV channels are losing viewers every year, and many local shows and news programs are disappearing. The question is whether something important is being lost — or whether this is simply how progress works.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Start with a show of hands: <em>"Who still has cable TV at home? Who cancelled it in the last 3 years? Who never had it — went straight to streaming?"</em> Let the numbers create the conversation. Then: <em>"Think of a TV show you remember watching as a child with your family. What was it?"</em> Let 2–3 students name a show. That nostalgia is your entry point.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Words for the way you actually watch things now.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('series')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">series</div>
+        <div class="vc-def">A TV show with multiple episodes — often released all at once on streaming</div>
+      </div>
+      <div class="vocab-card" onclick="speak('episode')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">episode</div>
+        <div class="vc-def">One part of a TV series — "just one more episode" is a lie we tell ourselves</div>
+      </div>
+      <div class="vocab-card" onclick="speak('remote control')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">remote control</div>
+        <div class="vc-def">The thing you used to fight over with your family to change the channel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('commercial')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">commercial</div>
+        <div class="vc-def">An advertisement during a TV show — the thing streaming promised to eliminate</div>
+      </div>
+      <div class="vocab-card" onclick="speak('subscription')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">subscription</div>
+        <div class="vc-def">A monthly payment for access to a service — most people have 2–3 of them</div>
+      </div>
+      <div class="vocab-card" onclick="speak('channel')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">channel</div>
+        <div class="vc-def">A specific TV station — something younger people rarely think about anymore</div>
+      </div>
+      <div class="vocab-card" onclick="speak('spoiler')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">spoiler</div>
+        <div class="vc-def">Information about what happens in a show before you watch it — the worst thing a friend can do</div>
+      </div>
+      <div class="vocab-card" onclick="speak('password')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">password</div>
+        <div class="vc-def">What you share with your whole family — until Netflix said no more</div>
+      </div>
+      <div class="vocab-card" onclick="speak('binge')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">binge</div>
+        <div class="vc-def">Watching many episodes of a show in one sitting — often until 2am on a work night</div>
+      </div>
+      <div class="vocab-card" onclick="speak('schedule')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">schedule</div>
+        <div class="vc-def">A fixed time when something is on TV — something streaming completely eliminated</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('stream')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">stream</div>
+        <div class="vc-def">To watch video online without downloading it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('binge-watch')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">binge-watch</div>
+        <div class="vc-def">To watch multiple episodes of a show back-to-back without stopping</div>
+      </div>
+      <div class="vocab-card" onclick="speak('cancel')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">cancel</div>
+        <div class="vc-def">To end a subscription — something people say they'll do and often forget</div>
+      </div>
+      <div class="vocab-card" onclick="speak('recommend')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">recommend</div>
+        <div class="vc-def">To suggest a show or movie to someone — or what an algorithm does for you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('skip')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">skip</div>
+        <div class="vc-def">To jump past the intro, the commercial, or the slow part — we can do this now</div>
+      </div>
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">share</div>
+        <div class="vc-def">To give your Netflix password to your whole family — until they changed the rules</div>
+      </div>
+      <div class="vocab-card" onclick="speak('miss')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">miss</div>
+        <div class="vc-def">To feel sad about something that no longer exists — like watching TV together as a family</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scroll through')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">scroll through</div>
+        <div class="vc-def">To browse options on a streaming app — often for 20 minutes before choosing nothing</div>
+      </div>
+      <div class="vocab-card" onclick="speak('get hooked on')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">get hooked on</div>
+        <div class="vc-def">To become obsessed with a show and need to watch the next episode immediately</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lose track of time')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lose track of time</div>
+        <div class="vc-def">To not notice how many hours have passed — something streaming is designed to make happen</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('Just one more episode')">
+        <div class="pi-phrase">"Just one more episode."</div>
+        <div class="pi-context">Said at midnight. Never true.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not know what to watch')">
+        <div class="pi-phrase">"I don't know what to watch."</div>
+        <div class="pi-context">Said after 25 minutes of scrolling through 10,000 options on Netflix.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Do not spoil it for me')">
+        <div class="pi-phrase">"Don't spoil it for me!"</div>
+        <div class="pi-context">The new social rule of streaming — everyone watches at a different time, so everyone is always behind.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I am still paying for that')">
+        <div class="pi-phrase">"I'm still paying for that?"</div>
+        <div class="pi-context">Said when you check your bank account and realize you forgot to cancel a streaming service 4 months ago.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('We used to watch this together as a family')">
+        <div class="pi-phrase">"We used to watch this together as a family."</div>
+        <div class="pi-context">The nostalgia that hits when you realize everyone in the house is now watching something different, alone, on their own screen.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four ways of watching — and thinking about — TV. Which one is closest to you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">📺</div>
+          <div>
+            <div class="op-name">Doña Carmen, 62</div>
+            <div class="op-role">Retired Teacher · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I miss the old TV. We all sat down together at 8pm and watched the same show. <strong>Now everyone is in a different room on a different screen.</strong> My grandchildren don't even know what a commercial break is. Something changed — and I don't think it was better."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🎉</div>
+          <div>
+            <div class="op-name">Diego, 26</div>
+            <div class="op-role">Graphic Designer · CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Old TV was terrible. You had to watch what they decided, when they decided. <strong>Now I watch what I want, when I want.</strong> I've watched shows from Korea, Spain, Japan. I would never have found them on cable. Streaming is one of the best things that happened."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😅</div>
+          <div>
+            <div class="op-name">Lucía, 34</div>
+            <div class="op-role">Nurse · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I have Netflix, Disney+, HBO, and Amazon Prime. I pay almost 600 pesos a month for streaming. <strong>That's more than I used to pay for cable.</strong> And I still say 'I have nothing to watch.' I think I made a bad deal."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤨</div>
+          <div>
+            <div class="op-name">Rodrigo, 45</div>
+            <div class="op-role">Engineer · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "We cancelled cable and thought we saved money. Then we got Netflix. Then Disney. Then HBO. <strong>Now we pay more than before — and we never agree on what to watch.</strong> The difference is that before, the TV decided for us and we were fine with it. Now we have infinite choice and we're never happy. That says a lot about people."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people do you agree with most? Which one says something you've actually thought but maybe never said?" Rodrigo is the provocateur — his "infinite choice makes us unhappy" argument is counterintuitive but backed by real psychology research on the paradox of choice. Most B1.1 students will recognize the feeling even if they haven't named it.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Stories from the sofa. No wrong answers.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever binge-watched a series until very late at night? What show was it — and did you feel bad the next morning?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Everyone has done this. The follow-up is key: "What time did you stop? Was it worth it?" Push for the specific show and episode. This is a great storytelling moment — past simple for the events, present perfect for the question. Model: "Have you ever binge-watched...? Yes, I watched Breaking Bad until 3am on a Tuesday."
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever spent 20 minutes looking for something to watch — and then given up? What did you do instead?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The "paradox of choice" experience — too many options, no decision. This connects to Rodrigo's point. Most students will say they went to their phone, YouTube, or just went to sleep. The irony: more content, less watching. Let them name their own escape route.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Do you remember a show you watched with your family when you were young? What was it — and does your family still watch TV together?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This activates the nostalgia thread from the trigger. Common Mexican answers: Chespirito, telenovelas, El Chavo. The contrast with today — everyone on their own screen — is the emotional core of the conversation. "Used to" is a great grammar structure to listen for and encourage.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is it okay to watch a show on your phone while you are eating with your family? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          A household debate most families have had. Push: "Do you do it? Does your family do it? Does it bother you?" The gap between what people think is okay and what they actually do is always interesting. No judgment.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think streaming services are good for local Mexican culture — or are they replacing Mexican shows with American ones?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Culture + media question. Netflix does produce some Mexican content (Club de Cuervos, Luis Miguel, La Casa de las Flores) but most content is American or international. Push: "When was the last time you watched a Mexican show? On what platform?" The answer is usually revealing.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Is it better to watch one episode per week and wait — or get the whole season at once? What's lost when you don't have to wait?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The anticipation vs. instant gratification debate. Old TV made you wait — and that waiting was part of the experience. Water cooler conversations, guessing what happens next. Streaming eliminates that shared cultural moment. See if they can name what's lost without you telling them.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if Netflix disappeared tomorrow and you could only watch regular TV with commercials?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional — and a fun one. Push for honest reactions: "Would you be okay? Or would you feel like something important was gone?" Most students realize they've become more dependent on streaming than they thought. The commercial detail is key — that's the part that feels most impossible to go back to.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if your family said: "No screens during dinner — ever"? Would you be okay with that rule?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional + family dynamics. This is a rule some families already have — and many more argue about. Push: "Who has the rule in your house? Who breaks it?" The family tension around screens is relatable and easy to talk about at B1.1 level.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">How many hours did you watch TV or streaming last week? Are you happy about that number?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Like the screen time question in Lab 1 — specific, personal, slightly uncomfortable. Don't let them say "not that much." Ask: "Estimate. Give me a number." Then: "Is that how you planned to spend that time?" The gap between planned and actual use is the real conversation.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Think about the last week. Did you watch something that you don't really remember — just background noise while you were on your phone?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The "background noise" watching phenomenon — streaming on TV while scrolling on phone. Most people do this. The point isn't guilt — it's awareness. Two screens, no attention for either. End with: "Is that how you want to spend your free time?" Don't answer it for them.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B1.1 Netflix and the End of Real TV</div>
+      <div class="exit-question">Your family wants to have dinner together every night this week with no phones and no TV — just talking. For 7 days. Are you in?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Yes or no — and tell me: what's the hardest part of that challenge for you personally?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The simplicity is the power — this exit shot doesn't need explanation or context. Every student immediately understands what 7 dinners with no screens means for their specific family. The "hardest part" question creates an honest voice note. End: <em>"Send me the voice note before Thursday. And tell me honestly — did you actually try it?"</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · Netflix and the End of Real TV · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

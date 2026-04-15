@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Spenders vs Savers · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#10B981;--ac2:rgba(16,185,129,0.12);--ac3:rgba(16,185,129,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(16,185,129,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.1</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">People Who Love to Spend,<br>People Who Love to Save</div>
+    <div class="hero-sub">Are you a spender or a saver? And what does your answer say about you?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">BBC Money · 2023</div>
+    <div class="trigger-quote">"Studies show that most couples fight about money more than anything else — and the number one cause is not how much they earn, but how differently they think about spending it."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask: "Are you a spender or a saver? Be honest." Wait for quick answers. Then: "Think about someone close to you — your partner, your family, your best friend. Are they the same as you or the opposite? Does that cause problems?" Keep it light and personal to start.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Conversation</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one is you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">💸</div><div><div class="op-name">Lucía · 33</div><div class="op-role">Hairdresser · Celaya</div></div></div>
+      <div class="op-text">I work hard and I spend my money. I don't feel guilty. <strong>Life is short — I want to enjoy it now, not at 70.</strong> My friends say I'm irresponsible. But they're also boring. I pay my bills. What I do with the rest is my business.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🏦</div><div><div class="op-name">Ricardo · 46</div><div class="op-role">Accountant · Querétaro</div></div></div>
+      <div class="op-text">I save 30% of my salary every month. Always. <strong>It is not about being boring — it is about being free.</strong> I don't worry about losing my job or having an emergency. That peace of mind is worth more than any trip or new phone.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Mateo · 28</div><div class="op-role">Waiter · CDMX</div></div></div>
+      <div class="op-text">Saving money is a luxury. <strong>I earn $8,000 pesos a month. After rent and food, there is nothing to save.</strong> People who talk about "just save more" have never been poor. It is easy to be responsible with money when you have enough of it.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🤷</div><div><div class="op-name">Carolina · 40</div><div class="op-role">Teacher · Monterrey</div></div></div>
+      <div class="op-text">I think it depends on your personality. I used to spend everything. Then I had kids and everything changed. <strong>You don't choose to be responsible — life just makes you.</strong> I think most people change when something forces them to.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person do you agree with most? Which one sounds like someone you know?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever spent money on something and felt really bad about it later? What was it?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has a story. Push for specifics: "How much was it? Did you tell anyone? Do you still have it — or did you throw it away?" The embarrassment is where the best language comes out.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever had a moment in your life when you had no money at all? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes. When I first moved to the city, I had $200 pesos for the whole week. I ate a lot of rice. I remember checking my phone to see if my salary came in, like every 10 minutes. It was horrible — but it taught me a lot."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did your parents teach you about money when you were young? What did they say?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for childhood memories and family language. Push: "Did they show you how to save, or did they just say 'money doesn't grow on trees'? Did you follow their advice — or do the opposite?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it OK to spend all your money if you enjoy it — as long as you pay your bills? Or do you always need to save?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> No wrong answer — push them to commit and defend it. "If you spend everything and you get sick or lose your job, what happens? Is that a personal problem or a social problem?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think spenders and savers can be happy together in a relationship? Or is money a deal-breaker?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think it is very hard. My sister is a saver and her husband spends everything. They fight about money almost every week. Love is real — but so are the bills."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you believe rich people are rich because they are smart with money — or because they were lucky?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Fun debate question. Push both sides: "Is there anyone you know personally who is rich from their own decisions? What did they do?" Keeps it real and B1.1 friendly.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if you got $50,000 pesos right now — a bonus, a gift, anything? Be honest.</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly? I would pay my credit card. Then maybe take a trip with my family. And try to save $10,000. But the truth is I don't know — I've never had $50,000 pesos extra in my life."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if your partner spent all your shared savings on something you didn't agree with?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Strong emotional scenario. Push for the real reaction: "Would you argue? Leave? Forgive? How long would you be angry?" The emotion drives authentic language at B1.1.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Are you happy with how you use your money right now — or do you wish you did things differently?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The honest self-reflection question. Give real space. Most people will say they wish they saved more. Push: "What stops you? Is it a habit, a personality thing, or something else?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If your friends saw your bank account right now, would you be embarrassed — or proud?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Embarrassed. Definitely. Not because I spend on bad things — but because I don't have much saved. And I know why. I just don't want to admit it."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">You have $20,000 pesos saved. It took you one year. Your best friend calls you — they need the money for a family emergency. If you give it, you start from zero again. If you don't, they will be in serious trouble. What do you do?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: Do you give the money — yes or no? And why?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.1 · Money &amp; Finance · Spenders vs Savers · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"savings",def:"Money you keep for the future, not for daily use",ex:'"She had $30,000 in savings. She never touched it. Her friends called her boring."'},
+  {w:"bill",def:"Money you must pay — rent, electricity, phone, credit card",ex:'"He always paid his bills first. Then spent what was left."'},
+  {w:"budget",def:"A plan for how to use your money each month",ex:'"She made a budget every Sunday. She never followed it. But she made it."'},
+  {w:"debt",def:"Money you owe to someone — a bank, a friend, a store",ex:'"He had $15,000 in credit card debt and no idea how he got there."'},
+  {w:"salary",def:"The money you earn from your job every month",ex:'"Her salary was good. The problem was it disappeared every month."'},
+  {w:"temptation",def:"A strong desire to buy or do something you probably shouldn\'t",ex:'"The shoes were a temptation she didn\'t fight. Again."'},
+  {w:"goal",def:"Something you want to achieve in the future, like saving for a trip",ex:'"His goal was to save enough for a vacation. He failed for three years in a row."'},
+  {w:"emergency",def:"A sudden, serious problem that needs money immediately",ex:'"She had no savings for emergencies. When the car broke, she panicked."'},
+  {w:"habit",def:"Something you do regularly, often without thinking",ex:'"Buying coffee every morning was a habit. At $60 a day, it added up fast."'},
+  {w:"regret",def:"The sad feeling that you made a bad decision",ex:'"He had zero regret about the phone. Ask him again in six months."'},
+];
+const verbs=[
+  {w:"spend",def:"To use money to buy something",ex:'"She spends money like it\'s water. Her words, not mine."'},
+  {w:"save",def:"To keep money instead of spending it",ex:'"He saved $500 pesos a month. In two years he had enough for a trip."'},
+  {w:"waste",def:"To use money on something that has no value to you",ex:'"I wasted $3,000 on a gym membership I used twice."'},
+  {w:"owe",def:"To have to give money back to someone",ex:'"She owes her sister $8,000. It has been a year. No one talks about it."'},
+  {w:"afford",def:"To have enough money to buy something",ex:'"He couldn\'t afford the new phone but bought it anyway. Big mistake."'},
+  {w:"borrow",def:"To use someone else\'s money with the promise to return it",ex:'"She borrowed $5,000 from her mom. She paid it back. Most people don\'t."'},
+  {w:"lend",def:"To give someone money with the expectation they will return it",ex:'"I never lend money to friends. It kills the friendship."'},
+  {w:"compare",def:"To look at your situation next to someone else\'s",ex:'"He compared his salary to his colleague\'s and felt terrible all week."'},
+  {w:"cut back",def:"To spend less money on something",ex:'"She cut back on eating out. Saved $2,000 pesos the first month."'},
+  {w:"treat yourself",def:"To buy something nice for yourself as a reward",ex:'"She worked hard all month. She treated herself to new shoes. No regrets."'},
+];
+const phrases=[
+  {t:'"I\'m broke until Friday."',c:"What you say when your money is gone and payday is far away."},
+  {t:'"I deserve this."',c:"The classic justification before buying something you probably don\'t need."},
+  {t:'"It was on sale."',c:"The most popular excuse for spending money you didn\'t plan to spend."},
+  {t:'"I\'ll save next month."',c:"Something people say every month. And then next month comes."},
+  {t:'"Money comes and goes."',c:"What spenders say. Savers disagree strongly."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Living With Roommates From Hell · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #10B981;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #10B981; border: none; color: #0F1923;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(16,185,129,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(16,185,129,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(16,185,129,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(16,185,129,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B1.1</span>
+      <span class="tag">Daily Life &amp; Lifestyle</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Living With Roommates From Hell</h1>
+    <p>Dirty dishes, loud music, missing money, no privacy. Everyone has a roommate story. What is yours?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"In a survey of 2,000 adults, 72% said they had at least one roommate they would describe as 'difficult' or 'impossible to live with.' The most common complaints: dirty spaces, loud noise at night, and not paying rent on time."</div>
+      <div class="quote-source">— YouGov Survey / The Guardian, 2022</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Okay — hands up if you have ever lived with a roommate." [Pause.] "Now keep your hand up if that roommate was a little bit... crazy." [Laugh.] "Today we are going to share our worst roommate stories. Don't be shy — the worse, the better."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('roommate')">
+        <div class="vocab-word">roommate</div>
+        <div class="vocab-def">a person you share a house or apartment with</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('rent')">
+        <div class="vocab-word">rent</div>
+        <div class="vocab-def">the money you pay every month to live somewhere</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('mess')">
+        <div class="vocab-word">mess</div>
+        <div class="vocab-def">a very dirty or disorganized space</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('noise')">
+        <div class="vocab-word">noise</div>
+        <div class="vocab-def">loud sounds that bother you, especially at night</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('privacy')">
+        <div class="vocab-word">privacy</div>
+        <div class="vocab-def">time and space to be alone without other people around</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('rule')">
+        <div class="vocab-word">rule</div>
+        <div class="vocab-def">an agreement about how to live together at home</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('fight')">
+        <div class="vocab-word">fight</div>
+        <div class="vocab-def">a serious argument between two people living together</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('dishes')">
+        <div class="vocab-word">dishes</div>
+        <div class="vocab-def">plates, cups, and pots left dirty in the kitchen</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('space')">
+        <div class="vocab-word">space</div>
+        <div class="vocab-def">the areas in the house that you share with your roommate</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stranger')">
+        <div class="vocab-word">stranger</div>
+        <div class="vocab-def">someone you do not know — sometimes the person you end up living with</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vocab-word">share</div>
+        <div class="vocab-def">to use the same space, food, or things with another person</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('complain')">
+        <div class="vocab-word">complain</div>
+        <div class="vocab-def">to say that something is wrong or that you are not happy about it</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('steal')">
+        <div class="vocab-word">steal</div>
+        <div class="vocab-def">to take something that is not yours — like food from the fridge</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('argue')">
+        <div class="vocab-word">argue</div>
+        <div class="vocab-def">to disagree with someone loudly and angrily</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('move out')">
+        <div class="vocab-word">move out</div>
+        <div class="vocab-def">to leave a shared home because you cannot live there anymore</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('clean')">
+        <div class="vocab-word">clean</div>
+        <div class="vocab-def">to wash dishes, floors, or the bathroom — the thing your roommate never does</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('bother')">
+        <div class="vocab-word">bother</div>
+        <div class="vocab-def">to annoy or disturb someone at home</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vocab-word">ignore</div>
+        <div class="vocab-def">to pretend you did not see the mess or hear the complaint</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pay back')">
+        <div class="vocab-word">pay back</div>
+        <div class="vocab-def">to return money that someone lent you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('put up with')">
+        <div class="vocab-word">put up with</div>
+        <div class="vocab-def">to accept something bad for a long time without complaining</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I was done.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I was done."</div>
+          <div class="phrase-context">When you have reached your absolute limit and cannot take it anymore.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"No way!"</div>
+          <div class="phrase-context">A strong reaction of surprise or refusal — "I can not believe that happened!"</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Come on!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Come on!"</div>
+          <div class="phrase-context">What you say when someone does something annoying — again.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('That was the last straw.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That was the last straw."</div>
+          <div class="phrase-context">The final problem that made you decide to do something about the situation.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I could not take it anymore.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I couldn't take it anymore."</div>
+          <div class="phrase-context">When the situation was so bad you had to leave or do something.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Carolina, 27</div>
+            <div class="op-role">Student, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"My roommate never cleaned. Ever. I cleaned everything, every week, for six months. <strong>One day I just stopped.</strong> In two weeks the kitchen was disgusting. She still did not clean. That was when I decided to move out."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😅</div>
+          <div>
+            <div class="op-name">Ricardo, 33</div>
+            <div class="op-role">Chef, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"I was probably the difficult roommate, honestly. I worked nights, so I came home at 3am and made food. <strong>I thought I was being quiet.</strong> My roommate did not agree. We fought a lot. Now I live alone and everyone is happier."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤝</div>
+          <div>
+            <div class="op-name">Sofía, 30</div>
+            <div class="op-role">Nurse, León</div>
+          </div>
+        </div>
+        <div class="op-text">"I had three different roommates and I am still friends with all of them. <strong>The secret is simple: talk about problems immediately.</strong> Do not wait two months and then explode. Say it nicely, say it early, and most people will listen."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Diego, 44</div>
+            <div class="op-role">Accountant, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"Living with a bad roommate was the best thing that happened to me. <strong>It made me work harder to afford my own place.</strong> I was so tired of other people's problems that I got three extra clients in one year just so I could move out. Best motivation I ever had."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which person do you relate to most? Have you ever been in a situation like one of these? Which one surprised you?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Have you ever lived with a roommate? What was the best or worst part?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Great opener — everyone has a strong opinion. If they never had a roommate, ask: "Would you? Why or why not?" Present perfect + past simple will come naturally. Let the story develop.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever had a big argument with someone you lived with? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple narrative — "We argued because..." "One day he/she..." This is where great stories come out. Don't rush. Encourage details: "And then what happened?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Did you ever put up with a bad situation at home for too long before doing something about it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "why do we wait?" angle. Most students have done this. Model: "Yes, I put up with a really messy roommate for four months before I finally said something." Good for past simple + adverbs of time.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">What do you think is the most important rule when you live with someone else?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Good for modals: "You should always... / You must never..." Expect answers like: keep it clean, be quiet at night, pay rent on time. Ask: "What happens if someone breaks that rule?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Is it better to live with a close friend or with a stranger? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Classic debate. Many students have learned the hard way that friends can become enemies when you live together. "It is better to... because..." Good for comparative structures and "in my experience."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think it is okay to eat your roommate's food without asking? What about using their things?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "small crimes" of shared living. Very relatable. Generates funny stories. Modal: "You should always ask first." "It is never okay to take..." Expect strong opinions.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">What would you do if your roommate stopped paying rent and had no money?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. Very concrete situation — loyalty vs money. "If my roommate stopped paying rent... I would..." Push: "How long would you give them? One month? Two? What if they were your best friend?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What would you do if you came home and found your roommate had a party in your house without asking you?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Fun and relatable scenario. "If I came home and found a party... I would..." Expect range from "I would join the party" to "I would ask them to leave immediately." Both authentic — great for debate.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Are you a good roommate? Be honest — what do you do that could bother other people?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Self-reflection. The twist: we always blame the other person. This asks students to consider their own behavior. Model: "I think I am mostly good, but I am quite loud in the morning and I forget to clean the bathroom sometimes."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Have you ever been the "difficult" roommate — and only realized it later?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The Ricardo moment. Like the chef in the Opinion Wall — sometimes we are the problem. This can generate surprising honesty and humor. Allow silence. The best answer is often the most honest one.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your best friend needs a place to live. They ask to stay with you for "just one month." It has now been four months. They are messy, loud, and they eat your food. But they are your best friend and they have nowhere to go. What do you do?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English answering the Exit Shot. What do you say to your friend — and how do you say it?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B1.1 · Daily Life &amp; Lifestyle · Living With Roommates From Hell
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

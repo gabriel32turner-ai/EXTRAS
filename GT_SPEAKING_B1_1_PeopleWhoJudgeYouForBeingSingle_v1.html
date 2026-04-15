@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.1 — People Who Judge You for Being Single</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#10B981;--ac-dim:rgba(16,185,129,.08);--ac-mid:rgba(16,185,129,.18);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.hdr-brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.mode-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#modeBtn{border:none;cursor:pointer;padding:7px 16px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;background:var(--ac);color:#0F1923}
+#modeBtn.student{background:#2a3a4e;color:white}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1516575334481-f85287c2c82d?w=1400&q=80&fit=crop');background-size:cover;background-position:center;opacity:.2}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.98) 0%,rgba(15,25,35,.65) 55%,rgba(15,25,35,.25) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid}
+.tag-level{color:var(--ac);border-color:var(--ac);background:rgba(16,185,129,.08)}
+.tag-cat{color:var(--muted);border-color:var(--border)}
+.tag-spicy{color:#f87171;border-color:#f87171;background:rgba(248,113,113,.08)}
+.tag-time{color:var(--muted);border-color:var(--border)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:40px}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-hd-l{display:flex;align-items:center;gap:14px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:.5px;margin-top:2px}
+.timer-pill{flex-shrink:0;background:var(--ac-dim);border:1px solid var(--ac-mid);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;text-transform:uppercase}
+
+.quote-box{border-left:3px solid var(--ac);background:var(--card);padding:20px 24px;margin-bottom:16px}
+.quote-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.quote-text{font-size:16px;font-style:italic;color:var(--text);line-height:1.6}
+.trigger-script{background:rgba(16,185,129,.04);border:1px solid var(--ac-mid);padding:14px 18px;font-size:13px;color:var(--muted);margin-top:12px}
+.trigger-script strong{color:var(--ac)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px}
+.v-card{background:var(--card);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.v-card:hover,.v-card:active{border-color:var(--ac);background:var(--ac-dim)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--ac);margin-bottom:2px}
+.v-type{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--muted);line-height:1.4}
+.vocab-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:16px}
+.phrases-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--ac)}
+.phrase-text{font-size:13.5px;color:var(--text);font-style:italic}
+.phrase-use{font-size:12px;color:var(--muted);margin-top:2px}
+.ph-icon{font-size:14px;flex-shrink:0}
+
+.opinions{display:flex;flex-direction:column;gap:12px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px 20px}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{width:36px;height:36px;background:var(--ac-dim);border:1px solid var(--ac-mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--text)}
+.op-text{font-size:13.5px;color:var(--text);line-height:1.65}
+.op-text strong{color:var(--ac)}
+.op-provocateur{border-color:rgba(248,113,113,.3)}
+.op-provocateur .op-avatar{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.3)}
+.provoc-badge{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#f87171;margin-left:auto}
+.op-instruction{background:var(--ac-dim);border:1px solid var(--ac-mid);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--ac)}
+
+.q-blocks{display:flex;flex-direction:column;gap:24px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-block-lbl::after{content:'';flex:1;height:1px;background:var(--ac-mid)}
+.questions{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14.5px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.tip-btn{border:1px solid var(--ac-mid);background:none;color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background .15s}
+.tip-btn:hover{background:var(--ac-dim)}
+.tip-content{display:none;margin-top:12px;background:rgba(16,185,129,.04);border-top:1px solid var(--ac-mid);padding-top:12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.tip-content strong{color:var(--ac)}
+.tip-content.show{display:block}
+
+.exit-box{border:2px solid var(--ac);background:var(--ac-dim);padding:28px 32px;margin-bottom:20px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:18px}
+.hw-box{background:var(--card);border:1px solid var(--border);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.hw-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hw-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.hw-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+footer{border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:11px;color:var(--muted)}
+footer strong{color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1px}
+
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+  .exit-box{padding:20px 18px}
+  .exit-q{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="hdr-right">
+    <span class="mode-tag teacher-only" id="modeTag">Teacher Mode</span>
+    <button id="modeBtn" onclick="toggleMode()">Student Mode</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="tag tag-level">B1.1</span>
+      <span class="tag tag-cat">Social Issues &amp; Society</span>
+      <span class="tag tag-spicy">🌶 Spicy</span>
+      <span class="tag tag-time">⏱ 50 min</span>
+    </div>
+    <h1>People Who Judge You<br>for Being Single</h1>
+    <p class="hero-sub">Family dinners, nosy questions, the pressure to be in a relationship — and why it's nobody's business.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🪝</span>
+      <div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">Phase 1 · Open the conversation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">4 min</div>
+  </div>
+  <div class="quote-box">
+    <div class="quote-source">The Guardian · 2023</div>
+    <div class="quote-text">"The number of people living alone has doubled in the last 30 years. But research shows that single people still face more social judgment than any other group in their personal lives."</div>
+  </div>
+  <div class="trigger-script teacher-only">
+    <strong>Teacher script:</strong> Read the stat. Then ask: <em>"Who here has a family member who asks about your relationship status every time they see you?"</em> Wait for hands or laughter. Then: <em>"What do they say? What do you answer?"</em> One or two quick stories are enough to open.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💉</span>
+      <div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Phase 2 · Click any card to hear pronunciation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">8 min</div>
+  </div>
+  <div class="vocab-lbl">Nouns</div>
+  <div class="vocab-grid" id="nouns"></div>
+  <div class="vocab-lbl">Verbs</div>
+  <div class="vocab-grid" id="verbs"></div>
+  <div class="vocab-lbl">Colloquial Phrases — click to hear</div>
+  <div class="phrases-list" id="phrases"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🧱</span>
+      <div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">10 min</div>
+  </div>
+  <div class="opinions">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Sofía, 34 — Designer, Guadalajara</div></div>
+      </div>
+      <div class="op-text">"I'm 34 and single. Every Christmas my family asks me 'But why? You're so pretty!' <strong>I've stopped explaining myself.</strong> I just say 'I'm happy' and change the subject. Being single is not a problem that needs a solution. It's a choice."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Fernando, 45 — Taxi driver, CDMX</div></div>
+      </div>
+      <div class="op-text">"I ask my nephew about his girlfriend because I care about him. <strong>That's not judging — that's love.</strong> In my family we talk about everything. If you don't want to answer, fine. But don't get angry when I ask. I'm just trying to be close to you."</div>
+    </div>
+
+    <div class="opinion-card op-provocateur">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Lucía, 50 — Housewife, Monterrey</div></div>
+        <span class="provoc-badge">provocateur</span>
+      </div>
+      <div class="op-text">"I'm sorry, but if you are 40 and alone, something is wrong. <strong>People are not designed to be alone.</strong> I'm not judging — I'm worried. A person without a partner is missing something important. My children know I think this and they can disagree with me, but it's how I feel."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Diego, 31 — Teacher, Querétaro</div></div>
+      </div>
+      <div class="op-text">"I've been single for 3 years by choice. My friends have stopped inviting me to couple dinners because <strong>they don't know what to do with a single person.</strong> That's the real problem — not my family asking questions. It's the world being designed for two."</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 <strong>Choose one opinion.</strong> Who do you agree with? Does Lucía make you angry — or do you understand her? Tell your partner.</div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🗣️</span>
+      <div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">Phase 4 · 10 questions · 4 blocks</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">23 min</div>
+  </div>
+  <div class="q-blocks">
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">Have you ever felt judged or pressured because of your relationship status — by family, friends, or coworkers?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Almost everyone has a story. Push for the specific moment: <em>"What exactly did they say? Where were you? Who was there? What did you answer?"</em> Mexican family dynamics around this topic generate extremely rich personal language.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Have you ever been to a family event where you felt uncomfortable because everyone was in a couple and you weren't?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes, my cousin's wedding. I was at a table with five couples and I was alone. All the conversations were about children and houses. I felt completely invisible. I left early and ate tacos by myself and honestly that was the best part of the night."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">Have you ever judged someone else for being single — even just in your head?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> This flips the question. Give 10 seconds of silence. The honest ones will admit it. Common answer: "I've wondered why someone was still single and made a quiet assumption about them." That honesty is exactly what you want.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">Is it OK for family to ask personal questions about your love life — or is it always too much?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Divide the room: Fernando's position vs. Sofía's. Push: <em>"Is there a difference between your mom asking and your aunt asking? Between once a year and every time you see them?"</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">Do you think single people are happier than people in bad relationships?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes, absolutely. I know people who are married and miserable. They fight every day, they don't talk, they stay together because of the kids or money. Being alone is not the worst thing. Being with the wrong person is worse."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">Do you think Mexican society puts too much pressure on people to get married and have children?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Almost everyone will say yes — but push for specifics: <em>"Where do you see this pressure? At work? In advertising? In your church? In your family specifically?"</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">What would you do if your family gave you an ultimatum: find a partner by 35 or they stop asking about it forever?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Absurd but effective. Most students laugh first. Push: <em>"Would you rather have the pressure or the silence? Which is actually worse?"</em> That question goes deeper than it looks.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">What would you do if your best friend told you they were going to be single for the rest of their life — by choice?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I would say 'OK, if you're happy, I'm happy for you.' But I'm going to be honest — inside, I would probably worry a little. Not because it's wrong. Just because I care about them and I'd want them to have someone."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">Deep down — do you actually believe people are happier with a partner? Or do you just say that because it's easier?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> The most honest question of the session. Give 15 seconds of silence. Accept any answer without comment. This is the question that people carry home and think about later.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">Be honest: have you ever stayed in a relationship too long because you were afraid of being judged for being single?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Very vulnerable. Let silence work. Students who answer yes produce the most memorable moments of the session. Don't push — just wait. If nobody answers, share a fictional "someone told me once..." version to open the door.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💣</span>
+      <div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">Phase 5 · One final question</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">It's Christmas dinner. You're 38. Your aunt looks at you and says in front of everyone: "But when are you going to find someone? You're not getting any younger." Ten people are watching. What do you say?</div>
+  </div>
+  <div class="hw-box">
+    <div class="hw-icon">🎙️</div>
+    <div>
+      <div class="hw-label">Homework — WhatsApp Voice Note</div>
+      <div class="hw-text">Record a 60-second voice message in English. Answer the Exit Shot — what do you actually say to your aunt? Be real. Use words from today's vocab.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <strong>GABRIEL TURNER ENGLISH TRAINING</strong> &nbsp;·&nbsp; Speaking Lab &nbsp;·&nbsp; B1.1 &nbsp;·&nbsp; Social Issues &amp; Society
+</footer>
+
+<script>
+const nouns=[
+  {w:'pressure',def:'When people push you to do something you may not want to do'},
+  {w:'judgment',def:'When someone has a negative opinion about your choices'},
+  {w:'choice',def:'A decision you make freely — not because someone forced you'},
+  {w:'loneliness',def:'The feeling of being alone and not connected to others'},
+  {w:'partner',def:'The person you are in a romantic relationship with'},
+  {w:'expectation',def:'What other people think you should do or be'},
+  {w:'freedom',def:'The ability to live your life the way you want'},
+  {w:'gossip',def:'Talking about other people\'s personal lives behind their back'},
+  {w:'wedding',def:'The ceremony when two people get married'},
+  {w:'opinion',def:'What someone thinks about a topic — their personal view'}
+];
+const verbs=[
+  {w:'judge',def:'To have a negative opinion about someone because of their choices'},
+  {w:'pressure',def:'To push someone to do something they may not want to do'},
+  {w:'ignore',def:'To not pay attention to what someone says or does'},
+  {w:'defend',def:'To protect yourself or your choices when someone criticizes you'},
+  {w:'choose',def:'To decide freely between two or more options'},
+  {w:'belong',def:'To feel accepted and comfortable in a group or place'},
+  {w:'regret',def:'To feel bad about something you did — or didn\'t do'},
+  {w:'mind',def:'To feel bothered or annoyed by something (e.g., "I don\'t mind")'},
+  {w:'change the subject',def:'To stop talking about one topic and start talking about something else'},
+  {w:'settle down',def:'To find a partner and start a stable home life — the classic phrase people use'}
+];
+const phrases=[
+  {p:"It's none of your business",u:"Use when someone asks about something too personal — a strong but honest answer"},
+  {p:"I'm happy as I am",u:"Use to tell people you don't need to change anything in your life"},
+  {p:"Mind your own business",u:"Use when someone is asking about personal things that don't concern them"},
+  {p:"Don't get me started",u:"Use when a topic makes you very annoyed and you could say a lot about it"},
+  {p:"I'm over it",u:"Use when you no longer care about something that bothered you before"}
+];
+
+function buildVocab(){
+  const ng=document.getElementById('nouns');
+  const vg=document.getElementById('verbs');
+  nouns.forEach(n=>{ng.innerHTML+=`<div class="v-card" onclick="speak('${n.w}')"><div class="v-word">${n.w}</div><div class="v-type">noun · 🔊</div><div class="v-def">${n.def}</div></div>`;});
+  verbs.forEach(v=>{vg.innerHTML+=`<div class="v-card" onclick="speak('${v.w}')"><div class="v-word">${v.w}</div><div class="v-type">verb · 🔊</div><div class="v-def">${v.def}</div></div>`;});
+  const pl=document.getElementById('phrases');
+  phrases.forEach(ph=>{pl.innerHTML+=`<div class="phrase-item" onclick="speak('${ph.p}')"><span class="ph-icon">🔊</span><div><div class="phrase-text">"${ph.p}"</div><div class="phrase-use">${ph.u}</div></div></div>`;});
+}
+function speak(txt){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.88;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('show');
+  btn.textContent=tip.classList.contains('show')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  const btn=document.getElementById('modeBtn');
+  const tag=document.getElementById('modeTag');
+  if(studentMode){btn.textContent='Teacher Mode';btn.classList.add('student');if(tag)tag.textContent='Student Mode';}
+  else{btn.textContent='Student Mode';btn.classList.remove('student');if(tag)tag.textContent='Teacher Mode';}
+}
+buildVocab();
+</script>
+</body>
+</html>

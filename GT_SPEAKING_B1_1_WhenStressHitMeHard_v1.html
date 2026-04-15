@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab B1.1 · When Stress Hit Me Hard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#10B981;--ac2:#34D399;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.1)}
+.mode-btn{background:var(--ac);border:none;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(16,185,129,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.3);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.3);color:rgba(255,31,92,.8);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(16,185,129,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(16,185,129,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(16,185,129,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(16,185,129,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">B1.1 · Health & Wellness</div></div></div>
+  <div class="hdr-r"><div class="badge">B1.1</div><button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1541199249251-f713e6145474?w=1400&q=80&fit=crop" alt="stress anxiety work pressure">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">ST</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Health & Wellness</div>
+    <div class="hero-title">When Stress<br><em>Hit Me Hard</em></div>
+    <div class="hero-sub">Not the normal stress. The kind that made you feel like your body was telling you something.</div>
+    <div class="hero-chips"><span class="hchip em">B1.1</span><span class="hchip">Health & Wellness</span><span class="hchip">🟡 Medium</span><span class="hchip">50 min</span></div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🪝 Phase 1 — The Trigger</div><div class="sec-title">The Headline</div><div class="sec-sub">Read it aloud. Pause. Then ask the first question.</div></div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">Gallup World Poll · 2023</div>
+      <div class="trigger-quote">"Mexico is one of the most stressed countries in the world — 42% of Mexicans report experiencing stress most of the day. The global average is 35%."</div>
+      <div class="trigger-sub">— That means almost half the people you see every day are carrying something heavy.</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">BBC Health</div>
+      <div class="trigger-quote">"Chronic stress doesn't just feel bad — it physically changes your body. It affects your sleep, your immune system, your heart, and even your memory."</div>
+      <div class="trigger-sub">— The body keeps the score. It always does.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body"><strong>Launch line:</strong> "Scale of 1 to 10 — how stressed are you right now? Not today specifically. In general, in your life." [Let them answer.] "What's the main thing causing it?" [One-word answer is fine.] "Today we talk about stress. Not in theory — your actual experience with it. The real moments when it got too much."</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💉 Phase 2 — Vocab Injection</div><div class="sec-title">Power Words</div><div class="sec-sub">Click any card to hear it. Use at least 4 of these today.</div></div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1000&q=80&fit=crop" alt="stress nouns">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Stress, Body & Mind</div><div class="sbo-sub">Click each card · Web Speech · B1.1 calibrated</div></div><div class="sbo-badge">Nouns</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('stress')"><div class="v-word">stress</div><div class="v-pos">noun</div><div class="v-def">A feeling of pressure or worry that affects your body and mind</div></div>
+      <div class="v-card" onclick="speak('anxiety')"><div class="v-word">anxiety</div><div class="v-pos">noun</div><div class="v-def">A strong feeling of worry or fear that doesn't go away easily</div></div>
+      <div class="v-card" onclick="speak('headache')"><div class="v-word">headache</div><div class="v-pos">noun</div><div class="v-def">Pain in your head — one of the most common physical signs of stress</div></div>
+      <div class="v-card" onclick="speak('sleep')"><div class="v-word">sleep</div><div class="v-pos">noun</div><div class="v-def">The first thing stress takes from you — and the hardest to get back</div></div>
+      <div class="v-card" onclick="speak('deadline')"><div class="v-word">deadline</div><div class="v-pos">noun</div><div class="v-def">The date by which something must be finished — a classic stress trigger</div></div>
+      <div class="v-card" onclick="speak('pressure')"><div class="v-word">pressure</div><div class="v-pos">noun</div><div class="v-def">The feeling that you must perform, deliver, or be perfect</div></div>
+      <div class="v-card" onclick="speak('break')"><div class="v-word">break</div><div class="v-pos">noun</div><div class="v-def">A pause from work or pressure — something stressed people rarely take</div></div>
+      <div class="v-card" onclick="speak('limit')"><div class="v-word">limit</div><div class="v-pos">noun</div><div class="v-def">The point where you can't take more — "I reached my limit"</div></div>
+      <div class="v-card" onclick="speak('support')"><div class="v-word">support</div><div class="v-pos">noun</div><div class="v-def">Help from another person — what stressed people often don't ask for</div></div>
+      <div class="v-card" onclick="speak('body')"><div class="v-word">body</div><div class="v-pos">noun</div><div class="v-def">Your physical self — the first place stress shows up when you ignore it</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1000&q=80&fit=crop" alt="stress verbs">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What Stress Does (and What We Do)</div><div class="sbo-sub">Click to hear · Natural pace</div></div><div class="sbo-badge">Verbs</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('feel tired')"><div class="v-word">feel tired</div><div class="v-pos">verb</div><div class="v-def">To have no energy — different from sleepy; stress tired goes deeper</div></div>
+      <div class="v-card" onclick="speak('snap at someone')"><div class="v-word">snap at someone</div><div class="v-pos">verb</div><div class="v-def">To speak angrily without meaning to — what happens when stress builds up</div></div>
+      <div class="v-card" onclick="speak('break down')"><div class="v-word">break down</div><div class="v-pos">verb</div><div class="v-def">To lose control emotionally — cry, feel desperate, or completely stop functioning</div></div>
+      <div class="v-card" onclick="speak('ignore')"><div class="v-word">ignore</div><div class="v-pos">verb</div><div class="v-def">To not pay attention to a problem — what many people do with stress</div></div>
+      <div class="v-card" onclick="speak('cope')"><div class="v-word">cope</div><div class="v-pos">verb</div><div class="v-def">To manage a difficult situation — "I was barely coping"</div></div>
+      <div class="v-card" onclick="speak('ask for help')"><div class="v-word">ask for help</div><div class="v-pos">verb</div><div class="v-def">To tell someone you need support — difficult for many people, especially at work</div></div>
+      <div class="v-card" onclick="speak('cry')"><div class="v-word">cry</div><div class="v-pos">verb</div><div class="v-def">To produce tears — often a sign that stress has reached a breaking point</div></div>
+      <div class="v-card" onclick="speak('push through')"><div class="v-word">push through</div><div class="v-pos">verb</div><div class="v-def">To continue despite feeling terrible — admired, but not always healthy</div></div>
+      <div class="v-card" onclick="speak('slow down')"><div class="v-word">slow down</div><div class="v-pos">verb</div><div class="v-def">To do less and rest more — advice stressed people rarely follow</div></div>
+      <div class="v-card" onclick="speak('recover')"><div class="v-word">recover</div><div class="v-pos">verb</div><div class="v-def">To get better after stress — takes longer than most people expect</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="stress colloquial phrases">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Stress Talk</div><div class="sbo-sub">Things people actually say · Click to hear</div></div><div class="sbo-badge">Colloquial</div></div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m running on empty')"><div class="p-text">"I'm running on empty."</div><div class="p-context">When you have nothing left — no energy, no patience, no reserves</div></div>
+      <div class="phrase-item" onclick="speak('I was at my breaking point')"><div class="p-text">"I was at my breaking point."</div><div class="p-context">The moment just before you cry, quit, or do something you regret</div></div>
+      <div class="phrase-item" onclick="speak('I just needed to breathe')"><div class="p-text">"I just needed to breathe."</div><div class="p-context">Wanting to escape — even for five minutes — from a stressful situation</div></div>
+      <div class="phrase-item" onclick="speak('I snapped')"><div class="p-text">"I snapped."</div><div class="p-context">Lost control of your emotions — said something, cried, or reacted badly</div></div>
+      <div class="phrase-item" onclick="speak('I couldn\'t take it anymore')"><div class="p-text">"I couldn't take it anymore."</div><div class="p-context">The sentence that comes just before a major decision — quit, leave, change something</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">After phrases, ask: "Which phrase describes a moment you've had?" Be careful — this topic can surface real pain for some students. Keep the energy present but not heavy. If a student shares something difficult, acknowledge it briefly and continue. Don't turn the class into a therapy session, but don't dismiss real moments either.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div><div class="sec-title">Four Voices. One Topic.</div><div class="sec-sub">Read all four. Choose one. Tell me why — 60 seconds.</div></div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">😤</div>
+        <div class="op-name">Andrea, 38</div>
+        <div class="op-role">Accountant · CDMX</div>
+        <div class="op-text">"Last year I worked for 4 months without a real day off. I ended up crying in my car before work every morning. <strong>Nobody told me it was okay to ask for help.</strong> I thought stress was just part of being professional. I was wrong. It almost broke me."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">💪</div>
+        <div class="op-name">Rodrigo, 44</div>
+        <div class="op-role">Sales Manager · Monterrey</div>
+        <div class="op-text">"I've been stressed my whole career. I've learned to use it as fuel. <strong>A little stress keeps you sharp.</strong> The problem is when you don't manage it. I exercise, I sleep 7 hours, I don't take work home on weekends. Stress is manageable if you're disciplined."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🧘</div>
+        <div class="op-name">Lucía, 31</div>
+        <div class="op-role">Teacher · Querétaro</div>
+        <div class="op-text">"I quit my job when the stress became too much. Everyone thought I was crazy. But six months later I feel like a different person. <strong>No job is worth losing your health.</strong> I earn less now. I sleep better. I don't regret it for one second."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">🙄</div>
+        <div class="op-name">Carlos, 50</div>
+        <div class="op-role">Engineer · Guadalajara</div>
+        <div class="op-text">"Everyone is 'stressed' now. It's become fashionable. <strong>My father worked 14 hours a day and never complained about stress.</strong> I think we've become too sensitive. Real problems are hunger, poverty, illness. Feeling overwhelmed by emails is not a crisis. Toughen up."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body"><strong>Provocateur rationale:</strong> Carlos minimizes modern stress by comparing it to past generations and real hardship. This is a very common attitude in Mexican workplaces — especially from older managers. Students who have felt dismissed for being stressed will react strongly. Push: "Have you ever met a Carlos at work? How did that feel?" Use the anger productively.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div><div class="sec-title">10 Questions · 4 Blocks</div><div class="sec-sub">Personal and honest. Show tips only after the student answers.</div></div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What was the most stressful period of your life? What caused it — work, family, money, health, or something else?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Central storytelling question. Let the student narrate freely — past simple tense practice is natural here. Model briefly: "The most stressful time for me was when I changed jobs and had money problems at the same time. I didn't sleep properly for three months." Activate: stress, pressure, sleep, limit.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever felt stress physically — headaches, no sleep, stomach problems, or something else in your body?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Present perfect — almost everyone has a physical stress story. Model: "Yes — I used to get terrible headaches every Sunday night before the work week. My body knew before my mind did." Activate: headache, body, sleep, anxiety. Reference the BBC Trigger quote here.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever snapped at someone — a friend, family member, or coworker — because of stress, and later regretted it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Present perfect with a story. Everyone has this one. Model: "Yes — I once said something very harsh to my partner during a difficult week at work. It wasn't about them at all. I felt terrible about it afterward." Activate: snap at someone, pressure, recover, support.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think stress is just part of modern life — or is there something wrong with the way we work and live?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Opens the societal dimension. Most B1.1 students say "both." Push: "What specifically do you think is wrong?" Good for "I think... because..." structures. Activate: pressure, limit, deadline, sleep. References Rodrigo's manageable view vs. the structural critique.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it OK to quit a job because of stress — even if it means earning less money?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Lucía's decision. Very relevant for Mexican professionals. Most say "it depends." Push: "If you had a family depending on your salary — would that change your answer?" Good for modals: "You should be able to... but you might have to..." Activate: break, limit, support.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think younger generations are more stressed than your parents' generation — or do they just talk about it more?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Carlos's argument reframed as a fair question. Most students will say "both" again. The interesting part: "Is talking about stress helpful — or does it make it worse?" Activate: anxiety, cope, pressure. Good generational comparison discussion.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if you woke up tomorrow and felt completely calm — no stress at all? What would change in your day?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Light second conditional — imaginative and revealing. Students often describe very simple changes: eating breakfast, not rushing, being kinder. The realization that stress is coloring their whole day is the point. Activate: break, slow down, cope, body.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if a close friend told you they were completely breaking down from stress — crying every day, not sleeping, not eating?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Second conditional focused on support. Good for "I would..." structures: "I would listen... I would take them to..." Also a mirror — what would they want someone to do for them? Activate: support, ask for help, break down, recover.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you ever feel proud of being busy and stressed — like it proves you work hard? Be honest.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The identity question — stress as a badge of honor. Many Mexican professionals wear busyness proudly. Most students will pause before answering honestly. Model: "I think sometimes yes — if I say 'I've been really busy,' it sounds like I'm important and needed. Which is a problem." Don't rush through this one.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Right now — is there something in your life causing you stress that you haven't talked to anyone about?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The most personal closing question in the B1.1 lineup. Handle with care. Give the student space to answer — or not. If they don't want to share, that's fine: "You don't have to tell me what it is. But is there someone in your life you could tell?" The point is the invitation to speak, not the disclosure.</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body"><strong>B1.1 grammar check:</strong> Q2–Q3 = present perfect. Q7–Q8 = second conditional. Q10 works naturally with present continuous: "Is there something that is causing you stress right now?" which is exactly B1.1 level. <br><br><strong>Emotional note:</strong> This lab can go deep. Some students use it to share something real. That is a success — it means they feel safe enough to speak. If the conversation becomes heavy, acknowledge it, let them finish, and redirect gently toward the Exit Shot.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💣 Phase 5 — The Exit Shot</div><div class="sec-title">The Final Question</div><div class="sec-sub">One question. Honest answer. No judgment.</div></div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Your doctor tells you: "Your stress levels are dangerous. If you don't make one real change in your life in the next 30 days, you will have serious health problems." What is the one thing you would change — and why haven't you changed it already?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me about the most stressful week of your life. What happened? How did you feel? And what did you do about it?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body"><strong>Why it works:</strong> The doctor authority forces a real answer. The second question — "why haven't you changed it already?" — is the one that lands. Most students know exactly what they need to change. They just haven't. That gap between knowing and doing is the most honest conversation in health. <br><br><strong>Sensitivity note:</strong> If a student has shared something genuinely difficult today, close with warmth. "You spoke honestly today — that takes courage. That is also, in a way, taking care of yourself."<br><br><strong>Upsell moment:</strong> "Next session we talk about how people try to sleep better — pills, remedies, routines. Very connected to stress and very personal."</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">B1.1 · Health & Wellness · When Stress Hit Me Hard · Medium</div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const d=document.documentElement;document.getElementById('prog').style.width=((d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100)+'%'});
+function toggleMode(btn){const s=document.body.classList.toggle('student-mode');btn.textContent=s?'Student Mode':'Teacher Mode'}
+function toggleTN(btn){const b=btn.nextElementSibling,o=b.classList.toggle('open');btn.querySelector('span').textContent=o?'−':'+'}
+function toggleTip(btn){const t=btn.nextElementSibling;t.classList.toggle('open');btn.textContent=t.classList.contains('open')?'Hide tip':'Show tip'}
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u)}
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})},{passive:true});
+</script>
+</body>
+</html>

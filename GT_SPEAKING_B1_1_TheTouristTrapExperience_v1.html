@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.1 · The Tourist Trap Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#10B981;--ac2:#34D399;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.08)}
+.mode-btn{background:#10B981;border:1px solid #10B981;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(16,185,129,.1)}
+.tn-c1{border-left:3px solid rgba(16,185,129,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(16,185,129,.08) 0%,rgba(16,185,129,.03) 100%);border:1px solid rgba(16,185,129,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(16,185,129,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(16,185,129,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(16,185,129,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(16,185,129,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(16,185,129,.3)}
+.vc.noun-c{border-top:2px solid rgba(16,185,129,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(16,185,129,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(52,211,153,.8);font-style:italic;border-left:2px solid rgba(16,185,129,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(16,185,129,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(16,185,129,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(16,185,129,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(16,185,129,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(16,185,129,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(16,185,129,.65);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(16,185,129,.3)}
+.q-tn strong{color:rgba(16,185,129,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(16,185,129,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(16,185,129,.1) 0%,rgba(16,185,129,.04) 50%,transparent 100%);border:1px solid rgba(16,185,129,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">B1.1 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80" alt="Tourist trap restaurant">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Travel &amp; Culture</div>
+    <div class="hero-title">THE TOURIST<br><em>TRAP EXPERIENCE</em></div>
+    <div class="hero-sub">The photos looked amazing. The reviews were perfect. You paid a lot. And it was completely terrible.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 The Real Cost of the Tourist Trap</div><div class="sec-sub">Read aloud · First reaction only · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🪤</div>
+    <div class="hsc-label">TripAdvisor Traveler Survey + Which? Consumer Report 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">65%</div><div class="hsc-desc">Of tourists say they have fallen into at least one tourist trap during their travels — most say they knew immediately after paying</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3×</div><div class="hsc-desc">More expensive — tourist trap restaurants near famous attractions charge on average 3 times more than local restaurants two streets away</div></div>
+      <div class="hsc-stat"><div class="hsc-num">$180</div><div class="hsc-desc">The average amount tourists lose in scams, overcharges, and tourist trap experiences per trip — often without realizing it at first</div></div>
+      <div class="hsc-stat"><div class="hsc-num">78%</div><div class="hsc-desc">Of travelers say they have paid for a tour, experience, or restaurant that was completely different from what the photos and reviews promised</div></div>
+    </div>
+    <div class="hsc-source">Sources: TripAdvisor Traveler Insights 2023 · Which? Holiday Scams Report · Booking.com Hidden Charges Study</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read this, then point at someone</div>
+    <div class="hq-text">"You spend 600 pesos on a restaurant near a famous attraction. The food is bad. The service is slow. The waiter brings you extra things you didn't order and adds them to the bill. What do you do?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read with a slightly frustrated tone. Let "600 pesos" land — it's real money. Point at one student: "What do you do — right now, with that bill in your hand?" 2–3 reactions. "Everything you said comes back in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Tourist traps happen in Mexico too — Cancún, Cabo, Teotihuacán, the beach towns. Students who have traveled domestically will have their own versions of this story. Use it.</li>
+        <li>The 3× price stat is the most immediately useful — it reframes avoiding tourist traps as practical intelligence, not just cultural snobbery.</li>
+        <li>If nobody has traveled: <strong>"Has anyone been to a restaurant or attraction in Mexico — Cancún, Tulum, Guadalajara — where they felt cheated? Same thing."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The "extra things on the bill" detail is a real and specific scam that generates immediate recognition and anger. Let the emotion fuel the session.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"This is the last of our three Travel labs. Next lote we move to a completely different topic — but same honesty, same depth."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Traps, Scams &amp; Expectations</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Savvy Travelers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>a time you paid for something that wasn't worth it — anywhere, not just travel.</em> No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Scam" vs "tourist trap" — clarify: a scam is intentional deception (illegal); a tourist trap is legal but deliberately overpriced for tourists (not illegal, but disappointing). Both happen to visitors.</li>
+        <li>"Complain" at B1.1 — model the distinction: complain = say something is wrong (to the waiter, to the hotel); leave a review = write about it later. Both are valid responses.</li>
+        <li>Best production trigger: <strong>"Which 3 words describe the last time you felt cheated — anywhere, not just on a trip?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words will help you write a real complaint in English — to a hotel, to TripAdvisor, to a customer service desk. Real useful skills."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"In any international travel or business context, knowing how to complain professionally in English is a serious skill. Today you're building the vocabulary for that."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Reactions to Being Trapped.</div><div class="sec-sub">Read each card · Pairs 90 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who do you think handled it the best? Why?"</div></div><div class="sbo-badge">Don't change the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who do you think handled it the best? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Álvaro</strong>. His position — that tourists bring tourist traps on themselves by not preparing — is uncomfortable because it's partially true. Push: <strong>"Is Álvaro being unfair — or does he have a point?"</strong></li>
+        <li>The processing question focuses on "who handled it best" — this opens the discussion to practical strategies, not just emotions.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Read Clara with controlled but visible anger. Read Álvaro with calm, slightly smug confidence. The contrast generates instant reaction.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"One sentence — which of these four describes how you react when you feel cheated? The honest version."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · Point and push · No round-robin</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> At least 2 sentences. Say what happened. Say what you did — or didn't do. And say how much it cost. The details make the story.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The conv-bar rule adds "how much it cost" — this forces students to use numbers and specific language, which is great for B1.1 vocabulary production.</li>
+        <li>Q9 is the most self-revealing question — students rarely admit they let it go without saying anything. The honesty is the vocabulary moment.</li>
+        <li>Block 3: second conditional. Watch for "If I would see" — note and recycle at end only.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When a student tells a tourist trap story with specific amounts: celebrate it — <strong>"You used a number! '800 pesos for a beer' — that's a sentence that tells the whole story. That's English."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just talked about money, expectations, and anger — in English — with real stories and real feelings. That's communication. Not translation."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. No Easy Answer.</div><div class="sec-sub">5 min · No chips · Position + reason · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">You are at a restaurant in a tourist area. The waiter brings the bill — it is <em>double</em> what the menu said. He says it was a "service charge" and looks at you. You have your partner and your kids with you. Everyone is waiting. <em>Do you pay — or do you argue?</em></div>
+    <div class="exit-rule">3 sentences minimum. Pay or argue — first. Then tell me what you really feel in that moment, with your family watching.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.1 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I ask for the menu and I point to the price. Calmly. I say: 'This is not what the menu says.' If he still insists, I pay — but I take a photo of the bill and the menu first. Then I leave a review on TripAdvisor that night. I don't make a scene in front of my kids, but I don't just accept it either."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. No preparation. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The "family watching" detail adds social pressure — it's not just a personal decision, it's a moment of modeling behavior for your children. That pressure generates the most honest answers.</li>
+        <li>Follow-up: <strong>"What would you say to your kids after — to explain what happened?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer introduces a practical B1.1 strategy: photo + calm words + TripAdvisor. Point out: <strong>"That is a complete English plan for a real problem. Not just grammar — a strategy."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You just navigated a real travel conflict — in English — with calm language and a plan. That's the goal of this entire Travel series."</strong></li>
+        <li>Referral trigger: <strong>"This is the kind of conversation that most English classes never have. Your colleagues who are taking grammar courses have never practiced this. That's the difference."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · The Tourist Trap Experience · Travel &amp; Culture · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div><div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"tourist trap",def:"A place that looks good but is designed to overcharge tourists",     ex:"The restaurant next to the pyramid was a classic tourist trap. Terrible food, triple the price."},
+  {w:"bill",        def:"The piece of paper that shows how much you need to pay",             ex:"I looked at the bill and I couldn't believe the total."},
+  {w:"review",      def:"An opinion you write online about a place or experience",            ex:"I left a one-star review that night. I hope other tourists read it."},
+  {w:"scam",        def:"A trick to take your money — illegal but common in tourist areas",   ex:"The taxi driver tried to scam me by taking the long way around."},
+  {w:"price",       def:"The amount of money you pay for something",                          ex:"The price on the menu was 150 pesos. The bill said 450."},
+  {w:"expectation", def:"What you think or hope something will be like before you experience it",ex:"My expectations were high. The reality was much, much lower."},
+  {w:"disappointment",def:"The feeling when something is not as good as you expected",        ex:"I have been disappointed by many trips. This one was the worst."},
+  {w:"complaint",   def:"Something you say officially when you are not happy with a service",  ex:"I made a formal complaint to the hotel manager. He gave me a discount."},
+  {w:"refund",      def:"Money that is returned to you when something was wrong or cancelled", ex:"I asked for a refund. They said no. I called my credit card company."},
+  {w:"experience",  def:"Something that happens to you — good or bad — that you remember",    ex:"That was an expensive experience. But I learned something from it."}
+];
+const verbs=[
+  {w:"complain",    def:"To say officially that something is wrong or not acceptable",        ex:"I complained to the manager. He didn't care at all."},
+  {w:"overcharge",  def:"To ask someone to pay more than the correct price",                  ex:"They overcharged me by 300 pesos. I only found out when I got home."},
+  {w:"check",       def:"To look at something carefully to make sure it is correct",          ex:"Always check the bill before you pay. Always."},
+  {w:"negotiate",   def:"To talk with someone to reach a better deal or agreement",           ex:"I tried to negotiate. The taxi driver just laughed."},
+  {w:"refuse",      def:"To say no to something",                                             ex:"I refused to pay the extra charge. We argued for 10 minutes."},
+  {w:"warn",        def:"To tell someone about a problem or danger before it happens",        ex:"My friend warned me about that area. I didn't listen."},
+  {w:"research",    def:"To look for information before you do something",                    ex:"I researched the restaurant online. All the good reviews were fake."},
+  {w:"avoid",       def:"To stay away from a place or situation",                             ex:"After that experience, I avoid any restaurant near a famous attraction."},
+  {w:"tip",         def:"Extra money you give to a waiter or service worker — optional",      ex:"I didn't leave a tip. That was the only decision I felt good about."},
+  {w:"report",      def:"To tell someone official about a problem — like writing a review",   ex:"I reported the taxi company online. Three other people had the same story."}
+];
+const perspectives=[
+  {
+    name:"Clara Vega",meta:"38 · Teacher · Puebla",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I was in Cancún and they charged me <strong>500 pesos for a bottle of water.</strong> One bottle. I was so angry that I complained to the manager, refused to pay the water, and left. I also left a 1-star review on Google. A month later, the restaurant was closed. Was that me? Probably not. But it felt good."
+  },
+  {
+    name:"Álvaro Ríos",meta:"47 · Engineer · Monterrey — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I don't feel sorry for people who fall into tourist traps. <strong>Do your research.</strong> Five minutes on Google before you go to a restaurant — that's all it takes. If you eat next to a famous monument without checking the price first, you are paying for your own laziness. I have never been trapped. Not once. Because I prepare."
+  },
+  {
+    name:"Renata Gómez",meta:"31 · Nurse · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I fell into a tourist trap in Barcelona. I paid too much, the food was bad, and the waiter was rude. And you know what? <strong>I still had a great trip.</strong> I was embarrassed for about an hour. Then I laughed about it. Not every bad experience is a disaster. It's just part of traveling. I wouldn't change it."
+  },
+  {
+    name:"Don Guillermo",meta:"62 · Retired · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"When a taxi driver tried to scam me in Mexico City, I got out of the car <strong>without paying.</strong> He screamed. I walked away. Some people say that was wrong. I say: he tried to steal from me first. I don't let anyone disrespect me — especially not in my own country. My rule: if it's clearly wrong, say so clearly."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Past simple + present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever fallen into a tourist trap — in Mexico or abroad? What happened?",chips:["I was in... and they charged me...","The worst one was when...","I paid... for something that was worth...","I felt really..."],tn:"The conv-bar rule is especially important here: push for the amount paid. 'How much did they charge you?' Numbers make the story real and activate practical vocabulary."},
+    {num:"Q2",text:"Have you ever paid for a tour, hotel, or experience that was completely different from the description or photos?",chips:["The photos showed... but in reality...","I paid for a tour and...","The hotel was nothing like...","I felt...when I arrived because..."],tn:"'Expectation' and 'disappointment' are the key vocab words here. Push for the specific gap: 'Tell me one thing that was different from what the photo showed.'"},
+    {num:"Q3",text:"Did you ever complain about something during a trip — to a waiter, a hotel, a tour guide? What happened?",chips:["I complained once when...","I said to the waiter...","The manager's reaction was...","I didn't complain because..."],tn:"Many students have NOT complained — even when they should have. Both answers are interesting. If a student says 'I didn't say anything' — push: 'Why not? What stopped you?'"}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for reasons · Not just 'I agree'",questions:[
+    {num:"Q4",text:"Is it your fault if you fall into a tourist trap — or is the business always wrong for doing it?",chips:["I think it's always the business because...","But the tourist is responsible when...","Both are guilty because...","I agree with Álvaro that..."],tn:"Álvaro vs Clara from §3. Both positions are partially right. Push: 'Is there a situation where you think the tourist is 100% responsible?'"},
+    {num:"Q5",text:"Should you always complain when service is bad — or is it sometimes better to just pay and leave?",chips:["I think you should always complain because...","Sometimes it's better to just...","It depends on the situation because...","In my culture, complaining feels..."],tn:"Cultural dimension — in Mexico, complaining directly in public can feel uncomfortable. Push: 'Is it easier to complain in English than in Spanish? Why?'"},
+    {num:"Q6",text:"Do you think leaving a bad online review is a good way to respond to a tourist trap — or is it useless?",chips:["I think reviews are useful because...","But most people don't read...","The problem with reviews is...","I have left a review before when..."],tn:"This is a practical question that connects to real digital behavior. Push: 'Have you ever read a bad review and decided NOT to go somewhere? Or read a good review and been disappointed?'"}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Direct · Note errors at end",questions:[
+    {num:"Q7",text:"What would you do if a waiter brought you a bill that was clearly wrong — higher than the menu price?",chips:["I would...","I would calmly say...","I would refuse to pay...","I would take a photo and..."],tn:"This activates the practical vocabulary from §2: check, refuse, complain, report. Push for specific language: 'What would you actually say to the waiter — in English?'"},
+    {num:"Q8",text:"If you could warn a friend before they traveled somewhere you've been — what would you tell them to avoid?",chips:["I would tell them to avoid...","The most important tip is...","Never eat near...","Always check the price of..."],tn:"This is the advice/warning format — a great B1.1 function. Push for specific, concrete advice — not general warnings like 'be careful.' 'Be specific: what street, what restaurant, what area?'"}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · Honest only",questions:[
+    {num:"Q9",text:"Honest question: Have you ever felt cheated at a restaurant, hotel, or shop — and said nothing? Why?",chips:[],tn:"Most students will say yes. The honest follow-up is the interesting part: 'Why didn't you say anything?' Common answers: fear of confrontation, cultural discomfort, embarrassment in front of others. All valid, all discussable."},
+    {num:"Q10",text:"Final question: Are you a traveler who plans everything — or do you prefer to discover and accept what happens? Which approach has cost you more?",chips:[],tn:"The synthesis question connects planning (Álvaro) vs spontaneity (Renata) — but with a financial twist: 'which approach has cost you more?' Both can be expensive in different ways. Push for a specific example from a real trip."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

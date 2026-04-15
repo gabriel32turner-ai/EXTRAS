@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab B1.1 — Men Don't Cry? The Male Stereotype</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #10B981;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn { background: var(--accent); color: #0F1923; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .toggle-btn.student { background: #2a3a4e; color: white; }
+
+  .hero { height: 340px; position: relative; display: flex; align-items: flex-end; background: url('https://images.unsplash.com/photo-1552058544-f2b08422138a?w=1200&q=80') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,25,35,0.45) 0%, rgba(15,25,35,0.92) 100%); }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(16,185,129,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: #0F1923; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(16,185,129,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: #0F1923; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(16,185,129,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(16,185,129,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.1</span>
+      <span class="hero-tag plain">Social Issues &amp; Society</span>
+      <span class="hero-tag plain">🌶️ Spicy Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Men Don't Cry?<br>The Male Stereotype</h1>
+    <p>Why do so many men still feel they can't show emotions — and what does that cost them?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">Gallup / American Psychological Association — 2023</div>
+      <div class="trigger-quote">"Men are 4 times more likely to die by suicide than women. Experts say one big reason is that many men still feel they cannot talk about their feelings or ask for help. The message 'be strong' is killing people."</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the stat slowly. Let it land. Then ask simply: <em>"Where does this idea come from — that men should not show emotions?"</em> Don't point at any student first. If the group is quiet, try: <em>"Did your father cry in front of you when you were a child?"</em> That question almost always opens the conversation immediately. Stay warm and non-judgmental throughout the session.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('stereotype')">
+        <div class="vocab-word">stereotype</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A fixed idea about a group of people that is not always true</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pressure')">
+        <div class="vocab-word">pressure</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When people expect you to behave in a certain way and you feel forced</div>
+      </div>
+      <div class="vocab-card" onclick="speak('weakness')">
+        <div class="vocab-word">weakness</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Something you are not good at, or a moment when you feel not strong</div>
+      </div>
+      <div class="vocab-card" onclick="speak('strength')">
+        <div class="vocab-word">strength</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Being powerful — physically or emotionally</div>
+      </div>
+      <div class="vocab-card" onclick="speak('shame')">
+        <div class="vocab-word">shame</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The bad feeling that you are wrong or not good enough</div>
+      </div>
+      <div class="vocab-card" onclick="speak('emotion')">
+        <div class="vocab-word">emotion</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A feeling — happy, sad, angry, scared, proud</div>
+      </div>
+      <div class="vocab-card" onclick="speak('role')">
+        <div class="vocab-word">role</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The part society expects you to play — as a man, a father, a son</div>
+      </div>
+      <div class="vocab-card" onclick="speak('example')">
+        <div class="vocab-word">example</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A person or behavior that shows others what to do</div>
+      </div>
+      <div class="vocab-card" onclick="speak('generation')">
+        <div class="vocab-word">generation</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">People born around the same time — your parents are one generation, you are another</div>
+      </div>
+      <div class="vocab-card" onclick="speak('change')">
+        <div class="vocab-word">change</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When something is different from before — society, ideas, people</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('cry')">
+        <div class="vocab-word">cry</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To have tears — when you are very sad, scared, or sometimes very happy</div>
+      </div>
+      <div class="vocab-card" onclick="speak('hide')">
+        <div class="vocab-word">hide</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To not show something — to keep your feelings inside</div>
+      </div>
+      <div class="vocab-card" onclick="speak('judge')">
+        <div class="vocab-word">judge</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To have a negative opinion about someone and show it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ask for help')">
+        <div class="vocab-word">ask for help</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To tell someone you have a problem and you need support</div>
+      </div>
+      <div class="vocab-card" onclick="speak('suffer')">
+        <div class="vocab-word">suffer</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To feel a lot of pain — physical or emotional</div>
+      </div>
+      <div class="vocab-card" onclick="speak('break down')">
+        <div class="vocab-word">break down</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To suddenly cry or lose control of your emotions — to collapse emotionally</div>
+      </div>
+      <div class="vocab-card" onclick="speak('teach')">
+        <div class="vocab-word">teach</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To show or tell someone how to do something or how to think</div>
+      </div>
+      <div class="vocab-card" onclick="speak('accept')">
+        <div class="vocab-word">accept</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To say yes to something — to be OK with the way things are</div>
+      </div>
+      <div class="vocab-card" onclick="speak('grow up')">
+        <div class="vocab-word">grow up</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To become an adult — and the experiences that shape you while growing</div>
+      </div>
+      <div class="vocab-card" onclick="speak('open up')">
+        <div class="vocab-word">open up</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To start talking honestly about your feelings — to be vulnerable with someone</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Man up.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Man up."</div>
+          <div class="phrase-context">What people say when they want a man to stop showing emotions — often harmful</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Big boys don\'t cry.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Big boys don't cry."</div>
+          <div class="phrase-context">Something many men heard when they were children — and never forgot</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('He kept everything inside.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"He kept everything inside."</div>
+          <div class="phrase-context">When a man never talks about problems — and you can see the cost</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It\'s not that easy to change how you grew up.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It's not that easy to change how you grew up."</div>
+          <div class="phrase-context">A real and honest response to pressure to be more emotionally open</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Showing feelings is not the same as being weak.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Showing feelings is not the same as being weak."</div>
+          <div class="phrase-context">The central argument of the whole conversation — simple, powerful, true</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🏭</div>
+        <div class="opinion-name">Diego, 44</div>
+        <div class="opinion-role">Factory worker, Celaya</div>
+        <div class="opinion-text">"I grew up watching my father never cry. Not even at funerals. For me, <strong>that is strength.</strong> I don't share my problems with anyone. That's how I was taught and I'm OK with it."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Lucía, 35</div>
+        <div class="opinion-role">HR Manager, Querétaro</div>
+        <div class="opinion-text">"I see the cost of this every day at work. Men who <strong>never ask for help</strong>, never say they are stressed, and then one day they just can't continue. It's not strength. It's a problem."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Provocateur</div>
+        <div class="opinion-avatar">👨‍💻</div>
+        <div class="opinion-name">Rodrigo, 31</div>
+        <div class="opinion-role">Engineer, Monterrey</div>
+        <div class="opinion-text">"I cried at my wedding. In front of everyone. My friends didn't say anything bad — <strong>they cried too.</strong> I think the 'men don't cry' idea is already old. Young men today are different. We talk. We open up."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👵</div>
+        <div class="opinion-name">Doña Carmen, 62</div>
+        <div class="opinion-role">Retired teacher, CDMX</div>
+        <div class="opinion-text">"My husband never said 'I love you' to our children. He thought it was weak. Now my son is 38 and <strong>he still has problems</strong> saying how he feels. It starts at home. It starts with parents."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Diego says not sharing problems is strength. Lucía says it's a problem. Who is right — or can both be true at the same time?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">When you were a child, did someone tell you "don't cry" or "be strong"? Who was it? How did it make you feel?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">This works for both men and women — women received this message too, sometimes. Create a safe space: "There are no wrong answers here. We are just sharing experiences." The first honest answer unlocks the whole group.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Have you ever hidden how you really felt because you were afraid of what people would think?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Yes, at work. I had a very hard month once — personal problems. But I came to work every day with a smile. Nobody knew. I didn't want people to see me as weak or unprofessional."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Have you ever seen a man cry in public — a film, a funeral, a sports game? What did you think or feel?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Notice the range of reactions. Some students feel empathy. Others feel uncomfortable. Neither reaction is wrong — both are honest data about how deeply this stereotype is inside us.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Do you think it's OK for a man to cry at work? What about in front of his children?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The two-part question creates useful contrast. Many students who say "not at work" say "yes, in front of children." Push them: "Why is it different with children? What message does that send?"</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Is the "men don't cry" idea changing in Mexico — or is it still very strong in your experience?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Generational debate — great for mixed-age groups. Younger students often say it's changing. Older students often say it's still very present. Both are right about their own experience. Let them notice that together.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you think women have the same problem — or is it different for them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Opens the conversation to women's experience — that emotions are "too much" for women in professional settings. Both genders face stereotypes about emotion, just different ones. Creates natural empathy across the group.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Hypothetical</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">What would you do if your male friend called you and said "I'm really not OK. I'm very sad and I don't know what to do"?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Many men admit they wouldn't know what to say. That's an honest and important answer — not a failure. Model answer: "Honestly? I would feel nervous. I don't know if I would say the right thing. But I would listen. I think listening is the most important thing."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">What would you tell your son — or a young man you know — about emotions and being strong?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The values question. What do students actually want to pass on? Many people discover in this question that their answer is different from how they were raised. That gap is the real insight.</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Honestly — do you judge a man differently when he cries? Even a little bit?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The most honest question in the session. Many people, including women, will admit they feel slightly uncomfortable when men cry — and then feel bad about that feeling. That self-awareness is valuable. Normalize it: "These ideas are very old and very deep. It's not your fault."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Is there something you feel but never say — because you think people will judge you? What stops you?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The deepest question in the session. Don't force it — if a student doesn't want to share, that's OK. But give the silence space. Sometimes the most powerful moment in a class is when nobody says anything for a few seconds. That silence is real.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. No Easy Answer.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">💣 Final Dilemma</div>
+      <div class="exit-question">Your father — or a man you love very much — is very sick. He is in hospital. You visit him and he starts to cry. He says: "I'm scared. I don't want to die." You have never seen him cry before. What do you do? What do you say?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. Answer this question: what do you do in that moment? Be honest — not what you think you should say, but what you would really do. Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab B1.1 · Men Don't Cry? The Male Stereotype · Social Issues &amp; Society</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    if (studentMode) { btn.textContent = 'Teacher Mode'; btn.classList.add('student'); }
+    else { btn.textContent = 'Student Mode'; btn.classList.remove('student'); }
+  }
+</script>
+</body>
+</html>

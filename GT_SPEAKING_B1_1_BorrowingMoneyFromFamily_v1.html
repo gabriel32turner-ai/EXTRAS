@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Borrowing Money From Family · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#10B981;--ac2:rgba(16,185,129,0.12);--ac3:rgba(16,185,129,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(16,185,129,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.1</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag ac">🌶 Spicy</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Borrowing Money<br>From Family:<br>Good Idea?</div>
+    <div class="hero-sub">The money arrives. Then the questions. Then the comments. Then the silence at Christmas dinner.</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">The Guardian · 2023</div>
+    <div class="trigger-quote">"67% of people who borrowed money from a family member said the relationship was permanently damaged — even when they paid it back."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask: "Has anyone here ever lent money to a family member — or borrowed from one?" Wait. Then: "Did it change the relationship? How?" This hits fast and personally. Let the room do the work.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Family Conversations</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🤝</div><div><div class="op-name">Sofía · 42</div><div class="op-role">Nurse · Puebla</div></div></div>
+      <div class="op-text">Family is family. When my brother needed money for his son's operation, I gave it. No questions. <strong>That's what family is for.</strong> I didn't think about the money. I thought about my nephew. I would do it again tomorrow.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🚫</div><div><div class="op-name">Fernando · 48</div><div class="op-role">Chef · Guadalajara</div></div></div>
+      <div class="op-text">Never again. I lent my sister $25,000 pesos three years ago. She never paid me back. <strong>Now every family dinner is uncomfortable.</strong> I lost the money AND the good relationship we had. Never mix family and money. Never.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Diego · 31</div><div class="op-role">Freelance Designer · CDMX</div></div></div>
+      <div class="op-text">If you don't want to give the money, just say no. <strong>The problem is not borrowing — it's that people say yes when they really want to say no, and then blame the person who asked.</strong> Be honest from the beginning and there is no problem. We create the drama ourselves.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">📋</div><div><div class="op-name">Valeria · 37</div><div class="op-role">Administrator · Monterrey</div></div></div>
+      <div class="op-text">I always lend money to family — but I write it down. Date, amount, when they will pay. <strong>It's not because I don't trust them.</strong> It's because memory is short and money is serious. My family thought I was cold at first. Now they respect it.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person do you agree with most? Have you ever been in a situation like one of these?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever lent money to a family member or friend? Did they pay you back?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has a story. Push for the specifics: "How much? How long ago? Do you still talk about it — or is it something nobody mentions anymore?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever asked someone in your family for money? How did it feel to ask?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes — I asked my dad once when I was 26. I was so embarrassed. He gave it to me without questions. But every time I saw him for the next year, I felt bad. Even after I paid it back."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did you ever see a problem between family members because of money? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very common in Mexican families. "Who was involved? Did it get resolved — or is it still a problem? Was there a Christmas or birthday when everyone was uncomfortable?" Real stories flow easily here.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it OK to say no when a family member asks you for money? Or do you have to help?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This question creates strong reactions. "If it's your parent? Your brother? A cousin you don't know well? Does the answer change? What's the most important factor — how close you are, or why they need it?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think it's a good idea to write down a loan agreement with family — or does that feel cold and wrong?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think it's smart. But I could never do it with my mom or my brother. It would feel terrible — like I don't trust them. Maybe that's the problem. We trust feelings more than paper, and then we're surprised when there's a problem."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you believe that money always changes a relationship — or does it only matter if one person doesn't pay it back?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great debate question. "Think about Sofía and her nephew's operation — does money change that relationship? Or Fernando and his sister — where's the real problem: the money or the lie?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if a family member asked you for $30,000 pesos and you knew they probably wouldn't pay you back?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I think I would give a smaller amount — maybe $5,000 — and say that's all I can give. That way I'm helping, but I'm not losing everything. And I don't say it's a loan. I say it's a gift. That way there's no expectation."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you borrowed money from your parents and you couldn't pay it back this month — would you tell them, or stay quiet?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The honesty vs. shame dilemma. "Would you avoid their calls? Send a message? Or sit down and explain? What would hurt them more — not getting the money, or not knowing the truth?"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is there someone in your family right now who owes you money — or who you owe money to? How do you feel about that?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The direct personal question. Give space — some people will laugh nervously, others will go quiet. Both are good signals. "Is it something you talk about — or something everyone pretends doesn't exist?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If you found out your brother or sister borrowed money from your parents without telling you — and never paid it back — how would you feel?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Angry. Very angry. Not because of the money exactly — but because they kept it secret. Secrets in families grow. And then one day you find out and you realize you didn't know your family as well as you thought."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your mom lent your brother $40,000 pesos two years ago. He never paid her back. She never talks about it. You can see it hurts her. Your brother is now doing well — he has a good job and a new car. He says nothing. Do you say something to your brother — or do you stay out of it?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: Do you talk to your brother — yes or no? And what do you say?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.1 · Money &amp; Finance · Borrowing Money From Family · Spicy 🌶</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"loan",def:"Money you borrow and must return — from a bank or a person",ex:'"He asked for a $10,000 peso loan from his brother. He still hasn\'t paid it back."'},
+  {w:"guilt",def:"The bad feeling you have when you think you did something wrong",ex:'"She felt guilt every time she saw her parents — because she still owed them money."'},
+  {w:"trust",def:"The belief that someone is honest and will do what they said",ex:'"He trusted his cousin with $20,000. The trust was gone in three months."'},
+  {w:"promise",def:"Something you say you will definitely do",ex:'"She made a promise to pay back the money in 6 months. It\'s been 2 years."'},
+  {w:"tension",def:"A feeling of discomfort or conflict between people",ex:'"There was tension at every family dinner after the loan was not paid."'},
+  {w:"silence",def:"When nobody talks about something because it is too uncomfortable",ex:'"The $30,000 pesos was never mentioned again. Just silence."'},
+  {w:"favor",def:"Something nice you do for someone who needs help",ex:'"She did her brother a favor. He called it a gift. She called it a loan."'},
+  {w:"argument",def:"A serious fight between two people, often with angry words",ex:'"The argument started about money. It became about everything else."'},
+  {w:"relationship",def:"The connection between two people — family, friends, partners",ex:'"The money ruined the relationship. It was never the same after."'},
+  {w:"excuse",def:"A reason you give to explain why you didn\'t do something you should have",ex:'"He always had an excuse for why he couldn\'t pay this month."'},
+];
+const verbs=[
+  {w:"borrow",def:"To take money from someone with the intention to return it",ex:'"She borrowed $15,000 from her mom. She was 29. She felt 12."'},
+  {w:"lend",def:"To give money to someone who will return it later",ex:'"I will never lend money to family again. Never."'},
+  {w:"pay back",def:"To return money you borrowed to the person who lent it",ex:'"He paid back every peso — but the relationship was already broken."'},
+  {w:"ask for",def:"To request something from someone",ex:'"She couldn\'t ask for money. She was too proud. So she sold her car instead."'},
+  {w:"refuse",def:"To say no to a request",ex:'"He refused to lend the money and felt terrible about it for weeks."'},
+  {w:"forgive",def:"To stop being angry with someone for something they did",ex:'"She forgave her sister for not paying the money back. It took three years."'},
+  {w:"avoid",def:"To stay away from someone or something on purpose",ex:'"He avoided his uncle at every family event. The $8,000 was always there."'},
+  {w:"confront",def:"To talk directly with someone about a difficult problem",ex:'"She confronted her brother. He cried. She didn\'t feel better."'},
+  {w:"lie",def:"To say something that is not true",ex:'"He lied and said he had no money. Two weeks later he bought a TV."'},
+  {w:"expect",def:"To believe that something will happen or that someone will do something",ex:'"She expected him to pay. He expected her to forget. Both were wrong."'},
+];
+const phrases=[
+  {t:'"You know I\'m good for it."',c:"What people say when they borrow money — often the beginning of a problem."},
+  {t:'"Just forget about it."',c:"What the borrower says when they can\'t pay. Very easy to say. Very hard to hear."},
+  {t:'"It\'s just money."',c:"True — until it isn\'t. Usually said by the person who doesn\'t have to pay it back."},
+  {t:'"I\'ll pay you back next month."',c:"The phrase that can repeat for years without anything happening."},
+  {t:'"Don\'t make it weird."',c:"What people say when the money is clearly already making things weird."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

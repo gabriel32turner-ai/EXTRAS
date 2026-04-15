@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · When Friends Become Enemies · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#10B981;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#0F1923;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.33)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.htag.spicy{border-color:rgba(255,80,60,.7);color:rgba(255,120,80,1)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B1.1</span>
+      <span class="htag">Relationships & Personality</span>
+      <span class="htag spicy">🌶 Edge: Spicy</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">When Friends<br>Become Enemies</div>
+    <div class="hero-sub">You trusted them completely. Then something happened. How do you go from best friends to people who can't look at each other?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real fact. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Psychology Today · 2023</div>
+    <div class="trigger-quote">"Most adults lose their closest friends not because of one big fight — but because of a small moment they never talked about. The friendship dies slowly, in silence, and nobody knows exactly when it ended."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Think of a friend you had — a real friend — that you don't talk to anymore. You don't have to say their name. But can you remember the exact moment things started to change? Today we're going to talk about friendships that went wrong. This one gets personal."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('trust')"><div class="vword">trust</div><div class="vdef">The feeling that someone is honest and will not hurt you</div><div class="vex">"Once you break my trust, it's very hard to get it back."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('lie')"><div class="vword">lie</div><div class="vdef">Something you say that is not true</div><div class="vex">"It wasn't the big lie. It was the small ones I didn't see."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('secret')"><div class="vword">secret</div><div class="vdef">Something you know but don't tell other people</div><div class="vex">"She told everyone my secret. I never spoke to her again."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('jealousy')"><div class="vword">jealousy</div><div class="vdef">The feeling of wanting what someone else has</div><div class="vex">"I think jealousy was the real problem. He couldn't be happy for me."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('fight')"><div class="vword">fight</div><div class="vdef">A serious argument between two people</div><div class="vex">"We had one big fight and that was it. Ten years of friendship — gone."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('betrayal')"><div class="vword">betrayal</div><div class="vdef">When someone you trust does something that hurts you badly</div><div class="vex">"What he did was a betrayal. I don't use that word easily."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('distance')"><div class="vword">distance</div><div class="vdef">The emotional space that grows between two people</div><div class="vex">"We didn't fight. We just put distance between us until we became strangers."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('apology')"><div class="vword">apology</div><div class="vdef">When you say sorry for something you did wrong</div><div class="vex">"I waited for an apology that never came. That told me everything."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('gossip')"><div class="vword">gossip</div><div class="vdef">Talking about other people's private information</div><div class="vex">"She spread gossip about me at work. I couldn't forgive that."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('regret')"><div class="vword">regret</div><div class="vdef">A sad feeling about something you did or didn't do in the past</div><div class="vex">"My only regret is that I didn't say something sooner."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('betray')"><div class="vword">betray</div><div class="vdef">Do something that hurts a person who trusted you</div><div class="vex">"He betrayed me in front of everyone. I didn't see it coming."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('forgive')"><div class="vword">forgive</div><div class="vdef">Stop being angry at someone for what they did</div><div class="vex">"I forgave her, but the friendship was never the same again."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('lose touch')"><div class="vword">lose touch</div><div class="vdef">Stop talking to someone gradually over time</div><div class="vex">"We didn't fight. We just lost touch. That's also a kind of ending."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('talk behind someone\'s back')"><div class="vword">talk behind someone's back</div><div class="vdef">Say bad things about someone when they are not there</div><div class="vex">"I found out she was talking behind my back. I was really hurt."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('argue')"><div class="vword">argue</div><div class="vdef">Have a disagreement using strong words</div><div class="vex">"We argued about money once. We never talked again after that."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('miss')"><div class="vword">miss</div><div class="vdef">Feel sad because someone is not in your life anymore</div><div class="vex">"Even after everything that happened, I still miss who he was before."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('choose sides')"><div class="vword">choose sides</div><div class="vdef">Decide to support one person in a conflict</div><div class="vex">"When they broke up, everyone had to choose sides. That ended three friendships."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('cut off')"><div class="vword">cut off</div><div class="vdef">Completely stop contact with someone</div><div class="vex">"I cut him off completely. No explanation. He knew why."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('grow apart')"><div class="vword">grow apart</div><div class="vdef">Slowly become different from a friend until you have nothing in common</div><div class="vex">"We didn't fight. We just grew apart. Life took us different directions."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('confront')"><div class="vword">confront</div><div class="vdef">Talk directly to someone about a problem, even when it's uncomfortable</div><div class="vex">"I never confronted her. I just disappeared. I still wonder if that was wrong."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('That was the last straw')"><div><div class="phrase-text">That was the last straw</div><div class="phrase-context">The final thing that made you decide to end the friendship — after many small problems</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I was done')"><div><div class="phrase-text">I was done</div><div class="phrase-context">I decided to finish the relationship — no more chances, no more explanations</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('We just drifted apart')"><div><div class="phrase-text">We just drifted apart</div><div class="phrase-context">The friendship ended slowly — not because of a fight, but because life changed</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I never saw it coming')"><div><div class="phrase-text">I never saw it coming</div><div class="phrase-context">The betrayal or problem surprised you completely — you didn't expect it</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Some things you can\'t take back')"><div><div class="phrase-text">Some things you can't take back</div><div class="phrase-context">When someone says or does something so bad that the friendship can never be the same</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍💼</div><div><div class="b-name">Sofía, 34</div><div class="b-role">Teacher · Celaya</div></div></div>
+      <div class="b-text">"A real friend never becomes your enemy. If they did, <strong>they were never really your friend.</strong> True friendship survives fights, distance, and hard times. If it didn't survive — it was just a convenient relationship while it lasted."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍🍳</div><div><div class="b-name">Ricardo, 40</div><div class="b-role">Chef · Guadalajara</div></div></div>
+      <div class="b-text">"I lost my best friend of 15 years over money. I lent him 20,000 pesos and he never paid me back. <strong>Money changes people — or it shows you who they really are.</strong> I don't miss him. I miss who I thought he was."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍⚕️</div><div><div class="b-name">Valeria, 29</div><div class="b-role">Nurse · Querétaro</div></div></div>
+      <div class="b-text">"People change. We change. <strong>It's not always betrayal — sometimes you just grow in different directions.</strong> The friendship wasn't bad. It just had an expiration date. That's okay. Not every friendship is supposed to be forever."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(16,185,129,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👴</div><div><div class="b-name">Don Ernesto, 58</div><div class="b-role">Retired Accountant · León</div></div></div>
+      <div class="b-text">"When a friend becomes your enemy, <strong>you need to look at your own part in that story.</strong> It's easy to say they changed. But in every broken friendship, both people did something. The ones who only blame the other person — they lose a lot of friends."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one sounds true to you — and which one makes you feel a little uncomfortable?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever lost a close friend — not because of death, but because something happened between you? What was it?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Give them space to share. If they say "yes, but I don't want to say the details" — that's fine. Ask: "Did it end with a fight — or just with silence?" The silence vs. big fight distinction opens a lot of vocabulary: lose touch, grow apart, cut off, drift away.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did you ever find out that a friend was talking about you behind your back? What did you do?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Almost everyone has a story here. The interesting fork: "Did you confront them or disappear?" Both are valid. The choice reveals personality — and opens great discussion about what the "right" response is. Neither is obviously correct.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever had to choose sides when two friends had a fight? What happened — and do you think you made the right choice?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Choosing sides is a rich real-life scenario. Model answer: "My two best friends broke up. I tried not to choose. I lost both of them. I think I should have been honest with both instead of trying to stay neutral." The cost of the choice is what matters.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it OK to end a friendship without an explanation — just stop responding? Or do you owe people a reason?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The "ghosting" question for friendships. Push for a real position: "Okay, but what if your best friend of 10 years just disappeared — would you want a reason?" The personal application usually changes their abstract answer.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think you can be real friends with someone who was once your enemy? Or is that too hard?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Has anyone in the group had this experience — an enemy who became a friend? The story is always more interesting than the theory. If not: "Can you imagine it? What would have to change first?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Don Ernesto says that in every broken friendship, both people did something wrong. Do you agree — or do some friendships have a clear bad person and a clear good person?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The spiciest opinion question. Softly challenge the "it was all their fault" narrative without dismissing real hurt. "Are there situations where one person really IS 100% wrong?" — the answer is usually yes, which makes the conversation more honest.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your best friend told your biggest secret to other people?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple hypothetical with high emotional charge. Push past "I would be angry" — to: "Would you talk to them? Would you end the friendship? Would you want an apology?" Each option leads to a different conversation about what friendship means to them.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if a good friend asked you to lie for them — to cover something serious?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The loyalty vs. honesty dilemma. A classic B1.1 hypothetical: simple grammar, huge real stakes. Model answer: "I would say no — because I don't want to be in that position. If they asked me, it means they already know it's wrong."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is there someone in your life right now who used to be a good friend — and you know you should talk to them, but you haven't? What's stopping you?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The most personal question in the lab. Give them time. Don't fill the silence. If they share — listen first. If they say no — gently push: "Really? Nobody?" The trigger quote says most friendships die in silence. This question lives right there.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Honestly — have you ever been the bad friend? The one who disappeared, told the secret, or said something you shouldn't have?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The mirror question. This is where Don Ernesto's opinion comes back. Most people have a moment like this — and most people carry it quietly. This is the question that makes the class feel real instead of theoretical. Celebrate honesty. Don't rush to comfort or judge.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">A friend you haven't spoken to in 3 years — after a bad fight — sends you a message: "I miss you. I was wrong. Can we talk?" You still feel hurt. But you also miss them. What do you do?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me what you do — and why. Be honest. Not the answer that sounds good. The real one. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · When Friends Become Enemies · Relationships & Personality</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

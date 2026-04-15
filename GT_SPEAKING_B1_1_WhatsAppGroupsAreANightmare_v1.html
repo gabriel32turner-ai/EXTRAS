@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · WhatsApp Groups Are a Nightmare · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#10B981;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#0F1923;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.33)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#0F1923}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">B1.1</span>
+      <span class="htag">Technology & Media</span>
+      <span class="htag">⚡ Edge: Medium</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">WhatsApp Groups<br>Are a Nightmare</div>
+    <div class="hero-sub">The family group. The work group. The school group. The group you can't leave. You have 247 unread messages and none of them are for you.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real fact. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">BBC Worklife · 2023</div>
+    <div class="trigger-quote">"The average Mexican professional belongs to 11 WhatsApp groups. They check their phone 58 times a day. Most of that activity is reading — and ignoring — group messages. The groups never stop. But the useful conversations happen elsewhere."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Quick count: how many WhatsApp groups are you in right now? Count them. Now — how many of them do you actually enjoy? Be honest. Today we're going to talk about the most universal Mexican experience: the groups you can't escape."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('notification')"><div class="vword">notification</div><div class="vdef">A sound or message that tells you something new arrived on your phone</div><div class="vex">"I turned off notifications for the family group. Best decision of my life."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('meme')"><div class="vword">meme</div><div class="vdef">A funny image or video that people share in groups all day</div><div class="vex">"My uncle sends the same meme every Monday morning. Every Monday."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('argument')"><div class="vword">argument</div><div class="vdef">A disagreement between people — often in writing in a group chat</div><div class="vex">"There was a big argument in the family group about politics. I left the group."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('drama')"><div class="vword">drama</div><div class="vdef">Unnecessary problems or emotional conflict</div><div class="vex">"There is always drama in the work group. Always someone angry about something."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('message')"><div class="vword">message</div><div class="vdef">A written communication on your phone</div><div class="vex">"I had 189 unread messages. I read zero of them. I just marked them as read."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('silence')"><div class="vword">silence</div><div class="vdef">When nobody says anything — in a group, this can also be strange</div><div class="vex">"The work group went completely silent after the boss sent the wrong message."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('voice note')"><div class="vword">voice note</div><div class="vdef">An audio message you record and send instead of typing</div><div class="vex">"My aunt sends voice notes of 8 minutes. I never listen to them. Never."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('admin')"><div class="vword">admin</div><div class="vdef">The person who controls and manages a WhatsApp group</div><div class="vex">"The admin of our school group sends messages at 6 AM. Six. In the morning."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('spam')"><div class="vword">spam</div><div class="vdef">Unnecessary messages that nobody asked for</div><div class="vex">"My work group is 90% spam. One useful message per week if I am lucky."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('stress')"><div class="vword">stress</div><div class="vdef">A feeling of pressure or worry</div><div class="vex">"The work WhatsApp group gives me stress on weekends. I can't disconnect."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('mute')"><div class="vword">mute</div><div class="vdef">Turn off the sound for a group so you don't hear every message</div><div class="vex">"I muted the family group. I still read it. I just don't want to hear it every two minutes."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('leave')"><div class="vword">leave</div><div class="vdef">Exit a WhatsApp group — sometimes brave, sometimes a social risk</div><div class="vex">"I left the work group on a Friday night. By Monday, everyone knew."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('ignore')"><div class="vword">ignore</div><div class="vdef">See a message and choose not to respond</div><div class="vex">"I ignore everything in the family group. I check it once a week, maximum."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('add')"><div class="vword">add</div><div class="vdef">Put someone in a group — without always asking them first</div><div class="vex">"Someone added me to a group called 'Quinceanera Planning 2025.' I don't know who."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('scroll')"><div class="vword">scroll</div><div class="vdef">Move quickly through messages without reading all of them</div><div class="vex">"I scrolled up to see if I missed something important. I missed nothing."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('forward')"><div class="vword">forward</div><div class="vdef">Send a message to another person or group</div><div class="vex">"My mom forwards fake news every day. I love her but it's a lot."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('complain')"><div class="vword">complain</div><div class="vdef">Say that something is wrong or annoying</div><div class="vex">"I complain about the groups but I never leave them. That is my problem."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('send')"><div class="vword">send</div><div class="vdef">Deliver a message to the group</div><div class="vex">"He sent a message at 11 PM with just the words: 'Good evening.' To 43 people."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('read')"><div class="vword">read</div><div class="vdef">Open and see a message — shown by the blue check marks</div><div class="vex">"I read the message but I didn't respond. Now she thinks I'm ignoring her."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('disconnect')"><div class="vword">disconnect</div><div class="vdef">Stop looking at your phone — especially at night or on weekends</div><div class="vex">"I can't disconnect on weekends because the work group never stops."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('I saw it but didn\'t respond')"><div><div class="phrase-text">I saw it but didn't respond</div><div class="phrase-context">The most common WhatsApp crime — reading without answering, proven by the blue checks</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Who added me to this group?')"><div><div class="phrase-text">Who added me to this group?</div><div class="phrase-context">The question you ask when you appear in a group with 47 people you don't know</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I can\'t leave — it\'s family')"><div><div class="phrase-text">I can't leave — it's family</div><div class="phrase-context">The social contract that keeps you trapped in groups you would never choose to join</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Please, for personal conversations')"><div><div class="phrase-text">Please, for personal conversations</div><div class="phrase-context">The admin message asking people to stop using the group for individual chats — ignored by everyone</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I have 300 unread messages')"><div><div class="phrase-text">I have 300 unread messages</div><div class="phrase-context">Said with a mixture of guilt, pride, and total lack of intention to read any of them</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Defend it.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍👧‍👦</div><div><div class="b-name">Carolina, 43</div><div class="b-role">Mom & Office Manager · León</div></div></div>
+      <div class="b-text">"I love my WhatsApp groups. My family is in three cities and the group keeps us connected. <strong>When my dad was sick, the group was how we organized everything in real time.</strong> People who complain about groups just don't use them correctly."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍💼</div><div><div class="b-name">Rodrigo, 38</div><div class="b-role">Sales Rep · CDMX</div></div></div>
+      <div class="b-text">"My work group is the worst part of my job. My boss sends messages at 10 PM and 6 AM on Sundays. <strong>I have no peace. My personal time does not exist anymore.</strong> WhatsApp killed the boundary between work and home."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👧</div><div><div class="b-name">Daniela, 26</div><div class="b-role">Graphic Designer · Monterrey</div></div></div>
+      <div class="b-text">"I mute everything and check groups when I want to. <strong>The problem is not WhatsApp — the problem is that people don't know how to use it.</strong> You can control your phone. You just have to decide to."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(16,185,129,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👴</div><div><div class="b-name">Don Héctor, 61</div><div class="b-role">Retired Engineer · Celaya</div></div></div>
+      <div class="b-text">"I am in 14 groups. I read everything. I respond to everything. <strong>And I am the happiest person in all of them.</strong> Young people say groups are too much. I say they just don't have enough patience for other people. That's the real problem."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one opinion.</strong> Which one sounds most like you — and which one makes you laugh or say "no way"?</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real talk. No right answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">How many WhatsApp groups are you in right now? Which one is the most stressful — and which one is actually useful?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The question everyone can answer immediately. Let them count out loud. The contrast between "most stressful" and "actually useful" usually surprises them — often the ratio is 10:1. That number starts the whole conversation without any theory needed.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever left a WhatsApp group? What happened after — was there any drama?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Leaving a WhatsApp group in Mexico is a social event. "Everyone knew by Monday." "My aunt called me." "I was added back three hours later." These stories are funny and real. If they've never left a group, ask: "Why not? What are you afraid of?" That's the honest question.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever sent a message to the wrong group — or read something in a group that you weren't supposed to see? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Everyone has a story. The "wrong group" message is a universal experience. "I sent a complaint about my boss to the work group instead of the personal one." "I found out about a surprise party for me because someone forgot I was in the group." Real stories, real vocabulary.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it rude to mute a WhatsApp group without telling anyone — or is that a normal, healthy thing to do?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The "rude vs. healthy" question. Most people mute groups but feel mildly guilty about it. Push: "Would you feel offended if you found out a group member had muted your group? Why?" The personal test always changes the abstract position.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Should your boss be able to send you WhatsApp messages after 7 PM? Or is that a violation of your personal time?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Rodrigo's opinion lives here. Most students feel it's wrong but don't say anything because of fear. Push: "Have you ever told your boss to stop? Or just suffered in silence?" The gap between belief and behavior is the honest conversation.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Don Héctor reads and responds to everything in all his groups — and says he's happy. Is he actually happy, or is he just very good at accepting things that others would reject?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The provocateur's position. Is he wise — or does he just have different needs? Great cultural discussion: older Mexicans often see group participation as connection and duty. Younger ones see it as noise. Neither is wrong. But the gap is interesting to name.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if your boss sent you a WhatsApp message at midnight asking for a report before 8 AM?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple scenario with real emotional charge. Push past "I would do it" — to: "Would you feel angry while doing it? Would you say anything? Would you do it again next time?" The repetition question is where the real problem lives.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if you left the family group and your mom called you crying about it?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The Mexican family WhatsApp group has almost mythological status. Leaving it is a social and emotional event. Push: "Would you go back? Would you explain yourself? Or would you stay out and feel the guilt?" All three are real options that real people choose.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest: are you in groups that you never respond to — but you stay in because you're afraid of what happens if you leave?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Almost everyone says yes. The fear is specific: "They'll know." "It will be awkward." "My aunt will call." That fear is the real topic. Not WhatsApp. The group is just where social anxiety lives now in a Mexican family context.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">How many unread messages do you have right now — in all your groups? And when was the last time you felt that number was a problem?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The closer. Let them check their phone right now if they want. The number is usually large. The interesting question is the second one: "Does it bother you — or have you made peace with it?" Both answers tell you something about how they live with constant digital noise.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One final question. No easy answer.</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your boss adds you to a new WhatsApp group called "Weekend Updates." It already has 23 people in it. The first message is from your boss at 8 PM on a Saturday: "Good evening everyone, quick reminder about Monday's meeting. Please confirm you received this." What do you do?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me exactly what you do — do you respond? When? What do you say? And how do you feel while you type it? Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · WhatsApp Groups Are a Nightmare · Technology & Media</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

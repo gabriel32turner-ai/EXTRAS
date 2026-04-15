@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab B1.1 · My Guilty Pleasure</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);
+  --ac:#10B981;--ac2:#34D399;
+  --txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}
+.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.1)}
+.mode-btn{background:var(--ac);border:none;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(16,185,129,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.3);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.3);color:rgba(255,31,92,.8);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(16,185,129,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(16,185,129,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(16,185,129,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(16,185,129,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+  <div class="brand">
+    <div class="dot"></div>
+    <div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">B1.1 · Daily Life & Lifestyle</div></div>
+  </div>
+  <div class="hdr-r">
+    <div class="badge">B1.1</div>
+    <button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button>
+  </div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1400&q=80&fit=crop" alt="guilty pleasure cake chocolate indulgence">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">GP</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Daily Life & Lifestyle</div>
+    <div class="hero-title">My <em>Guilty</em><br>Pleasure</div>
+    <div class="hero-sub">Something you love. Something you're a little embarrassed about. Something nobody needs to know.</div>
+    <div class="hero-chips">
+      <span class="hchip em">B1.1</span>
+      <span class="hchip">Daily Life & Lifestyle</span>
+      <span class="hchip">🟡 Medium</span>
+      <span class="hchip">50 min</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<!-- PHASE 1 -->
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🪝 Phase 1 — The Trigger</div>
+        <div class="sec-title">The Headline</div>
+        <div class="sec-sub">Read it aloud. Then ask the first question.</div>
+      </div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">The Guardian · Culture</div>
+      <div class="trigger-quote">"The most popular guilty pleasures in 2023: reality TV, fast food eaten alone in the car, buying things online at midnight, and re-watching the same shows for the 4th time."</div>
+      <div class="trigger-sub">— Nobody is as sophisticated as they pretend to be online.</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">YouGov Survey · UK & US</div>
+      <div class="trigger-quote">"78% of adults say they have at least one thing they enjoy that they feel slightly embarrassed to admit — even to close friends."</div>
+      <div class="trigger-sub">— Which means the other 22% are lying.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body">
+        <strong>Launch line:</strong> "Quick question — what's something you enjoy that you would never post on Instagram? Not because it's bad. Just because it's... a little embarrassing?" [Pause.] "That thing? That's your guilty pleasure. Today we talk about those." This opener always gets a laugh and immediately breaks the ice.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💉 Phase 2 — Vocab Injection</div>
+        <div class="sec-title">Power Words</div>
+        <div class="sec-sub">Click any card to hear it. Use at least 4 of these today.</div>
+      </div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1000&q=80&fit=crop" alt="guilty pleasure nouns">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Pleasure, Shame & Self-Indulgence</div><div class="sbo-sub">Click each card · Web Speech · B1.1 calibrated</div></div>
+        <div class="sbo-badge">Nouns</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('guilty pleasure')"><div class="v-word">guilty pleasure</div><div class="v-pos">noun</div><div class="v-def">Something you enjoy but feel a little embarrassed about</div></div>
+      <div class="v-card" onclick="speak('embarrassment')"><div class="v-word">embarrassment</div><div class="v-pos">noun</div><div class="v-def">The uncomfortable feeling of looking silly in front of others</div></div>
+      <div class="v-card" onclick="speak('comfort')"><div class="v-word">comfort</div><div class="v-pos">noun</div><div class="v-def">A feeling of safety and warmth — guilty pleasures usually give us this</div></div>
+      <div class="v-card" onclick="speak('secret')"><div class="v-word">secret</div><div class="v-pos">noun</div><div class="v-def">Something you know but don't tell other people — like your guilty pleasure</div></div>
+      <div class="v-card" onclick="speak('junk food')"><div class="v-word">junk food</div><div class="v-pos">noun</div><div class="v-def">Food that is not healthy but tastes amazing — chips, fast food, sweets</div></div>
+      <div class="v-card" onclick="speak('binge')"><div class="v-word">binge</div><div class="v-pos">noun</div><div class="v-def">Watching many episodes of a show in a row — or eating a lot of one thing</div></div>
+      <div class="v-card" onclick="speak('judgment')"><div class="v-word">judgment</div><div class="v-pos">noun</div><div class="v-def">What other people think about your choices — the reason we hide our pleasures</div></div>
+      <div class="v-card" onclick="speak('mood')"><div class="v-word">mood</div><div class="v-pos">noun</div><div class="v-def">How you feel at a particular moment — guilty pleasures exist to fix bad moods</div></div>
+      <div class="v-card" onclick="speak('treat')"><div class="v-word">treat</div><div class="v-pos">noun</div><div class="v-def">Something special you give yourself — food, a show, a lazy day</div></div>
+      <div class="v-card" onclick="speak('routine')"><div class="v-word">routine</div><div class="v-pos">noun</div><div class="v-def">Something you do regularly — guilty pleasures often become part of our routines</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="guilty pleasure verbs">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What We Do When Nobody Is Watching</div><div class="sbo-sub">Click to hear · Natural pace</div></div>
+        <div class="sbo-badge">Verbs</div>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('enjoy')"><div class="v-word">enjoy</div><div class="v-pos">verb</div><div class="v-def">To feel happy doing something — simple but important</div></div>
+      <div class="v-card" onclick="speak('hide')"><div class="v-word">hide</div><div class="v-pos">verb</div><div class="v-def">To keep something secret — "I hide my junk food in the back of the cupboard"</div></div>
+      <div class="v-card" onclick="speak('admit')"><div class="v-word">admit</div><div class="v-pos">verb</div><div class="v-def">To say something true even when it feels embarrassing</div></div>
+      <div class="v-card" onclick="speak('binge-watch')"><div class="v-word">binge-watch</div><div class="v-pos">verb</div><div class="v-def">To watch many episodes of a show in one sitting — usually with snacks</div></div>
+      <div class="v-card" onclick="speak('judge')"><div class="v-word">judge</div><div class="v-pos">verb</div><div class="v-def">To form an opinion about someone based on their choices</div></div>
+      <div class="v-card" onclick="speak('deserve')"><div class="v-word">deserve</div><div class="v-pos">verb</div><div class="v-def">To have earned something — "I worked hard today, I deserve this"</div></div>
+      <div class="v-card" onclick="speak('pretend')"><div class="v-word">pretend</div><div class="v-pos">verb</div><div class="v-def">To act like something is true when it is not — "I pretend I don't watch reality TV"</div></div>
+      <div class="v-card" onclick="speak('regret')"><div class="v-word">regret</div><div class="v-pos">verb</div><div class="v-def">To feel bad about something you did — or ate, or watched</div></div>
+      <div class="v-card" onclick="speak('spend')"><div class="v-word">spend</div><div class="v-pos">verb</div><div class="v-def">To use time or money on something — often on guilty pleasures</div></div>
+      <div class="v-card" onclick="speak('laugh at yourself')"><div class="v-word">laugh at yourself</div><div class="v-pos">verb</div><div class="v-def">To find your own habits funny — the best way to deal with guilty pleasures</div></div>
+    </div>
+
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1000&q=80&fit=crop" alt="colloquial phrases pleasure">
+      <div class="sbo">
+        <div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — No Judgment Zone</div><div class="sbo-sub">Things people actually say · Click to hear</div></div>
+        <div class="sbo-badge">Colloquial</div>
+      </div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Don\'t judge me')"><div class="p-text">"Don't judge me."</div><div class="p-context">Said before revealing something embarrassing — prepares the other person for the confession</div></div>
+      <div class="phrase-item" onclick="speak('I know, I know')"><div class="p-text">"I know, I know."</div><div class="p-context">When someone reacts to your guilty pleasure — you already know it's ridiculous</div></div>
+      <div class="phrase-item" onclick="speak('I can\'t help it')"><div class="p-text">"I can't help it."</div><div class="p-context">When you enjoy something you shouldn't — and you can't explain why</div></div>
+      <div class="phrase-item" onclick="speak('It makes me happy, okay?')"><div class="p-text">"It makes me happy, okay?"</div><div class="p-context">The final defense — when logic fails and happiness is the only argument</div></div>
+      <div class="phrase-item" onclick="speak('Come on, everyone does it')"><div class="p-text">"Come on, everyone does it."</div><div class="p-context">The attempt to normalize your guilty pleasure — sometimes true, sometimes not</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">
+        After phrases, ask: "Which phrase would you use to introduce your guilty pleasure to someone?" Most say "Don't judge me" — which is the perfect bridge to the Opinion Wall: "Okay. I won't judge. Let's see what four other people say about their guilty pleasures."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div>
+        <div class="sec-title">Four Voices. One Topic.</div>
+        <div class="sec-sub">Read all four. Choose one. Tell me why — 60 seconds.</div>
+      </div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">📺</div>
+        <div class="op-name">Lucía, 34</div>
+        <div class="op-role">Nurse · Celaya</div>
+        <div class="op-text">"My guilty pleasure is reality TV. Shows about people singing, people cooking, people arguing. I watch them after a 12-hour shift. <strong>I don't feel guilty at all, actually.</strong> When your job is that hard, you earn the right to watch trash TV without apologizing."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🍫</div>
+        <div class="op-name">Mateo, 38</div>
+        <div class="op-role">Teacher · Monterrey</div>
+        <div class="op-text">"I buy chocolate and eat it in my car before I go home — so my kids don't see. <strong>It's the best 10 minutes of my day.</strong> Just me, my chocolate, and five minutes of silence. I know it sounds sad. But when you have three kids, alone time is sacred."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🎵</div>
+        <div class="op-name">Carolina, 26</div>
+        <div class="op-role">Accountant · CDMX</div>
+        <div class="op-text">"I listen to very bad pop music — the kind that is embarrassing to admit. I know the lyrics to songs I would never tell anyone I know. <strong>Music is personal.</strong> You don't have to explain your taste to anyone. Just listen to what makes you happy."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">🙄</div>
+        <div class="op-name">Ricardo, 48</div>
+        <div class="op-role">Engineer · Guadalajara</div>
+        <div class="op-text">"I don't really believe in guilty pleasures. <strong>If you enjoy something and it doesn't hurt anyone, why feel guilty?</strong> The whole concept exists because we care too much about what other people think. Stop calling it 'guilty.' Just call it a pleasure. Own it."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body">
+        <strong>Provocateur rationale:</strong> Ricardo challenges the concept itself — not the pleasure, but the guilt. His position makes students ask: "Why do I feel embarrassed about things I enjoy alone?" It's philosophically simple but emotionally disarming. Students who identify with Lucía or Carolina often quietly agree with Ricardo. <br><br>
+        <strong>Facilitation move:</strong> After they pick their opinion: "And Ricardo — is he right? Should we stop using the word 'guilty'?" Let them decide.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div>
+        <div class="sec-title">10 Questions · 4 Blocks</div>
+        <div class="sec-sub">Confessional and fun. Show tips only after the student answers.</div>
+      </div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What is your guilty pleasure? The thing you enjoy that you would be a little embarrassed to tell people at work?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The big opener — and the most fun question of the session. Model first to break the ice: "My guilty pleasure is reality cooking shows. I watch them alone and I take them very seriously. Nobody at work knows." Once you model, students open up immediately. Activate: guilty pleasure, secret, enjoy, binge.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever been caught enjoying your guilty pleasure — by a family member, a friend, or a coworker? What happened?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Present perfect — personal and funny. Model: "Yes — my partner walked in while I was watching a dating reality show. I tried to change the channel. Too late." The embarrassment story is gold for B1.1. Activate: embarrassment, hide, pretend, judgment.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you have a guilty pleasure as a teenager that you laugh about now? What was it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — nostalgic and light. Great for B1.1 storytelling. Common: terrible music, soap operas, video games, cheesy movies. Model: "When I was 16, I collected stickers. Like, hundreds of stickers. In albums. I was very proud of them. Now I find it hilarious." Activate: enjoy, secret, laugh at yourself.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think the word "guilty" is the right word — or is it okay to just enjoy things without feeling bad about it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Ricardo's argument. This is the philosophical heart of the lab. Most B1.1 students haven't thought about this before. Both answers are valid — let the student explore. Model: "I think the guilt is real — not because the thing is bad, but because we compare ourselves to who we think we should be." Activate: judgment, admit, deserve.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it OK to judge someone for their guilty pleasure — even a little bit? Or should we always say "no judgment"?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Honest and light. Most people judge privately and pretend they don't. Model: "I think everyone judges a little. If someone tells me their guilty pleasure is something really strange, I have a reaction — even if I don't say it." Good for modals: "We should accept people's choices, but..." Activate: judge, pretend, admit.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think guilty pleasures are more important when life is stressful? Why?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple and personal. Almost every student will say yes. Push: "Can you think of a really stressful week in your life — and what was your guilty pleasure that week?" Connecting stress to the pleasure makes it concrete. Activate: comfort, mood, treat, stress.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if someone you respect — your boss, your partner, a good friend — saw your guilty pleasure and reacted badly?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Second conditional. Would they defend it or be embarrassed? Model: "If my boss saw me watching reality TV, I think I would laugh and say 'yes, this is my thing.' But if it was someone I really wanted to impress — I might feel embarrassed." Activate: embarrassment, judgment, admit, pretend.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would you do if you had one full day — nobody watching, no responsibilities — to enjoy your guilty pleasure without any guilt at all?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The most fun hypothetical of the lab. Students describe their ideal "guilty pleasure day" — this produces the most energetic, flowing B1.1 speech. Let it run. Use "going to" structures: "I would wake up late, I'd order... I'd binge-watch... I'd eat..." Activate: binge-watch, enjoy, comfort, treat.</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Do you think your guilty pleasure says something true about you — something you don't usually show other people?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">The most reflective question of the lab. Mateo's chocolate in the car reveals a need for silence and privacy. Lucía's reality TV reveals exhaustion and a need for simple entertainment. What does the student's guilty pleasure reveal? Give them a moment to think. Don't rush.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Is there a guilty pleasure you had before that you stopped — not because you wanted to, but because you felt too old or too serious for it? Do you miss it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Nostalgic closing question. Very personal and sometimes unexpectedly touching. Common: video games abandoned after becoming a parent, cartoon shows, particular music, hobbies that felt "childish." Model: "I used to draw cartoons for fun. I stopped around 28. I thought it was too childish. Sometimes I miss it." Activate: regret, enjoy, secret, laugh at yourself.</div>
+      </div>
+    </div>
+
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body">
+        <strong>B1.1 grammar check:</strong> Q2–Q3 = present perfect + past simple. Q7–Q8 = second conditional. Q8 is especially good for "would + verb" practice in a fun context. <br><br>
+        <strong>Energy note:</strong> This is the highest-energy lab in the B1.1 lineup. Students laugh, confess, and connect. Q8 (the full day of guilty pleasure) often produces the longest, most spontaneous speech of the session. Let it happen. Q9 and Q10 bring the energy down gently — both are worth the slowdown.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l">
+        <div class="sec-lbl">💣 Phase 5 — The Exit Shot</div>
+        <div class="sec-title">The Final Question</div>
+        <div class="sec-sub">One question. No judgment. Honest answer only.</div>
+      </div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Your closest friend asks you: "Tell me your real guilty pleasure — the one you've never told anyone." Do you tell them? And if yes — what do you say?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me your guilty pleasure. Describe it, explain when you do it, and tell me: do you feel guilty — or actually not?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body">
+        <strong>Why it works:</strong> The Exit Shot has two layers — the decision to share, and then the actual content. "Do you tell them?" tests trust and vulnerability. "What do you say?" tests self-knowledge. It's warm and funny, but genuinely personal. <br><br>
+        <strong>Homework note:</strong> The easiest homework in the B1.1 lineup — students enjoy recording this one. The topic is fun, personal, and requires no research. Expect high completion rates. <br><br>
+        <strong>Upsell moment:</strong> "Next session we talk about things that made us happy as kids — but we've forgotten as adults. Very similar energy to today, but going back in time. I think you'll like it."
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">B1.1 · Daily Life & Lifestyle · My Guilty Pleasure · Medium</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const pct=(d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+function toggleMode(btn){
+  const isStudent=document.body.classList.toggle('student-mode');
+  btn.textContent=isStudent?'Student Mode':'Teacher Mode';
+}
+function toggleTN(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.toggle('open');
+  btn.querySelector('span').textContent=isOpen?'−':'+';
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide tip':'Show tip';
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+},{passive:true});
+</script>
+</body>
+</html>

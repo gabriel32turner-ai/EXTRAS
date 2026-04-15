@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Tattoos: Cool or Regrettable? · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #10B981;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #10B981; border: none; color: #0F1923;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1542396601-dca920ea2807?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(16,185,129,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(16,185,129,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(16,185,129,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(16,185,129,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">B1.1</span>
+      <span class="tag">Daily Life &amp; Lifestyle</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Tattoos: Cool or Regrettable?</h1>
+    <p>Permanent art or permanent mistake? What you thought was a great idea at 20 looks very different at 40.</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"Around 30% of people with tattoos say they regret at least one of them. The most common regret? Getting a tattoo with a partner's name on it. The tattoo removal industry is now worth over $5 billion worldwide."</div>
+      <div class="quote-source">— Harris Poll / Statista, 2023</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Quick question — do you have a tattoo? Or do you want one?" [Pause.] "Now — if you have one, do you still love it? Or do you wish you could remove it?" [Short pause.] "Today we are talking about tattoos: why people get them, why they regret them, and what it says about us."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('tattoo')">
+        <div class="vocab-word">tattoo</div>
+        <div class="vocab-def">permanent ink put into the skin to make a design or picture</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('regret')">
+        <div class="vocab-word">regret</div>
+        <div class="vocab-def">the sad feeling you have when you wish you had not done something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('skin')">
+        <div class="vocab-word">skin</div>
+        <div class="vocab-def">the outside of your body — the canvas for a tattoo</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('design')">
+        <div class="vocab-word">design</div>
+        <div class="vocab-def">the image, word, or symbol that goes on the tattoo</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pain')">
+        <div class="vocab-word">pain</div>
+        <div class="vocab-def">the physical discomfort you feel when the needle goes into your skin</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('memory')">
+        <div class="vocab-word">memory</div>
+        <div class="vocab-def">a reason people often get tattoos — to remember something important</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('impression')">
+        <div class="vocab-word">impression</div>
+        <div class="vocab-def">what other people think of you when they see your tattoo</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('job interview')">
+        <div class="vocab-word">job interview</div>
+        <div class="vocab-def">where visible tattoos can still cause problems in some companies</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('choice')">
+        <div class="vocab-word">choice</div>
+        <div class="vocab-def">the decision to get — or not get — something permanent on your body</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('needle')">
+        <div class="vocab-word">needle</div>
+        <div class="vocab-def">the tool used to put ink into the skin</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('get a tattoo')">
+        <div class="vocab-word">get a tattoo</div>
+        <div class="vocab-def">to decide to have permanent ink put on your body</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('regret')">
+        <div class="vocab-word">regret</div>
+        <div class="vocab-def">to feel bad about a decision you made in the past</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('judge')">
+        <div class="vocab-word">judge</div>
+        <div class="vocab-def">to have a negative opinion about someone because of how they look</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('hide')">
+        <div class="vocab-word">hide</div>
+        <div class="vocab-def">to cover a tattoo with clothes or makeup for a professional situation</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('remove')">
+        <div class="vocab-word">remove</div>
+        <div class="vocab-def">to take off a tattoo — a painful and expensive process</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('mean')">
+        <div class="vocab-word">mean</div>
+        <div class="vocab-def">to have a specific significance — "What does your tattoo mean?"</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('change your mind')">
+        <div class="vocab-word">change your mind</div>
+        <div class="vocab-def">to think differently about something you decided in the past</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('look')">
+        <div class="vocab-word">look</div>
+        <div class="vocab-def">how a tattoo appears — "It looks great" / "It looks terrible now"</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stand out')">
+        <div class="vocab-word">stand out</div>
+        <div class="vocab-def">to be different from other people in a visible way</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('think twice')">
+        <div class="vocab-word">think twice</div>
+        <div class="vocab-def">to be more careful before doing something permanent</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('What were you thinking?')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"What were you thinking?"</div>
+          <div class="phrase-context">What your parents said when they saw your first tattoo.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It has a meaning for me.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It has a meaning for me."</div>
+          <div class="phrase-context">The most common defense when someone asks why you got a specific tattoo.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I was young and stupid.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I was young and stupid."</div>
+          <div class="phrase-context">The honest explanation for a tattoo you now regret completely.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('My body, my rules.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"My body, my rules."</div>
+          <div class="phrase-context">The answer when someone criticizes your tattoo without being asked.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is not for everyone.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It's not for everyone."</div>
+          <div class="phrase-context">A polite way of saying: "I know you do not like it, and that is fine."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">💪</div>
+          <div>
+            <div class="op-name">Valeria, 28</div>
+            <div class="op-role">Graphic Designer, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I have four tattoos and I love every single one. <strong>My tattoos are part of who I am.</strong> They tell my story. I do not understand why people are so judgmental — it is just art on skin. Nobody has to look if they do not like it."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😬</div>
+          <div>
+            <div class="op-name">Rodrigo, 39</div>
+            <div class="op-role">Salesman, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I got my ex-girlfriend's name tattooed on my arm when I was 22. We broke up 8 months later. <strong>I spent $800 to remove it.</strong> It hurt more than the tattoo itself. Now I think three times before I do anything permanent."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🧑‍💼</div>
+          <div>
+            <div class="op-name">Elena, 47</div>
+            <div class="op-role">HR Manager, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"In my company we do not have a rule against tattoos, but I am honest — <strong>visible tattoos in a job interview make a first impression.</strong> I try to be fair. But I know some of my colleagues are more traditional. It is a reality, not a judgment."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">🤨</div>
+          <div>
+            <div class="op-name">Roberto, 55</div>
+            <div class="op-role">Retired Teacher, Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">"I think tattoos are popular now because young people are afraid of being normal. <strong>If everybody has a tattoo, is it still special?</strong> When tattoos were unusual, they meant something. Now you see them everywhere — on teachers, doctors, grandmothers. The rebellion is gone."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which person do you agree with? Does Roberto's point make sense — even if you like tattoos? Has a tattoo ever changed how you felt about someone?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Do you have a tattoo? If yes — what is it and why did you get it? If no — have you ever wanted one?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The most personal opener possible. Both answers are equally interesting. Students without tattoos can talk about what they would get and why — or why they have decided not to. Very low pressure, very high engagement.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Have you ever looked at a tattoo — yours or someone else's — and thought "that was a bad idea"?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Present perfect + judgment. Rodrigo's story always comes up here. Good for "I think / I thought..." and past simple narrative. Model: "My friend got his university team's name tattooed and now he hates football."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Have you ever judged someone because of a tattoo — or felt judged because of yours?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Honest self-reflection. Most people have done both. The gap between "I don't judge" and actual behavior is interesting. Elena's HR perspective is useful here. Keep it light — no need for it to get heavy.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Do you think tattoos affect how people see you at work? Should they?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Elena's HR angle — very relevant for professional students. "I think tattoos should/shouldn't matter at work because..." Good for modals of opinion. Many students have lived this directly.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Is it okay to get a tattoo of a person's name? When is it a good idea — and when is it a disaster?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Rodrigo's catastrophic ex-tattoo is the perfect anchor for this. "I think it is okay if... but it is a bad idea if..." Good for conditional 1. Expect laughs and strong opinions.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you believe that tattoos still have a special meaning — or are they just fashion now?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Roberto's provocateur point. Do tattoos lose meaning when everyone has them? "I believe that..." / "In my opinion..." Good for expressing belief simply. Both sides are defensible — which is the point.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Hypothetical</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">What would you do if your son or daughter came home with a large tattoo on their neck at age 18?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Second conditional. Very emotional and specific. "If my son came home with a neck tattoo... I would..." Generates strong and funny answers. Age 18 = legal, so they can't stop them. How do parents deal with it?</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What would you get tattooed on your body if you had to get one tattoo tomorrow — and it had to be visible?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Creative and fun second conditional. Forces even anti-tattoo students to engage imaginatively. "If I had to get one... I would get..." Even people who hate tattoos have a funny or surprising answer to this.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Is it fair that some companies do not hire people with visible tattoos? Or is that discrimination?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Ethics and workplace angle. "I think it is fair / unfair because..." Elena's perspective is directly relevant. Keep grammar simple: "It should/shouldn't be allowed to..." Students often have strong opinions about this.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">If you have a tattoo you love right now — do you think you will still love it at 70 years old?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The long-view self-reflection question. Simple grammar, big impact. If they have no tattoo: "Would you regret it at 70 if you got one now?" Forces students to think about permanence. Often ends with laughter — which is perfect.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your dream job calls you for an interview. The company is perfect. The salary is great. But you have a large tattoo on your arm that is always visible. The company has a conservative dress code and asks you to cover it every day. Do you take the job — or do you say no and keep looking?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. Do you take the job? And what do you think about a company that asks that?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · B1.1 · Daily Life &amp; Lifestyle · Tattoos: Cool or Regrettable?
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

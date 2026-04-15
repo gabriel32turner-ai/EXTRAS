@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · B1.1 · Food I Tried and Regretted</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#10B981;--ac2:#34D399;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(16,185,129,.08)}
+.mode-btn{background:#10B981;border:1px solid #10B981;color:#0F1923;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 50%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(16,185,129,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(16,185,129,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(16,185,129,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(16,185,129,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(16,185,129,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(16,185,129,.1)}
+.tn-arrow{transition:transform .2s}
+.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(16,185,129,.1)}
+.tn-c1{border-left:3px solid rgba(16,185,129,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(16,185,129,.08) 0%,rgba(16,185,129,.03) 100%);border:1px solid rgba(16,185,129,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(16,185,129,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(16,185,129,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(16,185,129,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(16,185,129,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(16,185,129,.3)}
+.vc.noun-c{border-top:2px solid rgba(16,185,129,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(16,185,129,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(52,211,153,.8);font-style:italic;border-left:2px solid rgba(16,185,129,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(16,185,129,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(16,185,129,.25);color:#0F1923;font-weight:800}
+.vocab-challenge{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(16,185,129,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(16,185,129,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(16,185,129,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(16,185,129,.65);background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(16,185,129,.3)}
+.q-tn strong{color:rgba(16,185,129,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(16,185,129,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(16,185,129,.1) 0%,rgba(16,185,129,.04) 50%,transparent 100%);border:1px solid rgba(16,185,129,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(16,185,129,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(16,185,129,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#0F1923}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">B1.1 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1400&q=80" alt="Strange food">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">B1</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · B1.1 · Travel &amp; Culture</div>
+    <div class="hero-title">FOOD I TRIED<br><em>AND REGRETTED</em></div>
+    <div class="hero-sub">You were polite. You were curious. You put it in your mouth. Big mistake.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 The Science of Disgust and Curiosity</div><div class="sec-sub">Read aloud · First reaction only · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🤢</div>
+    <div class="hsc-label">National Geographic Food + Condé Nast Traveler Survey 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">88%</div><div class="hsc-desc">Of travelers say trying local food is one of the most important parts of visiting a new place — even if it goes wrong</div></div>
+      <div class="hsc-stat"><div class="hsc-num">1 in 2</div><div class="hsc-desc">Tourists say they have eaten something abroad that made them feel sick — but half of them say they would try it again</div></div>
+      <div class="hsc-stat"><div class="hsc-num">74%</div><div class="hsc-desc">Of people have eaten something out of politeness — because a local or host offered it — and immediately regretted it</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3 days</div><div class="hsc-desc">The average time it takes for a food disaster to become a "funny story" — the same meal that ruined a day becomes the best story of the trip</div></div>
+    </div>
+    <div class="hsc-source">Sources: National Geographic "The World's Most Challenging Foods" 2023 · Condé Nast Traveler Annual Survey · Airbnb Experiences Food Report</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read this, then point at someone</div>
+    <div class="hq-text">"A local family invites you to dinner during your trip. They put something on your plate that smells very strange and looks like nothing you have ever eaten. They are all watching you. What do you do?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read slowly and with a little drama. Let "they are all watching you" land. Point at one student: "What do you do?" No judgment. 2–3 reactions. "We talk about all of this in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The 74% "ate out of politeness" stat is the most relatable — this happens in Mexico too, not just abroad. Use it: <strong>"Has anyone here eaten something at a family dinner in Mexico that they didn't want to? Same energy."</strong></li>
+        <li>The "3 days" stat reframes the experience — the disaster becomes the story. That's the emotional arc of the session.</li>
+        <li>If nobody has traveled: <strong>"Has anyone eaten something at a wedding, a party, or a family dinner that was really bad? Same feeling — just closer to home."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>This topic generates laughter immediately — food disaster stories are universally funny in retrospect. Let the energy be playful. The honesty follows the laughter.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Next Travel lab we look at tourist traps — when you pay a lot for something that turns out to be terrible. Food traps are part of it."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs Simultaneous</div><div class="sbo-sub">Person A reads definition — Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Food, Taste &amp; Regret</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Brave Eaters Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge — No preparation</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>a food experience — good, bad, or ugly.</em> Be specific. No writing. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Disgusting" — strong emotional word. Model it with appropriate face: "It was disgusting — I wanted to spit it out but everyone was watching." The physicality makes it memorable at B1.1.</li>
+        <li>"Brave" as a positive — eating something scary takes courage. Use it to reframe: "Being a brave eater is a real travel skill."</li>
+        <li>Best production trigger: <strong>"Which 3 words describe the worst thing you ever ate? Don't hold back."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"Food vocabulary is social vocabulary. If you're ever at a dinner with English speakers — this is what you need to describe the food and your face."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"These words are not just for travel. They're for every dinner, every party, every time someone asks 'did you like it?' in English."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Mouths. 4 Opinions.</div><div class="sec-sub">Read each card · Pairs 90 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4 voices</div><div class="sbo-sub">"Who do you agree with most — and who do you think is the bravest? Why?"</div></div><div class="sbo-badge">Don't change the question</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with most — and who do you think is the bravest? Why?"</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Ingrid</strong>. Her position — that refusing strange food is disrespectful to the culture — creates immediate friction with students who have strong food preferences. Push: <strong>"Is she right? Is saying 'no thank you' really disrespectful?"</strong></li>
+        <li>All 4 voices are sympathetic and real. The debate is warm, not confrontational — food is a safe emotional topic that still generates strong opinions.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Read Bernardo with disgust and drama. Read Ingrid with firm conviction. The contrast generates immediate laughter and reaction.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"One sentence — which of these four describes you at a dinner table with strange food? Be honest."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Personal → Opinion → Hypothetical → Provocative · Point and push · No round-robin</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>Rule:</strong> At least 2 sentences. Name the food. Describe the taste. Describe your face. That's a complete answer.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>This is the most naturally narrative-friendly session in this lote. B1.1 students love telling food stories — the physical reality of taste and texture gives them concrete vocabulary to work with.</li>
+        <li>The conv-bar rule is key: "Name the food. Describe the taste. Describe your face." This 3-part structure generates longer, richer answers at B1.1.</li>
+        <li>Q9 is playful and self-revealing. Use it as a comedy moment — then make it serious: "But seriously — what does that say about you as a traveler?"</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When a student makes a disgusted face while describing food — celebrate it: <strong>"That face! Now say that face in English. 'It was disgusting. I wanted to spit it out.' Try it."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You just told food stories in English — with adjectives, emotions, and facial expressions. That's real communication. Not grammar. Communication."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. No Easy Answer.</div><div class="sec-sub">5 min · No chips · Position + reason · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">You are at a business dinner with an important client from another country. They order <em>a dish you find disgusting.</em> They order the same thing for you — as a gift, to share their culture. Everyone is watching. <em>Do you eat it?</em></div>
+    <div class="exit-rule">3 sentences minimum. Yes or no first. Then tell me what goes through your head in that moment.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 B1.1 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"Yes, I eat it. At a business dinner, you do not say no to a client's gift — that's a rule I know. I take one bite, I smile, and I say 'this is very interesting.' I don't lie — 'interesting' is true. Then I drink a lot of water and change the subject."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. No preparation. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The business dinner context adds a professional dimension — it's not just personal preference, it's a career decision. That raises the stakes perfectly for the Exit Shot.</li>
+        <li>Follow-up: <strong>"What would you do if you actually felt sick after eating it — in front of the client?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer introduces a great B1.1 social strategy: "'interesting' is true — not a lie." Point it out: <strong>"This is a real English skill — the polite word that's still honest. 'Interesting.' Remember that."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You just made a professional decision about food — in English. That's not a small thing. That's a real skill you'll use."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · Food I Tried and Regretted · Travel &amp; Culture · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div><div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"taste",     def:"The flavor you experience when you eat something",                    ex:"The taste was like nothing I had ever eaten. I still don't know what it was."},
+  {w:"smell",     def:"The thing you notice through your nose before you eat",               ex:"The smell was so strong that I almost didn't try it."},
+  {w:"texture",   def:"How something feels in your mouth — soft, crunchy, slimy, hard",     ex:"The texture was the problem. It was too soft. Too strange."},
+  {w:"stomach",   def:"The organ in your body that processes food — it can say no too",      ex:"My stomach said no immediately. I didn't listen. That was my mistake."},
+  {w:"bite",      def:"A small amount of food you put in your mouth at one time",           ex:"I took one bite and I knew I was in trouble."},
+  {w:"regret",    def:"The feeling when you wish you had done something different",          ex:"I have no regret about trying it — just about finishing the whole plate."},
+  {w:"politeness",def:"Behaving in a kind and respectful way — sometimes even when you don't want to",ex:"I ate it out of politeness. The host was so proud of that dish."},
+  {w:"spice",     def:"A strong flavoring in food that can make it very hot or intense",    ex:"The spice was incredible. I cried — in a good way and a bad way."},
+  {w:"ingredient",def:"One of the parts or foods that go into a recipe",                    ex:"I asked what the main ingredient was. I wish I hadn't."},
+  {w:"adventure", def:"An exciting, often surprising experience",                            ex:"Eating that dish was a food adventure. A terrible one. But an adventure."}
+];
+const verbs=[
+  {w:"try",       def:"To eat something for the first time to see if you like it",          ex:"I tried it because everyone said it was amazing. They were wrong — for me."},
+  {w:"regret",    def:"To feel sorry that you did something",                               ex:"I regret eating the second bowl. The first one was enough of a mistake."},
+  {w:"spit out",  def:"To push food out of your mouth because you don't want to swallow it",ex:"I almost spit it out. Almost. I managed to swallow it with a lot of water."},
+  {w:"swallow",   def:"To move food from your mouth down to your stomach",                  ex:"I swallowed it quickly and tried to smile. My eyes said everything."},
+  {w:"pretend",   def:"To act like something is true when it isn't",                        ex:"I pretended to like it. I don't think I was very convincing."},
+  {w:"describe",  def:"To use words to explain what something is like",                     ex:"It's hard to describe. Like wet socks and blue cheese had a baby."},
+  {w:"refuse",    def:"To say no to something — to not accept or eat it",                  ex:"I refused politely. I said 'I'm allergic.' A small lie for a good reason."},
+  {w:"survive",   def:"To get through a difficult experience and come out okay",            ex:"I survived the meal. I didn't enjoy it, but I survived."},
+  {w:"recommend", def:"To tell someone they should try something because you think they will like it",ex:"Would I recommend it? Absolutely not. But I would recommend the experience."},
+  {w:"finish",    def:"To eat all of something — to empty the plate",                       ex:"I finished it because wasting food felt rude. I regretted being polite."}
+];
+const perspectives=[
+  {
+    name:"Bernardo Leal",meta:"36 · Chef · Oaxaca",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I'm a chef. I've tried everything. And I still have a list of foods I <strong>never want to eat again.</strong> Durian fruit in Thailand — the smell alone is like a punishment. Fermented shark in Iceland — I almost cried. But I tried them all. That's the job. And now I have the best stories."
+  },
+  {
+    name:"Ingrid Schulz",meta:"44 · Language Teacher · Guadalajara — la provocateur",flag:"🇩🇪",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"If someone from another culture offers you their traditional food, <strong>refusing it is disrespectful.</strong> Period. You don't have to enjoy it. But you have to try it. Food is identity. If you refuse my food, you reject part of me. I always eat what I'm offered. Always."
+  },
+  {
+    name:"Patricia Nava",meta:"50 · Homemaker · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I tried sea urchin in Japan because my son said it was delicious. The smell, the color, the texture — <strong>everything was wrong</strong> for me. I ate the whole thing and smiled. My son was so happy. I went to the bathroom afterwards and washed my mouth for five minutes. But he was happy. That's what matters."
+  },
+  {
+    name:"Diego Herrera",meta:"29 · Sales Rep · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I say no. Politely, but no. <strong>Life is too short</strong> to eat things that smell like old garbage just because you're in a foreign country. I'll try new food — I love food. But I have limits. My stomach, my rules. Nobody is going to make me eat something disgusting to prove I'm 'open-minded.'"
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Personal Experience",mech:"Past simple + present perfect · 2 min per Q · Point directly",questions:[
+    {num:"Q1",text:"Have you ever tried a food and immediately regretted it? What was it?",chips:["I tried... once and...","The worst food I ever ate was...","It happened when I was in...","The taste was..."],tn:"This is the most fun question in the lab. Let it run — food disaster stories are naturally detailed and funny. Push for the three elements: name the food, describe the taste, describe your face."},
+    {num:"Q2",text:"Have you ever eaten something out of politeness — when you really didn't want to?",chips:["I ate it because...","The host was so...","I pretended to like it when...","I survived by..."],tn:"'Politeness' and 'pretend' are key vocab activations. This connects to the trigger scenario (family dinner watching you). Push: 'Did the host know you didn't like it? Could they tell?'"},
+    {num:"Q3",text:"Have you ever asked what something was AFTER you ate it — and wished you hadn't?",chips:["I asked and they said...","I found out later that...","I was happier not knowing...","When they told me..."],tn:"This is the reverse-order story — eat first, discover second. Often the funniest version. The 'ignorance is bliss' dimension opens up a nice opinion question for Block 2."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion",mech:"2 min per Q · Push for reasons · Not just 'I agree'",questions:[
+    {num:"Q4",text:"Is it important to try local food when you travel — even if it looks scary?",chips:["I think you should always try because...","It's important because food is...","But there's a limit when...","I believe that..."],tn:"Ingrid vs Diego from §3. Both are valid. Push: 'Give me one food you would refuse no matter what — and one you would try even if it scared you.'"},
+    {num:"Q5",text:"Is it rude to refuse food that someone offers you — especially if they cooked it?",chips:["I think it's rude because...","It depends on the culture because...","You can refuse politely if...","In Mexican culture, refusing food means..."],tn:"Cultural dimension — in Mexico, refusing food at someone's home can be deeply impolite. This resonates immediately. Push: 'What do you say in Spanish when you don't want to eat something at a family dinner? Is there a polite way?'"},
+    {num:"Q6",text:"Do you think it's better to know what you're eating — or is ignorance sometimes better?",chips:["I prefer to know because...","Sometimes I think it's better not to know because...","After the experience I told you about...","For me, knowing changes how I..."],tn:"This is the philosophical version of Q3. Both positions are fun to defend. Push for a specific food moment where knowing (or not knowing) made a difference."}
+  ]},
+  {num:"BLOCK 3",name:"Hypothetical",mech:"Second conditional · Direct questions · Note errors at end",questions:[
+    {num:"Q7",text:"What would you do if a local family invited you to dinner and the main dish was something alive — or that you recognized as an animal you love?",chips:["I would...","I think I would try to...","If I couldn't eat it, I would say...","I would feel..."],tn:"This is the extreme version of the trigger scenario. No right answer — just a real choice. Push: 'What would you actually say to the family? What words in English?'"},
+    {num:"Q8",text:"If you could choose: would you rather eat one very disgusting food once — or eat something boring every day for a month?",chips:["I would choose...","The disgusting food because...","A month of boring food because...","That's easy — I would..."],tn:"A fun either/or that generates immediate opinions. Push for reasons — what makes a disgusting food 'survivable' and what makes boring food unbearable?"}
+  ]},
+  {num:"BLOCK 4",name:"Provocative",mech:"No chips · Full sentences · Honest answers welcome",questions:[
+    {num:"Q9",text:"Honest question: Is there a food from your OWN country or city that you find disgusting — but most Mexicans love?",chips:[],tn:"This is the most self-revealing and funny question of the session. Give it silence — then let the honest answers come. Celebrate both directions: 'You admit you hate tacos de cabeza? That takes courage in this country.'"},
+    {num:"Q10",text:"Final question: Are you an adventurous eater — or do you always play it safe? Be honest.",chips:[],tn:"The synthesis question. Both adventurous and safe are valid positions. Push: 'Give me one food that proves your answer — one specific dish you tried that shows who you really are at a table.'"}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Exit Challenge Mode — Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

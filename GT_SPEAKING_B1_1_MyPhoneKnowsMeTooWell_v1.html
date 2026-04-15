@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · My Phone Knows Me Too Well · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#10B981;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#0F1923;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(16,185,129,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,140,0,.5);color:rgba(255,165,0,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(16,185,129,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(16,185,129,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(16,185,129,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(16,185,129,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(16,185,129,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">B1.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">My Phone Knows Me Too Well</div>
+    <div class="hero-sub">You open an app — and it already knows what you want. You talk about something — and the ad appears. Is your phone listening to you, or does it just know you better than you think?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One creepy fact. See who nods first.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">The New York Times · 2023</div>
+      <div class="trigger-quote">"Your phone app can predict what you want to buy, who you will vote for, and whether your relationship is in trouble — often before you know it yourself."</div>
+      <div class="trigger-script">Modern apps collect hundreds of data points per user per day: where you go, how long you look at something, what you buy, who you call, and what you type. Researchers at Cambridge University showed they could predict personality, politics, and personal problems with over 85% accuracy — using only Facebook likes.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the quote slowly. Then ask: <em>"Has this ever happened to you? You talk about something — and then you see an ad for it?"</em> Let 2–3 students share quickly. Then: <em>"Check your phone right now. Look at your last 5 Instagram or TikTok ads. How many are for something you actually want?"</em> That exercise opens the conversation immediately — no warm-up needed.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Simple words — use them today.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('data')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">data</div>
+        <div class="vc-def">Information that apps collect about you every day</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ad')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">ad</div>
+        <div class="vc-def">A paid message that tries to sell you something — short for advertisement</div>
+      </div>
+      <div class="vocab-card" onclick="speak('privacy')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">privacy</div>
+        <div class="vc-def">Your right to keep your personal information to yourself</div>
+      </div>
+      <div class="vocab-card" onclick="speak('notification')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">notification</div>
+        <div class="vc-def">A message your phone sends to get your attention — again and again</div>
+      </div>
+      <div class="vocab-card" onclick="speak('habit')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">habit</div>
+        <div class="vc-def">Something you do regularly without thinking — your phone knows all of yours</div>
+      </div>
+      <div class="vocab-card" onclick="speak('location')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">location</div>
+        <div class="vc-def">Where you are — your phone knows this 24 hours a day if you allow it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('password')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">password</div>
+        <div class="vc-def">A secret word or number that protects your accounts</div>
+      </div>
+      <div class="vocab-card" onclick="speak('app')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">app</div>
+        <div class="vc-def">A program on your phone — most of them collect your information</div>
+      </div>
+      <div class="vocab-card" onclick="speak('screen time')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">screen time</div>
+        <div class="vc-def">How many hours you spend looking at your phone each day</div>
+      </div>
+      <div class="vocab-card" onclick="speak('microphone')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">microphone</div>
+        <div class="vc-def">The part of your phone that records sound — many people think apps use it secretly</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('track')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">track</div>
+        <div class="vc-def">To follow and record what you do, where you go, and what you look at</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scroll')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">scroll</div>
+        <div class="vc-def">To move up and down through content on your phone — often for longer than you planned</div>
+      </div>
+      <div class="vocab-card" onclick="speak('click')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">click</div>
+        <div class="vc-def">To tap on something on your screen — every click is data</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">ignore</div>
+        <div class="vc-def">To not pay attention to something — like the privacy policy you never read</div>
+      </div>
+      <div class="vocab-card" onclick="speak('delete')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">delete</div>
+        <div class="vc-def">To remove an app or message from your phone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('allow')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">allow</div>
+        <div class="vc-def">To give permission — you allow apps to use your camera, location, and contacts</div>
+      </div>
+      <div class="vocab-card" onclick="speak('worry about')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">worry about</div>
+        <div class="vc-def">To feel nervous or scared about something that might happen</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">check</div>
+        <div class="vc-def">To look at your phone — something most people do every 10–15 minutes</div>
+      </div>
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">share</div>
+        <div class="vc-def">To post or send something — and give platforms access to that information</div>
+      </div>
+      <div class="vocab-card" onclick="speak('trust')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">trust</div>
+        <div class="vc-def">To believe someone or something is safe and honest — do you trust your apps?</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('My phone is definitely listening to me')">
+        <div class="pi-phrase">"My phone is definitely listening to me."</div>
+        <div class="pi-context">Said after seeing a very specific ad for something you only talked about — never searched.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I just go down a rabbit hole')">
+        <div class="pi-phrase">"I just go down a rabbit hole."</div>
+        <div class="pi-context">One video leads to another, and suddenly it's been two hours and you have no idea how you got there.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I need to put my phone down')">
+        <div class="pi-phrase">"I need to put my phone down."</div>
+        <div class="pi-context">Said at 11pm when you know you should sleep but you're still scrolling.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way, that is so creepy')">
+        <div class="pi-phrase">"No way, that's so creepy!"</div>
+        <div class="pi-context">The reaction when your phone recommends something you only thought about — not typed, not said, just thought.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not really care, I have nothing to hide')">
+        <div class="pi-phrase">"I don't really care — I have nothing to hide."</div>
+        <div class="pi-context">The most common reason people give for not worrying about privacy. And the one that ends every conversation.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four different feelings about the same phone in their pocket. Which one are you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😱</div>
+          <div>
+            <div class="op-name">Carolina, 31</div>
+            <div class="op-role">Teacher · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Last week I talked to my sister about needing new running shoes. I didn't search for anything. <strong>Two hours later, Instagram showed me exactly the shoes I described.</strong> I turned off my microphone for every app. I don't care if it's convenient — that is not okay."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Mateo, 35</div>
+            <div class="op-role">Sales Rep · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Honestly? I love it. My phone knows I like hiking, coffee, and football. <strong>My ads are actually useful to me.</strong> I don't want ads for things I hate. If the app uses my information to show me things I want — that's a good deal for me."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😟</div>
+          <div>
+            <div class="op-name">Rosa, 48</div>
+            <div class="op-role">Accountant · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "My daughter showed me my screen time last Sunday. I was on my phone <strong>5 hours and 40 minutes</strong>. I couldn't believe it. I didn't feel like I was on it that long. I think the apps are designed to make you lose track of time. That scares me."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Fernando, 40</div>
+            <div class="op-role">IT Manager · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "Your phone isn't listening to you. <strong>It doesn't need to.</strong> It knows your age, your neighborhood, your job, your shopping history, and 200 other things. It can guess what you want without hearing a single word. You are more predictable than you think — and that should scare you more than a microphone."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which of these four people sounds most like you right now? Which one surprised you the most?" Fernando is the provocateur — his argument shifts the fear from "my phone is listening" to "you are predictable." That's more unsettling, not less. Most B1.1 students haven't thought about it this way.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Real stories. No perfect answers.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Have you ever seen an ad for something you only talked about — not searched? What was it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Almost everyone has a story. Let them share it without interrupting. Then ask: "Did you click on the ad?" Push for the present perfect structure in their answer: "I have seen an ad for..." or "It has happened to me before..."
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Have you ever checked how many hours you spend on your phone each day? What was the number — and how did you feel?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          If they haven't checked, have them do it right now — Settings → Screen Time. The number is always higher than people expect. The feeling after is the conversation: surprise, guilt, "that makes sense," etc. No judgment from you.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Have you ever tried to spend less time on your phone? Did it work?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Present perfect for the attempt + past simple for the story of what happened. Push: "What made it hard? What happened when you were bored?" The moment they reach for their phone when they're not even thinking about it is the key detail.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think it's okay for apps to collect your information if it makes them more useful to you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The basic trade-off question: convenience vs. privacy. Most B1.1 students will say "I don't mind" or "it depends." Push them to say what it depends on — what type of information? Who sees it? What do they use it for?
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it creepy when your phone recommends something very specific — or is it just useful? Where's the line for you?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          "Creepy" is a great B1.1 word — they probably know it and can use it. Push them to name a specific example of when a recommendation crossed from useful to creepy. The line is different for everyone — that difference is the conversation.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you believe "I have nothing to hide" is a good reason not to worry about privacy?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          This is the most important opinion question. A simple counter: "You have nothing to hide — but do you want your boss to see your messages? Your doctor? The government?" Privacy isn't about hiding bad things — it's about controlling who sees what. See if they can make that argument themselves.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Hypothetical</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What would you do if you found out one specific app was recording your conversations without permission?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional: "What would you do if you found out..." Push for a specific action: "I would delete it," "I would tell my friends," "I would report it." Then ask: "Would you actually do that — or would you just feel angry for a day and keep using it?" The honest answer is usually the second option.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What would your life look like if you deleted all your social media apps for one month?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Second conditional — and very personal. Push for concrete details: "What would you do with those extra 3 hours a day? Would you feel better or worse? Would you feel lonely?" The specificity reveals how much of daily life is now organized around these apps.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Be honest: when you wake up in the morning, what's the first thing you do? And are you happy about that?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          For most people, the answer is "check my phone." The follow-up is what matters: "Are you happy about that?" Most people aren't — but they do it anyway. That gap between what we want to do and what we actually do is the heart of this conversation.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Does your phone know you better than your best friend does? Think about it seriously before you answer.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The closing question — and the one that lands hardest. Your phone knows your location, your schedule, what you buy, what you watch, what you search at 2am. Your best friend probably doesn't. Give them time to sit with that. Don't rush to the next thing.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · B1.1 My Phone Knows Me Too Well</div>
+      <div class="exit-question">You discover that your phone has been recording your location 24 hours a day for the last 3 years. There is a map of everywhere you have been — your home, your work, your doctor, your friends' houses. The company says it's normal and legal. What do you do?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Are you angry? Are you surprised? And be honest: does it actually change what apps you use?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      This is already happening — Google and Apple have had exactly this feature for years. The "it's normal and legal" line is the twist that creates real discomfort: there's no one to blame, no crime, no solution. The student has to sit with that. End: <em>"Send me your voice note. And check your location history on Google Maps tonight — it's in Settings. Tell me what you find."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">B1.1 · Speaking Lab · My Phone Knows Me Too Well · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

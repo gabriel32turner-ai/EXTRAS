@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Traveling Alone · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#10B981;--ac2:rgba(16,185,129,0.12);--ac3:rgba(16,185,129,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(16,185,129,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.1</span>
+      <span class="htag">Travel &amp; Culture</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Traveling Alone:<br>Brave or Sad?</div>
+    <div class="hero-sub">One ticket, one suitcase, no plans to share. Is solo travel freedom — or is it just loneliness with better photos?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">BBC Travel · 2023</div>
+    <div class="trigger-quote">"Solo travel has grown 42% since 2019 — and the biggest group doing it is not young backpackers. It's adults aged 35–55 who say they travel alone because nobody in their life wants to go where they want to go."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask: "Have you ever traveled alone — even just for work? How did it feel?" Wait. Then: "Is there a place you really want to go that nobody in your life wants to visit with you?" That second question usually surprises people. It's personal and it lands fast.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Travel Talk</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one is you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🌍</div><div><div class="op-name">Valeria · 36</div><div class="op-role">Graphic Designer · CDMX</div></div></div>
+      <div class="op-text">Traveling alone was the best decision of my life. <strong>I went to Colombia for 10 days and I did exactly what I wanted, every single day.</strong> No arguments, no waiting, no "I don't want to eat that." Just me. I came back a different person.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😟</div><div><div class="op-name">Rodrigo · 44</div><div class="op-role">Mechanic · Monterrey</div></div></div>
+      <div class="op-text">I can't imagine eating in a restaurant alone in another city. <strong>What's the point of seeing something beautiful if you have no one to turn to and say "wow"?</strong> Travel is about sharing. Alone doesn't make sense to me.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Lucía · 29</div><div class="op-role">Nurse · Guadalajara</div></div></div>
+      <div class="op-text">People who say they "can't" travel alone are not afraid of traveling — <strong>they're afraid of being alone with themselves for more than two days.</strong> Solo travel shows you who you really are. If that scares you, that's not a travel problem. That's something else.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😌</div><div><div class="op-name">Carolina · 48</div><div class="op-role">Accountant · Querétaro</div></div></div>
+      <div class="op-text">I travel alone for work all the time. It's fine, but it's not my preference. <strong>The hotel room is quiet and the food is good and I miss my family the whole time.</strong> I don't think it's brave or sad. I think it's just practical, sometimes.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person do you agree with most? Which one makes you think: "That's not me — but maybe it should be"?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever traveled alone — even for just one or two days? Where did you go, and how did it feel?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Work trips count. Push: "Was it different from traveling with other people? What did you do that you wouldn't have done with someone else? Did you feel lonely at any moment?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever wanted to go somewhere but nobody wanted to go with you? What did you do?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes — I wanted to go to Oaxaca two years ago. My husband didn't want to and my friends were busy. I almost went alone. Then I didn't. I still think about it. I think I should have just gone."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever had a bad travel experience because of the person you were traveling with?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has this story. Keep it fun: "What happened? Did you argue? Did you stop speaking? Did the trip survive — or did the friendship not survive the trip?" Great for storytelling vocabulary.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it brave to travel alone — or is "brave" the wrong word?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Push them to find the right word. "If not brave — then what? Independent? Lonely? Normal? Boring? Which word do you really think describes it?" The vocabulary search is the exercise.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think people who travel alone are happier than people who always travel in groups? Why?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I don't think it's about happy or not happy. I think solo travelers know themselves better. They know what they want. People who always travel in groups sometimes don't know what they want — they just go where everyone else goes."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it OK for a married person to take a trip alone — without their partner? Or is that strange?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great cultural debate for Mexican professionals. "Would you be OK with your partner going on a trip alone for 5 days? Would they be OK with you doing it? Why or why not?" The double standard often appears here.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if you had 5 free days and $10,000 pesos — and nobody could go with you?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Honestly? I think I would go. Maybe somewhere close at first — Oaxaca or San Cristóbal. I would feel nervous. But I think that nervous feeling is exactly why I should do it."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if your best friend called you and said: "I booked a solo trip to Europe for 3 weeks. I'm going alone." Would you think it was great — or would you worry?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Interesting because the answer often reveals the student's own fears. "What specifically would you worry about? Safety? Loneliness? Or something else?" Push gently.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Do you think you could spend 7 days completely alone — no friends, no family, no partner — and enjoy it? Or would you go crazy?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> This is really a question about who they are when nobody is watching. "What would be the hardest part? Eating alone? Sleeping alone? Not having anyone to talk to? Or something deeper?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Is there a trip you have been dreaming about for years that you still haven't taken? What is stopping you — really?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes. I want to go to Japan. I've wanted to go for 8 years. The real reason I haven't gone is not money. It's that I keep waiting for the right person to go with. And that person hasn't appeared yet. Maybe I'm the right person."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">You find a cheap flight — $3,500 pesos round trip to a city you have always wanted to visit. The trip is in 3 weeks. Nobody can go with you. Your family thinks it's strange to travel alone. Your partner is nervous about it. But the ticket is there, the time is there, and part of you really wants to go. Do you buy the ticket?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: Do you buy the ticket — yes or no? And where are you going?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.1 · Travel &amp; Culture · Traveling Alone: Brave or Sad? · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"trip",def:"A journey to another place, usually for a short time",ex:'"She took a trip to Oaxaca alone. Best decision of the year."'},
+  {w:"freedom",def:"The ability to do what you want, when you want",ex:'"Traveling alone gave him real freedom — no plans, no arguments."'},
+  {w:"stranger",def:"A person you don\'t know",ex:'"She had dinner with a stranger she met at the hostel. They are still friends."'},
+  {w:"adventure",def:"An exciting experience, often new and a little scary",ex:'"For him, every solo trip was an adventure. For his wife, a nightmare."'},
+  {w:"hostel",def:"A cheap place to sleep where you share a room with other travelers",ex:'"She stayed in a hostel and hated it. She also loved it. At the same time."'},
+  {w:"loneliness",def:"The feeling of being alone and sad about it",ex:'"The first night alone in a new city, loneliness hits. Then it gets better."'},
+  {w:"budget",def:"The amount of money you plan to spend on a trip",ex:'"He had a $7,000 peso budget for 4 days. He used every single peso."'},
+  {w:"memory",def:"Something from the past that you remember — good or bad",ex:'"The best memories she has are from trips she took alone."'},
+  {w:"plan",def:"A decision about what you will do and when",ex:'"He had no plan. That was the plan. It worked perfectly."'},
+  {w:"safety",def:"The condition of being protected from danger",ex:'"Her family worried about her safety. She worried about having a good time."'},
+];
+const verbs=[
+  {w:"explore",def:"To visit and discover a new place without a fixed route",ex:'"She explored the city for 6 hours and got completely lost. It was perfect."'},
+  {w:"wander",def:"To walk around without a specific destination — just to see what you find",ex:'"He wandered through the market for two hours. Bought nothing. Loved it."'},
+  {w:"get lost",def:"To not know where you are — sometimes by accident, sometimes on purpose",ex:'"She got lost in Cartagena. It was the best afternoon of the trip."'},
+  {w:"meet",def:"To encounter and talk to a new person",ex:'"He met three different people at the hotel bar. All three were traveling alone."'},
+  {w:"miss",def:"To feel sad because someone or something is not with you",ex:'"She missed her kids on day one. By day three, she was fine."'},
+  {w:"book",def:"To reserve a hotel, flight, or restaurant in advance",ex:'"He booked the flight before telling his wife. That was a mistake."'},
+  {w:"pack",def:"To put things in a bag or suitcase for a trip",ex:'"She packed light — one bag. No one to argue about the extra suitcase."'},
+  {w:"enjoy",def:"To feel pleasure or happiness from an experience",ex:'"Did you enjoy the trip alone? Yes. Would I do it again? Definitely."'},
+  {w:"worry",def:"To feel nervous or anxious about something that might happen",ex:'"Her mom worried every day. She sent a photo every morning to prove she was alive."'},
+  {w:"decide",def:"To make a choice after thinking about it",ex:'"She decided to go alone. She made that decision in about 30 seconds."'},
+];
+const phrases=[
+  {t:'"I needed to clear my head."',c:"What people say when they travel alone — often completely true."},
+  {t:'"It was just me and my thoughts."',c:"Sounds peaceful. For some people it is. For others — terrifying."},
+  {t:'"Table for one, please."',c:"The most solo-travel sentence in existence. Sounds sad. Often isn\'t."},
+  {t:'"I did it on my own."',c:"The quiet pride after finishing a trip alone."},
+  {t:'"No one to share it with."',c:"The honest downside of solo travel — beautiful moments and nobody next to you."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

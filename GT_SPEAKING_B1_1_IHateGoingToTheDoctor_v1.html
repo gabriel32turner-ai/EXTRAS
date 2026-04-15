@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · I Hate Going to the Doctor · B1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#10B981;--ac2:rgba(16,185,129,0.12);--ac3:rgba(16,185,129,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:#0F1923;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:6px}
+.vc-icon{position:absolute;bottom:10px;right:10px;font-size:14px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.7}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:14px;right:14px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:16px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:28px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:var(--navy)}
+.q-tip{display:none;margin-top:12px;background:var(--ac2);border-left:3px solid var(--ac);padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:32px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:20px}
+.exit-hw{background:rgba(16,185,129,0.07);border:1px solid var(--ac3);padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:var(--navy)}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">B1.1</span>
+      <span class="htag">Health &amp; Wellness</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">I Hate Going<br>to the Doctor</div>
+    <div class="hero-sub">Something hurts. You Google it. You find something terrible. You close the phone and decide you're fine. Sound familiar?</div>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Provocation &amp; Opening</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Gallup Health Survey · 2023</div>
+    <div class="trigger-quote">"In Mexico, the average adult waits 2.3 years between doctor visits — and 61% say they only go when the pain is so bad they have no other choice."</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read it. Then ask simply: "When was the last time you went to the doctor? And why did you go — because you planned to, or because something was already bad?" Wait. Then: "Is there something you know you should get checked but haven't done yet?" This second question always lands.</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Real Health Talk</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 Perspectives · Which one is you?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🙈</div><div><div class="op-name">Ricardo · 45</div><div class="op-role">Driver · Celaya</div></div></div>
+      <div class="op-text">I haven't been to a doctor in 4 years. If I feel bad, I rest. If it passes, I'm fine. If it doesn't pass, I take something from the pharmacy. <strong>Going to the doctor gives me more anxiety than the problem itself.</strong> What if they find something? Better not to know.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">💪</div><div><div class="op-name">Andrea · 39</div><div class="op-role">Gym Instructor · Monterrey</div></div></div>
+      <div class="op-text">I go every 6 months for a check-up. People think that's excessive. I think <strong>waiting until you're sick is like waiting until your car breaks down to check the oil.</strong> Prevention is not paranoia. It's just smart.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🔥</div><div><div class="op-name">Alejandro · 52</div><div class="op-role">Retired Police Officer · CDMX</div></div></div>
+      <div class="op-text">My dad never went to the doctor. He said real men don't complain. He died at 58 from something that was completely treatable. <strong>Avoiding the doctor is not strength. It is fear dressed up as strength.</strong> I go now every year. I am not embarrassed about it. I am alive.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">😮</div><div><div class="op-name">Valeria · 31</div><div class="op-role">Secretary · Querétaro</div></div></div>
+      <div class="op-text">I want to go more. But the IMSS wait is 3 hours minimum, and private doctors are very expensive. <strong>It's not that people don't care about their health — it's that the system makes it really hard to take care of it.</strong> Access is the real problem, not attitude.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Which person sounds most like you — or most like someone in your family? Which opinion makes you think the most?</div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Personal Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Have you ever waited too long to go to the doctor — and later wished you had gone sooner? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Almost everyone has a story. Push for details: "How long did you wait? What were you hoping would happen? Was there a moment when you knew you had to go — what was it?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Have you ever Googled your symptoms and scared yourself? What did you search — and what did you find?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes. I had a headache for three days and Googled it. In 10 minutes I was convinced I had a brain tumor. I was very stressed for a week. Then the headache went away. It was stress. From Googling my headache."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Have you ever had a bad experience at a doctor or hospital in Mexico? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> IMSS stories are very common and very vivid. "How long did you wait? Was the doctor helpful? Did you go back? Or did that experience stop you from going to the doctor again for a while?" Real stories generate real language.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Is it OK to take medicine from the pharmacy without seeing a doctor first — or is that always a bad idea?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very Mexican topic. "Have you ever bought antibiotics from a pharmacy without a prescription? What was the situation? Do you think that's dangerous or just practical?" No judgment — push for honest answers.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think men avoid the doctor more than women in Mexico? Why?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes — definitely. My dad, my uncle, my brother — all the same. They say they're fine when they're clearly not. I think it's a machismo thing. Going to the doctor feels like admitting weakness. It's a very old and very dangerous idea."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it the government's job to make healthcare easy and affordable — or is it each person's own responsibility?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Great for opinion vocabulary at B1.1. Keep it simple: "If someone is poor and can't afford a doctor — is that their fault? What should the government do?" Push for a clear position without academic vocabulary.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Hypothetical</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">What would you do if a family member refused to go to the doctor even when they were clearly very sick?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I would try to talk first. Then I would ask someone else in the family to help. Then I would make the appointment for them and say 'I'm coming with you.' Sometimes people need someone to make the decision with them — not for them, but with them."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">What would you do if a doctor told you something serious — something you were not expecting? How do you think you would react?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> A question about self-knowledge and fear. "Would you tell your family immediately? Or wait until you knew more? Would you cry? Get angry? Go quiet?" Give real time — these answers reveal a lot.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Is there something you know you should go to the doctor for — right now — that you are still avoiding? What is your real reason for not going?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The most personal question of the session. Give real space. Common answers: fear of the result, no time, no money, "I'll go next month." Don't rush. The discomfort of the silence is valuable.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">If you think about your health honestly — not how you feel today, but the general picture — are you taking care of yourself the way you should be?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "No. And I know it. I sleep badly, I eat fast food too often, I haven't had a blood test in 3 years. I always say 'I'll start being more careful next month.' Next month has been coming for a long time."</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Dilemma · No right answer</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Your doctor calls you. Your last blood test showed something that needs to be checked further. It might be nothing. It might be something serious. The appointment to find out is next week. For 7 days, you know something could be wrong but you don't know what. How do you live that week — and do you tell your family while you wait?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: How do you handle that week? Do you tell your family — yes or no?
+    </div>
+  </div>
+</div>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">B1.1 · Health &amp; Wellness · I Hate Going to the Doctor · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv on">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+<script>
+const nouns=[
+  {w:"appointment",def:"A scheduled time to see a doctor or specialist",ex:'"She made an appointment for January. It was already November. She went in March."'},
+  {w:"symptom",def:"A sign that something is wrong with your body",ex:'"He had three symptoms and Googled all of them. Bad idea."'},
+  {w:"test",def:"A medical examination — blood test, X-ray, etc.",ex:'"The doctor said she needed a blood test. She said she would go next week. She didn\'t."'},
+  {w:"diagnosis",def:"The doctor\'s conclusion about what health problem you have",ex:'"The diagnosis was not what he expected. He sat in the parking lot for 30 minutes."'},
+  {w:"pharmacy",def:"The place where you buy medicine",ex:'"He went to the pharmacy, described his symptoms, and left with three medicines."'},
+  {w:"fear",def:"A strong feeling of being scared about something",ex:'"Her fear of bad news was stronger than her desire to feel better."'},
+  {w:"insurance",def:"A system where you pay a monthly fee so the company pays your medical costs",ex:'"He had no medical insurance. That was his main reason for never going."'},
+  {w:"pain",def:"An unpleasant physical feeling when something is wrong",ex:'"The pain was a 7 out of 10. He called it a 3. He went to the doctor at 9."'},
+  {w:"check-up",def:"A routine medical examination to see if everything is OK",ex:'"She went for a check-up every year. Her friends thought she was paranoid."'},
+  {w:"waiting room",def:"The area where you sit and wait before seeing the doctor",ex:'"The waiting room at IMSS had 40 people. He waited 3 hours. He came back next year."'},
+];
+const verbs=[
+  {w:"avoid",def:"To stay away from something you don\'t want to face",ex:'"He avoided the doctor for 2 years. The problem did not avoid him."'},
+  {w:"ignore",def:"To see a problem but choose not to do anything about it",ex:'"She ignored the headache. Then the back pain. Then the dizziness. Then she went."'},
+  {w:"Google",def:"To search for information online — often about health symptoms",ex:'"He Googled his chest pain. He was convinced he was dying by 11pm."'},
+  {w:"worry",def:"To feel nervous and anxious about something",ex:'"She worried about what the doctor might find. So she didn\'t go. Great logic."'},
+  {w:"rest",def:"To stop working and let your body recover",ex:'"He rested for a week hoping the problem would go away. It didn\'t."'},
+  {w:"check",def:"To look at something carefully to see if it is OK",ex:'"The doctor checked his blood pressure. It was too high. He had known for years."'},
+  {w:"diagnose",def:"When a doctor identifies what health problem you have",ex:'"She was diagnosed with something she could have treated years earlier."'},
+  {w:"admit",def:"To say something true, even when it is uncomfortable",ex:'"He finally admitted he hadn\'t felt right in months. The doctor was not surprised."'},
+  {w:"take care of",def:"To look after someone or something — including yourself",ex:'"She took care of everyone in her family. Nobody took care of her. Including her."'},
+  {w:"postpone",def:"To move something to a later date — usually because you are avoiding it",ex:'"He postponed the appointment four times. The fifth time he actually went."'},
+];
+const phrases=[
+  {t:'"I\'ll go when it gets worse."',c:"The classic promise that usually means: I will wait until I have no choice."},
+  {t:'"It\'s probably nothing."',c:"What we say to avoid going to the doctor. Sometimes true. Sometimes not."},
+  {t:'"I don\'t have time for this."',c:"Common excuse — but somehow we always have time when it becomes an emergency."},
+  {t:'"I\'m fine."',c:"The most common lie people tell doctors. And themselves."},
+  {t:'"What you don\'t know can\'t hurt you."',c:"A popular idea. Completely wrong when it comes to health."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.9;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>
