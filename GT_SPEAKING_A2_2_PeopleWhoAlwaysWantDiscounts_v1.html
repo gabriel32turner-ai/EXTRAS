@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.2 · People Who Always Want Discounts</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.08)}
+.mode-btn{background:#F97316;border:1px solid #F97316;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-arrow{transition:transform .2s}.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(249,115,22,.1)}
+.tn-c1{border-left:3px solid rgba(249,115,22,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(249,115,22,.08) 0%,rgba(249,115,22,.03) 100%);border:1px solid rgba(249,115,22,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(249,115,22,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(249,115,22,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(249,115,22,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(249,115,22,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(249,115,22,.3)}
+.vc.noun-c{border-top:2px solid rgba(249,115,22,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(249,115,22,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(251,146,60,.85);font-style:italic;border-left:2px solid rgba(249,115,22,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(249,115,22,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(249,115,22,.25);color:#fff;font-weight:800}
+.vocab-challenge{background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(249,115,22,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(249,115,22,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(249,115,22,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(249,115,22,.65);background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(249,115,22,.3)}
+.q-tn strong{color:rgba(249,115,22,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(249,115,22,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(249,115,22,.1) 0%,rgba(249,115,22,.04) 50%,transparent 100%);border:1px solid rgba(249,115,22,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1400&q=80" alt="Shopping discount">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Money &amp; Finance</div>
+    <div class="hero-title">PEOPLE WHO<br><em>ALWAYS WANT DISCOUNTS</em></div>
+    <div class="hero-sub">They ask at every shop. They negotiate everything. You know someone like that. Maybe it's you.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 The Art of Asking for Less</div><div class="sec-sub">Read aloud · First reaction · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">🏷️</div>
+    <div class="hsc-label">Nielsen Consumer Behavior Report + Deloitte Mexico Shopping Study 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">78%</div><div class="hsc-desc">Of Mexican shoppers say they always look for a discount or offer before buying something</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3 in 4</div><div class="hsc-desc">Vendors at markets and small shops say they expect customers to negotiate — they already have a higher starting price</div></div>
+      <div class="hsc-stat"><div class="hsc-num">15%</div><div class="hsc-desc">The average discount you can get just by asking — in many Mexican markets and small shops</div></div>
+      <div class="hsc-stat"><div class="hsc-num">1 in 5</div><div class="hsc-desc">People feel embarrassed to ask for a discount — even when they know they can get one</div></div>
+    </div>
+    <div class="hsc-source">Sources: Nielsen Consumer Behavior Report Mexico 2023 · Deloitte Mexico Retail Study · CONDUSEF Shopping Habits Survey</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read and point at someone</div>
+    <div class="hq-text">"Do you ask for discounts when you shop? Yes or no — and where?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Very simple. Point at one student: "You — do you ask for discounts? Yes or no?" 2–3 quick answers. Then: "OK. Today we talk about this."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The 15% stat (average discount just from asking) is the most actionable — it reframes asking as smart, not cheap. Use it: "You can get 15% just by asking. Do you do that?"</li>
+        <li>The trigger question is deliberately binary: yes or no. At A2.2, starting with yes/no then expanding is the correct sequence.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"78% of Mexicans look for discounts. That means almost everyone in this room. Let's talk about it."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"This is our last Money lab for this lote. Great conversation topic for any shopping situation in English."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs — Simple Practice</div><div class="sbo-sub">Person A reads the definition. Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Shopping &amp; Prices</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Shoppers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>the last time you bought something.</em> Short and simple. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Negotiate" might be new at A2.2 — model it: "To negotiate = to talk about the price until both people agree. 'Can you give me a better price?' That's negotiating."</li>
+        <li>"Bargain" — clarify it's both a noun (good deal) and a verb (to negotiate). Keep simple: "A bargain = cheap and good quality."</li>
+        <li>Best production trigger: <strong>"Three words about the last thing you bought. Was it cheap or expensive? Did you negotiate?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These words are perfect for any market, any shop, any situation where you need to talk about prices in English."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Shopping vocabulary in English is very practical. If you travel or shop online in English, today's words are exactly what you need."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Ways to Shop.</div><div class="sec-sub">Read each card · Pairs 60 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4</div><div class="sbo-sub">"Who do you agree with? Why?"</div></div><div class="sbo-badge">Keep it simple</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with? Why? Use 2 or 3 sentences."</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Rodrigo</strong> — his "I always negotiate, even in restaurants" position is the most extreme and will generate reactions ranging from laughter to disagreement. At A2.2, even a simple "No, that's too much!" is a great response.</li>
+        <li>Read all 4 before opening. The contrast between Rodrigo (negotiate everything) and Andrea (pay the price) drives the simple debate.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>After all 4: <strong>"And you — are you more like Rodrigo, or more like Andrea?"</strong> That one question keeps the energy moving.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"Which person is most like someone in your family? Tell me in one sentence."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Past habits · Short answers OK · Keep moving</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>A2.2 Rule:</strong> Short answers are OK. 1 or 2 sentences is great. Don't wait for perfect English — just talk.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 past simple — "Did you ask for a discount?" is a yes/no question at the right A2.2 level. Always push for the follow-up: "Where? What did they say?"</li>
+        <li>Block 3 future — "Are you going to ask for a discount the next time you buy something?" Give students time to think. Point to a chip if they're stuck.</li>
+        <li>Block 4 "used to" — Very accessible here: "I used to never ask for discounts. Now I always ask." Model it with a personal story first.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Q5 is the most fun question: "Do you know someone who always asks for discounts?" Point at different students. Laughter will happen. Let it.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You talked about shopping, prices, and money — in English — for 23 minutes. That's progress. That's A2.2."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. Your Answer.</div><div class="sec-sub">5 min · No chips · Answer in 2–3 sentences · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">The next time you buy something at a market or a small shop — are you going to ask for a <em>discount?</em> What are you going to say?</div>
+    <div class="exit-rule">Answer in 2 or 3 sentences. Tell me yes or no — and tell me exactly WHAT you are going to say. In English.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 A2.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"Yes, I am going to ask. I am going to say: 'Is this your best price? Can you give me a discount?' And if they say no, I am going to say 'OK, thank you' and maybe walk away slowly."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The Exit Shot asks for actual English phrases — "what are you going to SAY?" This makes it a communicative output task, not just a planning one. At A2.2, producing even one real phrase is a win.</li>
+        <li>If a student says "I don't know what to say" — give them the model phrases: "Is this your best price?" and "Can you give me a discount?"</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer has a real negotiation strategy: "walk away slowly." Point out: <strong>"That's a real negotiation technique — even in English, 'walk away slowly' is a strategy!"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"You now know how to ask for a discount in English. Use it this week. Record your answer tonight."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · People Who Always Want Discounts · Money &amp; Finance · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv on">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"discount",   def:"A reduction in the price — you pay less than the original price",      ex:"I asked for a discount and they said yes. I saved 80 pesos."},
+  {w:"price",      def:"The amount of money you need to pay for something",                    ex:"The price was 300 pesos. I thought it was too expensive."},
+  {w:"offer",      def:"A special price — cheaper than the normal price",                      ex:"There was a 2-for-1 offer. I bought two things for the price of one."},
+  {w:"bargain",    def:"Something good that you buy at a low price",                           ex:"This shirt was a bargain — only 50 pesos in the sale."},
+  {w:"sale",       def:"A time when a shop sells things at a lower price",                     ex:"I only buy clothes when they are on sale. I never pay full price."},
+  {w:"market",     def:"A place with many small sellers — you can buy food, clothes, and more",ex:"At the market, you can always negotiate. That's normal there."},
+  {w:"receipt",    def:"A paper or message that shows what you bought and how much you paid",  ex:"I always keep my receipt. If something is wrong, I can return it."},
+  {w:"deal",       def:"An agreement on a price that is good for both people",                 ex:"We made a deal — 200 pesos for the bag. Both of us were happy."},
+  {w:"customer",   def:"A person who buys something from a shop or seller",                    ex:"I am a good customer. I always pay and I always come back."},
+  {w:"seller",     def:"A person who sells things to customers",                               ex:"The seller said no to my first offer. I asked again. He said yes."}
+];
+const verbs=[
+  {w:"ask for",    def:"To request something — like a lower price or a discount",             ex:"I always ask for a discount. Sometimes I get it. Sometimes not."},
+  {w:"negotiate",  def:"To talk about a price until two people agree",                         ex:"I negotiated for 10 minutes. In the end, I got 50 pesos off."},
+  {w:"pay",        def:"To give money for something you buy",                                  ex:"I paid 150 pesos. The original price was 200."},
+  {w:"compare",    def:"To look at two or more things to see which one is better or cheaper",  ex:"I always compare prices in different shops before I buy."},
+  {w:"save",       def:"To spend less money — or to keep money for later",                    ex:"I saved 100 pesos by asking for a discount. I was very happy."},
+  {w:"offer",      def:"To say you will pay a certain price — like making a counter-offer",   ex:"They said 500. I offered 350. We agreed on 400."},
+  {w:"refuse",     def:"To say no — to not accept something",                                  ex:"He refused my offer. I walked away and he called me back."},
+  {w:"walk away",  def:"To leave a shop or seller without buying — sometimes to get a better price",ex:"I walked away. Two minutes later, the seller called me back with a lower price."},
+  {w:"buy",        def:"To pay money for something",                                           ex:"I bought three things yesterday. All of them were on sale."},
+  {w:"feel embarrassed",def:"To feel uncomfortable or shy — like when you ask for something and people look at you",ex:"I feel embarrassed to ask for discounts in restaurants. It's different from a market."}
+];
+const perspectives=[
+  {
+    name:"Lucía Mendoza",meta:"33 · Homemaker · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I always ask for a discount at the market. <strong>Always.</strong> My mom taught me. You don't ask, you don't get. It's normal here. It's part of shopping."
+  },
+  {
+    name:"Rodrigo Peña",meta:"41 · Salesman · Monterrey — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I negotiate everything. The market, the mechanic, <strong>even restaurants.</strong> Last week I got 10% off my dinner bill. You just have to ask. Most people are too embarrassed."
+  },
+  {
+    name:"Andrea Castillo",meta:"27 · Teacher · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I don't ask for discounts. I pay the price. <strong>The seller needs that money too.</strong> They have a family. I think it's not fair to always ask for less."
+  },
+  {
+    name:"Fernando López",meta:"48 · Shop Owner · Querétaro",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I sell things. I expect customers to negotiate. <strong>I always start higher</strong> because I know they will ask for less. It's a game. Both people know the rules."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Past Simple — Your Experience",mech:"Past simple · Short answers · 2 min per Q",questions:[
+    {num:"Q1",text:"Did you ask for a discount the last time you bought something? What happened?",chips:["Yes, I asked for...","No, I didn't ask because...","The seller said...","I saved... pesos."],tn:"Very direct past simple. If a student says 'I never ask' — perfect answer. Push: 'Why not? Are you embarrassed?' The 'feel embarrassed' vocab word activates naturally."},
+    {num:"Q2",text:"Did you ever get a very good deal — something cheap that you were really happy about?",chips:["Yes! I bought... for only...","The best deal I got was...","I was very happy because...","I found a bargain at..."],tn:"This is the positive shopping memory — students love sharing good deals. Accept any past simple form. Let the story come out naturally."},
+    {num:"Q3",text:"Did you ever feel embarrassed to ask for a discount — or to say something was too expensive?",chips:["Yes, I felt embarrassed when...","No, I never feel embarrassed because...","I was at... and I wanted to ask but...","I said 'the price is too high' and..."],tn:"'Feel embarrassed' is a target expression. If students don't know it — model it with body language: look at the floor, look uncomfortable. Then: 'That feeling? That's embarrassed.'"}
+  ]},
+  {num:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present opinions · 2 min per Q",questions:[
+    {num:"Q4",text:"Is it OK to ask for a discount everywhere — or only in some places?",chips:["I think it's OK at markets but not at...","I think you can ask anywhere because...","Restaurants are different because...","For me, it depends on..."],tn:"This opens the contextual debate — markets (yes) vs restaurants/supermarkets (maybe not). At A2.2, even a simple 'I think yes/no' with one reason is a complete answer."},
+    {num:"Q5",text:"Do you know someone who always asks for discounts — even in strange places? Tell me about them!",chips:["Yes! My... always asks for...","In my family...","I know a person who...","They always say..."],tn:"The most fun question of the session. Let students describe a real person — usually a parent, aunt/uncle, or colleague. Laughter is productive. Let it happen."},
+    {num:"Q6",text:"Do you think it's wrong to ask for discounts — or is it a smart thing to do?",chips:["I think it's smart because...","I think it's a little embarrassing because...","It's smart because sellers always start with...","For me, asking for a discount means..."],tn:"Fernando's perspective from §3 is relevant here — sellers start higher because they expect negotiation. Share it if students don't mention it: 'Fernando says sellers always start high. Does that change your answer?'"}
+  ]},
+  {num:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · Short sentences · 2 min per Q",questions:[
+    {num:"Q7",text:"Are you going to ask for a discount the next time you buy something at a market?",chips:["Yes, I am going to ask because...","No, I'm not going to because...","I will try to ask...","I am going to say..."],tn:"'Going to' + specific plan is the target. Push for the actual words they plan to use: 'What are you going to SAY?' This is the communicative preparation for the Exit Shot."},
+    {num:"Q8",text:"Are you going to change how you shop after today's class?",chips:["Yes, I am going to start...","No, I don't think I will change...","Maybe I will try to...","I am going to ask at least once this week..."],tn:"Simple future reflection. Accept any future form. Even 'I want to try' is fine at A2.2. The goal is self-reflection about behavior change."}
+  ]},
+  {num:"BLOCK 4",name:"Past Habits — Used To",mech:"Used to · Model first · 2 min per Q",questions:[
+    {num:"Q9",text:"Did you use to ask for discounts when you were younger — or is that something new for you?",chips:["I used to always ask because...","I didn't use to ask. Now I do because...","My mom used to ask and I was...","I used to feel embarrassed but now..."],tn:"Model first: 'When I was a teenager, I USED TO feel too embarrassed to ask for discounts. Now I always ask.' Then ask the question. The before/now contrast works well here."},
+    {num:"Q10",text:"Did you use to think that asking for discounts was bad — or did you always think it was OK?",chips:["I used to think it was a little...","I always thought it was OK because...","Before I didn't ask but now I think...","My idea changed when..."],tn:"Closing reflection on attitude change — very A2.2. Accept any 'used to' form or 'before/now' contrast. 'Before I didn't ask. Now I think I will try' is perfect output."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

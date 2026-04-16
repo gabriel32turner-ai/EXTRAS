@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.2 · Coffee or Tea? My Daily Drug</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--green:#00E676;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.08)}
+.mode-btn{background:#F97316;border:1px solid #F97316;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-arrow{transition:transform .2s}.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(249,115,22,.1)}
+.tn-c1{border-left:3px solid rgba(249,115,22,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(249,115,22,.08) 0%,rgba(249,115,22,.03) 100%);border:1px solid rgba(249,115,22,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(249,115,22,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(249,115,22,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(249,115,22,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(249,115,22,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(249,115,22,.3)}
+.vc.noun-c{border-top:2px solid rgba(249,115,22,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(249,115,22,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(251,146,60,.85);font-style:italic;border-left:2px solid rgba(249,115,22,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(249,115,22,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(249,115,22,.25);color:#fff;font-weight:800}
+.vocab-challenge{background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(249,115,22,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(249,115,22,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(249,115,22,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(249,115,22,.65);background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(249,115,22,.3)}
+.q-tn strong{color:rgba(249,115,22,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(249,115,22,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(249,115,22,.1) 0%,rgba(249,115,22,.04) 50%,transparent 100%);border:1px solid rgba(249,115,22,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80" alt="Coffee">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Health &amp; Wellness</div>
+    <div class="hero-title">COFFEE OR TEA?<br><em>MY DAILY DRUG</em></div>
+    <div class="hero-sub">You wake up. The first thing you need. Before anything else. What is it?</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 Mexico Runs on Coffee</div><div class="sec-sub">Read aloud · First reaction · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">☕</div>
+    <div class="hsc-label">AMECAFE + Statista Coffee & Tea Consumption Mexico 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">2.1 kg</div><div class="hsc-desc">The average coffee consumed per Mexican per year — but heavy drinkers have 3 to 5 cups every single day</div></div>
+      <div class="hsc-stat"><div class="hsc-num">68%</div><div class="hsc-desc">Of Mexican adults say they drink coffee every morning — most of them before they eat breakfast</div></div>
+      <div class="hsc-stat"><div class="hsc-num">Tea</div><div class="hsc-desc">The most popular hot drink in the world — but in Mexico, most people only drink tea when they are sick</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3pm</div><div class="hsc-desc">The most popular time for a second coffee in Mexico — the afternoon energy drop is very real</div></div>
+    </div>
+    <div class="hsc-source">Sources: AMECAFE Reporte Anual 2023 · Statista Beverage Consumption Mexico · Forbes México</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read and point at someone</div>
+    <div class="hq-text">"This morning — did you drink coffee, tea, or something else first? How many cups today?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Binary + number. Point at one student: "You — coffee or tea this morning? How many?" Very simple. 2–3 answers. Then: "OK — let's talk about our daily drink habit."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Coffee/tea is the most universally low-stakes personal topic — everyone has a habit, everyone has an opinion. Zero anxiety to activate.</li>
+        <li>The "tea = only when sick" stat is very relatable in Mexico. Use it: "Is that you? Do you only drink tea when you're sick?"</li>
+        <li>Accept any answer: "I drink 3 coffees" / "I only drink water" / "I don't like coffee." All perfect A2.2 openers.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"68% of Mexicans drink coffee before breakfast. Raise your hand if that's you."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"This is our last Health lab for this lote. Great topic to keep talking about — we all have a coffee story."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs — Simple Practice</div><div class="sbo-sub">Person A reads the definition. Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Coffee, Tea &amp; Habits</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Drinkers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>your coffee or tea habit.</em> Short and real. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Mug" vs "cup" — quick clarification: a mug is bigger and usually ceramic; a cup is smaller. Both are valid in conversation. "I drink 3 mugs of coffee" is more common than 3 cups for heavy drinkers.</li>
+        <li>"Caffeine" — most students know this word. Confirm pronunciation: KAF-een. It's often mispronounced.</li>
+        <li>Best trigger: <strong>"Three words that describe YOUR coffee or tea life. One sentence each."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These are words you can use at any café, any office kitchen, any breakfast conversation in English."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"If you travel or work with English speakers, knowing how to order and talk about drinks is the most basic daily skill."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. Coffee vs Tea.</div><div class="sec-sub">Read each card · Pairs 60 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4</div><div class="sbo-sub">"Who do you agree with? Are you a coffee or tea person?"</div></div><div class="sbo-badge">Keep it simple</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with? Are you a coffee or tea person? Say 2 or 3 sentences."</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Lucía</strong> — she quit coffee and says she feels great. For heavy coffee drinkers, this is a friendly challenge. "No way! I can't stop!" is a perfect A2.2 reaction.</li>
+        <li>Read all 4, then ask: "Coffee or tea? Raise your hand for coffee." Quick visual poll before opening to pairs.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>After the poll: <strong>"OK — now tell me WHY. One sentence. Why coffee? Why tea?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"Which person drinks most like you? Tell me in one sentence."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Past habits · Short answers OK · Keep moving</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>A2.2 Rule:</strong> Short answers are OK. 1 or 2 sentences is great. Don't wait for perfect English — just talk.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>This is the most socially light-weight session in the lote — no career, no money, no stress. Let it be fun. Laughing while talking English is still talking English.</li>
+        <li>Block 1: "When was the last time you had coffee?" — easy past simple. Most students will say "this morning." Push: "What kind? How did you take it — black, with milk, with sugar?"</li>
+        <li>Block 4 "used to": "Did you use to drink coffee as a child?" — many Mexicans did! Café de olla at grandmother's house is a very common childhood memory.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Q5 — "Is coffee bad for your health?" — generates confident simple opinions. "Yes, but I don't care!" is also a valid answer.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You talked about coffee, tea, habits, and health — in English. All of it. That's A2.2."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. Your Answer.</div><div class="sec-sub">5 min · No chips · Answer in 2–3 sentences · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">Are you going to drink <em>less coffee</em> — or try tea — this week? <em>What is your plan?</em></div>
+    <div class="exit-rule">Answer in 2 or 3 sentences. Use "I am going to..." Say yes or no — and tell me why.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 A2.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"No, I am not going to drink less coffee. I love it too much and I need it to work. But I am going to try to not drink coffee after 3pm. Maybe that will help my sleep."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The Exit Shot gives students permission to say NO — "I am NOT going to drink less." That's also a valid "going to" construction. Don't push for a positive behavioral change; push for honest English production.</li>
+        <li>The "no coffee after 3pm" detail in the model answer also bridges back to the Sleep lab — make the connection explicit if students noticed it.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer is honest and funny — "I love it too much." Point out: <strong>"That's real English. Honest, simple, and clear. That's the goal."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"Record tonight. Tell me your coffee plan in English. 60 seconds. Go."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · Coffee or Tea? My Daily Drug · Health &amp; Wellness · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv on">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"coffee",    def:"A hot dark drink made from coffee beans — very popular in Mexico",   ex:"I drink three coffees every day. I can't stop."},
+  {w:"tea",       def:"A hot drink made with leaves in hot water — many different types",    ex:"I only drink tea when I am sick. Never as a daily habit."},
+  {w:"cup",       def:"A small container you drink from — usually hot drinks",               ex:"I want a cup of coffee, please. With a lot of sugar."},
+  {w:"mug",       def:"A big cup — usually for hot drinks at home or in the office",        ex:"My office mug has 'Don't talk to me before coffee' on it."},
+  {w:"caffeine",  def:"The natural substance in coffee and tea that gives you energy",      ex:"I need caffeine in the morning. Without it I can't think clearly."},
+  {w:"sugar",     def:"The sweet white substance you put in coffee or tea",                  ex:"I take two sugars in my coffee. I know it's too much."},
+  {w:"milk",      def:"The white liquid from a cow — often added to coffee or tea",          ex:"I like my coffee with a lot of milk. Not very strong."},
+  {w:"habit",     def:"Something you do regularly, often without thinking",                  ex:"Coffee in the morning is my most important habit."},
+  {w:"headache",  def:"Pain in your head — sometimes from too much or too little caffeine", ex:"When I don't drink coffee, I get a headache by 10am."},
+  {w:"energy",    def:"The feeling of being active and ready to do things",                  ex:"Coffee gives me energy for about two hours. Then I need another one."}
+];
+const verbs=[
+  {w:"drink",     def:"To take liquid into your mouth and swallow it",                       ex:"I drink coffee every morning before I get out of bed."},
+  {w:"make",      def:"To prepare food or drink",                                            ex:"I make my coffee at home. The office coffee is terrible."},
+  {w:"need",      def:"To require something — to not be able to function without it",        ex:"I need coffee to start my day. It's not optional."},
+  {w:"prefer",    def:"To like one thing more than another",                                 ex:"I prefer coffee in the morning and tea at night."},
+  {w:"add",       def:"To put something extra into a drink — like sugar or milk",            ex:"I add a lot of milk to my coffee. Very little coffee, a lot of milk."},
+  {w:"order",     def:"To ask for something in a café or restaurant",                        ex:"I ordered a large coffee and a piece of cake. Good decision."},
+  {w:"skip",      def:"To not do something you usually do — to miss it",                    ex:"I skipped my morning coffee once. It was a terrible day."},
+  {w:"spill",     def:"To accidentally let liquid fall out of a cup or container",           ex:"I spilled my coffee on my work papers this morning. Disaster."},
+  {w:"feel",      def:"To experience a physical or emotional state",                         ex:"I feel much better after my first coffee. Like a different person."},
+  {w:"reduce",    def:"To make something smaller — like drinking less coffee per day",       ex:"My doctor said to reduce my coffee. I said I will try."}
+];
+const perspectives=[
+  {
+    name:"Marco Salinas",meta:"35 · Driver · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I drink <strong>four coffees every day.</strong> Morning, lunch, afternoon, and after dinner. I know it's a lot. But I love it and I can still sleep. Some people are just different."
+  },
+  {
+    name:"Lucía Paredes",meta:"40 · Nurse · Monterrey — la provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I stopped drinking coffee <strong>six months ago.</strong> I sleep better. I feel calmer. I drink green tea now. I was scared to stop but it was easy. You don't need coffee — you just think you do."
+  },
+  {
+    name:"Ricardo Flores",meta:"28 · Student · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I don't drink coffee or tea. I drink <strong>water and juice.</strong> My friends think I'm strange. But I feel good. I have energy. I don't understand why everyone needs coffee to wake up."
+  },
+  {
+    name:"Sofía Reyes",meta:"45 · Secretary · Querétaro",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"One coffee in the morning. That's it. <strong>Just one.</strong> I don't like too much caffeine. But that first cup — oh, it's perfect. It's my favorite moment of the day."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Past Simple — Your Drink History",mech:"Past simple · Short answers · 2 min per Q",questions:[
+    {num:"Q1",text:"What did you drink this morning? How many cups?",chips:["This morning I drank...","I had... coffees today.","I only drank water because...","My first drink was..."],tn:"Ultra-simple past simple. 'This morning' is the time marker. Accept 'I drank one coffee' or 'three' — both are complete answers. Ask for the next detail: 'What time? Black or with milk?'"},
+    {num:"Q2",text:"When was the last time you didn't drink coffee or tea for a whole day? How did you feel?",chips:["The last time was when I was...","I didn't drink coffee and I had a...","I tried once and I felt...","I never skip my coffee because..."],tn:"'Headache' is the most common answer — students who know this experience will activate it immediately. Celebrate: 'So you had a caffeine headache! That means your body depends on it.'"},
+    {num:"Q3",text:"Did you ever drink too much coffee and feel bad — shaking, heart racing, or nervous?",chips:["Yes! One time I drank...","I felt terrible after...","My heart was... and I...","I never feel bad from coffee. I drink a lot and..."],tn:"This is the fun physical memory question. Let the story come out — 'I drank 5 espressos and I couldn't stop shaking.' Laughter is engagement."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present opinions · 2 min per Q",questions:[
+    {num:"Q4",text:"Do you prefer coffee or tea — and how do you take it?",chips:["I prefer coffee because...","I like tea more because...","I drink my coffee/tea with...","I take it black/with milk/with sugar because..."],tn:"Simple preference question. The how-do-you-take-it detail gives great vocabulary practice: black, with milk, with sugar, hot, iced, strong, weak."},
+    {num:"Q5",text:"Do you think coffee is bad for your health?",chips:["I think it's bad because...","I don't think it's bad because...","Yes, but I don't care because...","My doctor said..."],tn:"Easy opinion question with immediate personal relevance. 'Yes but I don't care' is the most common honest answer — celebrate it. That's real English communication."},
+    {num:"Q6",text:"Is it OK to give coffee to children — or is it bad for them?",chips:["I think children should not drink coffee because...","In my family, children drink...","I drank coffee as a child and...","I think it's OK because..."],tn:"The most gently provocative question of Block 2. Many Mexican families give children café de olla or café con leche. 'I drank coffee as a child' often opens a nice memory for Block 4."}
+  ]},
+  {num:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · 2 min per Q",questions:[
+    {num:"Q7",text:"Are you going to drink more or less coffee next year?",chips:["I am going to drink the same...","I want to drink less but...","I am going to try to stop at...","I think I will always drink a lot of coffee."],tn:"Simple future reflection. Accept 'I want to' alongside 'going to.' Both express future intention at A2.2. The honesty ('I know it's bad but I will continue') is the interesting part."},
+    {num:"Q8",text:"Are you going to try tea — or a different hot drink — this week?",chips:["Yes, I am going to try...","No, I am not going to change because...","Maybe I will try a herbal tea...","I already drink tea when..."],tn:"This is the bridge question toward the Exit Shot. Let students express their real plan — even if it's 'no, never.' Saying 'I am NOT going to try tea' is still excellent 'going to' practice."}
+  ]},
+  {num:"BLOCK 4",name:"Past Habits — Used To",mech:"Used to · Model first · 2 min per Q",questions:[
+    {num:"Q9",text:"Did you use to drink coffee as a child — or was it a habit you started later?",chips:["I used to drink coffee with my...","My grandmother used to give me...","I didn't use to drink coffee until I was...","I started drinking coffee when I was..."],tn:"Model first: 'When I was 8, my grandmother USED TO give me café con leche every morning. I loved it.' Then ask. Childhood coffee memories are very common in Mexico — café de olla, café con leche."},
+    {num:"Q10",text:"Did you use to drink more coffee before — or less than now?",chips:["I used to drink more when I was...","Before I used to drink just one cup but now...","I used to drink tea only. Now I drink coffee because...","My habit didn't change. I always drank..."],tn:"Closing reflection — the before/now contrast produces natural 'used to' output. Accept any production: 'I used to drink one cup. Now I drink four.' That's perfect A2.2 grammar and a great way to end."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab A2.2 — Cheap Hotels vs. Expensive Hotels</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #F97316;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn { background: var(--accent); color: white; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s; }
+  .toggle-btn.student { background: #2a3a4e; color: white; }
+
+  .hero { height: 340px; position: relative; display: flex; align-items: flex-end; background: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.93) 100%); }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(249,115,22,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: white; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(249,115,22,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: white; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(249,115,22,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(249,115,22,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.2</span>
+      <span class="hero-tag plain">Travel &amp; Culture</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Cheap Hotels vs.<br>Expensive Hotels</h1>
+    <p>Do you really need to pay a lot to sleep well — or is a clean, simple room enough?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A question for the class</div>
+      <div class="trigger-quote">"Think about the last hotel you stayed in. Was it cheap or expensive? Was it good or terrible? Did the price tell you the truth — or did it lie to you?"</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the three questions slowly. Ask for a quick show of hands: <em>"Who here prefers to save money on hotels?"</em> Then: <em>"Who likes to pay for a good hotel?"</em> Count the hands — usually it divides the room in half. Then say: <em>"OK — let's talk about hotels."</em> Simple, fast, no pressure.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('room')">
+        <div class="vocab-word">room</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The space where you sleep in a hotel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('view')">
+        <div class="vocab-word">view</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">What you can see from the window — city, beach, parking lot</div>
+      </div>
+      <div class="vocab-card" onclick="speak('service')">
+        <div class="vocab-word">service</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How the hotel staff treat you and help you</div>
+      </div>
+      <div class="vocab-card" onclick="speak('price')">
+        <div class="vocab-word">price</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How much money you pay per night</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pool')">
+        <div class="vocab-word">pool</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The place in a hotel where you swim</div>
+      </div>
+      <div class="vocab-card" onclick="speak('breakfast')">
+        <div class="vocab-word">breakfast</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The first meal of the day — some hotels include it in the price</div>
+      </div>
+      <div class="vocab-card" onclick="speak('review')">
+        <div class="vocab-word">review</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Comments from other travelers about a hotel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('location')">
+        <div class="vocab-word">location</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Where the hotel is — close to the center, far from everything</div>
+      </div>
+      <div class="vocab-card" onclick="speak('noise')">
+        <div class="vocab-word">noise</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Loud sounds — a noisy hotel is a terrible hotel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('star')">
+        <div class="vocab-word">star</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The rating system for hotels — 1 star is basic, 5 stars is luxury</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('book')">
+        <div class="vocab-word">book</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To reserve a hotel room before you travel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check in')">
+        <div class="vocab-word">check in</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To arrive at the hotel and get your room key</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check out')">
+        <div class="vocab-word">check out</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To leave the hotel and pay before you go</div>
+      </div>
+      <div class="vocab-card" onclick="speak('save money')">
+        <div class="vocab-word">save money</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To spend less — to choose a cheap option to keep more money</div>
+      </div>
+      <div class="vocab-card" onclick="speak('complain')">
+        <div class="vocab-word">complain</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To tell the hotel that something is wrong or not good</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pay')">
+        <div class="vocab-word">pay</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To give money for something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('compare')">
+        <div class="vocab-word">compare</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To look at two things together and see the difference</div>
+      </div>
+      <div class="vocab-card" onclick="speak('include')">
+        <div class="vocab-word">include</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To have something as part of the price — "breakfast is included"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('disappoint')">
+        <div class="vocab-word">disappoint</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">When something is less good than you expected — "The hotel disappointed me"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('recommend')">
+        <div class="vocab-word">recommend</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To tell a friend: "Stay at this hotel — it was great!"</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('The photos were much better than the real room.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"The photos were much better than the real room."</div>
+          <div class="phrase-context">The most common disappointment in cheap hotel bookings</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way. I\'m not paying that much for one night.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"No way. I'm not paying that much for one night."</div>
+          <div class="phrase-context">When the hotel price is too expensive for you</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Lucky me — I found a great hotel for a very good price.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Lucky me — I found a great hotel for a very good price."</div>
+          <div class="phrase-context">The traveler's dream: good quality, low price</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I only use the hotel to sleep. I don\'t care about the rest.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I only use the hotel to sleep. I don't care about the rest."</div>
+          <div class="phrase-context">The argument for cheap hotels — why pay more if you just need a bed?</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Tell me about it. The noise was impossible all night.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Tell me about it. The noise was impossible all night."</div>
+          <div class="phrase-context">Agreeing with someone's complaint — "I know exactly what you mean"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Sofía, 34</div>
+        <div class="opinion-role">Administrator, Querétaro</div>
+        <div class="opinion-text">"I always pay for a good hotel. <strong>I work hard all year.</strong> When I travel, I want to feel comfortable. A bad bed and no sleep is not a vacation."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍🎓</div>
+        <div class="opinion-name">Carlos, 27</div>
+        <div class="opinion-role">Student, Celaya</div>
+        <div class="opinion-text">"I always choose the cheapest hotel. <strong>I'm only there to sleep.</strong> I spend my money on food and activities — not on a room I leave every morning at 8."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Honest Take</div>
+        <div class="opinion-avatar">👩‍⚕️</div>
+        <div class="opinion-name">Gabriela, 42</div>
+        <div class="opinion-role">Nurse, Guadalajara</div>
+        <div class="opinion-text">"I paid $3,000 pesos a night for a hotel once. <strong>It was exactly the same</strong> as a $600 peso hotel. Just bigger pillows. I felt like an idiot. Never again."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍👩‍👧</div>
+        <div class="opinion-name">Roberto, 46</div>
+        <div class="opinion-role">Father of 3, Monterrey</div>
+        <div class="opinion-text">"With children, you can't stay in a bad hotel. <strong>The kids don't sleep.</strong> You don't sleep. The next day is terrible. Good sleep is not a luxury with a family — it's survival."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Gabriela paid a lot and felt it wasn't worth it. Did you ever feel the same — or was an expensive hotel really worth the price for you?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Did you ever stay in a hotel that was terrible? What was the problem?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Adjective practice: dirty, small, noisy, dark, ugly, smelly, far from everything. Let them describe. Help with: "The room was... / The bathroom was... / The bed was..." Most students have a story and love to tell it.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Did you ever stay in a very nice hotel? What did you like about it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Yes, one time my company paid for a very nice hotel in Cancún. I didn't want to leave! The bed was amazing, the breakfast was huge, and the view was beautiful." Keep the description concrete and fun.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">When was the last time you traveled and stayed in a hotel? What was it like?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple past simple recall. Help students sequence: "First I arrived... then I checked in... the room was... I liked / didn't like..." Two to three sentences is a complete and successful answer at A2.2.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">What is more important in a hotel: the price, the location, or the cleanliness?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Three options make it easy to answer. Most students choose cleanliness — it's a universal answer. Ask: "What happens if the hotel is cheap and clean but very far from everything?" That creates a real decision moment.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Do you think expensive hotels are always better — or is a cheap hotel sometimes the right choice?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The core debate question. Gabriela's answer is often the most honest: "No, not always." Ask: "When is a cheap hotel the right choice? When is it a bad idea?" Context matters — business trip vs. backpacking are very different.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you read hotel reviews online before you book? Do you trust them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Universal topic — everyone uses TripAdvisor, Google, or Booking.com now. Ask: "How many stars is enough for you? Only 5? Or 4 is OK?" Students have strong opinions about review scores. Fun and personal.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Future Plans</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">Are you going to travel this year? If yes, what kind of hotel are you going to choose?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Direct "going to" practice. Even "I don't have plans to travel this year" is a valid and useful answer — help them say it in English: "I'm not going to travel this year because..." Budget, family, work — all real reasons.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">If you win a vacation trip — the hotel is free — will you choose a 5-star hotel or a simple, clean hostel near everything?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple "will" practice with a fun imaginary scenario. Most students choose 5 stars without hesitation — but then ask: "Why? What do you want to do there?" Seeing what students value in luxury is always revealing.</div>
+    </div>
+
+    <span class="block-label">Block 4 — Used To &amp; Reflection</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Did you use to travel and stay in cheap hotels when you were younger? Is that different now?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Good "used to" practice with a clear before-and-after structure. Model answer: "I used to sleep anywhere — a friend's sofa, a very cheap room, no problem. Now I need a real bed and a quiet room. I got old!" Relatable and fun.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Did you use to think that expensive hotels were always amazing? What do you think now?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Nice closing reflection — connects "used to think" with current reality. Model answer: "I used to think a 5-star hotel was perfect. Now I think: it depends. Sometimes a small, clean hotel is better. Price is not everything." Great session closer.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. Simple but Real.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">🎯 Final Question</div>
+      <div class="exit-question">Your company is going to pay for your hotel on a business trip. You can choose: a very nice 5-star hotel, or a simple but clean hotel — and you keep the difference in money. What do you choose — and why?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. Answer this question: what do you choose — the 5-star hotel or the simple hotel and the money? Be specific. Why did you choose that? Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab A2.2 · Cheap Hotels vs. Expensive Hotels · Travel &amp; Culture</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    if (studentMode) { btn.textContent = 'Teacher Mode'; btn.classList.add('student'); }
+    else { btn.textContent = 'Student Mode'; btn.classList.remove('student'); }
+  }
+</script>
+</body>
+</html>

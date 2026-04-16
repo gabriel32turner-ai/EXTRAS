@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.2 · Long Hours vs. Short Hours</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.08)}
+.mode-btn{background:#F97316;border:1px solid #F97316;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-arrow{transition:transform .2s}.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(249,115,22,.1)}
+.tn-c1{border-left:3px solid rgba(249,115,22,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(249,115,22,.08) 0%,rgba(249,115,22,.03) 100%);border:1px solid rgba(249,115,22,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(249,115,22,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(249,115,22,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(249,115,22,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(249,115,22,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(249,115,22,.3)}
+.vc.noun-c{border-top:2px solid rgba(249,115,22,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(249,115,22,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(251,146,60,.85);font-style:italic;border-left:2px solid rgba(249,115,22,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(249,115,22,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(249,115,22,.25);color:#fff;font-weight:800}
+.vocab-challenge{background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(249,115,22,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(249,115,22,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(249,115,22,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(249,115,22,.65);background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(249,115,22,.3)}
+.q-tn strong{color:rgba(249,115,22,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(249,115,22,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(249,115,22,.1) 0%,rgba(249,115,22,.04) 50%,transparent 100%);border:1px solid rgba(249,115,22,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80" alt="Office work">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Work &amp; Corporate Life</div>
+    <div class="hero-title">LONG HOURS<br><em>VS. SHORT HOURS</em></div>
+    <div class="hero-sub">Some people work 12 hours a day. Some people finish at 5pm. Which one are you?</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 A Simple Question About Work</div><div class="sec-sub">Read aloud · First reaction · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">⏰</div>
+    <div class="hsc-label">OECD Work-Life Balance Report 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">43 hrs</div><div class="hsc-desc">The average work week in Mexico — one of the highest in the world</div></div>
+      <div class="hsc-stat"><div class="hsc-num">30 hrs</div><div class="hsc-desc">The average work week in Germany — and German workers are some of the most productive in the world</div></div>
+      <div class="hsc-stat"><div class="hsc-num">55%</div><div class="hsc-desc">Of Mexican workers say they feel tired at the end of every work day — every single day</div></div>
+      <div class="hsc-stat"><div class="hsc-num">1 in 3</div><div class="hsc-desc">Workers in Mexico say they don't have enough time for their family because of work</div></div>
+    </div>
+    <div class="hsc-source">Sources: OECD Work-Life Balance Index 2023 · INEGI Encuesta Nacional de Ocupación y Empleo</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read and point at someone</div>
+    <div class="hq-text">"How many hours do you work every day? Is that enough — or too many?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Read the numbers. Point at one student: "How many hours do YOU work?" Simple past or simple present — both OK. 2–3 reactions. Keep it light. Say: "We talk more about this in §4."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>At A2.2, keep the trigger simple. The Germany comparison (30 hrs, more productive) is the one that generates a reaction — even at this level. Just point to the numbers.</li>
+        <li>Accept any answer: "I work 8 hours," "I work a lot," "My boss is always there." All are valid A2.2 outputs.</li>
+        <li>Don't push for complex opinions yet — just activate the topic.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Ask with curiosity, not judgment: <strong>"43 hours a week — that's almost 9 hours a day! Is that you?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Next lab we talk about money — cash or card. Very different topic, same pace."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs — Simple Practice</div><div class="sbo-sub">Person A reads the definition. Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Work &amp; Time</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Workers Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>your job right now.</em> Short and simple. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>At A2.2, one-sentence production is the goal. Don't push for more. "I finish work at 6pm. I am tired." — that is a perfect A2.2 production moment.</li>
+        <li>"Overtime" is a target word — some students know it in Spanish (tiempo extra). Confirm and use it.</li>
+        <li>Best trigger: <strong>"Three words about YOUR job. Say one sentence for each. Very simple."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"These are words you can use tomorrow morning at work — in English."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"Every session we build 20 words. After 10 sessions, you have 200 real words. That's how it works."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Ideas About Work.</div><div class="sec-sub">Read each card · Pairs 60 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4</div><div class="sbo-sub">"Who do you agree with? Why?"</div></div><div class="sbo-badge">Keep it simple</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with? Why? Use 2 or 3 sentences."</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>At A2.2, the opinion wall is for comprehension + simple production. Don't expect debate. Expect: "I agree with Sofía because I am also tired."</li>
+        <li>The provocateur is <strong>Marcos</strong> — his "more hours = more money" position is simple but challenges the other three. Even A2.2 students can react to that.</li>
+        <li>If a student only says "I agree with her" — model the next step: "Because...?" Give a simple sentence starter.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Read the cards clearly and slowly. Let students follow along. For A2.2 this is also reading comprehension practice — that's OK.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"Which person talks like someone from YOUR job? Tell me in one sentence."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Past habits · Short answers OK · Keep moving</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>A2.2 Rule:</strong> Short answers are OK. 1 or 2 sentences is great. Don't wait for perfect English — just talk.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>At A2.2, the chips are sentence starters — use them actively. If a student is silent, point to a chip: "Start with that one. Just finish the sentence."</li>
+        <li>Block 3 uses "going to" and "will" — both are A2.2 targets. Don't correct the confusion between them at this level. Just celebrate production.</li>
+        <li>Block 4 "used to" — model with a gesture if needed: "Before — in the past — I used to work 10 hours. Now I work 8." The before/now contrast makes it clear.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>When a student gives a complete sentence: celebrate immediately. <strong>"Good! That's a complete English sentence about your life. Perfect."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You answered 10 questions about your work — in English. All correct. That's A2.2."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. Your Answer.</div><div class="sec-sub">5 min · No chips · Answer in 2–3 sentences · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">If you can choose, are you going to work <em>fewer hours</em> next year — or the same? <em>What is your plan?</em></div>
+    <div class="exit-rule">Answer in 2 or 3 sentences. Use "I am going to..." or "I want to..." Simple and honest.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 A2.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I am going to try to work fewer hours next year. I want more time for my family. My plan is to finish work at 5pm and not check my phone after that."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The Exit Shot at A2.2 is a personal future plan — simple and achievable to answer. "Going to" is the target structure. Accept "I want to" as well — both are valid here.</li>
+        <li>If a student says "I don't know" — give a sentence starter: "OK — say: 'I am going to work... hours.' Just finish that sentence."</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer is short and real — 3 sentences, simple words. Point this out: <strong>"Three sentences. Simple words. Perfect A2.2 English. That's the goal."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"Record that answer tonight on WhatsApp. 60 seconds. I want to hear YOUR plan in English."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · Long Hours vs. Short Hours · Work &amp; Corporate Life · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv on">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"hours",     def:"The time you spend doing something — like working",              ex:"I work eight hours every day. Sometimes more."},
+  {w:"boss",      def:"The person in charge of you at work",                            ex:"My boss always stays late. It makes me feel bad to leave early."},
+  {w:"break",     def:"A short time when you stop working to rest",                     ex:"I don't have a break in the morning. I eat lunch very fast."},
+  {w:"schedule",  def:"A plan that shows what time you do things",                      ex:"My schedule is 8am to 6pm. Monday to Saturday."},
+  {w:"salary",    def:"The money you receive every month for your work",                ex:"My salary is OK. But I want more money for all these hours."},
+  {w:"overtime",  def:"Extra hours you work after your normal schedule",                ex:"I do overtime every Friday. I don't get extra money for it."},
+  {w:"meeting",   def:"When people at work talk together about something important",    ex:"We have four meetings every day. They take a lot of time."},
+  {w:"deadline",  def:"The last day or time to finish something at work",               ex:"I have a deadline tomorrow. I am going to work late tonight."},
+  {w:"lunch",     def:"The meal in the middle of the day",                              ex:"My lunch break is only 20 minutes. That is not enough."},
+  {w:"weekend",   def:"Saturday and Sunday — the days when most people don't work",     ex:"I work on Saturday sometimes. My family is not happy about that."}
+];
+const verbs=[
+  {w:"work",      def:"To do your job — to spend time at your job",                    ex:"I work a lot. Maybe too much."},
+  {w:"finish",    def:"To complete something — to be done",                            ex:"I finish work at 7pm. It's too late."},
+  {w:"stay",      def:"To remain in a place — like staying late at the office",        ex:"I stayed at work until 9pm last night."},
+  {w:"rest",      def:"To relax and stop working — to recharge",                       ex:"I don't rest on weekends. I always think about work."},
+  {w:"complain",  def:"To say that something is bad or wrong",                         ex:"I complain about my hours to my wife every day. She is tired of it."},
+  {w:"leave",     def:"To go away — like leaving the office at the end of the day",    ex:"I want to leave at 5pm but my boss is always still there."},
+  {w:"enjoy",     def:"To like something — to have a good time",                       ex:"I don't enjoy working on weekends. I like being with my family."},
+  {w:"decide",    def:"To make a choice about something",                              ex:"I decided to stop answering emails after 8pm."},
+  {w:"need",      def:"To require something — to not be able to live without it",      ex:"I need more free time. That is my biggest problem."},
+  {w:"miss",      def:"To feel sad because you don't have something or someone",        ex:"I miss my kids. I don't see them during the week."}
+];
+const perspectives=[
+  {
+    name:"Sofía Reyes",meta:"34 · Teacher · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I work eight hours a day. That's enough. When I go home, I <strong>don't think about work.</strong> I think about my family and my dinner. Life is not only work. We need time to be happy."
+  },
+  {
+    name:"Marcos Salinas",meta:"45 · Mechanic · Guanajuato — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I work 12 hours every day. Sometimes more. Why? Because <strong>more hours = more money.</strong> My family needs money. I can rest when I am old. Right now I need to work."
+  },
+  {
+    name:"Patricia Luna",meta:"29 · Secretary · Monterrey",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"My boss works 11 hours a day. So I have to stay too. I don't <strong>want to</strong> stay. But I am afraid to leave before him. I hope this changes soon."
+  },
+  {
+    name:"Ricardo Vega",meta:"52 · Manager · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I worked 60 hours a week for 20 years. Last year, I got sick. Now I work 40 hours. <strong>My work is the same. My health is better.</strong> I was wrong before."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Past Simple — Your Experience",mech:"Past simple · Short answers OK · 2 min per Q",questions:[
+    {num:"Q1",text:"Did you work overtime last week? What did you do?",chips:["Yes, I worked until...","No, I finished at...","I stayed because...","My boss asked me to..."],tn:"Simple past — accept any correct or near-correct past simple form. If student says 'I work overtime yesterday,' model gently: 'Ah, you WORKED overtime.' Keep moving."},
+    {num:"Q2",text:"When was the last time you had a full weekend — no work, no messages?",chips:["The last time was...","I think it was in...","I never have a full weekend because...","I had a free weekend when..."],tn:"This question often produces: 'I don't remember.' That's a valid answer! Push: 'Maybe a holiday? Or when you were sick?' Help them find a memory."},
+    {num:"Q3",text:"Did you ever have a job with very short hours? Was it better?",chips:["Yes, I worked at... and...","No, all my jobs were...","The best job I had was...","Before I used to..."],tn:"'Before' is the key word here — it naturally leads toward 'used to' even before Block 4. If a student uses it, celebrate: 'You used USED TO! That's a new structure!'"}
+  ]},
+  {num:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present opinions · 2 min per Q",questions:[
+    {num:"Q4",text:"Do you think 8 hours is the right amount of time to work every day?",chips:["I think 8 hours is...","For me, the right time is...","I think more/less because...","In my job..."],tn:"A2.2 opinion: accept 'I think yes' or 'I think 8 hours is too much.' Build from there with: 'Why?'"},
+    {num:"Q5",text:"Is it OK to check work messages at home, after work?",chips:["I think it's OK because...","I don't think it's OK because...","In my job I have to...","My boss always sends messages at..."],tn:"This is personal and immediately relatable. Most students check messages at home — let them describe what that's like. Simple sentences: 'My boss sends messages at 10pm. I don't like it.'"},
+    {num:"Q6",text:"Do you like your work schedule? What do you want to change?",chips:["I like my schedule because...","I don't like my schedule because...","I want to change...","I want to start at... and finish at..."],tn:"'I want to change...' is a perfect A2.2 expression. Build vocabulary around this: 'I want to start later. I want a longer lunch. I want Fridays off.'"}
+  ]},
+  {num:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · Accept both structures",questions:[
+    {num:"Q7",text:"Are you going to work the same hours next year — or more, or less?",chips:["I am going to work...","I think I will work...","My plan is to...","I don't know yet, but I want to..."],tn:"'Going to' is the target. If a student says 'I will work less,' accept it and celebrate. Don't correct the going to vs will distinction at A2.2."},
+    {num:"Q8",text:"Are you going to take a vacation this year? When?",chips:["Yes, I am going to...","No, I don't have vacation this year because...","I want to go to...","My vacation is in..."],tn:"Vacation talk at A2.2 is very accessible — students love this topic. If they say 'I don't have vacation,' push: 'If you could go on vacation, where will you go?'"}
+  ]},
+  {num:"BLOCK 4",name:"Past Habits — Used To",mech:"Used to · Model before asking · Keep it simple",questions:[
+    {num:"Q9",text:"Did you use to work different hours before? What was different?",chips:["I used to work...","Before I used to start at...","My old job was...","Before it was better/worse because..."],tn:"Model 'used to' with a personal example first: 'In my old job, I USED TO work 10 hours. Now I work 8.' Then ask the question. The model makes the structure clear."},
+    {num:"Q10",text:"Did you use to enjoy your job more before — or is it better now?",chips:["I used to enjoy my job more when...","Now it's better because...","Before it was worse because...","I still like my job but..."],tn:"This is the closing reflection. Accept simple sentences. 'Before I liked my job. Now it's OK.' is perfect A2.2 output. Celebrate it."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

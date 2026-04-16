@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · My Family Drama · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#F97316;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#F97316;border:1px solid #F97316;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(249,115,22,.12);color:var(--ac);border:1px solid rgba(249,115,22,.3)}
+.tag.spicy{background:rgba(255,80,60,.12);color:#FF6B5B;border-color:rgba(255,80,60,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(249,115,22,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(249,115,22,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(249,115,22,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(249,115,22,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(249,115,22,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">A2.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag spicy">🔥 Spicy Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>My Family<br>Drama</h1>
+    <p>Every family has a story. A fight that nobody talks about. A person who is always the problem. Let's talk about it — in English.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Let's Talk Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A simple question to start</div>
+    <div class="trigger-quote">"In a survey, 78% of adults said they have a difficult person in their family. Not a bad person — just difficult. Someone who always starts problems, always argues, or always talks too much. Do you have one of those in your family?"</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the stat with a smile. Ask: <em>"78% — do you think that number is correct? Or is it higher?"</em> Then laugh a little and ask: <em>"Do you have a difficult person in your family? Who?"</em> At A2.2 the goal is to get the student talking about real people and real situations with simple past verbs. Keep questions short and listen generously.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Patricia · 38</div><div class="bub-role">Secretary · Celaya</div></div>
+      </div>
+      <div class="bub-body">"Family problems are normal. Every family argues. <strong>We always talk about it and then we continue.</strong> My family is loud, but we love each other. I am OK with that."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Ricardo · 42</div><div class="bub-role">Mechanic · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I don't talk to my brother. We had a big fight 3 years ago and we didn't talk after that. <strong>Some problems in the family don't have a solution.</strong> And that's OK."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍🍳</span>
+        <div><div class="bub-name">Lucía · 35</div><div class="bub-role">Cook · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"My family is very dramatic. There is always a problem with someone. <strong>I love them but I need a break sometimes.</strong> Family dinners are very difficult for me."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Diego · 44</div><div class="bub-role">Salesman · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"I think <strong>you choose your family problems.</strong> If there is always drama in your house, it is because someone likes the drama. Maybe it is not always the other person."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Diego is the provocateur because he says "maybe it is not always the other person" — a gentle implication that the student could be part of the drama too. For A2.2 keep it light: <em>"Do you agree with Diego? Is it possible that we like the drama a little?"</em> Laugh with the student. Don't push too hard.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience — Past Simple</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Did your family have a big fight or problem this year — or last year? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Let the student tell the story. Keep your follow-up questions short: "Who started it?" / "What did you do?" / "How did it end?" Target: past simple verbs — argued, said, left, called, felt. Give plenty of wait time. A2.2 students need a moment to find the words.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">When was the last time you went to a family dinner or party? Was it fun or difficult?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for activating: fun, boring, nice, loud, difficult, long. Push: "Who was there? What did you eat? Was everyone happy?" Target: past simple + simple adjectives. Model: "Last Christmas. It was fun but also a little loud. My uncle always argues about politics."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did you ever stop talking to someone in your family for a period of time? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Connects to Ricardo's bubble. If the student has no personal experience, they can talk about someone they know. Push: "How long? Did you talk again?" Target: past simple + time expressions (for 2 months, after that, then). Key: no judgment — just curiosity.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think family is more important than friends — or can friends be your real family?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Simple opinion question. Push: "Do you have a friend who feels like family?" Target: present simple + I think / I believe. Model: "I think family is important, but some of my friends are more family than my real family. You choose your friends — you don't choose your family."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it OK to say no to your family sometimes — or do you always need to be there for them?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for: I think it's OK / I think you should. Target: simple modals (should, can, need to). Model: "I think it's OK to say no sometimes. You need time for yourself too. Family can ask too much sometimes." Keep it conversational and simple.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think it is better to talk about problems in the family — or is it better to just forget and continue?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Two clear positions. Push: "What do people in YOUR family usually do?" Target: present simple + it depends on. Model: "In my family we usually just forget. We don't like to talk about problems. Maybe it's better to talk — but it's difficult." Simple and real.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Future Plans — Going to / Will</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to see your family this month? Are you happy about that — or a little nervous?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + simple emotions. Push: "Who are you going to see? What are you going to do?" Model: "Yes, I'm going to see my parents next Sunday. I'm happy — but my aunt is going to be there and she always asks about my life. It's a little difficult." Light, personal, real.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">Is there a family problem you want to fix this year? What will you do about it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: will + infinitive for intentions. Push: "Will you talk to that person? Will you call them?" Model: "Yes — I want to talk to my sister. We had a small problem last month. I will call her this week. I think." The "I think" is natural and realistic for A2.2. Validate it.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Past Habits + Reflection — Used to</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Did you use to fight with your brothers or sisters when you were young? What did you fight about?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: used to + past simple. Very accessible and fun topic. Push: "What did you fight about most — TV, food, the bathroom?" Model: "Yes! My brother and I used to fight about the TV every weekend. He wanted cartoons, I wanted movies. We always argued." Gets students laughing.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Is your relationship with your family different now than when you were young? What changed?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Reflection question. Target: past simple + present simple for contrast. Model: "Yes, it's different. When I was young, I used to argue with my mom a lot. Now we are good friends. I understand her better now." Push: "What changed — you or them?" Simple but meaningful.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Question</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Is there someone in your family that you want to call this week — but you didn't call? Who is it? And are you going to call them?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me who it is and what you want to say to them — in English. No script. Simple words are fine."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">A2.2 · Speaking Lab · My Family Drama · Relationships &amp; Personality · Spicy Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'argument',def:'A fight or disagreement between people',ex:'"We had a big argument at Christmas dinner."'},
+  {w:'family',def:'Your parents, brothers, sisters, and relatives',ex:'"My family is big. We are eight people."'},
+  {w:'fight',def:'A strong argument — sometimes with angry words',ex:'"My brother and I had a fight last week."'},
+  {w:'problem',def:'A difficult situation',ex:'"Every family has problems. That is normal."'},
+  {w:'drama',def:'A situation with a lot of emotion and problems',ex:'"There is always drama at my family dinners."'},
+  {w:'sister',def:'A female sibling in your family',ex:'"My sister and I are very different."'},
+  {w:'brother',def:'A male sibling in your family',ex:'"My brother lives in another city now."'},
+  {w:'parents',def:'Your mother and father',ex:'"My parents are very traditional."'},
+  {w:'noise',def:'Loud sounds — often from people talking or arguing',ex:'"There was a lot of noise at the party."'},
+  {w:'dinner',def:'The main evening meal — often with family',ex:'"Family dinners are fun, but also a little stressful."'},
+];
+const verbs=[
+  {w:'argue',def:'To have an angry disagreement',ex:'"My aunt and uncle always argue at family events."'},
+  {w:'fight',def:'To have a strong argument',ex:'"We fought about money. It was bad."'},
+  {w:'call',def:'To telephone someone',ex:'"I didn\'t call my brother for 3 months."'},
+  {w:'visit',def:'To go to see someone',ex:'"I visit my parents every Sunday."'},
+  {w:'forgive',def:'To stop being angry about something',ex:'"I forgave my sister, but it was difficult."'},
+  {w:'cry',def:'To produce tears — from sadness or strong emotion',ex:'"My mom cried at the end of the argument."'},
+  {w:'shout',def:'To speak very loudly, usually when angry',ex:'"My dad shouted and then left the room."'},
+  {w:'ignore',def:'To not pay attention to someone',ex:'"She ignored me for 2 weeks after the fight."'},
+  {w:'miss',def:'To feel sad because someone is not with you',ex:'"I miss my grandmother. She died last year."'},
+  {w:'fix',def:'To solve a problem or repair something',ex:'"We need to fix this problem before Christmas."'},
+];
+const phrases=[
+  {p:'Oh my God',ctx:'Said when you are surprised or shocked by something'},
+  {p:'Are you serious?',ctx:'Said when you can\'t believe what someone told you'},
+  {p:'Tell me about it',ctx:'Said when you agree completely — you have the same experience'},
+  {p:'Same here',ctx:'Short way to say "I have the same situation or feeling"'},
+  {p:'Forget about it',ctx:'Said when you want to stop talking about a problem and move on'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

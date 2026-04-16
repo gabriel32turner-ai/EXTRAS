@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab A2.2 — My Worst Day at Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#F97316;--ac-dim:rgba(249,115,22,.08);--ac-mid:rgba(249,115,22,.2);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.hdr-brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.mode-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#modeBtn{border:none;cursor:pointer;padding:7px 16px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;background:var(--ac);color:white}
+#modeBtn.student{background:#2a3a4e;color:white}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1400&q=80&fit=crop');background-size:cover;background-position:center;opacity:.2}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.98) 0%,rgba(15,25,35,.65) 55%,rgba(15,25,35,.25) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid}
+.tag-level{color:var(--ac);border-color:var(--ac);background:rgba(249,115,22,.08)}
+.tag-cat{color:var(--muted);border-color:var(--border)}
+.tag-medium{color:#fbbf24;border-color:#fbbf24;background:rgba(251,191,36,.08)}
+.tag-time{color:var(--muted);border-color:var(--border)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:40px}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-hd-l{display:flex;align-items:center;gap:14px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:.5px;margin-top:2px}
+.timer-pill{flex-shrink:0;background:var(--ac-dim);border:1px solid var(--ac-mid);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;text-transform:uppercase}
+
+.quote-box{border-left:3px solid var(--ac);background:var(--card);padding:20px 24px;margin-bottom:16px}
+.quote-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.quote-text{font-size:16px;font-style:italic;color:var(--text);line-height:1.6}
+.trigger-script{background:rgba(249,115,22,.04);border:1px solid var(--ac-mid);padding:14px 18px;font-size:13px;color:var(--muted);margin-top:12px}
+.trigger-script strong{color:var(--ac)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px}
+.v-card{background:var(--card);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.v-card:hover,.v-card:active{border-color:var(--ac);background:var(--ac-dim)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--ac);margin-bottom:2px}
+.v-type{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--muted);line-height:1.4}
+.vocab-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:16px}
+.phrases-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--ac)}
+.phrase-text{font-size:13.5px;color:var(--text);font-style:italic}
+.phrase-use{font-size:12px;color:var(--muted);margin-top:2px}
+.ph-icon{font-size:14px;flex-shrink:0}
+
+.opinions{display:flex;flex-direction:column;gap:12px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px 20px}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{width:36px;height:36px;background:var(--ac-dim);border:1px solid var(--ac-mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--text)}
+.op-text{font-size:13.5px;color:var(--text);line-height:1.65}
+.op-text strong{color:var(--ac)}
+.op-provocateur{border-color:rgba(249,115,22,.4)}
+.op-provocateur .op-avatar{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.4)}
+.provoc-badge{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-left:auto}
+.op-instruction{background:var(--ac-dim);border:1px solid var(--ac-mid);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--ac)}
+
+.q-blocks{display:flex;flex-direction:column;gap:24px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-block-lbl::after{content:'';flex:1;height:1px;background:var(--ac-mid)}
+.questions{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14.5px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.tip-btn{border:1px solid var(--ac-mid);background:none;color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background .15s}
+.tip-btn:hover{background:var(--ac-dim)}
+.tip-content{display:none;margin-top:12px;background:rgba(249,115,22,.04);border-top:1px solid var(--ac-mid);padding-top:12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.tip-content strong{color:var(--ac)}
+.tip-content.show{display:block}
+
+.exit-box{border:2px solid var(--ac);background:var(--ac-dim);padding:28px 32px;margin-bottom:20px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:18px}
+.hw-box{background:var(--card);border:1px solid var(--border);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.hw-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hw-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.hw-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+footer{border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:11px;color:var(--muted)}
+footer strong{color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1px}
+
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+  .exit-box{padding:20px 18px}
+  .exit-q{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="hdr-right">
+    <span class="mode-tag teacher-only" id="modeTag">Teacher Mode</span>
+    <button id="modeBtn" onclick="toggleMode()">Student Mode</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="tag tag-level">A2.2</span>
+      <span class="tag tag-cat">Work &amp; Corporate Life</span>
+      <span class="tag tag-medium">🌡 Medium</span>
+      <span class="tag tag-time">⏱ 50 min</span>
+    </div>
+    <h1>My Worst Day<br>at Work</h1>
+    <p class="hero-sub">Bad days happen to everyone. Let's talk about yours.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- FASE 1 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🪝</span>
+      <div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">Phase 1 · Open the conversation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">4 min</div>
+  </div>
+  <div class="quote-box">
+    <div class="quote-source">A very simple fact</div>
+    <div class="quote-text">"The average person has about 2,000 bad days at work in their lifetime. That's almost 6 years of bad days."</div>
+  </div>
+  <div class="trigger-script teacher-only">
+    <strong>Teacher script:</strong> Read the stat. Smile. Then ask: <em>"OK. Think about your worst day at work. Just one day. What happened?"</em> Point to one student. Let them say 2–3 sentences. Then move to vocab. Keep it fast and fun — don't let it become a long story yet. That comes in Phase 4.
+  </div>
+</section>
+
+<!-- FASE 2 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💉</span>
+      <div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Phase 2 · Click any card to hear pronunciation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">8 min</div>
+  </div>
+  <div class="vocab-lbl">Nouns</div>
+  <div class="vocab-grid" id="nouns"></div>
+  <div class="vocab-lbl">Verbs</div>
+  <div class="vocab-grid" id="verbs"></div>
+  <div class="vocab-lbl">Colloquial Phrases — click to hear</div>
+  <div class="phrases-list" id="phrases"></div>
+</section>
+
+<!-- FASE 3 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🧱</span>
+      <div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">10 min</div>
+  </div>
+  <div class="opinions">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Sofía, 32 — Secretary, Guadalajara</div></div>
+      </div>
+      <div class="op-text">"My worst day was when my computer stopped working and I lost three hours of work. <strong>I was so angry.</strong> My boss didn't help. I just sat there and didn't know what to do."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Diego, 41 — Mechanic, Monterrey</div></div>
+      </div>
+      <div class="op-text">"I had a terrible day last year. A client was very rude to me. He shouted at me in front of everyone. <strong>I wanted to leave.</strong> But I needed the job, so I said nothing."</div>
+    </div>
+
+    <div class="opinion-card op-provocateur">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Patricia, 48 — Cook, Querétaro</div></div>
+        <span class="provoc-badge">different view</span>
+      </div>
+      <div class="op-text">"I don't have bad days at work. I have bad moments. <strong>After work, I forget about it.</strong> Work is work. It's not my life. My family is my life."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Mateo, 35 — Salesperson, CDMX</div></div>
+      </div>
+      <div class="op-text">"My worst day was when I made a big mistake with a client. I gave him the wrong information. <strong>My boss was very angry.</strong> I apologized and fixed it, but I felt terrible all day."</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 <strong>Choose one person.</strong> Who had a day similar to yours? Tell your partner in 2–3 sentences.</div>
+</section>
+
+<!-- FASE 4 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🗣️</span>
+      <div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">Phase 4 · 10 questions · 4 blocks</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">23 min</div>
+  </div>
+  <div class="q-blocks">
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Past Experience</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">When was your last really bad day at work? What happened?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Help with sentence starters: <em>"It was on [day]. I was at work and..."</em> or <em>"My boss said..."</em> or <em>"The problem was..."</em> Keep it simple — 3 or 4 sentences is great at this level.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Did you make a mistake at work one time? What did you do?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes. I sent an email to the wrong person. It was a mistake. My boss was angry. I said sorry and I sent the correct email. It was very embarrassing."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">What did you do after your worst day at work? Did you go home and rest, or did you do something fun?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Great for practicing past simple. Sentence starters: <em>"I went home and..."</em> / <em>"I called my friend and..."</em> / <em>"I ate a lot of..."</em> Expect funny answers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">Do you think it's OK to cry at work when things go very wrong?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Simple yes/no with a reason. Push: <em>"Why yes?" / "Why no?"</em> Model: <em>"I think it's OK. We are human. But I never cry at work. I wait until I'm at home."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">Do you think a bad day at work is worse than a bad day at home? Why?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I think work is worse. At home, I can relax. At work, I have to continue. I can't stop. And everyone can see me. So a bad day at work is more difficult for me."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">Is it good to talk to your boss when you have a really bad day — or is it better to say nothing?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Very simple debate. Two clear positions. Let students defend their choice with one or two reasons. Vocabulary to use: talk, problem, boss, angry, better, worse.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Future Plans</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">Are you going to do something different next time you have a bad day at work?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Practice "going to." Help with: <em>"Next time, I'm going to..."</em> Common answers: talk to my boss, go home early, take a walk, eat something good. Simple plans are perfect.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">Will you stay in your job if every day is a bad day?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"No, I will not stay. If every day is bad, I will look for a new job. Life is too short for a terrible job. But I will save some money first."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Past Habits &amp; Reflection</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">Did you use to have more bad days at work before, or is your job better now than in the past?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Practice "used to." Help with: <em>"Before, I used to have..."</em> / <em>"My old job used to be..."</em> Great for comparing past and present work situations simply.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">Look at your colleagues. Do you think they have bad days too — or do they always look happy?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> A fun observation question. Students often laugh because they realize they don't know. Push: <em>"How do you know when a colleague is having a bad day? What do they do?"</em></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FASE 5 -->
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💣</span>
+      <div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">Phase 5 · One final question</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Think about your worst day at work. What did you learn from that day? Tell your partner in 3 sentences.</div>
+  </div>
+  <div class="hw-box">
+    <div class="hw-icon">🎙️</div>
+    <div>
+      <div class="hw-label">Homework — WhatsApp Voice Note</div>
+      <div class="hw-text">Record a 60-second voice message in English. Describe your worst day at work — what happened, how you felt, and what you did after. Use simple past: "I went...", "My boss said...", "I felt..."</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <strong>GABRIEL TURNER ENGLISH TRAINING</strong> &nbsp;·&nbsp; Speaking Lab &nbsp;·&nbsp; A2.2 &nbsp;·&nbsp; Work &amp; Corporate Life
+</footer>
+
+<script>
+const nouns=[
+  {w:'mistake',def:'Something you did wrong — an error'},
+  {w:'boss',def:'The person in charge of you at work'},
+  {w:'problem',def:'Something difficult or bad that happened'},
+  {w:'client',def:'A person or company that pays for your work'},
+  {w:'meeting',def:'When people come together to talk about work'},
+  {w:'computer',def:'The machine you use for work'},
+  {w:'email',def:'A digital message you send at work'},
+  {w:'deadline',def:'The day you must finish something'},
+  {w:'apology',def:'When you say sorry for something you did wrong'},
+  {w:'colleague',def:'A person who works with you'}
+];
+const verbs=[
+  {w:'forget',def:'To not remember something important'},
+  {w:'apologize',def:'To say sorry — to ask for forgiveness'},
+  {w:'shout',def:'To speak very loudly, usually when angry'},
+  {w:'cry',def:'To have tears because you are sad or angry'},
+  {w:'complain',def:'To say that something is bad or wrong'},
+  {w:'fix',def:'To solve a problem or repair something broken'},
+  {w:'arrive late',def:'To come to work after the time you should be there'},
+  {w:'lose',def:'To not be able to find something — or to not win'},
+  {w:'feel terrible',def:'To feel very bad — sad or sick or embarrassed'},
+  {w:'go home',def:'To leave work and return to your house'}
+];
+const phrases=[
+  {p:"Oh my God!",u:"Use when something very surprising or bad happens"},
+  {p:"Are you serious?",u:"Use when you can't believe what someone just said"},
+  {p:"I was so angry",u:"Use to describe a strong feeling of anger in a past moment"},
+  {p:"Tell me about it",u:"Use to agree — you understand because the same thing happened to you"},
+  {p:"Same here",u:"Use when your experience or opinion is exactly the same as the other person"}
+];
+
+function buildVocab(){
+  const ng=document.getElementById('nouns');
+  const vg=document.getElementById('verbs');
+  nouns.forEach(n=>{ng.innerHTML+=`<div class="v-card" onclick="speak('${n.w}')"><div class="v-word">${n.w}</div><div class="v-type">noun · 🔊</div><div class="v-def">${n.def}</div></div>`;});
+  verbs.forEach(v=>{vg.innerHTML+=`<div class="v-card" onclick="speak('${v.w}')"><div class="v-word">${v.w}</div><div class="v-type">verb · 🔊</div><div class="v-def">${v.def}</div></div>`;});
+  const pl=document.getElementById('phrases');
+  phrases.forEach(ph=>{pl.innerHTML+=`<div class="phrase-item" onclick="speak('${ph.p}')"><span class="ph-icon">🔊</span><div><div class="phrase-text">"${ph.p}"</div><div class="phrase-use">${ph.u}</div></div></div>`;});
+}
+function speak(txt){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('show');
+  btn.textContent=tip.classList.contains('show')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  const btn=document.getElementById('modeBtn');
+  const tag=document.getElementById('modeTag');
+  if(studentMode){btn.textContent='Teacher Mode';btn.classList.add('student');if(tag)tag.textContent='Student Mode';}
+  else{btn.textContent='Student Mode';btn.classList.remove('student');if(tag)tag.textContent='Teacher Mode';}
+}
+buildVocab();
+</script>
+</body>
+</html>

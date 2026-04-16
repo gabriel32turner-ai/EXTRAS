@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · First Dates: Funny or Awkward? · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #F97316;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #F97316; border: none; color: white;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(249,115,22,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(249,115,22,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(249,115,22,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">A2.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>First Dates: Funny or Awkward?</h1>
+    <p>Nervous, excited, and hoping nothing goes wrong. First dates are always a good story — even when they go badly.</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"In a survey of 5,000 people, 72% said their first date was awkward. The most common problems: long silences, spilling food, talking too much about an ex, and arriving very late."</div>
+      <div class="quote-source">— Match.com Dating Survey</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "72% of people say their first date was awkward. So — was your first date normal or a little bit crazy?" [Pause and smile.] "Today we talk about first dates — the good, the bad, and the very embarrassing."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('date')">
+        <div class="vocab-word">date</div>
+        <div class="vocab-def">a planned meeting with a person you like romantically</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('restaurant')">
+        <div class="vocab-word">restaurant</div>
+        <div class="vocab-def">the most common place for a first date</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('silence')">
+        <div class="vocab-word">silence</div>
+        <div class="vocab-def">when nobody talks and the moment feels very uncomfortable</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('nerves')">
+        <div class="vocab-word">nerves</div>
+        <div class="vocab-def">the anxious feeling before something important</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('bill')">
+        <div class="vocab-word">bill</div>
+        <div class="vocab-def">the paper with the price at the end of dinner — who pays?</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('compliment')">
+        <div class="vocab-word">compliment</div>
+        <div class="vocab-def">something nice you say about a person — "You look great"</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('topic')">
+        <div class="vocab-word">topic</div>
+        <div class="vocab-def">a subject to talk about on a first date — choose carefully</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('impression')">
+        <div class="vocab-word">impression</div>
+        <div class="vocab-def">what the other person thinks about you after the date</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('coffee')">
+        <div class="vocab-word">coffee</div>
+        <div class="vocab-def">a simple, safe first date option — easy to end if it goes badly</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('story')">
+        <div class="vocab-word">story</div>
+        <div class="vocab-def">a bad first date always becomes a great story later</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('feel nervous')">
+        <div class="vocab-word">feel nervous</div>
+        <div class="vocab-def">to have an anxious, uncomfortable feeling before a first date</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('spill')">
+        <div class="vocab-word">spill</div>
+        <div class="vocab-def">to drop a drink or food on yourself — a classic first date disaster</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pay')">
+        <div class="vocab-word">pay</div>
+        <div class="vocab-def">to give money for the food — who does it on a first date?</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ask out')">
+        <div class="vocab-word">ask out</div>
+        <div class="vocab-def">to invite someone on a date for the first time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('enjoy')">
+        <div class="vocab-word">enjoy</div>
+        <div class="vocab-def">to have a good time during the date</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('talk too much')">
+        <div class="vocab-word">talk too much</div>
+        <div class="vocab-def">to say so many things that the other person cannot speak</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('arrive late')">
+        <div class="vocab-word">arrive late</div>
+        <div class="vocab-def">to come after the time you agreed — a very bad first impression</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('call again')">
+        <div class="vocab-word">call again</div>
+        <div class="vocab-def">to contact someone after the date because you liked them</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('laugh')">
+        <div class="vocab-word">laugh</div>
+        <div class="vocab-def">the best thing that can happen on a first date</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('go home')">
+        <div class="vocab-word">go home</div>
+        <div class="vocab-def">to leave — sometimes you want to do this after 10 minutes</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Lucky you!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Lucky you!"</div>
+          <div class="phrase-context">When someone tells you something good happened to them — "Wow, how nice for you!"</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Oh my God!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Oh my God!"</div>
+          <div class="phrase-context">Your reaction when someone tells you an embarrassing first date story.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I was so embarrassed.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I was so embarrassed."</div>
+          <div class="phrase-context">When something happens on a date and you want to disappear.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It was really awkward.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It was really awkward."</div>
+          <div class="phrase-context">When the date had long silences, strange moments, or uncomfortable topics.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('We had a great time.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"We had a great time."</div>
+          <div class="phrase-context">When the date went well — you talked a lot, laughed, and wanted to see them again.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😍</div>
+          <div>
+            <div class="op-name">Valeria, 30</div>
+            <div class="op-role">Sales Assistant, Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">"My first date with my husband was perfect. We talked for five hours. <strong>We did not want to go home.</strong> I think a good first date is very easy — when it is the right person."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😬</div>
+          <div>
+            <div class="op-name">Carolina, 34</div>
+            <div class="op-role">Receptionist, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"My worst date: the man talked about his ex-girlfriend for one hour. <strong>I wanted to leave, but I was polite.</strong> I ate my food very fast and said I had a headache. Never again."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">☕</div>
+          <div>
+            <div class="op-name">Rodrigo, 38</div>
+            <div class="op-role">Driver, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"I think coffee is the best first date. <strong>If it is bad, you can leave in 30 minutes.</strong> If it is good, you can go for a walk after. Dinner is too much. Too long. Too expensive."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">🤨</div>
+          <div>
+            <div class="op-name">Elena, 46</div>
+            <div class="op-role">Cook, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I think first dates are not important. <strong>People are nervous and not natural.</strong> The real person comes later — after 3 or 4 dates. A bad first date does not mean anything."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Who do you agree with? Do you think Elena is right — a bad first date is not important? Tell me about your best or worst first date.</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">What was your best first date like? Where did you go and what did you do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple storytelling. "We went to... We talked about... We laughed a lot." Keep the tone warm and fun. If they are shy, offer options: "Was it dinner? Coffee? A movie?" Scaffolding helps A2.2 students get started.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Did something embarrassing or funny happen on a date? What was it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Best question for stories. Spilling food, awkward silence, saying the wrong name, forgetting their wallet — all common. Model: "One time I spilled coffee on my white shirt. I was so embarrassed." Past simple + emotions.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Did you ever go on a date and want to go home after 10 minutes? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "bad date" angle. Very relatable. Model: "Yes! The person was very boring. They only talked about their job. I ate my food quickly and said I was tired." Past simple + sequence of events. Light and funny tone.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">What do you think is the best place for a first date — a restaurant, coffee, or something different?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple opinion with "I think... is better because..." Rodrigo's coffee argument is useful here. Prompts practical reasoning: cost, duration, exit strategy. Very accessible for A2.2 — just comparing two options.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Do you think the man should always pay on a first date — or should both people pay?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Classic debate, simple language. "I think the man should pay because..." / "I think both people should pay because..." Generates strong, quick opinions. Can/should modal is natural here. Very energetic discussion in Mexican professional groups.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Is it okay to look at your phone on a first date?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple yes/no with explanation. "I think it is okay if..." / "I think it is never okay because..." Almost everyone says no — but most have done it. Ask: "Did you ever look at your phone on a date?" Honest laughter usually follows.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Future Plans (Going To / Will)</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">Are you going to go on a date soon? Where do you want to go?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for personal plans. Very open — married or partnered students can answer about a date night with their partner. "I'm going to go to dinner with my partner next week." Completely inclusive. Fun and future-focused.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">If a first date goes very well, will you call the person the next day — or will you wait?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Will for future decision. "I will call the next day because..." / "I will wait 2 days because..." The "rules" of dating — how soon is too soon? Good for opinions + will. Light, fun topic with no wrong answer.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Past Habits &amp; Reflection (Used To)</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Did you use to feel more nervous on first dates when you were younger?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Used to for past habits. "I used to feel very nervous. Now I am more relaxed." Contrast past and present confidence. Good for "used to + verb" structure. Most adults feel less nervous now — a sign of growth they can describe simply.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Did you use to think first dates were very important — or not important at all?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Used to + past belief. "I used to think first dates were very important. Now I think they are just the beginning." Or "I used to not care about first dates. Now I think they tell you a lot." Elena's opinion connects naturally here.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">You are on a first date. It is going well. Then the person says: "I'm sorry, I forgot my wallet." The bill is 400 pesos. What do you do — and do you call them again?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. What do you do in the restaurant — and do you call them the next day?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · A2.2 · Relationships &amp; Personality · First Dates: Funny or Awkward?
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.82;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

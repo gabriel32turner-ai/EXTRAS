@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · TikTok: Fun or Waste of Time? · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#F97316;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#F97316;border:1px solid #F97316;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(249,115,22,.12);color:var(--ac);border:1px solid rgba(249,115,22,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(249,115,22,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(249,115,22,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(249,115,22,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(249,115,22,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(249,115,22,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">A2.2</span>
+      <span class="tag">Technology &amp; Media</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>TikTok: Fun or<br>Waste of Time?</h1>
+    <p>You open TikTok for 5 minutes. One hour later, you are still there. Why? And is that a problem — or is it OK?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Let's Talk Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A simple fact to start</div>
+    <div class="trigger-quote">"The average person spends 52 minutes on TikTok every day. That is more than 6 hours every week — and more than 13 full days every year. Just on TikTok. Do you think that is too much?"</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Read the numbers slowly. Then ask: <em>"13 days a year — do you think that number is correct for you? More? Less?"</em> Then: <em>"Do you have TikTok? Do you use it every day?"</em> For A2.2 students who don't use TikTok, pivot to: <em>"What about YouTube, Instagram Reels, or Facebook videos? Same idea."</em> Make it immediately personal.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Valeria · 26</div><div class="bub-role">Receptionist · Celaya</div></div>
+      </div>
+      <div class="bub-body">"I love TikTok. <strong>I learned to cook 5 new recipes from TikTok.</strong> I learned English words. I laugh every day. It's not a waste of time — it's entertainment. Like TV, but shorter."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Rodrigo · 45</div><div class="bub-role">Teacher · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I don't have TikTok and I never will. <strong>It's for young people with no concentration.</strong> I read books. I watch documentaries. I don't need 30-second videos about nothing."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍💼</span>
+        <div><div class="bub-name">Andrea · 33</div><div class="bub-role">Administrator · CDMX</div></div>
+      </div>
+      <div class="bub-body">"I use TikTok — but only 20 minutes a day. <strong>I have a rule.</strong> After 20 minutes, I put my phone away. It's fun, but if you don't have limits, you lose hours. And I don't have extra hours."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Alejandro · 38</div><div class="bub-role">Chef · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"I make TikTok videos about cooking. I have 80,000 followers. <strong>TikTok is my second job.</strong> People say it's a waste of time — but I make money from it. Is your TV a waste of time too?"</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Alejandro is the gentle provocateur because he compares TikTok to TV — a medium most people don't criticize even though the time investment is similar. Ask: <em>"Is Alejandro right — is TV the same as TikTok? Or is it different?"</em> And: <em>"Would you like to have 80,000 followers? What would your TikTok be about?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience — Past Simple</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Did you watch TikTok or short videos last night? What did you watch?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple (watched, saw, laughed, learned). Push: "How long? What type of video? Was it funny, educational, or just random?" Keep follow-up questions very short. Let the student describe the content they actually watched — this is real, personal, and vocabulary-rich.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did you ever learn something useful from a TikTok or social media video? What did you learn?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Connects to Valeria's bubble. Push: "Did you try it? Did it work?" Target: past simple + simple result. Model: "Yes! I watched a video about how to fix a leaking pipe. I tried it at home and it worked. It saved me money." Gets students thinking positively about screen content.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">When was the last time you opened your phone for "5 minutes" and 1 hour passed? Where were you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Very universal experience. Push: "How did you feel after? Guilty? Fine? Tired?" Target: past simple + location/time. Model: "Last Sunday. I was in bed. I wanted to check one video and then — two hours later I was still there. I don't know what happened." Gets students laughing at themselves.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think TikTok is good for young people — or is it bad for them?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Simple opinion with two clear positions. Push: "What age is OK? 12? 16? 18?" Target: I think it's good / I think it's bad + because. Model: "I think it's OK for adults. But for children under 13 — no. They don't know what is real and what is not. It's dangerous for them."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it OK to be on your phone during dinner — or is that rude?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Clear, accessible opinion question. Push: "What about at a restaurant? At home with family?" Target: it's OK / it's rude + because. Model: "I think it's rude. Dinner is family time. But I do it sometimes — especially if I'm bored!" The honest contradiction is very human and good for A2.2.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think Rodrigo is right — is TikTok only for young people? Or can adults enjoy it too?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Direct engagement with Rodrigo's position. Push: "Do you know any adults who use TikTok a lot? How do you feel about that?" Target: I think / I don't think + age/generation vocabulary. Model: "I don't think age matters. My mom is 60 and she loves cooking videos on TikTok. She doesn't care if it's 'for young people.'"</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Future Plans — Going to / Will</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to try to use your phone less next week — or is that impossible for you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + honest assessment. Push: "What will you do instead? Read? Sleep? Talk to someone?" Model: "I'm going to try. I want to stop using TikTok after 9pm. I think I can do it. Maybe. I'm not sure." The realistic uncertainty is very natural and good for A2.2 authenticity.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">If you made a TikTok channel, what will it be about? What are you good at?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Fun, imaginative question. Target: will + infinitive for future plan. Push: "Who will your audience be? How many followers do you want?" Model: "I will make videos about my dog. He is very funny and does strange things. I think people will love him." Gets students enthusiastic and producing future-tense language naturally.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Past Habits — Used to</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">What did you use to do before you had a smartphone — how did you spend free time?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: used to + past simple. Very rich for personal stories. Push: "Do you miss those times? Was it better?" Model: "I used to read more. I used to talk to my friends on the phone — real calls, not messages. I used to watch one TV show and then stop. Now I watch 4 episodes and don't sleep." Nostalgic and real.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Did you use to think social media was a bad thing — and then change your mind?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Reflection question. Target: used to + past simple + now + present simple. Model: "Yes! I used to think Facebook was stupid and for old people. Then I used it to find my old friends from school. Now I think it's useful — for some things. But I still think TikTok is too much." Simple but meaningful opinion evolution.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Question</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Look at your phone screen time right now. How many hours did you spend on your phone today? Are you happy with that number — or are you going to change something tomorrow?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Take a screenshot of your screen time today. Then record a 60-second WhatsApp voice message. Tell me the number — and tell me one thing you are going to do differently tomorrow. In English. Simple words are fine."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">A2.2 · Speaking Lab · TikTok: Fun or Waste of Time? · Technology &amp; Media · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'video',def:'A moving image — like a short film or clip',ex:'"I watched a funny video about cats. I laughed a lot."'},
+  {w:'phone',def:'Your mobile device — for calls, messages, and apps',ex:'"I spend too much time on my phone. I know."'},
+  {w:'app',def:'A program on your phone — like TikTok, WhatsApp, or Google Maps',ex:'"TikTok is my favorite app. And my most dangerous one."'},
+  {w:'follower',def:'A person who follows your account and sees your content',ex:'"She has 100,000 followers on TikTok. She makes money from that."'},
+  {w:'content',def:'The videos, photos, or posts that someone puts on social media',ex:'"The content on my TikTok is mostly cooking and animals."'},
+  {w:'screen time',def:'The total time you spend looking at your phone or computer',ex:'"My screen time was 4 hours yesterday. Too much."'},
+  {w:'trend',def:'Something that many people are doing or talking about right now',ex:'"There is a new dance trend on TikTok every week."'},
+  {w:'comment',def:'A message you write under a video or post',ex:'"I left a comment on the video. It got 200 likes."'},
+  {w:'like',def:'A click or heart that shows you enjoyed something online',ex:'"The video has 2 million likes. It went viral."'},
+  {w:'feed',def:'The list of videos or posts that appears when you open an app',ex:'"My TikTok feed is all food and animals. The app knows me."'},
+];
+const verbs=[
+  {w:'scroll',def:'To move through content on your phone by sliding your finger',ex:'"I scrolled for 1 hour and I don\'t remember what I saw."'},
+  {w:'watch',def:'To look at a video or show',ex:'"I watched 30 videos last night. All in 45 minutes."'},
+  {w:'post',def:'To put a photo or video on social media',ex:'"She posts 3 videos every day. I don\'t know when she sleeps."'},
+  {w:'share',def:'To send content to someone — or to put it on your page',ex:'"I shared the video with my sister. She loved it."'},
+  {w:'follow',def:'To click follow on someone\'s account so you see their content',ex:'"I follow 200 people on TikTok. Too many."'},
+  {w:'laugh',def:'To make the sound when something is funny',ex:'"I laughed so much at that video. My stomach hurt."'},
+  {w:'stop',def:'To finish doing something',ex:'"I can\'t stop watching. That is the problem."'},
+  {w:'waste',def:'To use something — time, money — on something not useful',ex:'"I wasted 2 hours on TikTok. Now I feel bad."'},
+  {w:'learn',def:'To get new knowledge or skills',ex:'"I learned to make pasta from a TikTok video. It was good."'},
+  {w:'delete',def:'To remove an app or file permanently',ex:'"I deleted TikTok 3 times. I always put it back."'},
+];
+const phrases=[
+  {p:'I can\'t stop scrolling',ctx:'Said when you open your phone and can\'t put it down'},
+  {p:'I was going to sleep and then...',ctx:'Said when you opened TikTok at night and lost track of time'},
+  {p:'No way, this is so funny',ctx:'Said when a video is surprisingly funny or entertaining'},
+  {p:'Oh my God, I\'m addicted',ctx:'Said half-jokingly about using TikTok or any app too much'},
+  {p:'I\'m going to delete this app',ctx:'Said after realizing you spent too much time on social media — usually not permanent'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

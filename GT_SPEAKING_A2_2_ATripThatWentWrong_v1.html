@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab A2.2 — A Trip That Went Wrong</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923;
+    --card: #18222F;
+    --border: #243243;
+    --text: #EAEAEA;
+    --muted: #8a97ab;
+    --accent: #F97316;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn { background: var(--accent); color: white; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s; }
+  .toggle-btn.student { background: #2a3a4e; color: white; }
+
+  .hero { height: 340px; position: relative; display: flex; align-items: flex-end; background: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.92) 100%); }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; }
+
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(249,115,22,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: white; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(249,115,22,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: white; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(249,115,22,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(249,115,22,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.2</span>
+      <span class="hero-tag plain">Travel &amp; Culture</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>A Trip That Went Wrong</h1>
+    <p>Tell me about a trip with a problem. A bad hotel, a missed bus, terrible weather — what happened?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A simple truth about travel</div>
+      <div class="trigger-quote">"The best travel stories are never about the perfect trip. They are always about the day everything went wrong."</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Read the quote and smile. Then ask simply: <em>"Did you ever have a trip with a big problem? Tell me — what happened?"</em> Point to one student to start. Keep it light and fun — bad travel stories are usually funny in retrospect. No need to analyze. Just tell the story.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('flight')">
+        <div class="vocab-word">flight</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A trip on a plane</div>
+      </div>
+      <div class="vocab-card" onclick="speak('delay')">
+        <div class="vocab-word">delay</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When something is late — the bus, the plane, the train</div>
+      </div>
+      <div class="vocab-card" onclick="speak('luggage')">
+        <div class="vocab-word">luggage</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Your bags and suitcases when you travel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('hotel')">
+        <div class="vocab-word">hotel</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The place where you sleep when you travel</div>
+      </div>
+      <div class="vocab-card" onclick="speak('problem')">
+        <div class="vocab-word">problem</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Something bad that happens and you need to fix</div>
+      </div>
+      <div class="vocab-card" onclick="speak('reservation')">
+        <div class="vocab-word">reservation</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When you book a hotel, restaurant, or flight in advance</div>
+      </div>
+      <div class="vocab-card" onclick="speak('map')">
+        <div class="vocab-word">map</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A picture that shows streets and places — on paper or on your phone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('weather')">
+        <div class="vocab-word">weather</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Sun, rain, wind, cold — what the sky and air are like outside</div>
+      </div>
+      <div class="vocab-card" onclick="speak('taxi')">
+        <div class="vocab-word">taxi</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A car you pay to take you somewhere</div>
+      </div>
+      <div class="vocab-card" onclick="speak('mistake')">
+        <div class="vocab-word">mistake</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">Something you did wrong — "I made a mistake with the date"</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('miss')">
+        <div class="vocab-word">miss</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To arrive too late — "I missed the bus" / "I missed the flight"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('get lost')">
+        <div class="vocab-word">get lost</div>
+        <div class="vocab-pos">verb phrase</div>
+        <div class="vocab-def">To not know where you are — you don't know the way</div>
+      </div>
+      <div class="vocab-card" onclick="speak('arrive')">
+        <div class="vocab-word">arrive</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To get to a place — "We arrived at the hotel at midnight"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('cancel')">
+        <div class="vocab-word">cancel</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To stop or end a plan — "The airline cancelled our flight"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('forget')">
+        <div class="vocab-word">forget</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To not remember something — "I forgot my passport at home!"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('wait')">
+        <div class="vocab-word">wait</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To stay in one place until something happens</div>
+      </div>
+      <div class="vocab-card" onclick="speak('complain')">
+        <div class="vocab-word">complain</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To tell someone official that something is bad or wrong</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fix')">
+        <div class="vocab-word">fix</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To solve a problem — "We fixed it and found another hotel"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pack')">
+        <div class="vocab-word">pack</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To put your clothes and things in a bag before a trip</div>
+      </div>
+      <div class="vocab-card" onclick="speak('laugh')">
+        <div class="vocab-word">laugh</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">To make a happy noise — bad trips are funny later!</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Oh my God, what a disaster!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Oh my God, what a disaster!"</div>
+          <div class="phrase-context">When something goes very wrong on a trip</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Are you serious? The hotel was terrible!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Are you serious? The hotel was terrible!"</div>
+          <div class="phrase-context">When the hotel is nothing like the photos online</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('We had no idea where we were.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"We had no idea where we were."</div>
+          <div class="phrase-context">When you are completely lost in a new city</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('In the end, it was actually funny.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"In the end, it was actually funny."</div>
+          <div class="phrase-context">How most bad travel stories finish — with a laugh</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It was a nightmare, but now it\'s a great story.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It was a nightmare, but now it's a great story."</div>
+          <div class="phrase-context">The classic silver lining of a trip that went wrong</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Patricia, 38</div>
+        <div class="opinion-role">Secretary, Celaya</div>
+        <div class="opinion-text">"When something goes wrong on a trip, I get very nervous. <strong>I need everything to be perfect.</strong> I always plan everything before I travel. No surprises, please."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🍳</div>
+        <div class="opinion-name">Mateo, 33</div>
+        <div class="opinion-role">Chef, Guadalajara</div>
+        <div class="opinion-text">"I love when something goes wrong. <strong>Those are the best stories.</strong> One time I missed my bus in Oaxaca. I stayed one more day and it was the best day of the trip."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Honest Take</div>
+        <div class="opinion-avatar">👩‍🏫</div>
+        <div class="opinion-name">Andrea, 45</div>
+        <div class="opinion-role">Teacher, CDMX</div>
+        <div class="opinion-text">"When the trip goes wrong, I always think: <strong>whose fault is it?</strong> Usually, it's my fault. I didn't check the hotel. I didn't read the reservation. I learn the same lesson every time."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">🧑‍💻</div>
+        <div class="opinion-name">Diego, 29</div>
+        <div class="opinion-role">Technician, Monterrey</div>
+        <div class="opinion-text">"Bad trips are very stressful in the moment. But after one week, <strong>I always laugh about it.</strong> Now I have great stories to tell at dinner. My friends love them."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Andrea says it is usually <em>her own fault</em> when something goes wrong. Do you agree? Or are some problems impossible to predict?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">Did you ever have a big problem on a trip? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Let them tell the story freely — don't interrupt for grammar. After they finish, ask: "And then what happened?" Help them sequence: "First... then... after that... in the end..."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">When was the last time you missed a bus, train, or flight? What did you do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Last year I missed my bus to Guadalajara. I was very angry. I waited four hours for the next one. It was terrible. But I watched a movie and ate a lot of tacos, so it was OK in the end."</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Did you ever stay in a hotel that was terrible? What was wrong with it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Great vocabulary practice for adjectives: dirty, small, noisy, expensive, cold, dark, smelly. Help students use these naturally. Ask: "Was it like the photos?" Most students have a story about this!</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">Do you think it's important to plan every detail of a trip — or is it OK to be spontaneous?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Patricia vs. Mateo debate. Simple vocabulary needed: "I think it's better to plan because..." / "I like surprises because..." Keep it simple. No complex structures needed.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Is travel better alone or with other people? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "I prefer to travel with my family. Alone is a little sad for me. But with friends, sometimes we argue about what to do. You can't win!" Fun and relatable — most students have strong feelings about this.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you think travel problems make a trip more memorable — or do they just make you angry?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple personal opinion question. Help students structure: "I think..." / "In my experience..." / "For me, it depends on..." Don't over-complicate. Two or three sentences is a great answer at this level.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Future Plans</span>
+
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">Are you going to travel somewhere this year? Where do you want to go?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Practice "going to" naturally: "I'm going to visit my family in..." / "I want to go to... but I don't have the money yet." Fun, personal, easy to answer. Let them dream a little.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">If you travel somewhere new, will you make a reservation before — or will you decide when you arrive?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple "will" practice. Model answer: "I will always make a reservation. After my experience in Cancún, never again without a reservation!" This connects back to their bad trip story from Block 1 — nice full-circle.</div>
+    </div>
+
+    <span class="block-label">Block 4 — Used To &amp; Reflection</span>
+
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Did you use to travel a lot when you were younger — or not much? Is it different now?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Good "used to" practice. Model answer: "I used to travel every year with my parents. Now I don't travel much — I don't have the money or the time. I miss it." Simple and real.</div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">Did you use to think that travel was always fun and easy? What do you think now?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Nice closing reflection. Model answer: "I used to think travel was very romantic. Now I know it's a lot of work — bags, lines, delays. But it's still worth it." Connects all the session topics into one simple conclusion.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Question. Simple but Real.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">🎯 Final Question</div>
+      <div class="exit-question">Think about your best travel memory and your worst travel memory. Which one do you remember more — and why?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. Tell me about your worst trip. What happened? Where were you? What did you do? Don't worry about mistakes — just talk. Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab A2.2 · A Trip That Went Wrong · Travel &amp; Culture</p>
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    if (studentMode) { btn.textContent = 'Teacher Mode'; btn.classList.add('student'); }
+    else { btn.textContent = 'Student Mode'; btn.classList.remove('student'); }
+  }
+</script>
+</body>
+</html>

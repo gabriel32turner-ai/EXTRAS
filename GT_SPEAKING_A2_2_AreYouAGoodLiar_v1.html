@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Are You a Good Liar? · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #F97316;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #F97316; border: none; color: white;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(249,115,22,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(249,115,22,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(249,115,22,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">A2.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌶 Spicy</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Are You a Good Liar?</h1>
+    <p>Everyone lies a little. But are you good at it? And when is a small lie actually okay?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"Researchers say that the average person tells 1 to 2 lies every day. Most of them are small — 'I'm fine', 'I'm on my way', 'I already ate'. Only a few are big lies."</div>
+      <div class="quote-source">— University of Massachusetts Study</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "One to two lies every day. That is a lot! So — what did you lie about this week?" [Smile and pause.] "Don't worry. Small lies are normal. Today we talk about lying — when it is okay, when it is not, and if you are good at it."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vocab-word">lie</div>
+        <div class="vocab-def">something you say that is not true</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('truth')">
+        <div class="vocab-word">truth</div>
+        <div class="vocab-def">what really happened — the real information</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('excuse')">
+        <div class="vocab-word">excuse</div>
+        <div class="vocab-def">a reason you give — sometimes true, sometimes not</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('secret')">
+        <div class="vocab-word">secret</div>
+        <div class="vocab-def">information you do not tell other people</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('problem')">
+        <div class="vocab-word">problem</div>
+        <div class="vocab-def">a difficult situation — often the reason people lie</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('face')">
+        <div class="vocab-word">face</div>
+        <div class="vocab-def">your face shows when you are nervous or lying</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('mistake')">
+        <div class="vocab-word">mistake</div>
+        <div class="vocab-def">something you did wrong — that you maybe want to hide</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('surprise')">
+        <div class="vocab-word">surprise</div>
+        <div class="vocab-def">something you do not expect — a good reason to lie sometimes</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('reason')">
+        <div class="vocab-word">reason</div>
+        <div class="vocab-def">why you did or said something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('trust')">
+        <div class="vocab-word">trust</div>
+        <div class="vocab-def">when you believe a person is honest with you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vocab-word">lie</div>
+        <div class="vocab-def">to say something that is not true</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('tell the truth')">
+        <div class="vocab-word">tell the truth</div>
+        <div class="vocab-def">to say what really happened</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('hide')">
+        <div class="vocab-word">hide</div>
+        <div class="vocab-def">to not tell someone something important</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('believe')">
+        <div class="vocab-word">believe</div>
+        <div class="vocab-def">to think something is true</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('catch')">
+        <div class="vocab-word">catch</div>
+        <div class="vocab-def">to discover that someone is lying to you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pretend')">
+        <div class="vocab-word">pretend</div>
+        <div class="vocab-def">to act like something is true when it is not</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('admit')">
+        <div class="vocab-word">admit</div>
+        <div class="vocab-def">to say "yes, I did that" when you did something wrong</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('feel bad')">
+        <div class="vocab-word">feel bad</div>
+        <div class="vocab-def">to have a sad or guilty feeling after doing something wrong</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('know')">
+        <div class="vocab-word">know</div>
+        <div class="vocab-def">to have information about something — "I know you are lying"</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('forgive')">
+        <div class="vocab-word">forgive</div>
+        <div class="vocab-def">to stop being angry at someone after they did something bad</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Are you serious?')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Are you serious?"</div>
+          <div class="phrase-context">When you are surprised — good or bad — by what someone tells you.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"No way!"</div>
+          <div class="phrase-context">A strong reaction when you cannot believe what someone said.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I am not a good liar.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I'm not a good liar."</div>
+          <div class="phrase-context">When you admit that people always know when you lie.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It was just a small lie.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It was just a small lie."</div>
+          <div class="phrase-context">How people defend themselves after someone finds out they lied.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I knew it!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I knew it!"</div>
+          <div class="phrase-context">When you find out someone was lying and you already had a feeling.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😇</div>
+          <div>
+            <div class="op-name">Patricia, 35</div>
+            <div class="op-role">Secretary, Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">"I never lie. I think it is always bad. <strong>When you lie, you have to remember the lie forever.</strong> It is too difficult. I always tell the truth — even when it is not easy."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😅</div>
+          <div>
+            <div class="op-name">Diego, 40</div>
+            <div class="op-role">Salesman, León</div>
+          </div>
+        </div>
+        <div class="op-text">"Small lies are normal. <strong>I say 'I'm on my way' when I'm still at home.</strong> I say 'I already ate' when I'm not hungry. These are not bad lies. They are just easy."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤗</div>
+          <div>
+            <div class="op-name">Sofía, 29</div>
+            <div class="op-role">Teacher, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"Sometimes I lie to protect people. <strong>If my friend's food is bad, I say it's good.</strong> I don't want to make her feel sad. That kind of lie is okay, I think."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Ricardo, 48</div>
+            <div class="op-role">Mechanic, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I think <strong>everybody lies</strong>. People who say 'I never lie' — that is also a lie. The question is not if you lie. The question is if you are good at it."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Who do you agree with? Do you think Ricardo is right — does everybody lie? Tell me about one small lie you told this week.</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">When was the last time you said a small lie? What did you say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Very recent, very personal. Students often say "I'm fine" when they are not, or "I'm on my way" when they are still at home. Keep it light and funny. Model: "Yesterday I said 'I'm five minutes away' but I was still in my house."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Did someone catch you in a lie before? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple storytelling. "Yes, one time I... and then..." Encourage humor. If they say "no" — ask: "Really? Nobody ever caught you? Are you a very good liar?" This usually gets a laugh and a real answer.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Did you ever tell a lie to your boss or a teacher? What was it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Classic: "I was sick" when they were not, or "I forgot" when they did not try. Universal experience. Tone: fun and non-judgmental. Model: "Yes, I said I was sick but I just did not want to go to work."</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Do you think small lies are okay? Why or why not?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Core opinion question at A2.2. "I think small lies are okay because..." / "I think all lies are bad because..." Simple present + "because." No need for complex argumentation — just a clear personal opinion.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Is it okay to lie to protect someone's feelings? For example — when a friend asks "Do I look good?"</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">The "kind lie" dilemma — at A2.2 level, very accessible. Model: "I think it is okay. If my friend looks bad, I don't say that. I say 'you look nice.'" Very relatable, generates strong personal opinions.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think you are a good liar? What happens in your face or body when you lie?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Fun self-assessment. "I think I am a good / bad liar because..." Body language clues: "I laugh," "my face gets red," "I can not look at the person." Very animated answers typical here — students often act it out.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Future Plans (Going To / Will)</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">Are you going to try to lie less in the future — or is it too difficult?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for personal plans. "I'm going to try to..." / "No, I'm not going to change because..." Keeps grammar clean and simple. Light tone — not a serious moral promise, just an honest reflection on habits.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">If a friend asks "Do you like my new haircut?" and you don't like it — what will you say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Will for decision in the moment. "I will say... because..." Concrete, funny, and personal. Many students will admit they will lie to protect feelings. Others will say they tell the truth always — good debate starter.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Past Habits &amp; Reflection (Used To)</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Did you use to lie more when you were a child? What did you lie about?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Used to + past habits. Children lie about homework, eating vegetables, breaking things. Very funny and nostalgic. Model: "I used to lie to my mom about my homework. I said 'I finished it' but I didn't do anything."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Did you use to think lying was always bad — or did you always think some lies are okay?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple self-reflection using used to. "I used to think... but now I think..." Traces personal growth on this topic. Keep it light. No need for philosophical depth at A2.2 — personal honesty is enough.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your partner made a special dinner for you. It tastes terrible. They look very happy and excited. They ask: "Do you like it?" What do you say?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. What do you say to your partner — and why?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · A2.2 · Relationships &amp; Personality · Are You a Good Liar?
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.82;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

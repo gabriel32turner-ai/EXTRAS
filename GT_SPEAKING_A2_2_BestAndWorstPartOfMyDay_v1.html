@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab A2.2 · The Best and Worst Part of My Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.1)}
+.mode-btn{background:var(--ac);border:none;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.or{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(249,115,22,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);color:var(--ac2);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(249,115,22,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(249,115,22,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(249,115,22,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(249,115,22,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">A2.2 · Daily Life & Lifestyle</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2</div><button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80&fit=crop" alt="sunrise and sunset daily life morning evening">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">BD</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Daily Life & Lifestyle</div>
+    <div class="hero-title">The Best &<br><em>Worst Part</em> of My Day</div>
+    <div class="hero-sub">Every day has a moment you love and a moment you don't. What are yours?</div>
+    <div class="hero-chips"><span class="hchip or">A2.2</span><span class="hchip">Daily Life & Lifestyle</span><span class="hchip">🟡 Medium</span><span class="hchip">50 min</span></div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<!-- PHASE 1 -->
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🪝 Phase 1 — The Trigger</div><div class="sec-title">The Question</div><div class="sec-sub">Read it. Then ask the student directly.</div></div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">Two questions to start</div>
+      <div class="trigger-quote">"What was the best moment of your day yesterday? And what was the worst?"</div>
+      <div class="trigger-sub">— Two simple questions. Two honest answers. That's how we start today.</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A simple fact about daily life</div>
+      <div class="trigger-quote">"Most people can name their worst moment of the day in 3 seconds. But the best moment takes longer — because we forget to notice it."</div>
+      <div class="trigger-sub">— Today we notice both.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body"><strong>Launch line:</strong> "Let's start simple. Yesterday — what was the best part? Just one thing." [Student answers.] "And the worst part?" [Student answers.] "Perfect. Today we talk about these moments — the small things that make our day good or bad." Keep it casual and warm. At A2.2, the goal is to get the student talking in past simple with confidence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2 -->
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💉 Phase 2 — Vocab Injection</div><div class="sec-title">Power Words</div><div class="sec-sub">Click any card to hear it. Use these words today.</div></div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=80&fit=crop" alt="daily life moments nouns">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Daily Life Moments</div><div class="sbo-sub">Click each card · Web Speech · A2.2 calibrated</div></div><div class="sbo-badge">Nouns</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('moment')"><div class="v-word">moment</div><div class="v-pos">noun</div><div class="v-def">A short period of time — "That was a good moment"</div></div>
+      <div class="v-card" onclick="speak('lunch')"><div class="v-word">lunch</div><div class="v-pos">noun</div><div class="v-def">The meal in the middle of the day — often the best part for many people</div></div>
+      <div class="v-card" onclick="speak('traffic')"><div class="v-word">traffic</div><div class="v-pos">noun</div><div class="v-def">Cars on the road — the most common "worst part of the day"</div></div>
+      <div class="v-card" onclick="speak('meeting')"><div class="v-word">meeting</div><div class="v-pos">noun</div><div class="v-def">When people talk together at work — sometimes good, often boring</div></div>
+      <div class="v-card" onclick="speak('break')"><div class="v-word">break</div><div class="v-pos">noun</div><div class="v-def">A short rest from work — the moment many people wait for all morning</div></div>
+      <div class="v-card" onclick="speak('problem')"><div class="v-word">problem</div><div class="v-pos">noun</div><div class="v-def">Something difficult — a problem at work can ruin a whole day</div></div>
+      <div class="v-card" onclick="speak('smile')"><div class="v-word">smile</div><div class="v-pos">noun</div><div class="v-def">When someone is happy with their face — a smile from someone can make your day better</div></div>
+      <div class="v-card" onclick="speak('home')"><div class="v-word">home</div><div class="v-pos">noun</div><div class="v-def">Where you live — arriving home is often the best moment of the day</div></div>
+      <div class="v-card" onclick="speak('coffee')"><div class="v-word">coffee</div><div class="v-pos">noun</div><div class="v-def">The drink that starts the day — for many people, the first coffee is the best moment</div></div>
+      <div class="v-card" onclick="speak('bed')"><div class="v-word">bed</div><div class="v-pos">noun</div><div class="v-def">Where you sleep — getting into bed at night can be the best feeling of the day</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1000&q=80&fit=crop" alt="daily life feeling verbs">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Verbs — Feelings & Moments</div><div class="sbo-sub">Click to hear · Natural pace</div></div><div class="sbo-badge">Verbs</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('arrive')"><div class="v-word">arrive</div><div class="v-pos">verb</div><div class="v-def">To get to a place — "When I arrived home, I felt great"</div></div>
+      <div class="v-card" onclick="speak('feel')"><div class="v-word">feel</div><div class="v-pos">verb</div><div class="v-def">To experience an emotion — "I felt happy / tired / angry"</div></div>
+      <div class="v-card" onclick="speak('enjoy')"><div class="v-word">enjoy</div><div class="v-pos">verb</div><div class="v-def">To like something — "I really enjoyed my lunch"</div></div>
+      <div class="v-card" onclick="speak('wait')"><div class="v-word">wait</div><div class="v-pos">verb</div><div class="v-def">To stay until something happens — "I waited 30 minutes in traffic"</div></div>
+      <div class="v-card" onclick="speak('relax')"><div class="v-word">relax</div><div class="v-pos">verb</div><div class="v-def">To rest and feel calm — "I finally relaxed when I got home"</div></div>
+      <div class="v-card" onclick="speak('complain')"><div class="v-word">complain</div><div class="v-pos">verb</div><div class="v-def">To say something is bad — "I always complain about the traffic"</div></div>
+      <div class="v-card" onclick="speak('finish')"><div class="v-word">finish</div><div class="v-pos">verb</div><div class="v-def">To complete something — "When I finished work, I was very happy"</div></div>
+      <div class="v-card" onclick="speak('happen')"><div class="v-word">happen</div><div class="v-pos">verb</div><div class="v-def">To occur — "Something bad happened at work"</div></div>
+      <div class="v-card" onclick="speak('notice')"><div class="v-word">notice</div><div class="v-pos">verb</div><div class="v-def">To see or pay attention to something — "I noticed a beautiful sunset yesterday"</div></div>
+      <div class="v-card" onclick="speak('need')"><div class="v-word">need</div><div class="v-pos">verb</div><div class="v-def">To require something — "I need a coffee to start my day"</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases daily">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Daily Talk</div><div class="sbo-sub">Simple phrases · Click to hear · Use today</div></div><div class="sbo-badge">Colloquial</div></div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m so tired')"><div class="p-text">"I'm so tired."</div><div class="p-context">How many people feel at the end of the work day — a very common phrase</div></div>
+      <div class="phrase-item" onclick="speak('Tell me about it!')"><div class="p-text">"Tell me about it!"</div><div class="p-context">When you completely agree — "The traffic was terrible!" / "Tell me about it!"</div></div>
+      <div class="phrase-item" onclick="speak('Lucky you!')"><div class="p-text">"Lucky you!"</div><div class="p-context">When someone has something good that you don't — friendly, not jealous</div></div>
+      <div class="phrase-item" onclick="speak('Finally!')"><div class="p-text">"Finally!"</div><div class="p-context">When something you waited for happens — "Finally, Friday is here!"</div></div>
+      <div class="phrase-item" onclick="speak('That\'s the worst!')"><div class="p-text">"That's the worst!"</div><div class="p-context">When something is very bad — "My boss called me at 7am on Saturday. That's the worst!"</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">After vocab, do a quick round: "What is your best moment of today so far? Use one word from the list." Then: "And your worst?" This bridges directly to the Opinion Wall and activates the vocabulary in context immediately. Keep answers to one or two sentences maximum.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3 -->
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div><div class="sec-title">Four People. One Topic.</div><div class="sec-sub">Read all four. Who do you agree with? Tell me in 2-3 sentences.</div></div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">☀️</div>
+        <div class="op-name">Lucía, 35</div>
+        <div class="op-role">Nurse · Querétaro</div>
+        <div class="op-text">"The best part of my day is the morning. <strong>I love my coffee and 10 minutes of silence</strong> before everyone wakes up. That small moment is mine. The worst part? Traffic on the way home. Always."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🌙</div>
+        <div class="op-name">Mateo, 42</div>
+        <div class="op-role">Cook · Monterrey</div>
+        <div class="op-text">"My best moment is at night. <strong>When I get into bed, I feel amazing.</strong> I work 10 hours a day. That moment is everything. The worst? Waking up early. Every day."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🍽️</div>
+        <div class="op-name">Patricia, 29</div>
+        <div class="op-role">Admin · CDMX</div>
+        <div class="op-text">"My best part is lunch with my friends at work. <strong>We talk, we laugh, we forget about work for 45 minutes.</strong> The worst? Emails. So many emails every morning."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Honest take</div>
+        <div class="op-avatar">😐</div>
+        <div class="op-name">Fernando, 48</div>
+        <div class="op-role">Salesman · Celaya</div>
+        <div class="op-text">"I don't really think about my day like that. <strong>Good or bad, it's just a day.</strong> I go to work, I come home. I don't look for the best or worst moment. It's just life."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body"><strong>Provocateur note:</strong> Fernando is the "it's just a day" person — no emotional connection to moments. This is the gentlest provocateur in the A2.2 lineup. Ask the student: "Do you agree with Fernando? Or do you think some moments of the day are special?" Most students will have a warm reaction. Keep the energy positive and personal.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4 -->
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div><div class="sec-title">10 Questions · 4 Blocks</div><div class="sec-sub">Short questions. Short answers are fine. Talk about your real day.</div></div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What was the best part of yesterday? Describe it in 2-3 sentences.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — describing a recent positive moment. Model: "Yesterday, the best part was lunch. I ate tacos with my colleague. We talked about the weekend. It was nice." Help student use past simple verbs: was, ate, talked, felt. Two to three sentences is plenty.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">What was the worst part of yesterday? What happened?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — negative experience. Students often have a clear answer immediately. Model: "The worst part was the traffic. I waited 40 minutes to go home. I was very frustrated." Activate "That's the worst!" and "Tell me about it!" as reactions naturally.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">When was the last time you had a really good day? What made it good?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — a more general positive memory. Model: "Last week I had a really good day. I finished an important project. My boss said 'good job.' I felt great. I went home early." Simple sentences, natural past simple flow. Celebrate good answers with "Lucky you!" reaction.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion (Simple Present)</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">What do you think is the worst part of a typical work day? For most people.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple present opinion — about daily life in general. Most common answers: traffic, Monday mornings, difficult colleagues, boring meetings. Model: "I think the worst part is traffic. Most people wait a long time every day. It's very frustrating." Short and direct.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think the morning or the evening is better? Why?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple binary opinion — easy to answer. Model: "I think evening is better. In the morning I am tired and I don't like to wake up early. In the evening I feel free — work is finished." The student can agree or disagree. Both answers require the same grammar: "I think... because..."</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Is it important to have at least one good moment in every day? Or is it okay to have a bad day sometimes?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple opinion — two clear options. Model: "I think it's important to have one good moment. Even a small one — good coffee, a nice conversation. It helps. But some days are just bad. That's normal too." Students at A2.2 enjoy this type of reflective but simple question.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">What are you going to do tonight to make it a good end to your day?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Going to — concrete future plan for tonight. Model: "I'm going to eat dinner with my family. Then I'm going to watch one episode of my series. Then sleep. That's my plan." Simple and personal. Help the student with the structure: "I'm going to + verb."</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will you change something about your day to have more good moments? What will you do differently?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Will — future intention or prediction. Model: "Yes — I will try to take a real break at lunch. Not eat at my desk. I will go outside for 15 minutes. I think that will help." Or: "No, I don't think I will change anything. I like my day." Both answers are valid.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Past Habits + Reflection (Used to)</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Did you use to have a different "best part of the day" when you were younger? What was it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Used to — nostalgic comparison. Model: "When I was a student, the best part of the day was after school. I used to play with my friends outside. Now I don't have that. Now my best part is dinner." Gentle and warm — students enjoy comparing past and present at this level.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Did you use to complain more about your day before — or are you different now?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Used to + self-reflection. Simple and personal. Model: "I used to complain a lot. I was younger and everything was a problem. Now I'm calmer. I don't complain so much. I notice good things more." Or the opposite — both are interesting. Light closing question.</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body"><strong>A2.2 grammar targets:</strong> Past simple (Q1-3), simple present opinions (Q4-6), going to / will (Q7-8), used to (Q9-10). <br><br><strong>Pacing note:</strong> This topic flows naturally because every student has a "best" and "worst" moment from their real day. Don't prepare — just ask about real yesterday. The content writes itself. Keep answers short and celebrate every complete sentence with positive feedback.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5 -->
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💣 Phase 5 — The Exit Shot</div><div class="sec-title">The Final Question</div><div class="sec-sub">One question. Simple and personal. Answer in 2-3 sentences.</div></div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Today, right now — what is the best moment you are going to have when this class is finished? What are you looking forward to?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me about yesterday. What was the best part? What was the worst part? And what did you do to feel better after the worst part?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body"><strong>Why it works:</strong> The Exit Shot at A2.2 connects directly to right now — not abstract. "Going to" is the target grammar, naturally embedded. "Looking forward to" introduces a useful phrase without forcing it. Students leave class thinking about something positive, which is a retention moment. <br><br><strong>Homework note:</strong> Three guided questions structure exactly one minute of speech. Past simple throughout. Very doable for A2.2. The "what did you do to feel better?" question generates a problem-solving narrative that is more complex than it seems.<br><br><strong>Upsell moment:</strong> "Next session we talk about pets and children — a very personal topic, a lot of fun. Very different energy from today."</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">A2.2 · Daily Life & Lifestyle · The Best and Worst Part of My Day · Medium</div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const d=document.documentElement;document.getElementById('prog').style.width=((d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100)+'%'});
+function toggleMode(btn){const s=document.body.classList.toggle('student-mode');btn.textContent=s?'Student Mode':'Teacher Mode'}
+function toggleTN(btn){const b=btn.nextElementSibling,o=b.classList.toggle('open');btn.querySelector('span').textContent=o?'−':'+'}
+function toggleTip(btn){const t=btn.nextElementSibling;t.classList.toggle('open');btn.textContent=t.classList.contains('open')?'Hide tip':'Show tip'}
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u)}
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})},{passive:true});
+</script>
+</body>
+</html>

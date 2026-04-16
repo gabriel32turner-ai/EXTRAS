@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab A2.2 — Office Friendships: Real or Fake?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;
+  --ac:#F97316;--ac-dim:rgba(249,115,22,.08);--ac-mid:rgba(249,115,22,.2);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.hdr-brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.mode-tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+#modeBtn{border:none;cursor:pointer;padding:7px 16px;font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;background:var(--ac);color:white}
+#modeBtn.student{background:#2a3a4e;color:white}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=80&fit=crop');background-size:cover;background-position:center;opacity:.2}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.98) 0%,rgba(15,25,35,.65) 55%,rgba(15,25,35,.25) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid}
+.tag-level{color:var(--ac);border-color:var(--ac);background:rgba(249,115,22,.08)}
+.tag-cat{color:var(--muted);border-color:var(--border)}
+.tag-medium{color:#fbbf24;border-color:#fbbf24;background:rgba(251,191,36,.08)}
+.tag-time{color:var(--muted);border-color:var(--border)}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--muted);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:40px}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec-hd-l{display:flex;align-items:center;gap:14px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:.5px;margin-top:2px}
+.timer-pill{flex-shrink:0;background:var(--ac-dim);border:1px solid var(--ac-mid);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:5px 12px;text-transform:uppercase}
+
+.quote-box{border-left:3px solid var(--ac);background:var(--card);padding:20px 24px;margin-bottom:16px}
+.quote-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.quote-text{font-size:16px;font-style:italic;color:var(--text);line-height:1.6}
+.trigger-script{background:rgba(249,115,22,.04);border:1px solid var(--ac-mid);padding:14px 18px;font-size:13px;color:var(--muted);margin-top:12px}
+.trigger-script strong{color:var(--ac)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:16px}
+.v-card{background:var(--card);border:1px solid var(--border);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.v-card:hover,.v-card:active{border-color:var(--ac);background:var(--ac-dim)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--ac);margin-bottom:2px}
+.v-type{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--muted);line-height:1.4}
+.vocab-lbl{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:16px}
+.phrases-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);padding:10px 16px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--ac)}
+.phrase-text{font-size:13.5px;color:var(--text);font-style:italic}
+.phrase-use{font-size:12px;color:var(--muted);margin-top:2px}
+.ph-icon{font-size:14px;flex-shrink:0}
+
+.opinions{display:flex;flex-direction:column;gap:12px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px 20px}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{width:36px;height:36px;background:var(--ac-dim);border:1px solid var(--ac-mid);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--text)}
+.op-text{font-size:13.5px;color:var(--text);line-height:1.65}
+.op-text strong{color:var(--ac)}
+.op-provocateur{border-color:rgba(249,115,22,.4)}
+.op-provocateur .op-avatar{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.4)}
+.provoc-badge{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-left:auto}
+.op-instruction{background:var(--ac-dim);border:1px solid var(--ac-mid);padding:12px 16px;margin-top:12px;font-size:13px;color:var(--ac)}
+
+.q-blocks{display:flex;flex-direction:column;gap:24px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.q-block-lbl::after{content:'';flex:1;height:1px;background:var(--ac-mid)}
+.questions{display:flex;flex-direction:column;gap:8px}
+.q-item{background:var(--card);border:1px solid var(--border);padding:16px 18px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:14.5px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.tip-btn{border:1px solid var(--ac-mid);background:none;color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;cursor:pointer;transition:background .15s}
+.tip-btn:hover{background:var(--ac-dim)}
+.tip-content{display:none;margin-top:12px;background:rgba(249,115,22,.04);border-top:1px solid var(--ac-mid);padding-top:12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.tip-content strong{color:var(--ac)}
+.tip-content.show{display:block}
+
+.exit-box{border:2px solid var(--ac);background:var(--ac-dim);padding:28px 32px;margin-bottom:20px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);line-height:1.4;margin-bottom:18px}
+.hw-box{background:var(--card);border:1px solid var(--border);padding:14px 18px;display:flex;gap:12px;align-items:flex-start}
+.hw-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.hw-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.hw-text{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+footer{border-top:1px solid var(--border);padding:20px 24px;text-align:center;font-size:11px;color:var(--muted)}
+footer strong{color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1px}
+
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+  .exit-box{padding:20px 18px}
+  .exit-q{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="hdr-right">
+    <span class="mode-tag teacher-only" id="modeTag">Teacher Mode</span>
+    <button id="modeBtn" onclick="toggleMode()">Student Mode</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="tag tag-level">A2.2</span>
+      <span class="tag tag-cat">Work &amp; Corporate Life</span>
+      <span class="tag tag-medium">🌡 Medium</span>
+      <span class="tag tag-time">⏱ 50 min</span>
+    </div>
+    <h1>Office Friendships:<br>Real or Fake?</h1>
+    <p class="hero-sub">The people you see every day at work — are they really your friends?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🪝</span>
+      <div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">Phase 1 · Open the conversation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">4 min</div>
+  </div>
+  <div class="quote-box">
+    <div class="quote-source">A simple question</div>
+    <div class="quote-text">"Think about your 3 best friends. How many of them are from work — and how many are from outside work?"</div>
+  </div>
+  <div class="trigger-script teacher-only">
+    <strong>Teacher script:</strong> Ask students to think for 5 seconds. Then: <em>"How many of your best friends are from work? Tell me — one, two, three? Or zero?"</em> Take a quick count. Most will say zero or one. Use that to open: <em>"Interesting. So are work friends real friends — or just nice people you see every day?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💉</span>
+      <div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Phase 2 · Click any card to hear pronunciation</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">8 min</div>
+  </div>
+  <div class="vocab-lbl">Nouns</div>
+  <div class="vocab-grid" id="nouns"></div>
+  <div class="vocab-lbl">Verbs</div>
+  <div class="vocab-grid" id="verbs"></div>
+  <div class="vocab-lbl">Colloquial Phrases — click to hear</div>
+  <div class="phrases-list" id="phrases"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🧱</span>
+      <div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Phase 3 · Who do you agree with?</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">10 min</div>
+  </div>
+  <div class="opinions">
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Valeria, 35 — Teacher, León</div></div>
+      </div>
+      <div class="op-text">"My best friend is from work. We eat lunch together every day. We talk about everything — not just work. <strong>She is a real friend.</strong> I'm very lucky."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Fernando, 43 — Salesperson, Puebla</div></div>
+      </div>
+      <div class="op-text">"Work friends are nice. We talk, we have coffee. But they are not real friends. <strong>When I left my last job, nobody called me.</strong> Not one person. That tells you everything."</div>
+    </div>
+
+    <div class="opinion-card op-provocateur">
+      <div class="op-header">
+        <div class="op-avatar">👩</div>
+        <div><div class="op-name">Lucía, 50 — Office manager, Monterrey</div></div>
+        <span class="provoc-badge">different view</span>
+      </div>
+      <div class="op-text">"I don't want friends at work. I want to work and go home. <strong>Friends are for after work.</strong> Mixing work and friendship is complicated. I saw bad things happen."</div>
+    </div>
+
+    <div class="opinion-card">
+      <div class="op-header">
+        <div class="op-avatar">👨</div>
+        <div><div class="op-name">Ricardo, 29 — IT technician, CDMX</div></div>
+      </div>
+      <div class="op-text">"I work from home now. I miss talking to people at work. <strong>I didn't know that was important to me.</strong> Now I'm alone all day. It's very quiet. Too quiet."</div>
+    </div>
+
+  </div>
+  <div class="op-instruction">💬 <strong>Choose one person.</strong> Do you agree with them? Tell your partner: "I agree with [name] because..."</div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">🗣️</span>
+      <div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">Phase 4 · 10 questions · 4 blocks</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">23 min</div>
+  </div>
+  <div class="q-blocks">
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Past Experience</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q1</div>
+          <div class="q-text">Did you ever make a real friend at work? Tell me about that person.</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Help with: <em>"I met [name] at work. We used to..."</em> / <em>"We ate lunch together and..."</em> Push for 3–4 sentences. What did they do together? Do they still talk?</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q2</div>
+          <div class="q-text">Did you ever have a problem with a colleague at work? What happened?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"Yes. One time, a colleague took my lunch from the fridge. I was very angry. I didn't say anything. I just bought food from outside. It was a stupid problem, but I was really hungry and mad."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q3</div>
+          <div class="q-text">When was the last time you talked with an old colleague — someone from a past job?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Great for practicing simple past time expressions: <em>"Last month...", "Two years ago...", "I don't remember..."</em> Reference Fernando's story — did anyone keep in touch after leaving?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q4</div>
+          <div class="q-text">Do you think it's good to be friends with your boss outside of work?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Simple yes/no with a reason. Help with: <em>"I think it's good because..."</em> / <em>"I think it's a problem because..."</em> Most students have a clear opinion — let them state it simply.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q5</div>
+          <div class="q-text">Is it OK to talk about personal problems with a colleague at work?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I think it's OK with one person — someone you really trust. But not with everyone. At work, some people like to talk about other people's problems. So I am careful."</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q6</div>
+          <div class="q-text">Do you think people who work from home are more lonely than people who go to the office?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Reference Ricardo's opinion. Very relatable topic. Push: <em>"Did you ever work from home? How did you feel?"</em> Simple comparison: office vs. home.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Future Plans</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q7</div>
+          <div class="q-text">Are you going to have lunch or coffee with a colleague this week?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Simple "going to" practice. Help with: <em>"Yes, I'm going to..."</em> / <em>"No, I usually eat alone because..."</em> Follow up: <em>"Who do you usually eat with at work?"</em></div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q8</div>
+          <div class="q-text">If you change jobs in the future, will you stay in contact with your current colleagues?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Model answer:</strong> <em>"I think I will stay in contact with two or three people. Not everyone. There is one colleague I really like. I will send her messages. The others — probably not. That's just how it is."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Past Habits &amp; Reflection</div>
+      <div class="questions">
+        <div class="q-item">
+          <div class="q-num">Q9</div>
+          <div class="q-text">Did you use to have lunch with your colleagues at a past job — or did you usually eat alone?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> "Used to" practice. Help with: <em>"At my old job, I used to eat with..."</em> / <em>"I used to go to a restaurant near the office..."</em> Compare to current job naturally.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-num">Q10</div>
+          <div class="q-text">Think about your current colleagues. Which one are you closest to — and why?</div>
+          <button class="tip-btn" onclick="toggleTip(this)">Show Tip</button>
+          <div class="tip-content"><strong>Teacher tip:</strong> Nice closing question. Simple descriptive answers. Help with: <em>"I am closest to [name] because she/he is..."</em> + adjective. Students often discover they haven't thought about this before — that moment of reflection is the goal.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l">
+      <span class="sec-emoji">💣</span>
+      <div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">Phase 5 · One final question</div>
+      </div>
+    </div>
+    <div class="timer-pill teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Think of one person at your job right now. Are they a real friend — or just a nice colleague? How do you know the difference?</div>
+  </div>
+  <div class="hw-box">
+    <div class="hw-icon">🎙️</div>
+    <div>
+      <div class="hw-label">Homework — WhatsApp Voice Note</div>
+      <div class="hw-text">Record a 60-second voice message in English. Describe one colleague — their name, what they do, and why they are (or are not) a real friend. Use: "I met [name] at work...", "We usually...", "I think they are / are not a real friend because..."</div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <strong>GABRIEL TURNER ENGLISH TRAINING</strong> &nbsp;·&nbsp; Speaking Lab &nbsp;·&nbsp; A2.2 &nbsp;·&nbsp; Work &amp; Corporate Life
+</footer>
+
+<script>
+const nouns=[
+  {w:'friend',def:'A person you like and trust — not just a colleague'},
+  {w:'colleague',def:'A person who works in the same place as you'},
+  {w:'lunch',def:'The meal you eat in the middle of the day'},
+  {w:'gossip',def:'When people talk about other people\'s personal life at work'},
+  {w:'trust',def:'The feeling that a person is honest and good'},
+  {w:'secret',def:'Something important that you tell only one person'},
+  {w:'problem',def:'A difficult situation at work or in life'},
+  {w:'office',def:'The place where you work'},
+  {w:'party',def:'A celebration — sometimes companies have parties for employees'},
+  {w:'contact',def:'When you stay in communication with someone — by phone or message'}
+];
+const verbs=[
+  {w:'trust',def:'To believe that someone is honest and good'},
+  {w:'share',def:'To give or tell something to another person'},
+  {w:'miss',def:'To feel sad because a person is not here anymore'},
+  {w:'invite',def:'To ask someone to come to a place or event'},
+  {w:'argue',def:'To disagree with someone — sometimes loudly'},
+  {w:'stay in contact',def:'To continue to communicate after you stop seeing someone every day'},
+  {w:'eat together',def:'To share a meal with another person — an important social activity'},
+  {w:'help',def:'To do something good for another person'},
+  {w:'talk about',def:'To have a conversation about a specific topic'},
+  {w:'get along',def:'To have a good, comfortable relationship with someone'}
+];
+const phrases=[
+  {p:"Lucky you!",u:"Use when someone has something good that you also want"},
+  {p:"No way!",u:"Use when something surprises you — you can't believe it"},
+  {p:"We get along really well",u:"Use to say you have a good, comfortable relationship with someone"},
+  {p:"That's too bad",u:"Use when you hear something sad or unfortunate"},
+  {p:"I know, right?",u:"Use to agree strongly with something someone just said"}
+];
+
+function buildVocab(){
+  const ng=document.getElementById('nouns');
+  const vg=document.getElementById('verbs');
+  nouns.forEach(n=>{ng.innerHTML+=`<div class="v-card" onclick="speak('${n.w}')"><div class="v-word">${n.w}</div><div class="v-type">noun · 🔊</div><div class="v-def">${n.def}</div></div>`;});
+  verbs.forEach(v=>{vg.innerHTML+=`<div class="v-card" onclick="speak('${v.w}')"><div class="v-word">${v.w}</div><div class="v-type">verb · 🔊</div><div class="v-def">${v.def}</div></div>`;});
+  const pl=document.getElementById('phrases');
+  phrases.forEach(ph=>{pl.innerHTML+=`<div class="phrase-item" onclick="speak('${ph.p}')"><span class="ph-icon">🔊</span><div><div class="phrase-text">"${ph.p}"</div><div class="phrase-use">${ph.u}</div></div></div>`;});
+}
+function speak(txt){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='en-US';u.rate=0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('show');
+  btn.textContent=tip.classList.contains('show')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  const btn=document.getElementById('modeBtn');
+  const tag=document.getElementById('modeTag');
+  if(studentMode){btn.textContent='Teacher Mode';btn.classList.add('student');if(tag)tag.textContent='Student Mode';}
+  else{btn.textContent='Student Mode';btn.classList.remove('student');if(tag)tag.textContent='Teacher Mode';}
+}
+buildVocab();
+</script>
+</body>
+</html>

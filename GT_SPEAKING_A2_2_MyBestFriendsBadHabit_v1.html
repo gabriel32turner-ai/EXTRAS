@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · My Best Friend's Bad Habit · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #F97316;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #F97316; border: none; color: white;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(249,115,22,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(249,115,22,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(249,115,22,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">A2.2</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>My Best Friend's Bad Habit</h1>
+    <p>We all love our friends — but sometimes they do something that drives us crazy. What is your friend's worst habit?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"The most common complaint people have about their friends: always late, always on the phone, always borrowing money and not paying back. Sound familiar?"</div>
+      <div class="quote-source">— YouGov Friendship Survey</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Think about your best friend. Do you love them? Of course! But — do they do something that makes you a little crazy?" [Smile and pause.] "Today we talk about our friends' bad habits. And maybe — our own."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('habit')">
+        <div class="vocab-word">habit</div>
+        <div class="vocab-def">something you do regularly, often without thinking</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('friend')">
+        <div class="vocab-word">friend</div>
+        <div class="vocab-def">a person you like and spend time with</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('phone')">
+        <div class="vocab-word">phone</div>
+        <div class="vocab-def">the thing your friend looks at instead of talking to you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('money')">
+        <div class="vocab-word">money</div>
+        <div class="vocab-def">what your friend asks to borrow and never gives back</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('problem')">
+        <div class="vocab-word">problem</div>
+        <div class="vocab-def">a difficult situation — sometimes your friend's habits are a problem</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('complaint')">
+        <div class="vocab-word">complaint</div>
+        <div class="vocab-def">when you say something is wrong or bothers you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('mess')">
+        <div class="vocab-word">mess</div>
+        <div class="vocab-def">a dirty or disorganized space — what your friend leaves behind</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('advice')">
+        <div class="vocab-word">advice</div>
+        <div class="vocab-def">when you tell someone what you think they should do</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('dinner')">
+        <div class="vocab-word">dinner</div>
+        <div class="vocab-def">the meal where your late friend finally arrives — one hour after everyone else</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('time')">
+        <div class="vocab-word">time</div>
+        <div class="vocab-def">what your friend does not respect when they are always late</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('borrow')">
+        <div class="vocab-word">borrow</div>
+        <div class="vocab-def">to take something and use it temporarily — and give it back</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('arrive late')">
+        <div class="vocab-word">arrive late</div>
+        <div class="vocab-def">to come after the time you agreed</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('complain')">
+        <div class="vocab-word">complain</div>
+        <div class="vocab-def">to say that something is wrong or bothers you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vocab-word">ignore</div>
+        <div class="vocab-def">to not pay attention to someone or something on purpose</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('cancel')">
+        <div class="vocab-word">cancel</div>
+        <div class="vocab-def">to say you are not going to do something you already planned</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('bother')">
+        <div class="vocab-word">bother</div>
+        <div class="vocab-def">to annoy or disturb someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('say something')">
+        <div class="vocab-word">say something</div>
+        <div class="vocab-def">to talk to a friend about a habit that bothers you</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('accept')">
+        <div class="vocab-word">accept</div>
+        <div class="vocab-def">to decide that a habit is okay and not change it</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('change')">
+        <div class="vocab-word">change</div>
+        <div class="vocab-def">to stop doing a bad habit and do something different</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('love')">
+        <div class="vocab-word">love</div>
+        <div class="vocab-def">what you feel for your friend — even when they drive you crazy</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('Tell me about it.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Tell me about it."</div>
+          <div class="phrase-context">When you completely agree — "Yes! I have the same problem!"</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Same here.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Same here."</div>
+          <div class="phrase-context">A short way to say "me too" or "I have the same situation."</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Oh my God!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Oh my God!"</div>
+          <div class="phrase-context">A strong reaction to something surprising or unbelievable.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I love them, but...')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I love them, but..."</div>
+          <div class="phrase-context">The classic way to start talking about a friend's bad habit.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I am so tired of it.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I'm so tired of it."</div>
+          <div class="phrase-context">When a habit has bothered you for a long time and you cannot take it anymore.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Andrea, 33</div>
+            <div class="op-role">Nurse, León</div>
+          </div>
+        </div>
+        <div class="op-text">"My best friend is always late. Always. <strong>One hour. Every time.</strong> I love her, but I am tired of it. I now tell her the dinner is one hour earlier than the real time."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">📱</div>
+          <div>
+            <div class="op-name">Mateo, 28</div>
+            <div class="op-role">Student, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"My friend looks at his phone all the time. When we eat, when we talk — always the phone. <strong>I feel invisible.</strong> I talked to him about it. He said sorry. But nothing changed."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Lucía, 45</div>
+            <div class="op-role">Cook, Guadalajara</div>
+          </div>
+        </div>
+        <div class="op-text">"My friend complains about everything. The food, the weather, her job, her family — everything is bad. <strong>I love her, but some days I feel very tired after we talk.</strong> I don't say anything because she is my best friend."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Fernando, 50</div>
+            <div class="op-role">Accountant, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"My friends have bad habits. <strong>But I probably have bad habits too.</strong> Maybe I am the friend with the problem. I never think about that. This question is difficult for me."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Which friend story is most familiar? Do you agree with Fernando — maybe we also have bad habits that bother our friends?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">What is your best friend's worst habit? Tell me about it.</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple present for description — "My friend always..." Let them tell a story in the present or past. The most common answers: always late, always on the phone, always complains, borrows money. All generate great conversation.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Did you ever talk to a friend about a habit that bothered you? What did you say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple. "Yes, I talked to them and I said..." / "No, I never said anything because..." Both answers are equally interesting. Ask follow-up: "And did they change?" — spoiler: usually not, which is funny.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Did a friend's habit ever create a real problem between you? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple narrative. The "that was the last straw" moment. Model: "Yes, my friend cancelled our plans three times. I was very angry. We did not talk for two weeks." Simple past + sequence of events.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Is it good to tell a friend when they have a bad habit — or is it better to say nothing?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple opinion: "I think it is good to say something because..." / "I think it is better to say nothing because..." No complex grammar needed. The answers reveal a lot about personality: avoiders vs direct communicators.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">What do you think is worse: a friend who is always late, or a friend who is always on their phone?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Comparison question — good for "I think... is worse than... because..." Very easy to answer, generates quick debate. Ask: "Which one is YOUR friend?" This connects opinion to personal experience naturally.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">Do you think people can really change a bad habit? Why or why not?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Simple present opinion. "I think people can change because..." / "I think it is very difficult to change because..." Good for can/can't modal. Real experience often shows the honest answer: usually no. That is okay to say.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Future Plans (Going To / Will)</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">Are you going to say something to your friend about their habit — or are you going to stay quiet?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for plans. "I'm going to talk to them next week because..." / "I'm not going to say anything because..." Connects to a real person and a real situation. Many students choose "stay quiet" — ask "are you sure that is a good idea?"</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">Will you try to change one of your own bad habits this year? Which one?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Will for future decision. "Yes, I will try to... because..." / "No, I don't think I will because..." Fernando's honest self-reflection moment. Most students have something they know they should change. Keep it light and funny.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Past Habits &amp; Reflection (Used To)</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Did you use to have a bad habit that you changed? What was it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Used to + positive change. "I used to... but now I..." Great structure for A2.2. Common answers: "I used to be very late," "I used to eat too much junk food," "I used to look at my phone all the time." All very accessible.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Did you use to accept all your friends' habits — or were you always honest with them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Used to + self-reflection on past behavior. "I used to accept everything. Now I say something." / "I was always honest. Sometimes too honest." Connects the whole topic to personal growth. Ends the engine on a warm, personal note.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your best friend asks to borrow 500 pesos. This is the third time this month. They never paid you back before. They look very sad and they really need the money. What do you do?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. Do you give the money — or do you say no? And what do you say to your friend?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · A2.2 · Relationships &amp; Personality · My Best Friend's Bad Habit
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.82;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

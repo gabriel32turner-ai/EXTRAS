@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Famous People I Don't Like · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#F97316;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(249,115,22,.4);color:var(--ac)}
+.hero-tag.spicy{border-color:rgba(255,31,92,.5);color:rgba(255,80,80,.9)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(249,115,22,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(249,115,22,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(249,115,22,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(249,115,22,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.2</span>
+      <span class="hero-tag">Social Issues & Society</span>
+      <span class="hero-tag spicy">🌶 Spicy</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Famous People I Don't Like</div>
+    <div class="hero-sub">Every famous person has fans — and people who can't stand them. Today we talk about the second group. Who do you not like, and why?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One simple question to start. No wrong answers.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">YouGov · Celebrity Popularity Study · 2023</div>
+      <div class="trigger-quote">"Almost every famous person has a significant number of people who actively dislike them — even celebrities with millions of fans. The most talked-about people are often also the most disliked."</div>
+      <div class="trigger-script">Fame means that many people know your name — but it also means that many people have an opinion about you. Some famous people are very popular with some groups and very unpopular with others. This is normal — and it makes for a very interesting conversation.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Ask directly and with energy: <em>"Quick — think of one famous person you don't like. Just one. You don't have to say why yet. Who is it?"</em> Go around the room fast. Don't comment on choices — just collect names. Then pick one name someone said and ask: <em>"Why don't you like them? Tell me in English."</em> That's your opening.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Words to describe people — famous or not.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('celebrity')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">celebrity</div>
+        <div class="vc-def">A famous person — actor, singer, athlete, politician</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fan')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">fan</div>
+        <div class="vc-def">Someone who loves a famous person very much</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scandal')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">scandal</div>
+        <div class="vc-def">A bad thing a famous person did that everyone talks about</div>
+      </div>
+      <div class="vocab-card" onclick="speak('interview')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">interview</div>
+        <div class="vc-def">A conversation on TV or online where someone asks a famous person questions</div>
+      </div>
+      <div class="vocab-card" onclick="speak('attitude')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">attitude</div>
+        <div class="vc-def">The way someone acts and treats other people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('talent')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">talent</div>
+        <div class="vc-def">A natural ability to do something well — like sing, act, or play sports</div>
+      </div>
+      <div class="vocab-card" onclick="speak('opinion')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">opinion</div>
+        <div class="vc-def">What you think about someone or something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('news')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">news</div>
+        <div class="vc-def">Information about what is happening — famous people are always in the news</div>
+      </div>
+      <div class="vocab-card" onclick="speak('behavior')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">behavior</div>
+        <div class="vc-def">How someone acts — good or bad</div>
+      </div>
+      <div class="vocab-card" onclick="speak('money')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">money</div>
+        <div class="vc-def">Famous people usually have a lot of it — and sometimes that's the problem</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('dislike')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">dislike</div>
+        <div class="vc-def">To not like someone or something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('annoy')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">annoy</div>
+        <div class="vc-def">To make someone feel irritated or bothered</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pretend')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">pretend</div>
+        <div class="vc-def">To act like something is true when it is not — some celebrities pretend to be nice</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lie</div>
+        <div class="vc-def">To say something that is not true</div>
+      </div>
+      <div class="vocab-card" onclick="speak('act')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">act</div>
+        <div class="vc-def">To perform in a movie or TV show — or to behave in a particular way</div>
+      </div>
+      <div class="vocab-card" onclick="speak('think')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">think</div>
+        <div class="vc-def">To have an opinion — "I think he is very arrogant."</div>
+      </div>
+      <div class="vocab-card" onclick="speak('agree')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">agree</div>
+        <div class="vc-def">To have the same opinion as someone — "I agree with you."</div>
+      </div>
+      <div class="vocab-card" onclick="speak('disagree')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">disagree</div>
+        <div class="vc-def">To have a different opinion — "I disagree — I think she is talented."</div>
+      </div>
+      <div class="vocab-card" onclick="speak('follow')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">follow</div>
+        <div class="vc-def">To watch someone on social media — or to like someone a lot</div>
+      </div>
+      <div class="vocab-card" onclick="speak('watch')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">watch</div>
+        <div class="vc-def">To look at a movie, show, or interview — "I don't watch his movies anymore."</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('I cannot stand that person')">
+        <div class="pi-phrase">"I can't stand that person."</div>
+        <div class="pi-context">A stronger way to say "I don't like them" — used when the feeling is very strong.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Are you serious, people actually like him')">
+        <div class="pi-phrase">"Are you serious? People actually like him?"</div>
+        <div class="pi-context">Said when you hear that someone you dislike is popular with other people.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not understand why she is famous')">
+        <div class="pi-phrase">"I don't understand why she is famous."</div>
+        <div class="pi-context">When someone is very famous but you can't see the reason for it.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('He is so fake')">
+        <div class="pi-phrase">"He is so fake."</div>
+        <div class="pi-context">When you think a celebrity acts nice in public but is different in real life.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I stopped watching her a long time ago')">
+        <div class="pi-phrase">"I stopped watching her a long time ago."</div>
+        <div class="pi-context">When a celebrity did something that made you stop being a fan permanently.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four different reactions to famous people they don't like. Which one sounds like you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😒</div>
+          <div>
+            <div class="op-name">Valeria, 34</div>
+            <div class="op-role">Nurse · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "There is one singer on the radio — I don't want to say the name — but <strong>I turn off the radio every time she sings.</strong> I don't know why. Her voice is fine. She just annoys me."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Mateo, 41</div>
+            <div class="op-role">Salesperson · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I don't like politicians in general, but there is one who talks on TV all the time. <strong>Every day, the same face.</strong> I don't think he is honest. And everyone around me loves him. It's strange."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Carolina, 29</div>
+            <div class="op-role">Receptionist · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I don't really hate famous people. I just <strong>don't care about most of them.</strong> They do things for attention. If I don't pay attention, they have no power over me. Simple."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😬</div>
+          <div>
+            <div class="op-name">Roberto, 47</div>
+            <div class="op-role">Cook · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I don't like some famous people, but I also think: <strong>I don't know them personally.</strong> Maybe they are different in real life. Maybe I'm wrong. It's a little strange to have strong feelings about someone you never met."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which person is most like you? Which one says something interesting or surprising?" Roberto is the soft provocateur — he raises a simple but honest point: we have strong feelings about people we never met. Perfect for A2.2 because the idea is simple to understand, even if it's a little uncomfortable.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Short, fun, honest answers. Use past simple and simple present.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Did you use to like a famous person — and then stop? What happened?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          "I used to like _____ but then _____ happened." A simple used-to structure with a clear narrative. Many students have a story about a singer, actor, or athlete who did something that changed their opinion. Keep it light — this doesn't need to be a big event.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Did you ever argue with someone because they liked a famous person you don't like?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple — "Yes, I argued with my sister about ______." Or: "No, but my friend loves ______ and I don't understand why." This is a fun conversation about different tastes. Encourage a specific name if they're comfortable.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you ever watch a movie or listen to music and think: "Why is this person famous?"</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple observation. The goal is simple descriptions: "I watched the movie and I didn't like it." "I don't think she has a good voice." Keep it personal and not mean — this is about taste, not insults.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Is it okay to say publicly that you don't like a famous person? Or is it better to say nothing?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple opinion: "I think it is okay because..." or "I think it is better to say nothing because..." No complex reasoning needed. Target: freedom of opinion vs. being kind. Accept short answers.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">What makes you stop liking a famous person? Is it their actions, their personality, or something else?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Descriptive opinion. Target words: actions, behavior, attitude, scandal. "For me, it's the attitude." "I don't like when celebrities lie." Keep it simple and personal. No need for long explanations.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think Roberto is right — is it strange to have strong feelings about someone you never met?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple agree/disagree with Roberto's opinion wall comment. "I agree because..." or "I disagree because..." This is the soft provocateur question — it makes them reflect briefly without being heavy. Short answers are perfect here.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Is there a movie, show, or concert you are not going to see because of the famous person in it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Going to for decisions. "I'm not going to watch _______ because _______." This connects personal taste to future behavior in a simple way. If they say "I don't know," ask: "Is there anyone you would not go see in concert?" That always gets an answer.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Do you think your opinion about this famous person will change in the future? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will for predictions about personal feelings. "I don't think it will change because..." "Maybe it will change if they do something different." Simple will + reason. Keep it personal and light.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Past Habits + Reflection (Used to)</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Did you use to like a singer or actor when you were young that you think is silly now?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Used to + past vs. present contrast. "I used to love _____ when I was 15. Now I think..." This is a fun, non-judgmental reflection. Everyone has a slightly embarrassing celebrity crush or phase from their youth. Keep the mood light and funny.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">Is there a famous person that many people dislike — but you actually like? Tell me about them.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          The reversal question — instead of dislike, defend someone. This creates a fun contrast with the whole session. Simple present: "I like _____ because _____." "I think he is talented even if many people don't agree." Encourages them to give a reason and use adjectives from the vocab section.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · A2.2 Famous People I Don't Like</div>
+      <div class="exit-question">Imagine you are going to have dinner with one famous person you don't like. You have to sit with them for two hours. Who is it — and what are you going to talk about?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Tell me: who is it, why don't you like them, and what are you going to say at dinner?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The dinner scenario is light and imaginative — perfect for A2.2. It forces the student to use "going to" for plans and simple present to describe the person. The "what are you going to say?" part creates a fun, memorable voice note because it's both creative and personal. End: <em>"Send me the voice note. I want to know who you picked — and if you're polite or not."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · Famous People I Don't Like · Social Issues & Society</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

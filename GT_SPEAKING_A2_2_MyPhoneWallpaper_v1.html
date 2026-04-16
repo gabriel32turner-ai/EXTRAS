@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · My Phone Wallpaper Tells My Story · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#F97316;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#F97316;border:1px solid #F97316;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(249,115,22,.12);color:var(--ac);border:1px solid rgba(249,115,22,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(249,115,22,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:6px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(249,115,22,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(249,115,22,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(249,115,22,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(249,115,22,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">A2.2</span>
+      <span class="tag">Technology &amp; Media</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>My Phone Wallpaper<br>Tells My Story</h1>
+    <p>Look at your phone right now. The photo on your screen — your family, your pet, your trip, a cartoon. That image says something about you. Let's talk about it.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Let's Talk Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A simple question to start</div>
+    <div class="trigger-quote">"Psychologists say that your phone wallpaper is a window to your heart. The photo you choose — a person, a place, an animal, or nothing — shows what is most important to you right now. What is your phone wallpaper today?"</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Ask the student to show you their phone wallpaper. Yes — take out the phone right now. Ask: <em>"What is this? Who is this? Why did you choose this photo?"</em> This is the perfect A2.2 warm-up: zero grammar stress, 100% personal engagement, and the student is describing something real in front of them. Let the conversation start from the image.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Sofía · 32</div><div class="bub-role">Teacher · Celaya</div></div>
+      </div>
+      <div class="bub-body">"My wallpaper is my daughter. She is 4 years old. <strong>I look at her photo 50 times a day.</strong> It makes me happy when I am tired or stressed."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Mateo · 29</div><div class="bub-role">Student · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"My wallpaper is a photo of my dog. He died last year. <strong>I don't want to change it.</strong> It's a good memory. I look at it and I smile."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍💼</span>
+        <div><div class="bub-name">Carolina · 40</div><div class="bub-role">Accountant · CDMX</div></div>
+      </div>
+      <div class="bub-body">"I don't have a photo. My wallpaper is just a color — dark blue. <strong>I don't want distractions.</strong> My phone is for work. That's it."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Fernando · 37</div><div class="bub-role">Salesman · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"My wallpaper is a photo of me. <strong>I like myself!</strong> People think it's funny. But I see my phone 100 times a day — why not see a photo that makes me happy?"</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Fernando is the gentle provocateur — his wallpaper is a photo of himself, which is funny and slightly surprising. Ask: <em>"Is Fernando confident or a little vain? Is it OK to have a photo of yourself?"</em> Keep it playful. This session has a very warm, fun energy — lean into it.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience — Past Simple</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">What was your phone wallpaper before this one? Why did you change it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple (was, changed, chose). Push: "How long did you have the old one?" Model: "Before this, I had a photo of my cat. I changed it 2 months ago because I took a new photo of my family on vacation. The new photo was more beautiful." Simple and descriptive.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did you take the photo on your wallpaper, or did someone give it to you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for activating: took, gave, sent, found, downloaded. Push: "Where were you? Who was with you?" Target: past simple + simple location/context. Let the student describe the memory behind the photo. This is the emotional core of the session.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Was there a time when you looked at your phone wallpaper and it made you sad — not happy?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Connects to Mateo's bubble about his dog. Could be a lost pet, an ex-partner, a person who passed away, or a trip that ended. Push: "Did you change the wallpaper — or keep it?" Target: past simple + simple emotion adjectives. Warm and human.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">What do you think a phone wallpaper says about a person? Can you guess someone's personality from their wallpaper?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Fun and accessible. Push: "If someone has a photo of their pet, what does that say? What about just a color?" Target: I think / maybe / probably + simple present. Model: "I think if your wallpaper is your family, you are a family person. If it's just a color, maybe you are very organized. Or boring!" Laugh with the student.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it OK to have a photo of your ex-partner on your wallpaper — or is that a bad idea?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Light spicy question for A2.2. Keep it fun, not serious. Push: "What would your new partner think?" Target: I think it's OK / I think it's a bad idea + because. Model: "I think it's a bad idea. Your new partner will see it and ask questions. Change the photo!" Gets students laughing.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think a photo of your children is the best wallpaper — or is that a little boring?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Polarizing but fun. Push: "What is a more interesting wallpaper?" Target: present simple + comparative (more interesting, more boring, more personal). No right answer — just opinion production. Good for 2-3 exchanges.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Future Plans — Going to / Will</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to change your wallpaper soon? What photo are you going to use?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + future plans. Push: "Why that photo? When are you going to change it?" Model: "Yes, I'm going to change it after my vacation next month. I want a photo from the beach. Something beautiful and relaxing." Simple and personal.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">Is there a photo you want to take this year that will be perfect for your wallpaper? What will it be?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: will + simple future. Push: "Where? With who? When?" Model: "I want to take a photo with my family at the beach this summer. All of us together. I will use that as my wallpaper." Gets the student talking about future plans in simple, concrete terms.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Past Habits — Used to</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Did you use to have a very different wallpaper when you were younger — maybe a celebrity, a cartoon, or a soccer player?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: used to + past simple. This is a fun nostalgia question. Push: "Who was it? Are you embarrassed now?" Model: "I used to have a photo of Messi. I was 18. Now I think it's a little funny — but at the time it was very important to me!" Gets students laughing and talking.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Did your relationship with your phone change in the last 5 years? Did you use to use it differently?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Reflection question. Target: used to + past simple + present simple for contrast. Model: "Yes. I used to use my phone only for calls and messages. Now I use it for everything — shopping, work, news, videos. It's completely different. My phone is like my office now." Simple but meaningful.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Question</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Look at your phone wallpaper right now. Is the person or place in that photo happy because of you — or do you think you can do more for them? What are you going to do?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Take a photo of your phone wallpaper. Then record a 60-second WhatsApp voice message. Tell me: who or what is in the photo, and one thing you are going to do for that person or place this week. In English. Simple words are fine."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">A2.2 · Speaking Lab · My Phone Wallpaper Tells My Story · Technology &amp; Media · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'wallpaper',def:'The background photo or image on your phone screen',ex:'"My wallpaper is a photo of my dog. I love it."'},
+  {w:'photo',def:'A picture — taken with a camera or phone',ex:'"I have 2,000 photos on my phone. Too many!"'},
+  {w:'screen',def:'The front part of your phone that shows information and images',ex:'"I broke my screen last week. It was expensive to fix."'},
+  {w:'memory',def:'Something from the past that you remember',ex:'"This photo is a beautiful memory from my vacation."'},
+  {w:'pet',def:'An animal you have at home — a dog, cat, or other animal',ex:'"Many people have a photo of their pet on their phone."'},
+  {w:'vacation',def:'A trip or time away from work to relax and enjoy',ex:'"My best wallpaper was from my vacation in Cancún."'},
+  {w:'selfie',def:'A photo you take of yourself — usually with your phone',ex:'"I took a selfie at the concert. It was a great night."'},
+  {w:'background',def:'The image that appears behind everything on your phone screen',ex:'"I want to change my background to something more relaxing."'},
+  {w:'lock screen',def:'The first screen you see when you turn on your phone',ex:'"My lock screen is different from my home screen."'},
+  {w:'moment',def:'A specific time — something that happened that you want to remember',ex:'"That photo captured a perfect moment at my wedding."'},
+];
+const verbs=[
+  {w:'choose',def:'To select something from different options',ex:'"I chose this photo because it makes me happy every day."'},
+  {w:'change',def:'To make something different',ex:'"I change my wallpaper every 3 months. I like variety."'},
+  {w:'take',def:'To capture a photo with your camera',ex:'"My son took this photo of me. He is good with the camera."'},
+  {w:'save',def:'To store something on your phone or computer',ex:'"I saved 500 photos from my trip. I need to delete some."'},
+  {w:'delete',def:'To remove something permanently',ex:'"I deleted my ex\'s photos. It was the right decision."'},
+  {w:'remember',def:'To think about something from the past',ex:'"When I look at this photo, I remember my grandmother."'},
+  {w:'miss',def:'To feel sad because something or someone is not with you',ex:'"I miss my dog. His photo is still my wallpaper."'},
+  {w:'smile',def:'To show happiness with your mouth',ex:'"This photo makes me smile every time I see it."'},
+  {w:'send',def:'To give something — a photo or message — to another person',ex:'"My friend sent me this beautiful photo. I used it as my wallpaper."'},
+  {w:'upload',def:'To put a photo or file onto a phone, computer or website',ex:'"I uploaded the photo to Instagram and then used it as my wallpaper."'},
+];
+const phrases=[
+  {p:'Oh my God, look at this photo',ctx:'Said when you see a photo that surprises or impresses you'},
+  {p:'Lucky you',ctx:'Said when someone has something nice — like a beautiful photo or a good memory'},
+  {p:'That is so cute',ctx:'Said about a photo of a child, pet, or sweet moment'},
+  {p:'No way, that is beautiful',ctx:'Said when a photo is very impressive or surprising'},
+  {p:'I love this photo',ctx:'Simple and common — said when a photo makes you happy'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

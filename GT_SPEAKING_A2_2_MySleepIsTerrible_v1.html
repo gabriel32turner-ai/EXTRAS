@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.2 · My Sleep Is Terrible</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--green:#00E676;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.08)}
+.mode-btn{background:#F97316;border:1px solid #F97316;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-arrow{transition:transform .2s}.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(249,115,22,.1)}
+.tn-c1{border-left:3px solid rgba(249,115,22,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(249,115,22,.08) 0%,rgba(249,115,22,.03) 100%);border:1px solid rgba(249,115,22,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(249,115,22,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(249,115,22,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(249,115,22,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(249,115,22,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(249,115,22,.3)}
+.vc.noun-c{border-top:2px solid rgba(249,115,22,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(249,115,22,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(251,146,60,.85);font-style:italic;border-left:2px solid rgba(249,115,22,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(249,115,22,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(249,115,22,.25);color:#fff;font-weight:800}
+.vocab-challenge{background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(249,115,22,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(249,115,22,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(249,115,22,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(249,115,22,.65);background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(249,115,22,.3)}
+.q-tn strong{color:rgba(249,115,22,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(249,115,22,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(249,115,22,.1) 0%,rgba(249,115,22,.04) 50%,transparent 100%);border:1px solid rgba(249,115,22,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1400&q=80" alt="Bad sleep">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Health &amp; Wellness</div>
+    <div class="hero-title">MY SLEEP<br><em>IS TERRIBLE</em></div>
+    <div class="hero-sub">You wake up. You are tired. You go to bed late. You wake up early. Every day, the same.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 How Mexico Sleeps</div><div class="sec-sub">Read aloud · First reaction · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">😴</div>
+    <div class="hsc-label">IMSS Sleep Health Report + Philips Sleep Survey México 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">6 hrs</div><div class="hsc-desc">The average sleep time for an adult Mexican worker — doctors recommend 7 to 9 hours</div></div>
+      <div class="hsc-stat"><div class="hsc-num">63%</div><div class="hsc-desc">Of Mexican adults say they feel tired when they wake up in the morning — every single day</div></div>
+      <div class="hsc-stat"><div class="hsc-num">1 in 3</div><div class="hsc-desc">Mexicans look at their phone in bed for more than 30 minutes before they sleep</div></div>
+      <div class="hsc-stat"><div class="hsc-num">12am</div><div class="hsc-desc">The average time Mexicans go to bed — much later than recommended for a healthy sleep routine</div></div>
+    </div>
+    <div class="hsc-source">Sources: IMSS Reporte de Salud del Sueño 2023 · Philips Global Sleep Survey · UNAM Estudio de Hábitos de Sueño</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read and point at someone</div>
+    <div class="hq-text">"What time did you go to bed last night? And what time did you wake up? Are you tired right now?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Very simple. Three short questions — time, wake up, tired now. Point at one student. Accept one-word or one-sentence answers. 2–3 students. Then: "OK. Let's talk about sleep."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Sleep is deeply universal — every student has a sleep experience, good or bad. Most will have a bad one. The topic activates immediately.</li>
+        <li>The 63% stat is the most relatable — point at the room: "63% of Mexicans wake up tired. Who here is in that 63%? Raise your hand."</li>
+        <li>Accept any answer for the opening question — "I went to bed at 11" or just "late" are both fine at A2.2.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"We sleep only 6 hours on average. That's not enough. Does that sound like you?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Next lab is coffee and tea — another daily habit, same personal level."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs — Simple Practice</div><div class="sbo-sub">Person A reads the definition. Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Sleep &amp; Rest</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What Sleepy People Do</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>your sleep last night or this week.</em> Short and honest. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Alarm" — very high frequency at A2.2. Most students know it. Confirm: "The thing that wakes you up — alarm clock or phone alarm. Same word."</li>
+        <li>"Nightmare" — students often know this word from movies. It's a fun one to demonstrate with a face.</li>
+        <li>Best trigger: <strong>"Three words that describe YOUR sleep. Be honest. Go."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"Every word here is something that happens in your bedroom every night. In English now."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"If you ever go to a doctor in English, or talk about your health — these words are essential."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. 4 Ways to Sleep.</div><div class="sec-sub">Read each card · Pairs 60 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4</div><div class="sbo-sub">"Who do you agree with? Why?"</div></div><div class="sbo-badge">Keep it simple</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with? Why? Say 2 or 3 sentences."</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Andrés</strong> — his "I sleep 5 hours and I feel fine" position is warmly challenging. Students who are always tired will react. Even: "No! I need 8 hours!" is a great A2.2 output.</li>
+        <li>At A2.2, "I agree with Valeria because I also look at my phone before bed" is a complete, excellent answer.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>After reading all 4: point at students: <strong>"You — are you more like Andrés or more like Carmen? Be honest."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"Which person sleeps most like you? Tell me in one sentence."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Past habits · Short answers OK · Keep moving</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>A2.2 Rule:</strong> Short answers are OK. 1 or 2 sentences is great. Don't wait for perfect English — just talk.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 past simple — sleep questions produce very short, specific answers. "I went to bed at midnight" is perfect. Don't push for more unless they have a story.</li>
+        <li>Block 3 "going to" — sleep plans are easy: "I am going to sleep earlier" or "I am going to put my phone away." Both are excellent A2.2 future plans.</li>
+        <li>Block 4 "used to" — childhood sleep is a great topic: "I used to sleep at 8pm when I was a child." Very accessible memory.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Q5 is the most immediately funny: "Is a nap good or bad?" Every Mexican adult has a nap opinion. Let the energy be playful.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You talked about sleep, health, and habits — in English. That's real conversation."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. Your Answer.</div><div class="sec-sub">5 min · No chips · Answer in 2–3 sentences · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">Are you going to change <em>one thing</em> about your sleep this week? <em>What is it?</em></div>
+    <div class="exit-rule">Answer in 2 or 3 sentences. Use "I am going to..." Be specific — one real change, not a general idea.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 A2.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I am going to put my phone in another room before bed. I think that is my biggest problem. I look at it for one hour and then I can't sleep. This week I am going to try."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"One specific change" forces A2.2 students to go beyond "I am going to sleep better." Push: "OK — but HOW? What exactly are you going to change?"</li>
+        <li>If a student says nothing: give them a chip — "Put the phone away? Sleep earlier? No coffee at night? Pick one."</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer names a specific habit (phone in another room) and a reason. Point out: <strong>"One specific thing. That's the difference between a plan and a wish."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"Record tonight. Tell me your sleep plan in English. 60 seconds. Go."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · My Sleep Is Terrible · Health &amp; Wellness · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv on">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"sleep",    def:"The rest your body needs every night to feel good",                  ex:"My sleep is terrible. I wake up tired every day."},
+  {w:"bed",      def:"The furniture you sleep on at night",                                 ex:"I go to bed very late. Usually after midnight."},
+  {w:"alarm",    def:"The sound that wakes you up in the morning",                         ex:"My alarm is at 6am. I hate the sound."},
+  {w:"nap",      def:"A short sleep during the day — not at night",                        ex:"I take a nap after lunch sometimes. It helps a lot."},
+  {w:"dream",    def:"The images and stories your brain creates while you sleep",           ex:"I had a strange dream last night. I don't remember it now."},
+  {w:"nightmare",def:"A bad or scary dream that wakes you up",                             ex:"I had a nightmare last week. I couldn't sleep after that."},
+  {w:"pillow",   def:"The soft object you put under your head when you sleep",             ex:"I sleep with two pillows. I can't sleep with just one."},
+  {w:"snore",    def:"The loud noise some people make when they breathe during sleep",     ex:"My husband snores. It wakes me up every night."},
+  {w:"routine",  def:"The same actions you do every day at the same time",                 ex:"My sleep routine is bad. I go to bed at different times every day."},
+  {w:"energy",   def:"The feeling of being active and ready to do things",                 ex:"I have no energy in the morning. I need coffee immediately."}
+];
+const verbs=[
+  {w:"sleep",    def:"To rest your body and mind — usually at night in your bed",          ex:"I sleep about 5 hours a night. It's not enough."},
+  {w:"wake up",  def:"To stop sleeping and open your eyes",                                ex:"I wake up at 6am but I don't get up until 6:30."},
+  {w:"fall asleep",def:"To start sleeping — to go from awake to asleep",                  ex:"I can't fall asleep before midnight. My brain is still active."},
+  {w:"stay awake",def:"To not sleep — to remain awake when you want to sleep",            ex:"I stayed awake until 2am looking at my phone."},
+  {w:"dream",    def:"To have images and stories in your mind while you sleep",            ex:"I dreamed about work last night. Even in sleep I can't escape."},
+  {w:"snore",    def:"To make a loud breathing noise while sleeping",                      ex:"My partner says I snore. I don't believe him."},
+  {w:"rest",     def:"To stop working and relax — to let your body recover",              ex:"I need to rest more. My body is always tired."},
+  {w:"yawn",     def:"To open your mouth wide because you are tired or bored",            ex:"I yawned five times during the meeting this morning."},
+  {w:"toss",     def:"To move a lot in bed when you can't sleep",                          ex:"I toss and turn for an hour before I finally fall asleep."},
+  {w:"oversleep",def:"To sleep more than you planned — to not wake up on time",           ex:"I overslept on Monday. I was 30 minutes late to work."}
+];
+const perspectives=[
+  {
+    name:"Carmen Ríos",meta:"42 · Teacher · Querétaro",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"My sleep is <strong>terrible.</strong> I go to bed at midnight. I wake up at 5:30. I am always tired. I know I need to sleep more but I can't. There is always something to do."
+  },
+  {
+    name:"Andrés Vargas",meta:"38 · Salesman · Monterrey — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I sleep <strong>5 hours</strong> and I feel fine. Some people need 8 hours. I don't. I have a lot of energy. I think it's different for every person. Sleep is not my problem."
+  },
+  {
+    name:"Valeria Cruz",meta:"29 · Nurse · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I look at my phone in bed for <strong>one hour</strong> before I sleep. I know it's bad. I try to stop but I can't. My sleep is not good because of that. It's my biggest problem."
+  },
+  {
+    name:"Ricardo López",meta:"55 · Retired · Celaya",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I sleep <strong>8 hours every night.</strong> I go to bed at 10pm and wake up at 6am. No phone, no TV. Just sleep. When I was young I didn't sleep well. Now I protect my sleep."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Past Simple — Last Night & Before",mech:"Past simple · Short answers · 2 min per Q",questions:[
+    {num:"Q1",text:"What time did you go to bed last night? And what time did you wake up?",chips:["I went to bed at...","I woke up at...","I slept about... hours.","I was tired this morning because..."],tn:"Very direct, very A2.2. Accept any time expression. If a student says 'I don't remember' — 'OK, what about a normal night? What time do you usually go to bed?'"},
+    {num:"Q2",text:"When was the last time you had a really good night of sleep? What happened?",chips:["The last time was...","I slept well when I was on vacation...","I remember one night I slept...","It was a weekend and..."],tn:"This is a positive memory question — a welcome contrast. Many students will say 'on vacation' or 'when I was sick.' Both are valid and interesting."},
+    {num:"Q3",text:"Did you ever fall asleep somewhere strange — at work, on the bus, or in a meeting?",chips:["Yes! I fell asleep at...","One time I was in a meeting and...","I always sleep on the bus because...","I never fall asleep in public because..."],tn:"This is the fun question — laughter is guaranteed when someone admits falling asleep at work. Let the story come out. Use follow-ups: 'Did anyone see you?'"}
+  ]},
+  {num:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present opinions · 2 min per Q",questions:[
+    {num:"Q4",text:"How many hours of sleep do you think a person needs every night?",chips:["I think... hours is enough because...","For me, I need... hours to feel...","Doctors say 8 hours but I think...","It depends on the person because..."],tn:"Simple opinion question. Accept any number. The interesting part is the 'because' — push for a reason, even a simple one."},
+    {num:"Q5",text:"Is a nap during the day good or bad? Do you like naps?",chips:["I think naps are good because...","I don't like naps because after I feel...","I love a short nap after lunch. I feel...","In some countries naps are normal but here..."],tn:"The most fun question of Block 2. Every Mexican adult has a nap opinion. Let the energy be playful — 'I love naps!' vs 'I can't nap, I feel sick after.'"},
+    {num:"Q6",text:"Do you think your phone is bad for your sleep?",chips:["Yes, I think my phone is bad because...","I look at my phone and then I can't...","I try not to use my phone at night but...","I don't think it's the phone. My problem is..."],tn:"Valeria's opinion from §3 is relevant here. Most students will say yes. Push: 'So what are you going to do about it?' — naturally leads into Block 3."}
+  ]},
+  {num:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · Simple plans · 2 min per Q",questions:[
+    {num:"Q7",text:"Are you going to try to sleep better this week? What is your plan?",chips:["I am going to go to bed earlier...","I am going to put my phone away at...","I will try to sleep more on the weekend...","I don't have a plan right now but I want to..."],tn:"'Going to' is the target. Push for a specific plan — not just 'I am going to sleep more' but HOW: 'I am going to go to bed at 10pm on Monday.' The specificity is the grammar practice."},
+    {num:"Q8",text:"Are you going to take a nap today or this weekend?",chips:["Yes! I am going to take a nap after...","No, I can't sleep during the day because...","I want to but I don't have time...","On Saturday I always try to..."],tn:"Simple, fun, immediate future plan. Accept 'I want to' as equivalent to 'going to' at A2.2."}
+  ]},
+  {num:"BLOCK 4",name:"Past Habits — Used To",mech:"Used to · Model first · 2 min per Q",questions:[
+    {num:"Q9",text:"When you were a child, what time did you use to go to bed?",chips:["I used to go to bed at...","My parents used to say 'sleep now' at...","I used to sleep very early because...","I didn't use to sleep well even as a child..."],tn:"Model first: 'When I was 8, I USED TO go to bed at 8pm. My mom said 'lights off.' Then ask. Childhood bedtime is a very concrete memory — easy to access."},
+    {num:"Q10",text:"Did you use to sleep better before — maybe 5 or 10 years ago?",chips:["Yes, I used to sleep much better when...","I used to go to bed early but now...","My sleep was better before I had kids/this job...","I don't think my sleep was ever good..."],tn:"Closing reflection — before/now contrast. This naturally produces 'used to' and simple past. Accept: 'I used to sleep 8 hours. Now I sleep 5.' That is perfect A2.2 output."}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

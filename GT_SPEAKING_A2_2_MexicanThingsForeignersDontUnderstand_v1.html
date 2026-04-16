@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Mexican Things Foreigners Don't Understand · A2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#F97316;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(249,115,22,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(249,115,22,.5);color:var(--ac)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(249,115,22,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(249,115,22,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13.5px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(249,115,22,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(249,115,22,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.2</span>
+      <span class="hero-tag">Social Issues & Society</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Mexican Things Foreigners Don't Understand</div>
+    <div class="hero-sub">The food, the family, the time, the noise, the warmth — some things about Mexico are hard to explain, but very easy to love. Tell a foreigner about your world.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One funny situation to start. Everyone has a story like this.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Reddit · r/mexico · Most Upvoted Post 2023</div>
+      <div class="trigger-quote">"My American friend visited Mexico for the first time. I said dinner is at 3pm. He arrived at exactly 3pm. He was the only person there for 45 minutes. He didn't understand why everyone laughed."</div>
+      <div class="trigger-script">People from other countries often have a different idea of Mexico before they visit. They learn about it in movies, on TV, or online — and sometimes the real Mexico is very different from what they expected. Mexican culture has many things that are normal here but surprising, confusing, or strange for foreigners.</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the story about the American friend. Let them laugh. Then ask: <em>"Did you ever see a foreigner confused by something very normal in Mexico? What happened?"</em> If they don't have a story yet, try: <em>"What is one thing about Mexico that you would need to explain to a foreigner?"</em> The first answers are usually food, time, or family size. Perfect for the session.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Words about culture, food, and daily life in Mexico.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('tradition')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">tradition</div>
+        <div class="vc-def">Something a family or community does every year or every generation</div>
+      </div>
+      <div class="vocab-card" onclick="speak('spicy')">
+        <div class="vc-type">Noun / Adj</div>
+        <div class="vc-word">spicy</div>
+        <div class="vc-def">Food with a lot of chili — very normal in Mexico, very surprising for foreigners</div>
+      </div>
+      <div class="vocab-card" onclick="speak('noise')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">noise</div>
+        <div class="vc-def">Loud sounds — Mexican family gatherings are often very loud and joyful</div>
+      </div>
+      <div class="vocab-card" onclick="speak('family')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">family</div>
+        <div class="vc-def">In Mexico, family usually means a big group — grandparents, aunts, uncles, cousins</div>
+      </div>
+      <div class="vocab-card" onclick="speak('hug')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">hug</div>
+        <div class="vc-def">When you put your arms around someone — Mexicans greet with hugs and kisses</div>
+      </div>
+      <div class="vocab-card" onclick="speak('market')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">market</div>
+        <div class="vc-def">A place where people sell food and products — el mercado is very important in Mexico</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fiesta')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">fiesta</div>
+        <div class="vc-def">A party — in Mexico it usually involves music, food, and many people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('traffic')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">traffic</div>
+        <div class="vc-def">Many cars on the road — foreigners are often surprised by Mexican city traffic</div>
+      </div>
+      <div class="vocab-card" onclick="speak('weather')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">weather</div>
+        <div class="vc-def">The temperature and conditions outside — Mexico has many different climates</div>
+      </div>
+      <div class="vocab-card" onclick="speak('dinner')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">dinner</div>
+        <div class="vc-def">The big meal — in Mexico, Sunday lunch can be 3pm and last 4 hours</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('greet')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">greet</div>
+        <div class="vc-def">To say hello to someone — in Mexico, you greet everyone with a kiss on the cheek</div>
+      </div>
+      <div class="vocab-card" onclick="speak('arrive late')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">arrive late</div>
+        <div class="vc-def">To come after the planned time — "Mexican time" is a real thing foreigners notice</div>
+      </div>
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">share</div>
+        <div class="vc-def">To give part of your food or space to other people — very common in Mexican culture</div>
+      </div>
+      <div class="vocab-card" onclick="speak('celebrate')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">celebrate</div>
+        <div class="vc-def">To do something special for a birthday, holiday, or important event</div>
+      </div>
+      <div class="vocab-card" onclick="speak('explain')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">explain</div>
+        <div class="vc-def">To help someone understand something — what you do with foreigners and Mexican culture</div>
+      </div>
+      <div class="vocab-card" onclick="speak('eat')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">eat</div>
+        <div class="vc-def">Mexicans eat a lot, often, with family — this surprises many foreigners</div>
+      </div>
+      <div class="vocab-card" onclick="speak('miss')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">miss</div>
+        <div class="vc-def">To feel sad about something not there — "I miss Mexican food" is very common abroad</div>
+      </div>
+      <div class="vocab-card" onclick="speak('visit')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">visit</div>
+        <div class="vc-def">To go to a place or person — family visits in Mexico are frequent and long</div>
+      </div>
+      <div class="vocab-card" onclick="speak('surprise')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">surprise</div>
+        <div class="vc-def">To make someone feel unexpected — many things in Mexico surprise foreigners</div>
+      </div>
+      <div class="vocab-card" onclick="speak('laugh')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">laugh</div>
+        <div class="vc-def">To make the happy sound when something is funny — Mexicans love to laugh together</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('That is completely normal here')">
+        <div class="pi-phrase">"That's completely normal here."</div>
+        <div class="pi-context">What you say when a foreigner looks confused by something that is completely standard for you.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Lucky you, you have Mexican food now')">
+        <div class="pi-phrase">"Lucky you — you have Mexican food now!"</div>
+        <div class="pi-context">Said when a foreigner tries real Mexican food for the first time — not the Taco Bell version.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Oh my God, you have never had a tamale')">
+        <div class="pi-phrase">"Oh my God, you have never had a tamale?!"</div>
+        <div class="pi-context">The reaction when a foreigner tells you they don't know what something very basic in Mexican culture is.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Tell me about it, foreigners always arrive on time')">
+        <div class="pi-phrase">"Tell me about it — foreigners always arrive on time."</div>
+        <div class="pi-context">Said about the classic difference between Mexican time and foreigner time at parties and dinners.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way, in my country we do not do that')">
+        <div class="pi-phrase">"No way — in my country we don't do that!"</div>
+        <div class="pi-context">What a foreigner says when they see something Mexican for the first time — like greeting strangers with a kiss.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people talking about Mexico — some Mexican, some not. Which one do you agree with?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🇲🇽</div>
+          <div>
+            <div class="op-name">Lucía, 35</div>
+            <div class="op-role">Office Manager · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "The thing foreigners never understand is the food. <strong>Mexican food is not Tex-Mex.</strong> When I tell them about mole, pozole, or chiles en nogada, they look at me like I'm from another planet. It makes me proud."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🇺🇸</div>
+          <div>
+            <div class="op-name">Brian, 28</div>
+            <div class="op-role">English Teacher · CDMX (from the US)</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "The family thing surprised me the most. At every party, there are 50 people I don't know. <strong>Everyone is family.</strong> In the US it's just mom, dad, and two kids. Here there is no end to the family. It's amazing."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😊</div>
+          <div>
+            <div class="op-name">Diego, 42</div>
+            <div class="op-role">Tour Guide · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Tourists ask me: 'Is Mexico dangerous?' I always say: <strong>'Come and see for yourself.'</strong> The image in movies is not real. My city is beautiful and safe. I want more people to know the real Mexico."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤔</div>
+          <div>
+            <div class="op-name">Andrea, 31</div>
+            <div class="op-role">Accountant · León</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I think some things in Mexico are also strange for me — like arriving two hours late to everything. <strong>We think it's normal, but maybe it's not a good thing.</strong> Foreigners are surprised, but maybe they are right to be surprised."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which person do you agree with the most? Which one says something that surprised you?" Andrea is the soft provocateur — she looks at Mexican culture from the outside, questioning something everyone accepts as normal. At A2.2, this works perfectly: it's a simple observation, not a complex argument.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Describe your Mexico in simple English. No complicated analysis.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">Did you ever meet a foreigner who didn't understand something about Mexico? What happened?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple storytelling. Common answers: a foreigner who arrived on time, who was surprised by spicy food, who didn't know how to greet with a kiss. "I met a foreigner and he/she didn't know how to..." Keep it fun and light.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Did you ever go to another country — or see something on TV — and think: "That is very different from Mexico"?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple comparison. Many students haven't traveled, but they watch shows and movies. "I saw a show about _____ and it was very different." "In that country, they eat dinner at 6pm. That's strange for me." All observations are valid.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">What did you eat last Sunday with your family? Describe it.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple + description. This is a warm, personal question that always produces rich answers. Sunday family meal is a very Mexican ritual — pozole, carne asada, tamales, etc. Help with vocabulary if needed. The key: describe the food and who was there.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">What is the best thing about Mexican culture? How do you explain it to a foreigner in simple English?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Opinion + description. "I think the best thing is the food / the family / the fiestas." Help them describe it: "In Mexico, we always eat together." "We celebrate everything — birthdays, Day of the Dead, Christmas, everything." Simple sentences are perfect.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is "Mexican time" — arriving late to everything — a problem or just a cultural difference? What do you think?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Andrea's provocateur question made simple. "I think it's normal here, but maybe not in other countries." "For me it's fine, but for work it's a problem." Accept short opinions. This is a gentle cultural self-reflection — not a criticism.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think the image of Mexico in American movies is correct? What is different in real life?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present opinion. Most students know the Hollywood stereotype: drugs, poverty, sombreros. "In movies Mexico is always dangerous. In real life, my city is safe and beautiful." "They don't show the food, the family, the culture." Keep it descriptive and proud, not political.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">If a foreign friend is going to visit your city next month, what are you going to show them first?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Going to — fun and personal. "I'm going to take them to ______." "First, I'm going to show them the market / the food / the cathedral." Ask follow-up: "What food are you going to give them first?" Almost always: tacos.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will foreigners understand Mexico better in the future — with social media and travel? Or will they always have the wrong idea?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will for prediction. "I think they will understand more because of social media." "Maybe they will still have the wrong idea from movies." Simple will + reason. No deep analysis needed — a feeling and a reason is enough.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Past Habits + Reflection (Used to)</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Did you use to do something as a child that is very Mexican — a tradition, a food, or a celebration?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Used to for childhood memories — very rich at A2.2. "I used to go to my grandmother's house every Sunday for caldo." "We used to make tamales every December 24th." These memories are warm and specific. Help them describe with: "In my family, we used to..."
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10 · Self-Reflection</div>
+        <div class="q-text">What is one thing about Mexico that you love — something you would miss if you lived in another country?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present + emotional response. "I would miss the food — especially my mom's cooking." "I would miss Sunday with my family." "I would miss the warm weather." The word "miss" is the key structure here — introduce it if they don't use it naturally. This is a warm, affectionate closing question.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One question. Record your answer in English.</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · A2.2 Mexican Things Foreigners Don't Understand</div>
+      <div class="exit-question">A foreigner is going to visit your city for the first time next week. They are a little scared because they think Mexico is dangerous. What are you going to tell them — and what are you going to show them?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Tell me: what do you say to your foreign friend? What is the first place you go, and what is the first food you eat together?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      This exit shot activates cultural pride in a simple, personal way. The student is now the guide — and they use "going to" to plan a real experience. The fear detail is real (many foreigners do worry about safety) and lets the student correct a stereotype they actually care about. End: <em>"Send me the voice note. Be a good guide — describe everything in English."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · Mexican Things Foreigners Don't Understand · Social Issues & Society</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

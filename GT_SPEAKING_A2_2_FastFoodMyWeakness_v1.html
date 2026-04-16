@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab A2.2 · Fast Food: My Weakness</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.1)}
+.mode-btn{background:var(--ac);border:none;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 50%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.or{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(249,115,22,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);color:var(--ac2);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(249,115,22,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(249,115,22,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(249,115,22,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(249,115,22,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">A2.2 · Health & Wellness</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2</div><button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1400&q=80&fit=crop" alt="fast food burger tacos pizza junk food">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">FF</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Health & Wellness</div>
+    <div class="hero-title">Fast Food:<br><em>My Weakness</em></div>
+    <div class="hero-sub">You know it's not good for you. You eat it anyway. And it tastes amazing. Every single time.</div>
+    <div class="hero-chips"><span class="hchip or">A2.2</span><span class="hchip">Health & Wellness</span><span class="hchip">🟡 Medium</span><span class="hchip">50 min</span></div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🪝 Phase 1 — The Trigger</div><div class="sec-title">The Question</div><div class="sec-sub">Read it. Then ask the student directly.</div></div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A question to start</div>
+      <div class="trigger-quote">"What is your number one fast food weakness — the one thing you always want when you are tired or hungry?"</div>
+      <div class="trigger-sub">— Tacos, pizza, burgers, chips, ramen... everyone has one. What is yours?</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A simple fact</div>
+      <div class="trigger-quote">"In Mexico, people eat fast food an average of 3 times per week. Most people say they eat it because it is fast, cheap, and delicious — not because they don't know it's unhealthy."</div>
+      <div class="trigger-sub">— We know. We eat it anyway. And it's okay to talk about it.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body"><strong>Launch line:</strong> "I'm going to be honest — what was the last fast food you ate? Not yesterday's home-cooked meal. The last burger, taco, pizza, or chips." [Model yours first.] "Mine was... [yesterday/last week]. Today we talk about fast food — our favorite, our weakness, and our relationship with it. No judgment." At A2.2, food topics always generate immediate participation.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💉 Phase 2 — Vocab Injection</div><div class="sec-title">Power Words</div><div class="sec-sub">Click any card to hear it. Use these words today.</div></div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=1000&q=80&fit=crop" alt="fast food nouns tacos pizza">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Food & Eating</div><div class="sbo-sub">Click each card · Web Speech · A2.2 calibrated</div></div><div class="sbo-badge">Nouns</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('fast food')"><div class="v-word">fast food</div><div class="v-pos">noun</div><div class="v-def">Food that is prepared quickly — burgers, tacos, pizza, fries</div></div>
+      <div class="v-card" onclick="speak('craving')"><div class="v-word">craving</div><div class="v-pos">noun</div><div class="v-def">A strong feeling that you NEED to eat something specific</div></div>
+      <div class="v-card" onclick="speak('meal')"><div class="v-word">meal</div><div class="v-pos">noun</div><div class="v-def">A time you eat — breakfast, lunch, or dinner</div></div>
+      <div class="v-card" onclick="speak('delivery')"><div class="v-word">delivery</div><div class="v-pos">noun</div><div class="v-def">Food that comes to your house — you order and someone brings it</div></div>
+      <div class="v-card" onclick="speak('portion')"><div class="v-word">portion</div><div class="v-pos">noun</div><div class="v-def">The size of your food — fast food portions are usually very big</div></div>
+      <div class="v-card" onclick="speak('hunger')"><div class="v-word">hunger</div><div class="v-pos">noun</div><div class="v-def">The feeling when you need to eat — fast food is the easy answer for hunger</div></div>
+      <div class="v-card" onclick="speak('price')"><div class="v-word">price</div><div class="v-pos">noun</div><div class="v-def">How much something costs — fast food is usually cheap</div></div>
+      <div class="v-card" onclick="speak('ingredient')"><div class="v-word">ingredient</div><div class="v-pos">noun</div><div class="v-def">What food is made of — sometimes it's better not to read the ingredients in fast food</div></div>
+      <div class="v-card" onclick="speak('flavor')"><div class="v-word">flavor</div><div class="v-pos">noun</div><div class="v-def">The taste of food — fast food companies pay scientists to make the flavor perfect</div></div>
+      <div class="v-card" onclick="speak('diet')"><div class="v-word">diet</div><div class="v-pos">noun</div><div class="v-def">The food you eat regularly — or the plan you start every Monday</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&q=80&fit=crop" alt="food eating verbs">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Verbs — Eating & Choosing</div><div class="sbo-sub">Click to hear · Natural pace</div></div><div class="sbo-badge">Verbs</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('order')"><div class="v-word">order</div><div class="v-pos">verb</div><div class="v-def">To ask for food at a restaurant or by delivery — "I ordered pizza last night"</div></div>
+      <div class="v-card" onclick="speak('eat out')"><div class="v-word">eat out</div><div class="v-pos">verb</div><div class="v-def">To eat at a restaurant instead of at home — "I eat out every Friday"</div></div>
+      <div class="v-card" onclick="speak('cook')"><div class="v-word">cook</div><div class="v-pos">verb</div><div class="v-def">To prepare food at home — the healthy alternative to fast food</div></div>
+      <div class="v-card" onclick="speak('resist')"><div class="v-word">resist</div><div class="v-pos">verb</div><div class="v-def">To say no to something you want — very difficult with fast food</div></div>
+      <div class="v-card" onclick="speak('finish')"><div class="v-word">finish</div><div class="v-pos">verb</div><div class="v-def">To eat everything — "I always finish my food. Always."</div></div>
+      <div class="v-card" onclick="speak('share')"><div class="v-word">share</div><div class="v-pos">verb</div><div class="v-def">To eat with other people — "We shared a pizza at the office"</div></div>
+      <div class="v-card" onclick="speak('skip')"><div class="v-word">skip</div><div class="v-pos">verb</div><div class="v-def">To not eat — "I skip lunch and then I eat too much at dinner"</div></div>
+      <div class="v-card" onclick="speak('try')"><div class="v-word">try</div><div class="v-pos">verb</div><div class="v-def">To eat something new — "I tried a new taco place last week"</div></div>
+      <div class="v-card" onclick="speak('feel bad')"><div class="v-word">feel bad</div><div class="v-pos">verb</div><div class="v-def">The feeling after eating too much fast food — the guilt</div></div>
+      <div class="v-card" onclick="speak('prefer')"><div class="v-word">prefer</div><div class="v-pos">verb</div><div class="v-def">To like one thing more than another — "I prefer tacos to burgers"</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases food">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Food Talk</div><div class="sbo-sub">Simple phrases · Click to hear · Use today</div></div><div class="sbo-badge">Colloquial</div></div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m so hungry')"><div class="p-text">"I'm so hungry."</div><div class="p-context">The feeling that makes you order fast food instead of cooking</div></div>
+      <div class="phrase-item" onclick="speak('Oh my God, this is so good!')"><div class="p-text">"Oh my God, this is so good!"</div><div class="p-context">The reaction to a really delicious taco or burger — involuntary and universal</div></div>
+      <div class="phrase-item" onclick="speak('Just one more')"><div class="p-text">"Just one more."</div><div class="p-context">Said before the fifth chip, the second taco, or the extra slice of pizza</div></div>
+      <div class="phrase-item" onclick="speak('Forget about it!')"><div class="p-text">"Forget about it!"</div><div class="p-context">When the diet is impossible — "I tried to eat healthy but my coworkers ordered pizza. Forget about it!"</div></div>
+      <div class="phrase-item" onclick="speak('Same here!')"><div class="p-text">"Same here!"</div><div class="p-context">When someone describes your own relationship with food — "I can't say no to tacos!" / "Same here!"</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">After vocab, ask: "Which verb describes your food life best — order, cook, or eat out?" Most students pick "order" and laugh. Then: "And which colloquial phrase is most true for you?" This bridges perfectly to the Opinion Wall. Keep the energy fun and non-judgmental — food is one of the warmest topics at A2.2.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div><div class="sec-title">Four People. One Topic.</div><div class="sec-sub">Read all four. Who are you most like? Tell me in 2-3 sentences.</div></div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">🌮</div>
+        <div class="op-name">Mateo, 35</div>
+        <div class="op-role">Driver · Celaya</div>
+        <div class="op-text">"I eat tacos for lunch every day. <strong>Every day.</strong> They are cheap, fast, and delicious. I know it's not the healthiest thing. But it makes me happy. I don't want to change."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🥗</div>
+        <div class="op-name">Patricia, 42</div>
+        <div class="op-role">Teacher · CDMX</div>
+        <div class="op-text">"I eat healthy Monday to Friday. <strong>But Saturday is my day.</strong> I order pizza or burgers. I eat everything. And I don't feel bad about it. Five days healthy, two days free — it works for me."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">😅</div>
+        <div class="op-name">Carolina, 29</div>
+        <div class="op-role">Secretary · Monterrey</div>
+        <div class="op-text">"My weakness is chips. I buy one bag and I eat everything. <strong>Every time.</strong> I try to buy small bags. But I always buy another. It's a problem. A delicious problem."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Honest take</div>
+        <div class="op-avatar">🙅</div>
+        <div class="op-name">Sofía, 38</div>
+        <div class="op-role">Nurse · Guadalajara</div>
+        <div class="op-text">"I work in a hospital. I see what bad food does to people. <strong>I don't eat fast food.</strong> I cook every day. I know it takes more time. But it's important. Your body remembers everything you eat."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body"><strong>Provocateur note:</strong> Sofía is the healthy person — not aggressive, just honest. Her perspective is credible because of her job, not because she lectures. Ask: "Do you agree with Sofía? Or do you think life is too short to never eat fast food?" This generates a fun debate at A2.2 level with simple vocabulary. Carolina's "delicious problem" phrase always gets a laugh and immediate recognition.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div><div class="sec-title">10 Questions · 4 Blocks</div><div class="sec-sub">Short questions. Honest and fun answers. Use simple sentences.</div></div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What was the last fast food you ate? Describe it — what was it, where was it from, and was it good?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — recent food story. This always generates immediate, enthusiastic answers. Model: "Yesterday I ate tacos from the corner restaurant near my office. I ate three. They were amazing. Too many — but amazing." Simple sentences, descriptive past simple. Activate "Oh my God, this is so good!" naturally.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">When was the last time you cooked at home instead of ordering food? What did you cook?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — contrasting experience. The pause before answering is funny and honest. Model: "Last Sunday. I cooked rice and chicken. It was okay. Not as good as tacos. But I cooked it." Or: "Two weeks ago. I'm not a good cook." Both answers are perfectly A2.2.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you ever eat too much fast food in one day and feel bad after? What happened?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — the "too much" story. Everyone has one. Model: "Yes! Last year at a birthday party. I ate pizza, then cake, then chips, then more pizza. At night I felt terrible. But the pizza was really good." Activate "Forget about it!" and "Just one more" naturally.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion (Simple Present)</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think fast food is a big problem — or is it okay if you eat it in moderation?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple opinion — Patricia's "5 days healthy" approach vs. Sofía's "never." Most A2.2 students say "in moderation." Model: "I think it's okay. If you don't eat it every day, it's fine. Life is short. Enjoy your food." Or: "I think it's a problem. I eat it too much. I want to eat less." Both are valid and grammatically appropriate.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">What do you think is better — cooking at home or ordering food? Why?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple comparison opinion. Target structure: "I think... is better because..." Model: "I think cooking at home is better. It's healthier and cheaper. But ordering is easier and I don't cook very well." Or: "I think ordering is better. I am very busy. I don't have time to cook." Both answers are honest and natural.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Is it important for children to eat healthy food? Or are kids okay to eat fast food sometimes?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Simple opinion about children and food. Very relatable for parents. Model: "I think it's important for children to eat healthy food. But sometimes fast food is okay. Life is not perfect." Or: "I have two kids. They love burgers. I try to cook, but sometimes we order pizza. It's fine." Natural and personal.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Are you going to change what you eat this year? What are you going to eat more of — or less of?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Going to — future food plan. The honest answer is often funny. Model: "I'm going to eat less fast food. I'm going to cook more at home. I'm going to start on Monday." Or: "I'm not going to change. I'm happy with my food. Maybe I'm going to eat a little more vegetables. Maybe." Both are excellent A2.2 production.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will you eat your favorite fast food this week? When and where?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Will — near-future prediction, very personal. Model: "Yes, I will eat tacos on Friday. I always eat tacos on Friday. It's my tradition." Or: "Probably yes. I will order pizza on the weekend. I always do." This question produces the most natural "will" production at A2.2 because it's genuinely true for most students.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Past Habits + Reflection (Used to)</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Did you use to eat different food when you were a child? What did you love to eat?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Used to — childhood food memories. Very warm and personal. Model: "When I was a child, I used to eat my grandmother's tamales every Sunday. They were the best food in the world. Now I eat them only at Christmas. I miss them." Or: "I used to eat a lot of fruit. Now I don't. I eat more chips." Nostalgic and fun.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Did you use to eat more fast food before — or do you eat more now than when you were younger?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Used to + comparison with present. Light closing question. Model: "I used to eat less fast food when I was young. My mother cooked every day. Now I live alone and I order food a lot. My mother was a better cook than me." Or: "I used to eat more! When I was a student I ate fast food every day. Now I'm older and I try to eat better." Both directions are interesting.</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body"><strong>A2.2 grammar targets:</strong> Past simple (Q1-3), simple present opinions (Q4-6), going to / will (Q7-8), used to (Q9-10). <br><br><strong>Energy note:</strong> This is the highest-energy topic in the A2.2 Health lineup. Food is universally engaging, nobody feels judged, and everyone has stories. Q8 often produces the most natural "will" of the session because the answer is simply and honestly true. Celebrate every complete sentence with warmth.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💣 Phase 5 — The Exit Shot</div><div class="sec-title">The Final Question</div><div class="sec-sub">One question. Simple and delicious. Answer in 2-3 sentences.</div></div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">If you are going to eat your favorite food tonight — no rules, no diet, no guilt — what are you going to order or cook? Describe it. Make me hungry.</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me about your relationship with food. What is your favorite food? What is your weakness — the food you can't resist? And are you going to eat healthy or delicious this week?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body"><strong>Why it works:</strong> "Going to order / going to cook" is the target grammar embedded in the most enjoyable possible context. "Make me hungry" is a playful instruction that encourages descriptive language without explicitly demanding it. Students leave class thinking about food — and usually text or tell someone what they decided to eat. The conversation continues after class. <br><br><strong>Homework note:</strong> Three personal questions that activate simple present + going to in a completely non-academic, fun context. Very high completion rate expected — this homework feels like fun, not work. <br><br><strong>Upsell moment:</strong> "Next session we're going to talk about something completely different — a health topic but much more serious. Or maybe something from your personal life. You choose."</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">A2.2 · Health & Wellness · Fast Food: My Weakness · Medium</div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const d=document.documentElement;document.getElementById('prog').style.width=((d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100)+'%'});
+function toggleMode(btn){const s=document.body.classList.toggle('student-mode');btn.textContent=s?'Student Mode':'Teacher Mode'}
+function toggleTN(btn){const b=btn.nextElementSibling,o=b.classList.toggle('open');btn.querySelector('span').textContent=o?'−':'+'}
+function toggleTip(btn){const t=btn.nextElementSibling;t.classList.toggle('open');btn.textContent=t.classList.contains('open')?'Hide tip':'Show tip'}
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.88;u.pitch=1;window.speechSynthesis.speak(u)}
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})},{passive:true});
+</script>
+</body>
+</html>

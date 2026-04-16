@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.2 · Cash or Card?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#F97316;--ac2:#FB923C;--green:#00E676;--red:#FF1F5C;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(249,115,22,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(249,115,22,.08)}
+.mode-btn{background:#F97316;border:1px solid #F97316;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 50%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(249,115,22,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(249,115,22,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(249,115,22,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.3) saturate(.55);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(249,115,22,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(249,115,22,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(249,115,22,.1)}
+.tn-arrow{transition:transform .2s}.tn-toggle.open .tn-arrow{transform:rotate(180deg)}
+.tn-body{display:none}.tn-body.open{display:block}
+.tn-capa{padding:12px 16px;border-top:1px solid rgba(249,115,22,.1)}
+.tn-c1{border-left:3px solid rgba(249,115,22,.6)}.tn-c2{border-left:3px solid rgba(0,207,255,.5)}.tn-c3{border-left:3px solid rgba(255,184,0,.5)}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-c2 .tn-cl{color:var(--cyan)}.tn-c3 .tn-cl{color:var(--gold)}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}
+.tn-txt ul{padding-left:16px}.tn-txt li{margin-bottom:5px}.tn-txt strong{color:var(--txt)}
+.hook-stat-card{background:linear-gradient(135deg,rgba(249,115,22,.08) 0%,rgba(249,115,22,.03) 100%);border:1px solid rgba(249,115,22,.25);padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden}
+.hsc-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(249,115,22,.06);line-height:1;pointer-events:none;user-select:none}
+.hsc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(249,115,22,.6);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hsc-label::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.15)}
+.hsc-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(249,115,22,.1);margin-bottom:20px}
+.hsc-stat{background:var(--bg);padding:18px 20px}
+.hsc-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em}
+.hsc-desc{font-size:12px;color:var(--mt);line-height:1.5;margin-top:4px}
+.hsc-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px;border-top:1px solid rgba(249,115,22,.1);padding-top:8px}
+.hook-q-card{background:var(--s1);border:1px solid var(--bd);border-left:4px solid var(--ac);padding:22px 26px;margin-bottom:12px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.hq-text{font-size:20px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-mechanics{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-mechanics strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:13px 11px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(249,115,22,.3)}
+.vc.noun-c{border-top:2px solid rgba(249,115,22,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(249,115,22,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:2px}
+.vex{font-size:10px;color:rgba(251,146,60,.85);font-style:italic;border-left:2px solid rgba(249,115,22,.25);padding-left:6px;margin-top:3px;line-height:1.4}
+.vc.verb-c .vex{color:rgba(0,207,255,.75);border-left-color:rgba(0,207,255,.2)}
+.spk{margin-top:6px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);color:var(--ac2);padding:3px 8px;font-size:11px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(249,115,22,.15)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.challenge-btn{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.25);color:var(--ac);padding:7px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk{visibility:hidden}
+body.challenge-mode .challenge-btn{background:rgba(249,115,22,.25);color:#fff;font-weight:800}
+.vocab-challenge{background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.2);padding:14px 18px;margin-top:12px}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.vc-prompt{font-size:13px;color:var(--txt);line-height:1.6}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.persp-card{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.persp-card:hover{border-color:rgba(249,115,22,.25)}
+.pc-img-wrap{position:relative;height:120px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:10px 16px}
+.pc-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.55);margin-top:1px}
+.pc-flag{position:absolute;top:10px;right:10px;font-size:18px}
+.pc-body{padding:14px 16px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-4px;font-size:28px;color:rgba(249,115,22,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);padding:14px 18px;margin-top:12px}
+.pq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.pq-text{font-size:13.5px;color:#fff;font-weight:500;line-height:1.55}
+.conv-phase{margin-bottom:28px}
+.phase-hd{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.phase-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.28);color:var(--ac);padding:3px 10px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(249,115,22,.2)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(249,115,22,.12)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.6;margin-bottom:10px}
+.q-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .15s;touch-action:manipulation}
+.chip:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:var(--ac2)}
+.q-tn{margin-top:8px;font-size:12px;color:rgba(249,115,22,.65);background:rgba(249,115,22,.04);border:1px solid rgba(249,115,22,.12);padding:8px 12px;line-height:1.55;border-left:2px solid rgba(249,115,22,.3)}
+.q-tn strong{color:rgba(249,115,22,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-bar{background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.conv-bar-txt{font-size:12px;color:var(--mt);line-height:1.5}
+.conv-bar-txt strong{color:rgba(249,115,22,.8)}
+.exit-hero{background:linear-gradient(135deg,rgba(249,115,22,.1) 0%,rgba(249,115,22,.04) 50%,transparent 100%);border:1px solid rgba(249,115,22,.25);padding:36px 32px;margin-bottom:14px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Syne',sans-serif;font-size:140px;font-weight:800;color:rgba(249,115,22,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.exit-label::after{content:'';flex:0 0 40px;height:1px;background:var(--ac);opacity:.4}
+.exit-prompt{font-family:'Syne',sans-serif;font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:18px}
+.exit-prompt em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.65;max-width:480px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.2);border-left:3px solid var(--green);padding:14px 18px;margin-top:12px}
+.em-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px}
+.em-text{font-size:13.5px;color:rgba(0,230,118,.85);font-style:italic;line-height:1.6}
+.exit-mechanic{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:12px 16px;font-size:12px;color:var(--mt);line-height:1.6;margin-top:10px}
+.exit-mechanic strong{color:rgba(249,115,22,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.hsc-stats{grid-template-columns:1fr}.sec{padding:30px 20px}.hdr{padding:0 16px}.snav{padding:0 16px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.2 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=80" alt="Cash or Card">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.2 · Money &amp; Finance</div>
+    <div class="hero-title">CASH<br><em>OR CARD?</em></div>
+    <div class="hero-sub">You open your wallet. Two options. Every day, the same decision. Which one do you choose?</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Conversation</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 The Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab Injection</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation Engine</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 How Mexico Pays</div><div class="sec-sub">Read aloud · First reaction · No debate yet · 4 min max</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat-card">
+    <div class="hsc-deco">💳</div>
+    <div class="hsc-label">Banco de México + CONDUSEF Financial Report 2023</div>
+    <div class="hsc-stats">
+      <div class="hsc-stat"><div class="hsc-num">87%</div><div class="hsc-desc">Of payments in Mexico are still in cash — the highest percentage in Latin America</div></div>
+      <div class="hsc-stat"><div class="hsc-num">54%</div><div class="hsc-desc">Of Mexican adults don't have a bank account — they use only cash every day</div></div>
+      <div class="hsc-stat"><div class="hsc-num">3×</div><div class="hsc-desc">People spend 3 times more money when they pay by card — because they don't "feel" the money leaving</div></div>
+      <div class="hsc-stat"><div class="hsc-num">2030</div><div class="hsc-desc">The year Mexico wants to be 50% cashless — but most people say they are not ready for that</div></div>
+    </div>
+    <div class="hsc-source">Sources: Banco de México Encuesta de Hábitos de Pago 2023 · CONDUSEF · Forbes México</div>
+  </div>
+  <div class="hook-q-card">
+    <div class="hq-label">🪝 Opening Question — Read and point at someone</div>
+    <div class="hq-text">"This morning — did you pay for something with cash or with a card?"</div>
+  </div>
+  <div class="hook-mechanics teacher-only">
+    <strong>Teacher Mechanics — 4 min</strong>
+    Very simple. Point at one student: "This morning — cash or card?" Short answers are perfect. 2–3 students. Then: "OK. Today we talk about that choice."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §1 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The "3 times more spending with card" stat generates immediate recognition — many students have experienced this. Don't explain it — just show the number and let it land.</li>
+        <li>The trigger question is very simple by design — "this morning, cash or card?" requires only a one-word answer. That's perfect A2.2 activation.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"87% of payments in Mexico are cash. That means we are mostly a cash country. Is that you? Or are you different?"</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Retention: <strong>"Next lab — people who always ask for discounts. Another money topic, same level."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 20 Words That Matter</div><div class="sec-sub">10 nouns + 10 verbs · Click to hear · Pairs · Production challenge after</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80" alt="Vocab">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Pairs — Simple Practice</div><div class="sbo-sub">Person A reads the definition. Person B says the word. Switch. Then production challenge.</div></div><div class="sbo-badge">Challenge Mode Available</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <button class="challenge-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+    <span class="teacher-only" style="font-size:11px;color:var(--dim)">Click any word to hear pronunciation</span>
+  </div>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns — Money &amp; Payments</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:16px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs — What We Do With Money</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="vocab-challenge" style="margin-top:16px">
+    <div class="vc-label">⚡ Production Challenge</div>
+    <div class="vc-prompt">Pick <em>3 words</em>. One sentence each about <em>how YOU use money.</em> Short and honest. Just talk.</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §2 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>"Wallet" is often "cartera" in Mexican Spanish — confirm the English word and let it stick. It's high-frequency and very useful.</li>
+        <li>Best production trigger: <strong>"Pick 3 words that describe how you use money THIS week. One sentence each."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li><strong>"Every word here is something you do every day. In English now."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li><strong>"When you travel or work with English speakers, money vocabulary is the first thing you need. Today you practice it."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 Real Voices. Cash vs Card.</div><div class="sec-sub">Read each card · Pairs 60 sec · Group shares · Same question each time</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="sec-banner teacher-only">
+    <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200&q=80" alt="Opinions">
+    <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">Processing Question — Same for all 4</div><div class="sbo-sub">"Who do you agree with? Why?"</div></div><div class="sbo-badge">Keep it simple</div></div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-label">🔁 Processing Question — Pairs → Group</div>
+    <div class="pq-text">"Who do you agree with? Why? Use 2 or 3 sentences."</div>
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §3 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The provocateur is <strong>Don Aurelio</strong> — his "I don't trust cards" position is the most common among older Mexican adults and will generate a sympathetic or challenging reaction depending on the group's age range.</li>
+        <li>At A2.2, accepting "I agree with her because I also use cash" is perfect. Don't push for more complexity.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>After all 4: <strong>"And YOU — which one are you? Cash person or card person?"</strong> Point at each student for a 5-second answer.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Testimonial trigger: <strong>"Which person sounds like someone in YOUR family?"</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · The Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Past habits · Short answers OK · Keep moving</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-bar">
+    <div style="font-size:16px">⚡</div>
+    <div class="conv-bar-txt"><strong>A2.2 Rule:</strong> Short answers are OK. 1 or 2 sentences is great. Don't wait for perfect English — just talk.</div>
+  </div>
+  <div id="conversationPhases"></div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §4 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>Block 1 past simple — "When did you pay by card last?" Accept any past time expression: "yesterday," "last week," "on Friday." All correct.</li>
+        <li>Block 3 "going to" — "Are you going to use more cards next year?" Accept "I want to" as an equivalent at A2.2.</li>
+        <li>Block 4 "used to" — Model before asking: "When I was young, I USED TO pay everything in cash. Now I use my card. You?"</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>Q9 is the most self-revealing — "did you spend more money with a card?" Most students will say yes. Let the honesty be the celebration.</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>After Q10: <strong>"You talked about money in English for 23 minutes. That's not easy. That's A2.2."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · The Exit Shot</div><div class="sec-title">💣 One Question. Your Answer.</div><div class="sec-sub">5 min · No chips · Answer in 2–3 sentences · Then the loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-hero">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-prompt">Next month, are you going to try to use <em>only cash</em> for one week — no cards, no phone payments? <em>Why or why not?</em></div>
+    <div class="exit-rule">Answer in 2 or 3 sentences. Use "I am going to..." or "I am not going to... because..." Be honest.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-label">📌 A2.2 Model Answer — Reveal AFTER student speaks</div>
+    <div class="em-text">"I am going to try it. I think it is a good idea because I spend too much with my card. I am going to take 500 pesos on Monday and see how long it lasts."</div>
+  </div>
+  <div class="exit-mechanic">
+    <strong>🔁 Retention Loop — WhatsApp Homework</strong>
+    "Before next session — record a 60-second voice note in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send it to [teacher number]."
+  </div>
+  <div class="tn teacher-only">
+    <button class="tn-toggle" onclick="toggleTN(this)">📋 Teacher Notes — §5 <span class="tn-arrow">▼</span></button>
+    <div class="tn-body">
+      <div class="tn-capa tn-c1"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+        <li>The Exit Shot is a personal future plan — very accessible at A2.2. "I am going to try" is the target. Accept "I want to try" as well.</li>
+        <li>If a student says "No, I'm not going to do it" — that's also great. Push: "Why not? One reason."</li>
+      </ul></div></div>
+      <div class="tn-capa tn-c2"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+        <li>The model answer has a specific detail: "500 pesos on Monday." Point out: <strong>"That detail — 500 pesos, Monday — makes it a REAL plan in English. Not just an idea."</strong></li>
+      </ul></div></div>
+      <div class="tn-capa tn-c3"><div class="tn-cl">Capa 3 · Growth &amp; Retention</div><div class="tn-txt"><ul>
+        <li>Closing: <strong>"Record your answer tonight. 60 seconds. Tell me your plan in English."</strong></li>
+      </ul></div></div>
+    </div>
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.2 · Speaking Lab · Cash or Card? · Money &amp; Finance · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv">A2.1</div><div class="flv on">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"cash",      def:"Physical money — bills and coins",                                    ex:"I always carry cash. I don't like to use my card in small shops."},
+  {w:"card",      def:"A bank or credit card — you pay without cash",                       ex:"I use my card for big purchases. For tacos, I use cash."},
+  {w:"wallet",    def:"The small bag where you keep your money and cards",                   ex:"My wallet has 3 cards and usually very little cash."},
+  {w:"bill",      def:"A paper note with a money value — like a 100-peso bill",             ex:"I only had a 500-peso bill. The taco stand didn't have change."},
+  {w:"change",    def:"The money you get back when you pay with a big bill",                 ex:"Do you have change for 200 pesos? I don't have anything smaller."},
+  {w:"account",   def:"Your personal space in a bank where you keep your money",            ex:"I have a bank account but I don't use it much. I prefer cash."},
+  {w:"payment",   def:"The action of giving money for something you buy",                   ex:"The payment was easy — just put my phone near the machine."},
+  {w:"price",     def:"The amount of money you pay for something",                          ex:"I don't know the price. I need to ask first."},
+  {w:"receipt",   def:"A paper or message that shows what you bought and how much you paid",ex:"I always ask for a receipt when I pay by card."},
+  {w:"tip",       def:"Extra money you give to a waiter or taxi driver for good service",   ex:"I always give a tip in cash. It feels more personal."}
+];
+const verbs=[
+  {w:"pay",       def:"To give money for something you buy or use",                         ex:"I paid with my card and the machine didn't work. Very embarrassing."},
+  {w:"spend",     def:"To use money to buy things",                                         ex:"I spend more money when I use my card. I don't feel it leaving."},
+  {w:"save",      def:"To keep money and not spend it",                                     ex:"I save better with cash. When I see it's almost gone, I stop buying."},
+  {w:"withdraw",  def:"To take cash out of your bank account — usually from an ATM",        ex:"I withdraw 500 pesos every Monday and try to use only that."},
+  {w:"charge",    def:"To take money from your card — or to ask someone to pay",            ex:"They charged me twice for the same coffee. I called the bank."},
+  {w:"forget",    def:"To not remember to do something — like bringing cash",               ex:"I forgot to bring cash and the restaurant didn't accept cards."},
+  {w:"carry",     def:"To have something with you — like money or a card",                  ex:"I never carry a lot of cash. I'm afraid of losing it."},
+  {w:"accept",    def:"To say yes to a payment method — to allow it",                       ex:"The market doesn't accept cards. Only cash. Always have cash there."},
+  {w:"count",     def:"To add up numbers — like counting your money",                       ex:"I counted my money and I only had 80 pesos. Not enough."},
+  {w:"lend",      def:"To give someone money for a short time — they return it later",      ex:"Can you lend me 100 pesos? I left my wallet at home."}
+];
+const perspectives=[
+  {
+    name:"Valeria Cruz",meta:"31 · Nurse · Querétaro",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+    quote:"I use my card for everything. It's <strong>much easier.</strong> I don't need to find an ATM. I don't lose money. And I see everything in my app. I love it."
+  },
+  {
+    name:"Don Aurelio",meta:"58 · Market Vendor · Celaya — el provocateur",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+    quote:"I don't trust cards. I want to see my money. <strong>Cash is real.</strong> When I pay cash, I know exactly how much I spend. Cards are too easy — and too dangerous."
+  },
+  {
+    name:"Diego Morales",meta:"35 · Driver · Guadalajara",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+    quote:"I use cash for small things — tacos, parking, coffee. I use my card for <strong>big things</strong> — the supermarket, online shopping, the gas station. Both are useful."
+  },
+  {
+    name:"Carolina Ríos",meta:"27 · Student · CDMX",flag:"🇲🇽",
+    img:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80",
+    quote:"I only use my phone to pay now. No cash, no plastic card. <strong>Just my phone.</strong> It's fast, it's safe, and I get points for every purchase. The future is already here."
+  }
+];
+const phases=[
+  {num:"BLOCK 1",name:"Past Simple — Your Experience",mech:"Past simple · Short answers OK · 2 min per Q",questions:[
+    {num:"Q1",text:"When did you last pay with cash? What did you buy?",chips:["I paid with cash yesterday when...","The last time was...","I bought... and I used cash because...","I always use cash at..."],tn:"Very simple past simple. Accept any past time expression. The goal is to get students talking about a real recent memory. 'Yesterday I paid cash for lunch' is perfect A2.2."},
+    {num:"Q2",text:"Did you ever have a problem with a card — the machine didn't work, or you forgot the PIN?",chips:["Yes, one time my card...","The machine didn't work when...","I forgot my PIN at...","I was embarrassed because..."],tn:"Card problems are universal and relatable. If a student says 'yes, but I don't know how to explain it in English' — help with words: 'the machine said no,' 'I forgot my number,' 'I didn't have money in the account.'"},
+    {num:"Q3",text:"Did you ever need cash urgently and didn't have any? What happened?",chips:["Yes, I needed cash when...","I had to...","A friend lent me...","I felt bad because..."],tn:"'Lend' is activated here. The story is always good — parking, a market, a taxi. Let it unfold. One sentence at a time is enough."}
+  ]},
+  {num:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present opinions · 2 min per Q",questions:[
+    {num:"Q4",text:"Do you think cash or card is better for saving money? Why?",chips:["I think cash is better because...","I think card is better because...","For me, cash helps me...","With a card I spend more because..."],tn:"The '3x more spending with card' stat from §1 is relevant here. If students don't mention it, bring it up: 'We saw that people spend 3 times more with a card. Do you think that's true for you?'"},
+    {num:"Q5",text:"Is it important to always carry some cash? Or is a card enough?",chips:["I think cash is important because...","In my city, some places don't...","For me, I always carry...","I think only a card is enough if..."],tn:"Practical and immediate. Push for specific places: 'What places in Celaya/your city only accept cash?' This grounds the conversation in local reality."},
+    {num:"Q6",text:"Do you think Mexico is going to be a cashless country one day?",chips:["I think yes because...","I don't think so because...","Maybe in the future...","Many people here don't have..."],tn:"The 2030 stat from §1 is the reference. At A2.2, simple future prediction is the target: 'I think yes / I think no — because...' Don't push for analysis, just a simple position."}
+  ]},
+  {num:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · Short sentences · Keep it simple",questions:[
+    {num:"Q7",text:"Are you going to use more cards — or more cash — next month?",chips:["I am going to use more...","I think I will continue with...","My plan is to...","I don't know yet, but I want to..."],tn:"'Going to' is the target structure. Accept 'I will use more cash' as well. Both are correct for future plans at A2.2."},
+    {num:"Q8",text:"Are you going to try phone payments — like Apple Pay or Google Pay?",chips:["Yes, I am going to try...","No, I don't want to because...","I already use it and...","I am not sure because..."],tn:"Phone payments are becoming common in Mexico. Some students already use them; others don't. Both experiences are interesting. Push: 'Why do you want to / not want to try it?'"}
+  ]},
+  {num:"BLOCK 4",name:"Past Habits — Used To",mech:"Used to · Model first · 2 min per Q",questions:[
+    {num:"Q9",text:"Did you use to pay more in cash before — or is that the same now?",chips:["I used to pay more in cash when...","Before I always used cash because...","Now I use more cards because...","It's the same. I still use..."],tn:"Model first: 'When I was 20, I USED TO pay everything in cash. I had no card. Now I have 3 cards.' Then ask. The before/now structure makes 'used to' natural."},
+    {num:"Q10",text:"Did you use to think cards were dangerous — or scary?",chips:["Yes, I used to be afraid of...","I used to think cards were...","Before I didn't understand how...","No, I always liked cards because..."],tn:"This is the closing reflection — a simple attitudinal change over time. Perfect for 'used to.' Even a one-sentence answer is complete: 'Yes, I used to be scared of cards. Now I use them every day.'"}
+  ]}
+];
+
+function buildVocab(data,cId,type){const g=document.getElementById(cId);data.forEach(item=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${item.w}</div><div class="vdef">${item.def}</div><div class="vex">${item.ex}</div><button class="spk" onclick="speak('${item.w.replace(/'/g,"&#39;")}',event)" touch-action="manipulation">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg=document.getElementById("perspGrid");
+perspectives.forEach(p=>{pg.innerHTML+=`<div class="persp-card"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-img-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const convEl=document.getElementById("conversationPhases");
+phases.forEach(phase=>{let qHTML="";phase.questions.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.num}</div><div class="q-text">${q.text}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div class="q-tn teacher-only"><strong>📌 Teacher Note</strong> — ${q.tn}</div></div>`;});convEl.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-num">${phase.num}</div><div class="phase-name">${phase.name}</div><div class="phase-mech teacher-only">${phase.mech}</div></div>${qHTML}</div>`;});
+function speak(text,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u);}
+function speakChip(text,e){if(e)e.stopPropagation();speak(text,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTN(btn){const body=btn.nextElementSibling;btn.classList.toggle("open");body.classList.toggle("open");}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const sections=["s1","s2","s3","s4","s5"],navLinks=document.querySelectorAll(".sni");
+function updateNav(){let cur=sections[0];sections.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});navLinks.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>
