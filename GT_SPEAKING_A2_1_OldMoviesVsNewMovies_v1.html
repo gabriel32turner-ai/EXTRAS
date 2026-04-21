@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Old Movies vs. New Movies · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FF1F5C;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,31,92,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,31,92,.5);color:var(--ac)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,31,92,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,31,92,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,31,92,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,31,92,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,31,92,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Old Movies vs. New Movies</div>
+    <div class="hero-sub">Old movies had great stories. New movies have incredible special effects. But which ones do you actually remember? Which ones made you feel something?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One question. Think of a movie. Go.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Rotten Tomatoes · Annual Report · 2023</div>
+      <div class="trigger-quote">"9 of the top 10 most-watched movies on Netflix last year were sequels, remakes, or superhero movies. Only 1 was an original story."</div>
+      <div class="trigger-script">Today, Hollywood makes many sequels and remakes. Movies cost hundreds of millions of dollars and have incredible special effects. But many people say: "New movies are boring. Old movies were better." Other people say: "Old movies were slow and the quality was terrible." Who is right?</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Ask directly: <em>"Quick — what is your favorite movie of all time? Tell me the name and one sentence about it."</em> Go around the room fast. Just names and one sentence. Then ask: <em>"Is it an old movie or a new movie?"</em> The answers will show you the room — some love classics, some love new films. That tension is your opening.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Words to talk about movies in English.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('movie')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">movie</div>
+        <div class="vc-def">A film — in a cinema or on your TV at home</div>
+      </div>
+      <div class="vocab-card" onclick="speak('sequel')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">sequel</div>
+        <div class="vc-def">A second movie — same story, same characters, part 2</div>
+      </div>
+      <div class="vocab-card" onclick="speak('special effects')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">special effects</div>
+        <div class="vc-def">Technology that makes things look real in movies</div>
+      </div>
+      <div class="vocab-card" onclick="speak('actor')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">actor</div>
+        <div class="vc-def">A person who works in movies or TV</div>
+      </div>
+      <div class="vocab-card" onclick="speak('story')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">story</div>
+        <div class="vc-def">What happens in a movie — the plot</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ending')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">ending</div>
+        <div class="vc-def">The final part of a movie — happy, sad, or surprising</div>
+      </div>
+      <div class="vocab-card" onclick="speak('cinema')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">cinema</div>
+        <div class="vc-def">A place to watch movies on a big screen</div>
+      </div>
+      <div class="vocab-card" onclick="speak('remake')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">remake</div>
+        <div class="vc-def">An old movie made again with new actors and technology</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scene')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">scene</div>
+        <div class="vc-def">One part of a movie — a famous scene is one you always remember</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ticket')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">ticket</div>
+        <div class="vc-def">What you buy to go to the cinema</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('watch')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">watch</div>
+        <div class="vc-def">To look at a movie or show</div>
+      </div>
+      <div class="vocab-card" onclick="speak('cry')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">cry</div>
+        <div class="vc-def">To have tears — some movies make you do this</div>
+      </div>
+      <div class="vocab-card" onclick="speak('laugh')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">laugh</div>
+        <div class="vc-def">To make the happy sound — comedies try to make you do this</div>
+      </div>
+      <div class="vocab-card" onclick="speak('recommend')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">recommend</div>
+        <div class="vc-def">To say "this is good, you should watch it"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('fall asleep')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">fall asleep</div>
+        <div class="vc-def">To start sleeping — what happens in a very boring movie</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stop watching')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">stop watching</div>
+        <div class="vc-def">To turn off a movie because it's bad</div>
+      </div>
+      <div class="vocab-card" onclick="speak('prefer')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">prefer</div>
+        <div class="vc-def">To like one thing more than another</div>
+      </div>
+      <div class="vocab-card" onclick="speak('remember')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">remember</div>
+        <div class="vc-def">To think about something from the past — great movies stay in your memory</div>
+      </div>
+      <div class="vocab-card" onclick="speak('miss')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">miss</div>
+        <div class="vc-def">To feel sad about something that is gone — like good old movies</div>
+      </div>
+      <div class="vocab-card" onclick="speak('disappoint')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">disappoint</div>
+        <div class="vc-def">To feel sad because something was not good — many sequels do this</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('No way, that movie was terrible!')">
+        <div class="pi-phrase">"No way, that movie was terrible!"</div>
+        <div class="pi-context">Said when someone recommends a movie you already watched and hated.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('That drives me crazy — they always make a sequel!')">
+        <div class="pi-phrase">"That drives me crazy — they always make a sequel!"</div>
+        <div class="pi-context">When Hollywood takes a great movie and makes Part 2, Part 3, Part 4...</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Me too, I cried at the end of that movie')">
+        <div class="pi-phrase">"Me too — I cried at the end of that movie."</div>
+        <div class="pi-context">When someone confesses they cried at a movie and you did too. Classic bonding moment.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Lucky you, I want to watch that movie!')">
+        <div class="pi-phrase">"Lucky you — I want to watch that movie!"</div>
+        <div class="pi-context">When someone describes a film that sounds amazing and you haven't seen it yet.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Come on, old movies are so slow and boring')">
+        <div class="pi-phrase">"Come on — old movies are so slow and boring."</div>
+        <div class="pi-context">The younger generation's honest opinion about classic films from the 80s and 90s.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four opinions about movies. Which one sounds like you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😍</div>
+          <div>
+            <div class="op-name">Fernando, 47</div>
+            <div class="op-role">Mechanic · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "Old movies were better. Titanic, The Lion King, Toy Story — those movies were magic. <strong>New movies are just explosions and computers.</strong> I don't feel anything when I watch them."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🎮</div>
+          <div>
+            <div class="op-name">Miguel, 24</div>
+            <div class="op-role">Student · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I don't watch old movies. They are slow and the quality is terrible. <strong>New movies look amazing.</strong> The special effects are incredible. I like to watch movies on a big TV with great sound."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Valeria, 35</div>
+            <div class="op-role">Secretary · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I like both. Some new movies are great — some are terrible. <strong>Some old movies are boring — some are amazing.</strong> It depends on the movie, not the year."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😴</div>
+          <div>
+            <div class="op-name">Alejandro, 42</div>
+            <div class="op-role">Accountant · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I fell asleep in the last three movies I watched. Old and new. <strong>I think all movies are too long now.</strong> Two and a half hours is too much. I want a good 90-minute movie. Nobody makes those anymore."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which person do you agree with? Say: 'I agree with [name] because...' in one or two sentences." Alejandro is the soft provocateur — he's not on either side of old vs. new; he just wants shorter movies. Many students secretly agree with him but never said it out loud. Very relatable and funny.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Your real opinions about real movies you watched.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What was the last movie you watched? Was it good or bad? Why?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple description. "I watched ______ last weekend. It was good because the story was interesting." "It was bad because it was too long." Encourage 2–3 sentences minimum. Any movie is fine — Netflix, cinema, TV. The goal is past simple + adjective + because.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Did you ever cry at a movie? Which movie — and what happened in that scene?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple + description. "Yes, I cried at Coco / Titanic / The Lion King. The scene when ______ happened was very sad." If they say "No, I never cry at movies," ask: "Really? Not even Coco?" — in Mexico, Coco almost always gets someone.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you ever stop watching a movie because it was too boring or too bad? What movie was it?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple + reason. "Yes, I stopped watching ______ because it was very slow." "I stopped after 30 minutes because the story was terrible." This is a fun confession question — everyone has a movie they abandoned. Encourage the name and a specific reason.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion (Simple Present)</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you prefer old movies or new movies? Why?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present + preference. "I prefer old movies because the stories are better." "I prefer new movies because the special effects are amazing." "I like both." All three are valid. The target is "I prefer... because..." — a simple structure that produces clean output.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it a good idea to make sequels and remakes of old movies? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Opinion with "I think it's a good idea" / "I don't think it's a good idea." "I think sequels are good when the story is interesting. But many sequels are bad because they only want money." Simple present opinion + because. Accept one-sentence answers.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">What is more important in a movie — a great story or great special effects? Why?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Comparative opinion. "I think a great story is more important because you remember it." "Special effects are more important because movies look boring without them." Target: "I think [X] is more important because..." — one clear choice, one reason.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Are you going to watch a movie this week? What movie — and where?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Going to for concrete plans. "Yes, I'm going to watch ______ on Netflix on Saturday." "I'm going to go to the cinema with my family on Sunday." If they say "I don't know," ask: "Is there a movie you want to watch? Tell me the name." Simple and personal.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will movies be better or worse in 10 years? What do you think?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will for prediction. "I think movies will be better because of AI and new technology." "I think they will be worse because they will only make sequels." One sentence with will + reason is perfect. Can also mention: "I think people will watch movies on their phone, not in the cinema."
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Be honest — do you check your phone during a movie at the cinema? How many times?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present + honesty. "Yes, I check my phone maybe 3 or 4 times." "No, I never check my phone — it bothers me when other people do it." "Yes, but only if the movie is boring." The number makes it funny and specific. No judgment.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">A movie you love is going to have a sequel. The trailer looks bad. Are you going to watch it anyway?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Going to scenario — specific and fun. "Yes, I'm going to watch it because I love the first movie." "No, I'm not going to watch it. I don't want to ruin the original." This is a real dilemma many movie fans have. The word "anyway" is great to introduce here.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One situation. What are you going to do?</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · A2.1 Old Movies vs. New Movies</div>
+      <div class="exit-question">Your favorite movie from your childhood is going to come out as a new remake next month. They changed everything — the actors, the story, the ending. Are you going to watch it? And are you going to tell your family to watch it too?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Tell me: are you going to watch it — and why? Name your favorite childhood movie too!
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      The "childhood favorite" detail creates emotional investment immediately. Every student has one. The remake question is a real situation that happens constantly — Disney remakes, Mexican telenovela remakes, etc. The "family" element adds one more layer of decision. End: <em>"Send me the voice note. And tell me the movie name — I want to know which one."</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">A2.1 · Speaking Lab · Old Movies vs. New Movies · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.85;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

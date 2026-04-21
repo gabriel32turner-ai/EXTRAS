@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Things I Spend Too Much Money On · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FF1F5C;--ac2:rgba(255,31,92,0.12);--ac3:rgba(255,31,92,0.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:var(--ac);border:none;color:white;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.htoggle:hover{opacity:.85}
+body.student-mode .htoggle{background:#2a3a4e;color:white}
+.hero{height:340px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80&fit=crop');background-size:cover;background-position:center}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,0.75) 55%,rgba(15,25,35,0.3) 100%)}
+.hero-content{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border);color:var(--muted)}
+.htag.ac{border-color:var(--ac);color:var(--ac);background:var(--ac2)}
+.hero-title{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 80px}
+.sec{margin-top:56px}
+.sec-head{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-emoji{font-size:32px;line-height:1}
+.sec-meta{flex:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.sec-sub{font-size:13px;color:var(--ac);font-weight:500;margin-top:2px}
+.timer-pill{padding:5px 14px;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;white-space:nowrap}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:18px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:14px}
+.trigger-script{font-size:13px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:14px}
+.trigger-script span{color:var(--text);font-style:normal;font-weight:500}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:20px}
+.vocab-card{background:var(--card);border:1px solid var(--border);padding:13px;cursor:pointer;transition:all .2s;position:relative}
+.vocab-card:hover{border-color:var(--ac);background:var(--ac2)}
+.vocab-card:hover .vc-word{color:var(--ac)}
+.vc-type{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px;transition:color .2s}
+.vc-def{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:5px}
+.vc-ex{font-size:11px;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:5px}
+.vc-icon{position:absolute;bottom:9px;right:9px;font-size:13px;opacity:.4}
+.phrases-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:4px}
+.phrase-item:hover{background:var(--ac2)}
+.phrase-text{font-size:14px;font-weight:700;color:var(--text)}
+.phrase-ctx{font-size:12px;color:var(--muted)}
+.vocab-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--card);border:1px solid var(--border);padding:18px;position:relative;transition:border-color .2s}
+.opinion-card:hover{border-color:var(--ac)}
+.op-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.op-avatar{font-size:26px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.op-role{font-size:11px;color:var(--muted)}
+.op-text{font-size:13px;color:var(--muted);line-height:1.65}
+.op-text strong{color:var(--text)}
+.op-badge{position:absolute;top:12px;right:12px;padding:3px 9px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--ac2);border:1px solid var(--ac3);color:var(--ac)}
+.op-instruction{margin-top:14px;background:var(--ac2);border:1px solid var(--ac3);padding:12px 16px;font-size:13px;color:var(--ac);font-weight:500}
+.q-block{margin-bottom:26px}
+.q-block-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);padding:14px 16px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
+.q-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:10px}
+.q-tip-btn{background:none;border:1px solid var(--ac3);color:var(--ac);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.q-tip-btn:hover{background:var(--ac);color:white}
+.q-tip{display:none;margin-top:10px;background:var(--ac2);border-left:3px solid var(--ac);padding:11px 13px;font-size:13px;color:var(--muted);line-height:1.6}
+.q-tip strong{color:var(--ac);display:block;margin-bottom:4px;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.exit-box{background:var(--card);border:2px solid var(--ac);padding:28px}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;margin-bottom:18px}
+.exit-hw{background:rgba(255,31,92,0.07);border:1px solid var(--ac3);padding:14px 18px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--ac);display:block;margin-bottom:4px}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none!important}
+body.student-mode .timer-pill{display:none!important}
+.ftr{background:var(--card);border-top:1px solid var(--border);padding:22px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fbrand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.flevels{display:flex;gap:3px;flex-wrap:wrap}
+.flv{padding:5px 10px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--navy);color:var(--muted)}
+.flv.on{background:var(--ac);color:white}
+@media(max-width:600px){.hero{padding:24px 20px;height:auto;min-height:300px}.opinion-grid{grid-template-columns:1fr}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.ftr{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body id="bod">
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" onclick="toggleMode()">👁 Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag ac">A2.1</span>
+      <span class="htag">Money &amp; Finance</span>
+      <span class="htag">🟡 Medium</span>
+      <span class="htag">50 min</span>
+    </div>
+    <div class="hero-title">Things I Spend Too<br>Much Money On</div>
+    <div class="hero-sub">Coffee, food delivery, clothes, phone upgrades... We all have that one thing. What's yours?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- PHASE 1 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta"><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Warm-Up</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A real calculation to start</div>
+    <div class="trigger-quote">"If you buy one coffee every workday — $45 pesos each — that is $900 pesos a month. $10,800 pesos a year. Just on coffee. What do YOU spend money on without thinking?"</div>
+    <div class="trigger-script teacher-only"><span>Teacher script:</span> Read the numbers slowly. Let them feel it. Then share your own: "For me, it's [food delivery / taxis / snacks at the OXXO]. What about you?" Ask: "What is one thing you spend money on almost every day?" This opens the confession naturally and makes the class feel safe and personal.</div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta"><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · 10 Nouns + 10 Verbs + 5 Phrases · Click to hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="vocab-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="vocab-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="vocab-label">Colloquial Phrases · Money Confessions</div>
+  <div class="phrases-list" id="phrases-list"></div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta"><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · 4 People · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="opinion-grid">
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">☕</div><div><div class="op-name">Valeria · 30</div><div class="op-role">Office assistant · Celaya</div></div></div>
+      <div class="op-text">I spend too much money on coffee. Every morning, sometimes in the afternoon too. <strong>I know it's expensive.</strong> But it's my moment. My small happy thing. I don't want to stop.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">📱</div><div><div class="op-name">Carlos · 36</div><div class="op-role">Technician · Monterrey</div></div></div>
+      <div class="op-text">I buy a new phone every two years. It's not cheap. <strong>My wife says I don't need it.</strong> She is right. But I like technology. It's my thing. And I work hard. I can have one thing I like.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-badge">🌶 Provocateur</div>
+      <div class="op-header"><div class="op-avatar">🤔</div><div><div class="op-name">Mónica · 44</div><div class="op-role">Accountant · CDMX</div></div></div>
+      <div class="op-text">I don't spend too much on anything. <strong>I know exactly what I buy and why.</strong> People say "I can't save money" but they buy coffee every day, eat out three times a week, and have Netflix, Spotify, AND Apple TV. That's a choice. Not bad luck.</div>
+    </div>
+    <div class="opinion-card">
+      <div class="op-header"><div class="op-avatar">🛵</div><div><div class="op-name">Ernesto · 28</div><div class="op-role">Delivery worker · Guadalajara</div></div></div>
+      <div class="op-text">I spend too much on food. I order delivery when I'm tired. It's expensive and I know it. <strong>But I'm tired.</strong> I work all day. I don't want to cook. So I order. Every tired person understands this.</div>
+    </div>
+  </div>
+  <div class="op-instruction">💬 Who do you agree with? And what is YOUR thing — what do you spend too much on?</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta"><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 1 · Past Experience</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">What did you buy this week that was maybe not necessary? How much did you pay?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very concrete and immediate. Most people have something from this week. "Was it food? A subscription? Something online? Did you think about it before you bought it — or was it fast?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">When was the last time you looked at your bank account and thought: "Where did all my money go?"</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Last Monday. I had $4,000 pesos on Friday. On Monday I had $1,800. I looked at the transactions. Coffee, Uber, food delivery, a shirt. All small. All together — big."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did you ever try to stop spending money on something — and then go back to it? What happened?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> The relapse story — everyone has one. "What did you try to stop? Eating out? A subscription? Smoking? How long did you last? What made you go back?" Generates authentic storytelling with simple past.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 2 · Opinion</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">What is more difficult — to stop buying things you like, or to earn more money? Why?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Classic "spend less vs. earn more" debate — accessible at A2.1. "Which one is more realistic for you personally right now?" No academic vocabulary needed — just honest simple-present opinions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it OK to spend money on things that make you happy — like coffee or a nice dinner — even when you don't have a lot of money?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "Yes, I think it's OK. But there is a limit. One coffee a day — OK. Five coffees a day — not OK. Happiness doesn't need to be expensive."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Do you think subscriptions — Netflix, Spotify, Amazon — are worth the money? Or do you pay for things you don't use?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Very relevant for Mexican professionals. "How many subscriptions do you have? Do you use all of them? When did you last check? Is there one you pay for and forget?" Often generates a surprised reaction.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 3 · Future Plans</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to change one spending habit this month? Which one — and how?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I'm going to stop ordering food delivery on weekdays. I'm going to cook at home Monday to Friday. On weekends — fine, I can order. I think this is going to save me about $1,500 pesos a month."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">Will you look at your bank transactions after this class? Are you scared to see the numbers?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Funny and honest "will" question. "Are you going to open the app right now? Or are you going to wait until Monday?" Most students laugh because they know the answer. The humor makes the language natural.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-title">Block 4 · Honest Reflection</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest — do you know exactly how much money you spend every month? Or is it a mystery?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Teacher Tip</strong> Most people don't know. That's the honest answer and it's fine. "Is it a number you know, or do you only find out when the money is gone? Do you want to know — or is it better not to?"</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">Your phone tells you: "You spend $2,800 pesos a month on food delivery." What is your reaction?</div>
+      <button class="q-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="q-tip"><strong>Model Answer</strong> "I say: 'No way. That is not possible.' Then I look at the list. And it IS possible. And I am embarrassed. And I close the app. And I order pizza that night anyway."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta"><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · Final Situation</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">You want to save $5,000 pesos in the next 2 months. But right now you spend about $1,200 pesos a month on coffee, delivery food, and small things you don't really need. Are you going to change that — or is $5,000 pesos not possible for you right now?</div>
+    <div class="exit-hw">
+      <strong>📱 WhatsApp Homework</strong>
+      Record 60 seconds in English: What are you going to stop buying — and do you think you can really do it? Be honest!
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training · Speaking Lab</div>
+  <div style="font-size:12px;color:var(--muted)">A2.1 · Money &amp; Finance · Things I Spend Too Much Money On · Medium 🟡</div>
+  <div class="flevels">
+    <div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv on">A2.1</div><div class="flv">A2.2</div>
+    <div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div>
+  </div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"coffee",def:"Hot drink from a café — daily habit",ex:'"I spend $900 pesos a month on coffee. And I feel zero guilt."'},
+  {w:"subscription",def:"Monthly payment for a service — Netflix, Spotify",ex:'"I have 4 subscriptions. I use 2 of them."'},
+  {w:"delivery",def:"Food that comes to your home",ex:'"Food delivery is expensive. And I order it every week."'},
+  {w:"habit",def:"Something you do regularly without thinking",ex:'"My coffee habit costs me more than my electricity bill."'},
+  {w:"snack",def:"Small food between meals — chips, chocolate",ex:'"I buy snacks at the OXXO every day. Small money. Big total."'},
+  {w:"transaction",def:"One payment — you can see it in your bank app",ex:'"I looked at my transactions. There were 14 food payments in one week."'},
+  {w:"impulse",def:"A fast decision to buy something without thinking",ex:'"It was an impulse buy. I saw it, I wanted it, I bought it."'},
+  {w:"budget",def:"A plan for how to spend your money",ex:'"I have a budget. I ignore it every month."'},
+  {w:"waste",def:"Money on something with no real value",ex:'"$500 pesos on a game I played for one hour. Pure waste."'},
+  {w:"savings",def:"Money you put aside and don\'t spend",ex:'"My savings are very small. I know exactly why."'},
+];
+const verbs=[
+  {w:"spend",def:"Use money on something",ex:'"I spend money on food every day. Every day."'},
+  {w:"waste",def:"Use money on something not useful",ex:'"I wasted $300 on a shirt I never wear."'},
+  {w:"order",def:"Ask for food or something to come to you",ex:'"I order delivery three times a week. Maybe four."'},
+  {w:"cancel",def:"Stop a service you pay for",ex:'"I\'m going to cancel my gym subscription. I go once a month."'},
+  {w:"buy",def:"Pay money to get something",ex:'"I buy coffee every morning. It\'s my ritual."'},
+  {w:"save",def:"Keep money — not spend it",ex:'"I want to save $3,000 pesos this month. I say this every month."'},
+  {w:"check",def:"Look at something — your bank account, a list",ex:'"I check my bank account every Monday. Sometimes I regret it."'},
+  {w:"cut",def:"Reduce — spend less on something",ex:'"I\'m going to cut my delivery food budget in half."'},
+  {w:"avoid",def:"Stay away from something",ex:'"I avoid the chocolate aisle at the supermarket. Sometimes it works."'},
+  {w:"realize",def:"Understand something — often late",ex:'"I realized I paid for a subscription for 6 months and never used it."'},
+];
+const phrases=[
+  {t:'"Where did all my money go?"',c:"What you say when you look at your bank account at the end of the month."},
+  {t:'"I needed it."',c:"What you say to justify a purchase — sometimes true, often not."},
+  {t:'"It was on sale!"',c:"The most popular reason to buy something you didn\'t plan to buy."},
+  {t:'"No way! That much?"',c:"When you see the total of small purchases and feel surprised."},
+  {t:'"I deserve it."',c:"After a hard week — the justification before any purchase."},
+];
+function speak(txt){const u=new SpeechSynthesisUtterance(txt);u.lang="en-US";u.rate=0.85;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
+function buildCards(arr,cid,type){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="vocab-card";d.onclick=()=>speak(item.w);d.innerHTML=`<div class="vc-type">${type}</div><div class="vc-word">${item.w}</div><div class="vc-def">${item.def}</div><div class="vc-ex">${item.ex}</div><div class="vc-icon">🔊</div>`;c.appendChild(d);});}
+function buildPhrases(arr,cid){const c=document.getElementById(cid);arr.forEach(item=>{const d=document.createElement("div");d.className="phrase-item";d.onclick=()=>speak(item.t.replace(/"/g,""));d.innerHTML=`<div class="phrase-text">${item.t} <span style="color:var(--muted);font-weight:400;font-size:12px">🔊</span></div><div class="phrase-ctx">${item.c}</div>`;c.appendChild(d);});}
+buildCards(nouns,"nouns-grid","Noun");
+buildCards(verbs,"verbs-grid","Verb");
+buildPhrases(phrases,"phrases-list");
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==="block";tip.style.display=open?"none":"block";btn.textContent=open?"Show Tip":"Hide Tip";}
+function toggleMode(){const bod=document.getElementById("bod");const btn=document.querySelector(".htoggle");const s=bod.classList.toggle("student-mode");btn.textContent=s?"👁 Teacher Mode":"👁 Student Mode";}
+</script>
+</body>
+</html>

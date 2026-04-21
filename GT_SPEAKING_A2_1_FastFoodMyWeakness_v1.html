@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.1 · Fast Food: My Weakness</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#FF1F5C;--ac2:#FF6B8A;--green:#00E676;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(255,31,92,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(255,31,92,.08)}
+.mode-btn{background:#FF1F5C;border:1px solid #FF1F5C;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 45%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(255,31,92,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(255,31,92,.1);border-color:rgba(255,31,92,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(255,31,92,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(255,31,92,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.hook-stat{background:linear-gradient(135deg,rgba(255,31,92,.08) 0%,rgba(255,31,92,.03) 100%);border:1px solid rgba(255,31,92,.25);border-left:4px solid var(--ac);padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden}
+.hs-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:100px;font-weight:800;color:rgba(255,31,92,.06);line-height:1;pointer-events:none;user-select:none}
+.hs-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,31,92,.6);margin-bottom:10px}
+.hs-num{font-family:'Syne',sans-serif;font-size:54px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em;margin-bottom:6px}
+.hs-text{font-size:13px;color:var(--mt);line-height:1.6;max-width:500px}
+.hs-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px}
+.hook-q{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:18px 22px;margin-bottom:10px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.hq-text{font-size:18px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-script{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:10px 14px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-script strong{color:rgba(255,31,92,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:12px 10px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(255,31,92,.3)}
+.vc.noun-c{border-top:2px solid rgba(255,31,92,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(255,31,92,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:1px}
+.vex{font-size:10px;color:rgba(255,107,138,.8);font-style:italic;border-left:2px solid rgba(255,31,92,.2);padding-left:5px;margin-top:3px;line-height:1.3}
+.vc.verb-c .vex{color:rgba(0,207,255,.7);border-left-color:rgba(0,207,255,.18)}
+.spk{margin-top:5px;background:rgba(255,31,92,.07);border:1px solid rgba(255,31,92,.18);color:var(--ac2);padding:3px 7px;font-size:10px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(255,31,92,.14)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.phrases-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:2px}
+.ph{background:var(--s1);border:1px solid var(--bd);border-top:2px solid rgba(255,184,0,.35);padding:10px 11px;cursor:pointer;transition:border-color .18s;touch-action:manipulation}
+.ph:hover{border-color:rgba(255,184,0,.4)}
+.ph-txt{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
+.ph-def{font-size:11px;color:var(--mt)}
+.chal-btn{background:rgba(255,31,92,.08);border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:7px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-bottom:10px;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk,body.challenge-mode .ph-def{visibility:hidden}
+body.challenge-mode .chal-btn{background:rgba(255,31,92,.2);color:#fff}
+.vc-prompt{background:rgba(255,31,92,.04);border:1px solid rgba(255,31,92,.18);padding:12px 16px;margin-top:10px;font-size:12.5px;color:var(--txt);line-height:1.55}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:5px}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pc{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.pc:hover{border-color:rgba(255,31,92,.22)}
+.pc-img-wrap{position:relative;height:110px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:8px 14px}
+.pc-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
+.pc-flag{position:absolute;top:8px;right:10px;font-size:16px}
+.pc-body{padding:12px 14px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.65;font-style:italic;position:relative;padding-left:12px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-3px;font-size:24px;color:rgba(255,31,92,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.17);padding:12px 16px;margin-top:10px}
+.pq-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.pq-txt{font-size:13px;color:#fff;font-weight:500;line-height:1.5}
+.conv-phase{margin-bottom:26px}
+.phase-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.phase-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(255,31,92,.1);border:1px solid rgba(255,31,92,.26);color:var(--ac);padding:3px 9px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;margin-bottom:7px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(255,31,92,.18)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(255,31,92,.1)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.55;margin-bottom:8px}
+.q-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .14s;touch-action:manipulation}
+.chip:hover{background:rgba(255,31,92,.1);border-color:rgba(255,31,92,.28);color:var(--ac2)}
+.tip-btn{background:rgba(255,31,92,.07);border:1px solid rgba(255,31,92,.2);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:2px;touch-action:manipulation}
+.tip-content{display:none;margin-top:7px;font-size:12px;color:rgba(255,107,138,.7);background:rgba(255,31,92,.04);border:1px solid rgba(255,31,92,.1);padding:8px 11px;line-height:1.55;border-left:2px solid rgba(255,31,92,.3)}
+.tip-content strong{color:rgba(255,31,92,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-rule{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.14);padding:9px 14px;margin-bottom:14px;font-size:12px;color:var(--mt)}
+.conv-rule strong{color:rgba(255,31,92,.75)}
+.exit-box{background:linear-gradient(135deg,rgba(255,31,92,.1) 0%,rgba(255,31,92,.04) 50%,transparent 100%);border:1px solid rgba(255,31,92,.25);padding:32px 30px;margin-bottom:12px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-15px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(255,31,92,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.exit-lbl::after{content:'';flex:0 0 36px;height:1px;background:var(--ac);opacity:.4}
+.exit-q{font-family:'Syne',sans-serif;font-size:clamp(1.15rem,2.8vw,1.55rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:16px}
+.exit-q em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.6;max-width:460px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.18);border-left:3px solid var(--green);padding:12px 16px;margin-top:10px}
+.em-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.em-txt{font-size:13px;color:rgba(0,230,118,.8);font-style:italic;line-height:1.55}
+.hw-box{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:10px 14px;font-size:12px;color:var(--mt);line-height:1.55;margin-top:8px}
+.hw-box strong{color:rgba(255,31,92,.65);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:4px 9px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.phrases-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.sec{padding:28px 18px}.hdr{padding:0 16px}.snav{padding:0 14px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.1 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1400&q=80" alt="Fast food burger">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.1 · Health &amp; Wellness</div>
+    <div class="hero-title">FAST FOOD:<br><em>MY WEAKNESS</em></div>
+    <div class="hero-sub">You know it's bad. You eat it anyway. And it tastes so good. No judgment here.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar focus</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Speaking</span><span class="hchip">⚡ Medium</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 Mexico and Fast Food</div><div class="sec-sub">Read aloud · Immediate reaction · No debate yet · 4 min</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat">
+    <div class="hs-deco">🍔</div>
+    <div class="hs-label">INEGI + Euromonitor Fast Food Report 2023</div>
+    <div class="hs-num">2×</div>
+    <div class="hs-text">Fast food consumption in Mexico doubled in the last 10 years. Mexico is now the second largest fast food market in Latin America. The average Mexican eats fast food at least once a week.</div>
+    <div class="hs-source">Source: INEGI Encuesta Nacional de Salud 2023 · Euromonitor Fast Food Mexico</div>
+  </div>
+  <div class="hook-q">
+    <div class="hq-label">🪝 Opening question — Point at one student and ask:</div>
+    <div class="hq-text">"When was the last time you ate fast food? What did you order? Did you feel guilty after?"</div>
+  </div>
+  <div class="hook-script teacher-only">
+    <strong>Teacher Script — 4 min</strong>
+    Three short questions in one. Point at one student: "Last fast food — what? When? Guilty?" Accept short answers. 2–3 students. The guilt question is the one that opens the real conversation. Say: "We go deeper in §4."
+  </div>
+  <div class="tn teacher-only" style="margin-top:14px;border:1px solid rgba(255,31,92,.18);border-radius:2px;overflow:hidden">
+    <button class="tn-toggle" onclick="toggleTN(this)" style="width:100%;background:rgba(255,31,92,.06);border:none;color:var(--ac);padding:9px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;touch-action:manipulation">📋 Teacher Notes — §1 <span class="tn-arrow" style="transition:transform .2s">▼</span></button>
+    <div class="tn-body" style="display:none">
+      <div style="padding:10px 14px;border-top:1px solid rgba(255,31,92,.1);border-left:3px solid rgba(255,31,92,.5);font-size:12.5px;color:var(--mt);line-height:1.6">
+        <strong style="color:var(--txt);display:block;margin-bottom:4px">Pedagogical</strong>
+        Fast food is the perfect "guilty pleasure" topic — everyone eats it, most people feel some degree of guilt, and the emotional complexity (pleasure + shame + defensiveness) generates natural language production. The "doubled in 10 years" stat normalizes the behavior while introducing scale. The guilt question is the session engine — note who says yes and who says no.
+        <strong style="color:var(--txt);display:block;margin:8px 0 4px">Retention</strong>
+        "This is our final Health lab for this series. But your habits — coffee, fast food, sleep — these topics are always relevant. We come back to health topics next season."
+      </div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 Words for Food &amp; Guilty Pleasures</div><div class="sec-sub">Click to hear · Pairs: A reads definition, B says word · Then challenge</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <button class="chal-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:14px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="v-divider" style="margin-top:14px"><div class="v-line"></div><div class="v-label">💬 5 Phrases</div><div class="v-line"></div></div>
+  <div class="phrases-grid" id="phraseGrid"></div>
+  <div class="vc-prompt"><span class="vc-label">⚡ Production Challenge</span>Pick <em>3 words</em>. One sentence each about <em>your food habits — honest ones.</em> No writing. Just talk.</div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 People. 4 Relationships with Food.</div><div class="sec-sub">Read all 4 · Pairs 90 sec · "I agree with [name] because..." · Group share</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-lbl">🔁 Processing Question — Ask every student</div>
+    <div class="pq-txt">"Who do you agree with most? Use: I agree with [name] because..."</div>
+  </div>
+  <div class="tn teacher-only" style="margin-top:14px;border:1px solid rgba(255,31,92,.18);border-radius:2px;overflow:hidden">
+    <button class="tn-toggle" onclick="toggleTN(this)" style="width:100%;background:rgba(255,31,92,.06);border:none;color:var(--ac);padding:9px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;touch-action:manipulation">📋 Teacher Notes — §3 <span class="tn-arrow" style="transition:transform .2s">▼</span></button>
+    <div class="tn-body" style="display:none">
+      <div style="padding:10px 14px;border-top:1px solid rgba(255,31,92,.1);border-left:3px solid rgba(255,31,92,.5);font-size:12.5px;color:var(--mt);line-height:1.6">
+        <strong style="color:var(--txt);display:block;margin-bottom:4px">Provocateur: Álvaro Ríos</strong>
+        Álvaro's "I never eat fast food — it's garbage" position is the most challenging because it implicitly judges everyone who does. For a group where everyone probably ate fast food this week, his position creates mild indignation. Push: "Is Álvaro right — or is he just pretending to be perfect?" The defensiveness that generates is productive language.
+      </div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 CONVERSATION ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Provocative · No round-robin · Point and push</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-rule"><strong>A2.1 Rule:</strong> Short answers are great. One complete sentence = perfect. Use the chips to start if you need help.</div>
+  <div id="convPhases"></div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · Exit Shot</div><div class="sec-title">💣 One Scenario. Your Real Answer.</div><div class="sec-sub">5 min · No chips · Real answer only · Then the homework loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-lbl">💣 Exit Shot</div>
+    <div class="exit-q">It's Friday at 7pm. You are tired. You didn't eat lunch. There is a McDonald's <em>right there.</em> Your diet starts Monday. What are you going to do?</div>
+    <div class="exit-rule">Answer in 2–3 sentences. Be honest. Not the healthy answer — the real one. What are you actually going to do?</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-lbl">📌 A2.1 Model Answer — Show AFTER student speaks</div>
+    <div class="em-txt">"I am going to go in. I know I am going to order a Big Mac and large fries. I am going to feel bad after — but not very bad. And yes — my diet still starts Monday."</div>
+  </div>
+  <div class="hw-box">
+    <strong>🔁 WhatsApp Homework Loop</strong>
+    "Tonight — record 60 seconds in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send to [teacher number]."
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.1 · Speaking Lab · Fast Food: My Weakness · Health &amp; Wellness · Medium</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv on">A2.1</div><div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"burger",    def:"Sandwich with meat inside"},
+  {w:"fries",     def:"Fried potato pieces"},
+  {w:"diet",      def:"Plan for what you eat"},
+  {w:"meal",      def:"One time you eat food"},
+  {w:"calories",  def:"Units of energy in food"},
+  {w:"guilt",     def:"Feeling bad about something you did"},
+  {w:"weakness",  def:"Something you can't resist"},
+  {w:"stomach",   def:"Organ that processes food"},
+  {w:"price",     def:"How much something costs"},
+  {w:"line",      def:"Row of people waiting"}
+];
+const verbs=[
+  {w:"eat",      def:"Put food in your mouth"},
+  {w:"order",    def:"Ask for food in a restaurant"},
+  {w:"resist",   def:"Stop yourself from doing something"},
+  {w:"regret",   def:"Feel bad about something you did"},
+  {w:"skip",     def:"Not eat a meal"},
+  {w:"gain",     def:"Get more — like weight"},
+  {w:"crave",    def:"Want something very much"},
+  {w:"finish",   def:"Eat all of something"},
+  {w:"choose",   def:"Decide between two things"},
+  {w:"avoid",    def:"Try not to do or eat something"}
+];
+const phrases=[
+  {t:"I can't resist.",    d:"I always give in"},
+  {t:"Just one more.",     d:"The food excuse"},
+  {t:"I feel guilty.",     d:"After eating bad food"},
+  {t:"Come on!",           d:"Temptation call"},
+  {t:"My diet starts Monday.", d:"Classic excuse"}
+];
+const perspectives=[
+  {name:"Lupita Garza",   meta:"33 · Teacher · Guanajuato", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+   quote:"I eat fast food every Friday. It's my reward after a long week. <strong>I don't feel guilty.</strong> I eat well Monday to Thursday. One bad meal doesn't destroy your health. Life is short — enjoy your burger."},
+  {name:"Álvaro Ríos",    meta:"46 · Engineer · Monterrey — provocateur", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+   quote:"I never eat fast food. <strong>Never.</strong> It's not food — it's garbage. Look at the ingredients. The oil, the salt, the chemicals. I don't understand why people eat this. Your body is a machine — you don't put bad fuel in a machine."},
+  {name:"Renata Solis",   meta:"28 · Nurse · Querétaro", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80",
+   quote:"I eat fast food. I work in a hospital and sometimes I only have <strong>10 minutes for lunch.</strong> I want to eat better, but I don't have time. I feel guilty — but what can I do? Fast food is fast."},
+  {name:"Carlos Medina",  meta:"50 · Accountant · CDMX", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+   quote:"I eat fast food with my kids on Saturdays. <strong>It's our tradition.</strong> They love it. I love seeing them happy. Yes, it's not healthy. But family time is also important for your health."}
+];
+const phases=[
+  {tag:"BLOCK 1",name:"Past Simple — Your Food Story",mech:"Past simple only · 2 min per Q",qs:[
+    {n:"Q1",q:"When was the last time you ate fast food? What did you order?",chips:["The last time was...","I ordered a...","I ate fast food last... and I...","I went to... with..."],tip:"<strong>A2.1 Model:</strong> 'I ate fast food last Tuesday. I ordered a burger and fries. I was in traffic for an hour and I was hungry. I didn't have time to eat at home. It was delicious.'"},
+    {n:"Q2",q:"Did you ever eat fast food and feel terrible after? What happened?",chips:["Yes, one time I ate...","After I felt...","I was so full that...","My stomach..."],tip:"<strong>A2.1 Model:</strong> 'Yes. Last month I ate at a fast food place near my office. I ordered too much. After I felt very heavy and sleepy in my afternoon meeting. My boss noticed.'"},
+    {n:"Q3",q:"Did you ever try to stop eating fast food? How many days did you last?",chips:["Yes, I tried to stop and I lasted...","The hardest day was...","I stopped for... but then I...","I didn't try to stop because..."],tip:"Both 'I tried and failed' and 'I never tried' are valid. The humor in 'I lasted 3 days' is productive language. Push: 'What happened on day 4? What did you eat?'"}
+  ]},
+  {tag:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present · 2 min per Q",qs:[
+    {n:"Q4",q:"Is fast food really bad for you — or is it only a problem if you eat it too much?",chips:["I think fast food is bad because...","I think it's OK if you eat it...","The real problem is...","My doctor says..."],tip:"<strong>A2.1 Model:</strong> 'I think too much is bad. But once a week is OK. The problem is when people eat it every day. One burger is not going to kill you. Fifteen burgers a week is different.'"},
+    {n:"Q5",q:"Do you think fast food tastes better than home cooking — be honest?",chips:["Honestly yes, because...","No, home food is better because...","It depends on...","I think fast food is..."],tip:"The most honest question of Block 2. Many students privately think fast food tastes good. Creating a safe space for that admission — 'I love it and I know it's bad' — is real language production."},
+    {n:"Q6",q:"Is it expensive to eat fast food in Mexico — or is it a cheap option?",chips:["I think it's cheap because...","I think it's expensive because...","For a family of... it costs...","Compared to home food, fast food is..."],tip:"Practical and personal. 'Fast food is cheap for one person but expensive for a family' is an A2.1 insight that requires real production. Push: 'How much do you spend at McDonald's for one meal?'"}
+  ]},
+  {tag:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · 2 min per Q",qs:[
+    {n:"Q7",q:"Are you going to eat fast food this week? Be honest.",chips:["Yes, probably on...","No, I am going to eat at home because...","I don't plan to but I know I will...","My plan is... but we will see"],tip:"<strong>A2.1 Model:</strong> 'Probably yes. I am going to be in a meeting on Thursday and I don't have time for lunch. I am going to go to the place near my office. I know it's bad.'"},
+    {n:"Q8",q:"Are you going to change your eating habits this year?",chips:["Yes! I am going to...","No, I don't think I will change because...","I want to change but...","My plan is to eat... but it is difficult because..."],tip:"Future resolution — activates 'going to' and 'will.' 'My diet starts Monday' is the most common honest answer. Let it happen. Then push: 'And on Tuesday?'"}
+  ]},
+  {tag:"BLOCK 4",name:"Provocative — Be Honest",mech:"Simple present · No chips · Real answers only",qs:[
+    {n:"Q9",q:"Be honest — do you feel guilty when you eat fast food, or do you enjoy it without guilt?",chips:[],tip:"<strong>Teacher Note:</strong> Give 5 seconds of silence. This is the most honest question of the session. Both 'yes I feel terrible' and 'no I enjoy it completely' are valid. Push: 'What do you do with that guilt feeling? Do you exercise after? Or do you just forget?'"},
+    {n:"Q10",q:"Final question: Is Álvaro from the Opinion Wall right — or is he just pretending to be better than everyone?",chips:[],tip:"<strong>Teacher Note:</strong> The synthesis question with direct reference to the provocateur. 'He is right but annoying' is the most common reaction. Both are valid. Push: 'Is it possible to never eat fast food in Mexico? Or is it impossible in this country?'"}
+  ]}
+];
+
+function buildVocab(d,cId,type){const g=document.getElementById(cId);d.forEach(i=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");const ex=type==="noun"?`"My ${i.w} is my biggest problem."`:`"I ${i.w} fast food too much."`;c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${i.w}</div><div class="vdef">${i.def}</div><div class="vex">${ex}</div><button class="spk" onclick="speak('${i.w.replace(/'/g,"&#39;")}',event)">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg2=document.getElementById("phraseGrid");phrases.forEach(p=>{pg2.innerHTML+=`<div class="ph" onclick="speak('${p.t.replace(/'/g,"&#39;")}',event)"><div class="ph-txt">${p.t}</div><div class="ph-def">${p.d}</div></div>`;});
+const pg=document.getElementById("perspGrid");perspectives.forEach(p=>{pg.innerHTML+=`<div class="pc"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const ce=document.getElementById("convPhases");phases.forEach(ph=>{let qHTML="";ph.qs.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.n}</div><div class="q-text">${q.q}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div style="display:flex;align-items:center;gap:8px;margin-top:6px"><button class="tip-btn" onclick="toggleTip(this)">💡 Show tip</button></div><div class="tip-content teacher-only">${q.tip}</div></div>`;});ce.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-tag">${ph.tag}</div><div class="phase-name">${ph.name}</div><div class="phase-mech teacher-only">${ph.mech}</div></div>${qHTML}</div>`;});
+function speak(t,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.85;window.speechSynthesis.speak(u);}
+function speakChip(t,e){if(e)e.stopPropagation();speak(t,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTip(btn){const tc=btn.parentElement.nextElementSibling;tc.style.display=tc.style.display==="block"?"none":"block";btn.textContent=tc.style.display==="block"?"🙈 Hide tip":"💡 Show tip";}
+function toggleTN(btn){const b=btn.nextElementSibling;b.style.display=b.style.display==="block"?"none":"block";btn.querySelector(".tn-arrow").style.transform=b.style.display==="block"?"rotate(180deg)":"";}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const secs=["s1","s2","s3","s4","s5"],nls=document.querySelectorAll(".sni");
+function updateNav(){let cur=secs[0];secs.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});nls.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

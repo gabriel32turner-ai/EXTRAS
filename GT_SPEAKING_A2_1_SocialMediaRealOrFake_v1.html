@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Social Media: Real or Fake? · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1923;--s1:#131e2b;--s2:#18222F;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FF1F5C;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.97);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+.hbrand{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.htoggle{background:#2a3a4e;border:1px solid var(--bd);color:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .2s}
+.htoggle:hover{border-color:var(--ac);color:var(--ac)}
+.htoggle.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+.hero{height:340px;position:relative;display:flex;align-items:flex-end;padding:36px 40px;background:url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,1) 0%,rgba(15,25,35,.75) 50%,rgba(15,25,35,.35) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.hero-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(255,31,92,.4);color:var(--ac)}
+.hero-tag.medium{border-color:rgba(255,31,92,.5);color:var(--ac)}
+.hero-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 60px}
+.sec{padding:44px 0 36px;border-bottom:1px solid var(--bd)}
+.sec:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:4px}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--mt)}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-top:6px}
+
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:22px 26px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;color:#fff;line-height:1.5;font-style:italic;margin-bottom:12px}
+.trigger-script{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:12px}
+.teacher-script{font-size:12px;color:var(--mt);background:var(--s2);border:1px solid var(--bd);padding:14px 18px;margin-top:16px}
+.teacher-script strong{color:var(--ac);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px;margin-bottom:24px}
+.vocab-card{background:var(--s2);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:border-color .2s,transform .1s;user-select:none}
+.vocab-card:hover{border-color:var(--ac);transform:translateY(-1px)}
+.vocab-card:active{transform:translateY(0)}
+.vc-type{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.vc-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.vc-def{font-size:11.5px;color:var(--mt);line-height:1.4}
+
+.phrases-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid rgba(255,31,92,.4);padding:12px 16px;cursor:pointer;transition:border-color .2s}
+.phrase-item:hover{border-left-color:var(--ac)}
+.pi-phrase{font-size:14px;font-weight:500;color:#fff;margin-bottom:3px}
+.pi-context{font-size:12px;color:var(--mt)}
+
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opinion-card{background:var(--s2);border:1px solid var(--bd);padding:20px;transition:border-color .2s}
+.opinion-card:hover{border-color:rgba(255,31,92,.3)}
+.op-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.op-avatar{font-size:28px;line-height:1}
+.op-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff}
+.op-role{font-size:11px;color:var(--mt)}
+.op-text{font-size:13.5px;color:var(--mt);line-height:1.6}
+.op-text strong{color:var(--txt)}
+.provocateur-badge{display:inline-block;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,31,92,.9);border:1px solid rgba(255,31,92,.3);padding:2px 8px;margin-bottom:8px}
+.opinion-prompt{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:16px 20px;margin-top:16px;font-size:13px;color:var(--mt)}
+.opinion-prompt strong{color:#fff}
+
+.q-block{margin-bottom:28px}
+.q-block-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s2);border:1px solid var(--bd);padding:18px 20px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--ac);margin-bottom:6px}
+.q-text{font-size:14.5px;color:#fff;margin-bottom:12px;line-height:1.5}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,31,92,.3);color:var(--ac);font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,31,92,.08);border-color:var(--ac)}
+.tip-content{display:none;margin-top:14px;padding:14px 16px;background:var(--bg);border:1px solid rgba(255,31,92,.2);font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.show{display:block}
+.tip-content strong{color:var(--ac);display:block;font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px;margin-top:8px}
+.exit-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-question{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:20px}
+.exit-hw{font-size:13px;color:var(--mt);border-top:1px solid var(--bd);padding-top:16px}
+.exit-hw strong{color:var(--ac)}
+
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+
+body:not(.teacher-mode) .teacher-only{display:none!important}
+body.teacher-mode .teacher-only{display:block}
+
+@media(max-width:600px){
+  .hero{padding:24px 20px;height:auto;padding-top:80px}
+  .hero-title{font-size:24px}
+  .wrap{padding:0 16px 40px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .opinion-grid{grid-template-columns:1fr}
+  .hdr{padding:12px 16px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">Gabriel Turner · Speaking Lab</div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Teacher Mode: OFF</button>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.1</span>
+      <span class="hero-tag">Technology & Media</span>
+      <span class="hero-tag medium">🔥 Medium</span>
+      <span class="hero-tag">50 min</span>
+    </div>
+    <div class="hero-title">Social Media: Real or Fake?</div>
+    <div class="hero-sub">People post beautiful photos, perfect food, and happy faces. But is that their real life — or just a show?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PHASE 1 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🪝</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 1</div>
+        <div class="sec-title">The Trigger</div>
+        <div class="sec-sub">One number. One reaction. Go.</div>
+        <div class="timer-pill">⏱ 4 min</div>
+      </div>
+    </div>
+
+    <div class="trigger-box">
+      <div class="trigger-source">Forbes · Social Media Report · 2023</div>
+      <div class="trigger-quote">"70% of people say they only post photos when they look good. Most people delete a photo if they don't get enough likes in the first hour."</div>
+      <div class="trigger-script">Social media shows the best version of people — the nice food, the clean house, the happy family. But behind the phone, real life is different. Many people feel bad when they see other people's perfect posts. They think: "My life is not like that."</div>
+    </div>
+
+    <div class="teacher-only teacher-script">
+      <strong>Teacher Script</strong>
+      Read the stat. Then ask: <em>"Quick — did you post something this week? Was it a good photo or a normal photo?"</em> Let 2–3 students answer fast. Then: <em>"And did you delete a photo because you didn't like it?"</em> That immediate recognition is your opening. Keep it light and fun.
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💉</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 2</div>
+        <div class="sec-title">Vocab Injection</div>
+        <div class="sec-sub">Click any card to hear pronunciation. Use these words today.</div>
+        <div class="timer-pill">⏱ 8 min</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('photo')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">photo</div>
+        <div class="vc-def">A picture — often not 100% real</div>
+      </div>
+      <div class="vocab-card" onclick="speak('like')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">like</div>
+        <div class="vc-def">A button to say "I like this post"</div>
+      </div>
+      <div class="vocab-card" onclick="speak('filter')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">filter</div>
+        <div class="vc-def">A tool to make photos look better</div>
+      </div>
+      <div class="vocab-card" onclick="speak('comment')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">comment</div>
+        <div class="vc-def">A message you write on someone's post</div>
+      </div>
+      <div class="vocab-card" onclick="speak('profile')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">profile</div>
+        <div class="vc-def">Your page on social media</div>
+      </div>
+      <div class="vocab-card" onclick="speak('follower')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">follower</div>
+        <div class="vc-def">A person who sees your posts</div>
+      </div>
+      <div class="vocab-card" onclick="speak('post')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">post</div>
+        <div class="vc-def">A photo or message you share online</div>
+      </div>
+      <div class="vocab-card" onclick="speak('screen')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">screen</div>
+        <div class="vc-def">The front part of your phone or computer</div>
+      </div>
+      <div class="vocab-card" onclick="speak('app')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">app</div>
+        <div class="vc-def">A program on your phone</div>
+      </div>
+      <div class="vocab-card" onclick="speak('selfie')">
+        <div class="vc-type">Noun</div>
+        <div class="vc-word">selfie</div>
+        <div class="vc-def">A photo you take of yourself</div>
+      </div>
+    </div>
+
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('post')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">post</div>
+        <div class="vc-def">To put a photo or text online</div>
+      </div>
+      <div class="vocab-card" onclick="speak('delete')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">delete</div>
+        <div class="vc-def">To remove something from your phone or profile</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pretend')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">pretend</div>
+        <div class="vc-def">To act like something is true when it is not</div>
+      </div>
+      <div class="vocab-card" onclick="speak('compare')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">compare</div>
+        <div class="vc-def">To look at two things and see the difference</div>
+      </div>
+      <div class="vocab-card" onclick="speak('scroll')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">scroll</div>
+        <div class="vc-def">To move up and down on your phone screen</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lie')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">lie</div>
+        <div class="vc-def">To say something that is not true</div>
+      </div>
+      <div class="vocab-card" onclick="speak('show off')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">show off</div>
+        <div class="vc-def">To tell people about good things you have</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">ignore</div>
+        <div class="vc-def">To not pay attention to something</div>
+      </div>
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">share</div>
+        <div class="vc-def">To send or post something for others to see</div>
+      </div>
+      <div class="vocab-card" onclick="speak('check')">
+        <div class="vc-type">Verb</div>
+        <div class="vc-word">check</div>
+        <div class="vc-def">To look at your phone to see new posts or messages</div>
+      </div>
+    </div>
+
+    <div class="phrases-list" style="margin-top:16px">
+      <div class="phrase-item" onclick="speak('Are you serious? That photo is so fake!')">
+        <div class="pi-phrase">"Are you serious? That photo is so fake!"</div>
+        <div class="pi-context">When someone posts a photo with too many filters and it looks like a different person.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('No way, her life is not really like that')">
+        <div class="pi-phrase">"No way — her life is not really like that."</div>
+        <div class="pi-context">When someone's profile looks perfect but you know them in real life.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('I do not care about likes')">
+        <div class="pi-phrase">"I don't care about likes."</div>
+        <div class="pi-context">Said by everyone. Often not completely true.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('That drives me crazy — people only post perfect photos')">
+        <div class="pi-phrase">"That drives me crazy — people only post perfect photos."</div>
+        <div class="pi-context">When your feed is full of beautiful food and perfect vacations that don't look real.</div>
+      </div>
+      <div class="phrase-item" onclick="speak('Same here, I deleted the app because it was bad for me')">
+        <div class="pi-phrase">"Same here — I deleted the app because it was bad for me."</div>
+        <div class="pi-context">When someone else says social media made them feel bad and you feel the same.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🧱</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 3</div>
+        <div class="sec-title">The Opinion Wall</div>
+        <div class="sec-sub">Four people. Four honest opinions about social media. Which one sounds like you?</div>
+        <div class="timer-pill">⏱ 10 min</div>
+      </div>
+    </div>
+
+    <div class="opinion-grid">
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😤</div>
+          <div>
+            <div class="op-name">Sofía, 31</div>
+            <div class="op-role">Teacher · Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I look at Instagram and everyone's life looks perfect. Nice food. Nice trips. Nice family. <strong>But I know their real life is not like that.</strong> It makes me feel bad sometimes."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😎</div>
+          <div>
+            <div class="op-name">Diego, 38</div>
+            <div class="op-role">Cook · León</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I post my food photos on Instagram. Yes, I use a filter. Yes, it looks better than real life. <strong>So what? It's fun.</strong> I don't think it's bad. It's just a photo."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">🙅</div>
+          <div>
+            <div class="op-name">Lucía, 44</div>
+            <div class="op-role">Nurse · Guanajuato</div>
+          </div>
+        </div>
+        <div class="op-text">
+          "I deleted Instagram two years ago. My life is better now. <strong>I don't compare myself to other people.</strong> I don't need likes. I sleep better at night. It was the right decision."
+        </div>
+      </div>
+
+      <div class="opinion-card">
+        <div class="op-head">
+          <div class="op-avatar">😇</div>
+          <div>
+            <div class="op-name">Carlos, 29</div>
+            <div class="op-role">Salesperson · Querétaro</div>
+          </div>
+        </div>
+        <div class="provocateur-badge">⚡ Provocateur</div>
+        <div class="op-text">
+          "I post my real life. My messy apartment. My bad days. My boring food. <strong>Nobody gives me likes.</strong> But I feel better about it. Why do people only post perfect things? Life is not perfect."
+        </div>
+      </div>
+    </div>
+
+    <div class="opinion-prompt teacher-only">
+      <strong>Discussion prompt:</strong> "Which person do you agree with? Say: 'I agree with [name] because...' in one or two sentences." Carlos is the soft provocateur — he does the opposite of everyone else and gets no reward for it. His honesty is simple and makes students laugh — then think.
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">🗣️</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 4</div>
+        <div class="sec-title">The Conversation Engine</div>
+        <div class="sec-sub">10 questions. Short answers are great. Use past simple and simple present.</div>
+        <div class="timer-pill">⏱ 23 min</div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 1 · Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What was the last photo you posted on social media? Describe it.</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple description. "I posted a photo of my food / my dog / my trip." Help them add one detail: "It was a picture of my lunch. The food was really good." If they say "I don't use social media," ask: "What was the last photo you took on your phone?"
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">Did you ever feel bad after looking at social media? What did you see?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple + emotion. "Yes, I saw a photo of my friend's vacation and I felt jealous." Or: "I saw a person with a perfect body and I felt bad." These are common, honest experiences. No judgment — just conversation.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you ever delete a post because you didn't like it? Why?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Past simple + reason. "Yes, I deleted a photo because I didn't look good." "I deleted a comment because I was angry when I wrote it." Most people have done this. Short answers with "because" are the target structure.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 2 · Opinion (Simple Present)</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Do you think people are honest on social media? Why or why not?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          "I think people are not honest because they only post good things." "I think some people are honest but many people are not." Push for a reason after "because." Accept short answers — this is A2.1, not a debate.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Is it okay to use filters on photos? Or is it a lie?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple opinion with "It's okay" / "It's not okay" as scaffolding. "I think it's okay because it's just a photo." "I think it's a little bit of a lie because you don't look like that in real life." Both positions are valid. No wrong answer.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Do you think social media is good for people — or bad? What do you think?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present opinion. "I think social media is good because you can connect with family." "I think it's bad because people compare themselves." Target: one good thing OR one bad thing + "because." Don't push for both sides at A2.1.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 3 · Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Are you going to post something on social media this week? What?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Going to for concrete plans. "Yes, I'm going to post a photo of my birthday dinner on Saturday." "No, I'm not going to post anything this week." Simple and personal. Ask: "Are you going to use a filter?"
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">Will social media be more fake or more honest in the future? What do you think?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Will for prediction. "I think it will be more fake because of AI." "I think it will be the same." Short prediction + simple reason. Don't push for complex arguments — one sentence is perfect at A2.1.
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-block-label">Block 4 · Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Be honest — do YOU use filters on your photos? How many?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple present + honesty. Most people use at least one. "Yes, I always use one filter — just a little." "No, I never use filters but I choose the best photo." The number question makes it fun and specific. Laugh with them — no judgment.
+        </div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Your friend posts a terrible photo of you on social media. You look bad. What do you do?</div>
+        <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+        <div class="tip-content teacher-only">
+          <strong>Teacher Tip</strong>
+          Simple scenario — past simple or present for response. "I call her and say: delete this photo!" "I comment: please delete this." "I'm going to ask her to take it down." This produces real language they'll actually use. Fun to act out.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="sec-emoji">💣</div>
+      <div class="sec-meta">
+        <div class="sec-label">Phase 5</div>
+        <div class="sec-title">The Exit Shot</div>
+        <div class="sec-sub">One situation. What are you going to do?</div>
+        <div class="timer-pill">⏱ 5 min</div>
+      </div>
+    </div>
+
+    <div class="exit-box">
+      <div class="exit-label">💣 Exit Shot · A2.1 Social Media: Real or Fake?</div>
+      <div class="exit-question">You are going to a party tonight. You want to post a photo. But in every photo, you look tired and bad. Your friend looks great in all of them. Are you going to post a photo anyway — or not? What are you going to do?</div>
+      <div class="exit-hw">
+        <strong>Homework · WhatsApp Voice Note (1 min)</strong><br>
+        Record your answer in English. Tell me: are you going to post the photo? And why?
+      </div>
+    </div>
+
+    <div class="teacher-only teacher-script" style="margin-top:16px">
+      <strong>Retention Hook</strong>
+      This is a specific, relatable situation everyone has been in. "Going to" for the decision + a real feeling = easy to record. The contrast with the friend who looks great adds just enough tension. End: <em>"Send me the voice note. I want to know — post or no post?"</em>
+    </div>
+  </section>
+
+</div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">A2.1 · Speaking Lab · Social Media: Real or Fake? · Technology & Media</div>
+</footer>
+
+<script>
+function speak(text){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.85;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+function toggleMode(){
+  const body=document.body;
+  const btn=document.getElementById('modeBtn');
+  const on=body.classList.toggle('teacher-mode');
+  btn.textContent='Teacher Mode: '+(on?'ON':'OFF');
+  btn.classList.toggle('on',on);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  const show=tip.classList.toggle('show');
+  btn.textContent=show?'Hide Tip':'Show Tip';
+}
+</script>
+</body>
+</html>

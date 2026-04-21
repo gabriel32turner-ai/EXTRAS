@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab A2.1 · Morning Person or Night Person?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#FF1F5C;--ac2:#FF5C85;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(255,31,92,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(255,31,92,.1)}
+.mode-btn{background:var(--ac);border:none;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 35%;filter:brightness(.2) saturate(.5);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(255,31,92,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px;max-width:1000px;margin:0 auto}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.pk{background:rgba(255,31,92,.1);border-color:rgba(255,31,92,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(255,31,92,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(255,31,92,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.sec-banner{position:relative;margin-bottom:22px;overflow:hidden;border:1px solid var(--bd);border-radius:2px}
+.sec-banner img{width:100%;height:100px;object-fit:cover;filter:brightness(.28) saturate(.5);display:block}
+.sbo{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;gap:14px;background:linear-gradient(90deg,rgba(15,25,35,.92) 45%,transparent)}
+.sbo-txt .sbo-lbl{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.sbo-txt .sbo-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sbo-badge{background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.35);color:var(--ac2);padding:3px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-left:auto;white-space:nowrap;border-radius:2px}
+.tn{margin-top:18px;border:1px solid rgba(255,31,92,.2);border-radius:2px;overflow:hidden}
+.tn-toggle{width:100%;background:rgba(255,31,92,.06);border:none;color:var(--ac);padding:10px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .2s;touch-action:manipulation}
+.tn-toggle:hover{background:rgba(255,31,92,.1)}
+.tn-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--mt);line-height:1.7;border-top:1px solid rgba(255,31,92,.12)}
+.tn-body.open{display:block}
+.trigger-box{border-left:3px solid var(--ac);background:var(--s1);padding:20px 24px;margin-bottom:20px}
+.trigger-source{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.trigger-quote{font-size:16px;color:#fff;line-height:1.55;font-weight:500}
+.trigger-sub{font-size:12px;color:var(--mt);margin-top:8px;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:24px}
+.v-card{background:var(--s1);border:1px solid var(--bd);padding:13px 15px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.v-card:hover{border-color:var(--ac);background:var(--s2)}
+.v-card:hover .v-word{color:var(--ac)}
+.v-word{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.v-pos{font-size:10px;color:var(--ac);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.v-def{font-size:11.5px;color:var(--mt);line-height:1.5}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:12px 16px;cursor:pointer;transition:all .18s;border-radius:2px;touch-action:manipulation}
+.phrase-item:hover{background:var(--s2)}
+.p-text{font-size:13px;color:#fff;font-weight:500}
+.p-context{font-size:11.5px;color:var(--mt);margin-top:3px}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:620px){.opinion-grid{grid-template-columns:1fr}}
+.op-card{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;border-radius:2px;position:relative}
+.op-card.provocateur{border-color:rgba(255,31,92,.4);background:rgba(255,31,92,.04)}
+.op-avatar{font-size:28px;margin-bottom:10px}
+.op-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.op-role{font-size:11px;color:var(--ac);margin-bottom:10px}
+.op-text{font-size:13px;color:var(--mt);line-height:1.65}
+.op-tag{position:absolute;top:14px;right:14px;background:rgba(255,31,92,.15);border:1px solid rgba(255,31,92,.35);color:var(--ac2);padding:2px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:2px}
+.q-block{margin-bottom:28px}
+.q-block-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(255,31,92,.15)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:16px 18px;margin-bottom:8px;border-radius:2px}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:5px}
+.q-text{font-size:14px;color:#fff;line-height:1.55;margin-bottom:10px}
+.tip-btn{background:transparent;border:1px solid rgba(255,31,92,.3);color:var(--ac);padding:4px 12px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .18s;touch-action:manipulation}
+.tip-btn:hover{background:rgba(255,31,92,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 15px;background:rgba(255,31,92,.06);border-left:2px solid var(--ac);font-size:12.5px;color:var(--mt);line-height:1.65}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:rgba(255,31,92,.04);padding:28px 30px;border-radius:2px;margin-bottom:24px}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+.exit-q{font-size:18px;color:#fff;line-height:1.5;font-weight:600;margin-bottom:16px}
+.exit-hw{background:rgba(255,255,255,.04);border:1px solid var(--bd);padding:14px 18px;font-size:12.5px;color:var(--mt);border-radius:2px}
+.exit-hw strong{color:var(--ac)}
+footer{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.f-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.f-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:2rem}.vocab-grid{grid-template-columns:1fr 1fr}.sec{padding:30px 18px}footer{padding:18px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner · Speaking Lab</div><div class="bsub">A2.1 · Daily Life & Lifestyle</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.1</div><button class="mode-btn" onclick="toggleMode(this)">Teacher Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80&fit=crop" alt="sunrise sunrise morning night stars daily life">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">MN</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.1 · Daily Life & Lifestyle</div>
+    <div class="hero-title"><em>Morning Person</em><br>or Night Person?</div>
+    <div class="hero-sub">What time do you wake up? What time do you go to bed? What does that say about you?</div>
+    <div class="hero-chips"><span class="hchip pk">A2.1</span><span class="hchip">Daily Life & Lifestyle</span><span class="hchip">🟡 Medium</span><span class="hchip">50 min</span></div>
+  </div>
+</section>
+
+<nav class="snav">
+  <a class="sni active" href="#trigger">🪝 Trigger</a>
+  <a class="sni" href="#vocab">💉 Vocab</a>
+  <a class="sni" href="#opinions">🧱 Opinions</a>
+  <a class="sni" href="#engine">🗣 Conversation</a>
+  <a class="sni" href="#exit">💣 Exit Shot</a>
+</nav>
+
+<section class="sec-outer" id="trigger">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🪝 Phase 1 — The Trigger</div><div class="sec-title">The Question</div><div class="sec-sub">Read it. Then ask the student.</div></div>
+      <div class="sec-time teacher-only">4 min</div>
+      <div class="sec-wm">01</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A simple fact</div>
+      <div class="trigger-quote">"Scientists say about 25% of people are true morning people, 25% are true night people, and 50% are somewhere in the middle. But 90% of jobs start at 9am or earlier."</div>
+      <div class="trigger-sub">— Most night people wake up early every day — against their biology. No wonder they're tired.</div>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">The question for today</div>
+      <div class="trigger-quote">"What time did you wake up today? Was that YOUR choice — or the alarm clock's?"</div>
+      <div class="trigger-sub">— There's a difference between waking up and GETTING up. Let's talk about mornings and nights.</div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Script <span>+</span></button>
+      <div class="tn-body"><strong>Launch line:</strong> "Quick question — morning person or night person? Just one answer." [Student answers.] "What time do you normally wake up? And what time do you go to bed?" [Two quick answers.] "Okay — today we talk about sleep, mornings, and energy. I think you have strong opinions about this." This topic always generates immediate, personal responses.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="vocab">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💉 Phase 2 — Vocab Injection</div><div class="sec-title">Power Words</div><div class="sec-sub">Click any card to hear it. Use these words today.</div></div>
+      <div class="sec-time teacher-only">8 min</div>
+      <div class="sec-wm">02</div>
+    </div>
+    <div class="sec-banner">
+      <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1000&q=80&fit=crop" alt="morning sleep alarm nouns">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Nouns — Morning, Night & Daily Life</div><div class="sbo-sub">Click each card · Web Speech · A2.1 calibrated</div></div><div class="sbo-badge">Nouns</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('alarm')"><div class="v-word">alarm</div><div class="v-pos">noun</div><div class="v-def">The sound that wakes you up</div></div>
+      <div class="v-card" onclick="speak('routine')"><div class="v-word">routine</div><div class="v-pos">noun</div><div class="v-def">What you do every day in order</div></div>
+      <div class="v-card" onclick="speak('energy')"><div class="v-word">energy</div><div class="v-pos">noun</div><div class="v-def">Power to do things — you have more at certain times</div></div>
+      <div class="v-card" onclick="speak('coffee')"><div class="v-word">coffee</div><div class="v-pos">noun</div><div class="v-def">The morning drink that makes life possible</div></div>
+      <div class="v-card" onclick="speak('mood')"><div class="v-word">mood</div><div class="v-pos">noun</div><div class="v-def">How you feel — good mood, bad mood</div></div>
+      <div class="v-card" onclick="speak('silence')"><div class="v-word">silence</div><div class="v-pos">noun</div><div class="v-def">No noise — some people love morning silence</div></div>
+      <div class="v-card" onclick="speak('traffic')"><div class="v-word">traffic</div><div class="v-pos">noun</div><div class="v-def">Cars on the road — morning traffic is the worst</div></div>
+      <div class="v-card" onclick="speak('night')"><div class="v-word">night</div><div class="v-pos">noun</div><div class="v-def">The hours after sunset — quiet, peaceful, or social</div></div>
+      <div class="v-card" onclick="speak('sleep')"><div class="v-word">sleep</div><div class="v-pos">noun</div><div class="v-def">Rest for your body and mind — never enough</div></div>
+      <div class="v-card" onclick="speak('schedule')"><div class="v-word">schedule</div><div class="v-pos">noun</div><div class="v-def">Your plan of times and activities</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=1000&q=80&fit=crop" alt="wake up morning verbs">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">10 Verbs — What We Do in the Morning & Night</div><div class="sbo-sub">Click to hear · Rate 0.85</div></div><div class="sbo-badge">Verbs</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="v-card" onclick="speak('wake up')"><div class="v-word">wake up</div><div class="v-pos">verb</div><div class="v-def">To stop sleeping and open your eyes</div></div>
+      <div class="v-card" onclick="speak('get up')"><div class="v-word">get up</div><div class="v-pos">verb</div><div class="v-def">To leave the bed — harder than waking up</div></div>
+      <div class="v-card" onclick="speak('snooze')"><div class="v-word">snooze</div><div class="v-pos">verb</div><div class="v-def">To press the alarm to sleep more minutes</div></div>
+      <div class="v-card" onclick="speak('rush')"><div class="v-word">rush</div><div class="v-pos">verb</div><div class="v-def">To move very fast because you're late</div></div>
+      <div class="v-card" onclick="speak('stay up')"><div class="v-word">stay up</div><div class="v-pos">verb</div><div class="v-def">To not sleep — stay awake late at night</div></div>
+      <div class="v-card" onclick="speak('feel tired')"><div class="v-word">feel tired</div><div class="v-pos">verb</div><div class="v-def">To have no energy — common every morning</div></div>
+      <div class="v-card" onclick="speak('concentrate')"><div class="v-word">concentrate</div><div class="v-pos">verb</div><div class="v-def">To focus your mind on something</div></div>
+      <div class="v-card" onclick="speak('hate mornings')"><div class="v-word">hate mornings</div><div class="v-pos">verb</div><div class="v-def">To feel very bad when you wake up early</div></div>
+      <div class="v-card" onclick="speak('enjoy the quiet')"><div class="v-word">enjoy the quiet</div><div class="v-pos">verb</div><div class="v-def">To like the silence of early morning or late night</div></div>
+      <div class="v-card" onclick="speak('fall asleep')"><div class="v-word">fall asleep</div><div class="v-pos">verb</div><div class="v-def">To start sleeping — sometimes before you want to</div></div>
+    </div>
+    <div class="sec-banner" style="margin-top:8px">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1000&q=80&fit=crop" alt="colloquial phrases morning">
+      <div class="sbo"><div class="sbo-txt"><div class="sbo-lbl">5 Colloquial Phrases — Real Morning Talk</div><div class="sbo-sub">Things people say every day · Click to hear</div></div><div class="sbo-badge">Colloquial</div></div>
+    </div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I\'m not a morning person')"><div class="p-text">"I'm not a morning person."</div><div class="p-context">The explanation for every bad mood before 9am</div></div>
+      <div class="phrase-item" onclick="speak('I need my coffee first')"><div class="p-text">"I need my coffee first."</div><div class="p-context">Don't talk to me until I drink this</div></div>
+      <div class="phrase-item" onclick="speak('I was so tired last night')"><div class="p-text">"I was so tired last night."</div><div class="p-context">Said every Monday morning in every office in the world</div></div>
+      <div class="phrase-item" onclick="speak('Lucky you!')"><div class="p-text">"Lucky you!"</div><div class="p-context">When someone says they wake up happy and energetic at 6am</div></div>
+      <div class="phrase-item" onclick="speak('Me too!')"><div class="p-text">"Me too!"</div><div class="p-context">When someone describes exactly what you feel every morning</div></div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Vocab Phase <span>+</span></button>
+      <div class="tn-body">After vocab, ask: "Which phrase describes your morning best?" Most students pick "I need my coffee first" or "I'm not a morning person." Both connect immediately to the Opinion Wall characters. Keep it light and fun — this topic works best when teacher and student both laugh about their own morning struggles.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="opinions">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🧱 Phase 3 — The Opinion Wall</div><div class="sec-title">Four People. One Question.</div><div class="sec-sub">Read all four. Who are you most like? Say: "I agree with [name] because..."</div></div>
+      <div class="sec-time teacher-only">10 min</div>
+      <div class="sec-wm">03</div>
+    </div>
+    <div class="opinion-grid">
+      <div class="op-card">
+        <div class="op-avatar">🌅</div>
+        <div class="op-name">Andrea, 36</div>
+        <div class="op-role">Nurse · CDMX</div>
+        <div class="op-text">"I wake up at 5am every day. I run. I drink coffee. I plan my day. <strong>Mornings are the best part.</strong> The house is quiet. Nobody asks me anything. I feel strong and ready. I love it."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">🌙</div>
+        <div class="op-name">Diego, 43</div>
+        <div class="op-role">Graphic designer · Monterrey</div>
+        <div class="op-text">"I work best at night. From 10pm to 2am — that's when I think clearly. <strong>Mornings are my enemy.</strong> My alarm is at 7:30. I press snooze four times. Then I rush. I arrive late. Every day."</div>
+      </div>
+      <div class="op-card">
+        <div class="op-avatar">☕</div>
+        <div class="op-name">Lucía, 30</div>
+        <div class="op-role">Teacher · Celaya</div>
+        <div class="op-text">"I wake up at 6:30. I don't like it. But I need to. <strong>After my coffee I'm okay.</strong> Not happy, but functional. I'm not a morning person or a night person. I'm just a tired person."</div>
+      </div>
+      <div class="op-card provocateur">
+        <div class="op-tag">Provocateur</div>
+        <div class="op-avatar">🏃</div>
+        <div class="op-name">Fernando, 49</div>
+        <div class="op-role">Salesman · Guadalajara</div>
+        <div class="op-text">"Night people are lazy. I'm sorry but it's true. <strong>You go to bed at 1am and cry when the alarm rings at 7am?</strong> Go to bed early. Problem solved. It's a discipline problem, not a biology problem."</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Opinion Wall <span>+</span></button>
+      <div class="tn-body"><strong>Provocateur rationale:</strong> Fernando calls night people "lazy" and reduces the biology to a discipline issue. This is strongly provocative for night people and Diego types. Students who identify with Diego will react immediately. Ask: "Is Fernando right? Or is it biology?" Keep it fun — this shouldn't become a debate about laziness, just an honest conversation about different schedules.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="engine">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">🗣 Phase 4 — The Conversation Engine</div><div class="sec-title">10 Questions · 4 Blocks</div><div class="sec-sub">Short answers are fine. Honest answers are better. Show tips after the student responds.</div></div>
+      <div class="sec-time teacher-only">23 min</div>
+      <div class="sec-wm">04</div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 1 — Personal Experience (Past Simple)</div>
+      <div class="q-item">
+        <div class="q-num">Q1</div>
+        <div class="q-text">What time did you wake up today? Was it easy or difficult to get up?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — concrete and personal. Model: "I woke up at 6:45. It was terrible. My alarm rang three times. I pressed snooze twice. Then I rushed. I almost didn't eat breakfast." Three simple past sentences. Very accessible for A2.1.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q2</div>
+        <div class="q-text">When was the last time you slept really well? What was different that night?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — positive sleep memory. Model: "Last Saturday. I didn't set an alarm. I woke up at 9am. I felt amazing. I read in bed for 30 minutes. I wasn't in a rush. It was perfect." The contrast with everyday life is the point. Activate: alarm, rush, energy.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q3</div>
+        <div class="q-text">Did you ever have a problem at work because you were late or very tired in the morning?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Past simple — a real consequence story. Model: "Yes. Two months ago I was late to an important meeting. My boss was angry. I didn't sleep well the night before. It was a bad day." Activate: traffic, rush, mood, schedule.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 2 — Opinion (Simple Present)</div>
+      <div class="q-item">
+        <div class="q-num">Q4</div>
+        <div class="q-text">Are you a morning person or a night person? What do you think is better?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Core opinion question. Model: "I'm a night person. I think mornings are terrible. But I work in the morning, so it doesn't matter what I think." Or: "I'm a morning person. I love the quiet. I think morning people are more productive." Both are great A2.1 opinions.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q5</div>
+        <div class="q-text">Do you think you need coffee or breakfast to function in the morning? Or can you start without it?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Fun, personal opinion. Model: "I need coffee. Without coffee, I can't think. I can't speak. I can't be nice to people. Coffee is not optional. It's medicine." Or: "I don't drink coffee. I just need water and 10 minutes of quiet." Activate "I need my coffee first."</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q6</div>
+        <div class="q-text">Is it okay for a company to start work at 7am — or do you think that's too early?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Opinion about work schedule. Fernando vs. Diego territory. Model: "I think 7am is too early. The human body isn't ready. You don't work well when you're half asleep. 9am is better." Or: "I don't mind. I start at 7:30. You adapt. It's okay." Both are natural A2.1 responses.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 3 — Future Plans (Going to / Will)</div>
+      <div class="q-item">
+        <div class="q-num">Q7</div>
+        <div class="q-text">Are you going to change your sleep schedule? What are you going to do differently?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Going to — personal future plan. Model: "I'm going to try to sleep earlier. I'm going to stop looking at my phone in bed. I'm going to drink less coffee at night." Three "going to" sentences — excellent A2.1 production. Or: "No. I'm not going to change. I'm a night person. I accept it." Both are honest.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q8</div>
+        <div class="q-text">What will you do tomorrow morning to start the day better?</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Will — tomorrow plan. Very concrete. Model: "Tomorrow I will wake up 15 minutes earlier. I will eat breakfast. I will not rush. I will listen to music in the car instead of thinking about work." Or: "I will do the same as always. Set the alarm. Press snooze. Rush. Nothing changes." Both are honest and natural.</div>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-block-lbl">Block 4 — Provocative</div>
+      <div class="q-item">
+        <div class="q-num">Q9</div>
+        <div class="q-text">Be honest — what time do you really want to wake up? Not your alarm time. YOUR ideal time.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Self-reflection — simple and very personal. The gap between ideal and real is the interesting part. Model: "My ideal time? 9am. Slowly. With no alarm. Coffee first, then emails. But my job starts at 8. So... no." Honest and a little funny. Give space for the answer.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Q10</div>
+        <div class="q-text">Do you think your mood in the morning affects the rest of your day? Give me an example.</div>
+        <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+        <div class="tip-content teacher-only">Provocative self-reflection with a story. Model: "Yes. When I wake up late and rush, I feel angry all morning. Last Tuesday, I was late. I arrived to work in a bad mood. I was rude to a colleague. It was not her fault. It was the morning." Activate: mood, rush, angry, concentrate.</div>
+      </div>
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Conversation Engine <span>+</span></button>
+      <div class="tn-body"><strong>A2.1 grammar check:</strong> Past simple (Q1-3), simple present (Q4-6), going to/will (Q7-8), simple present + past (Q9-10). <br><br><strong>Energy note:</strong> This topic generates immediate, enthusiastic responses at A2.1 because everyone has a strong, lived opinion about mornings. Keep a conversational, warm tone — laugh about shared morning struggles. Diego types and Fernando types usually create natural "debate" energy that drives the whole session.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-outer" id="exit">
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-hd-l"><div class="sec-lbl">💣 Phase 5 — The Exit Shot</div><div class="sec-title">The Final Question</div><div class="sec-sub">One scenario. One honest answer.</div></div>
+      <div class="sec-time teacher-only">5 min</div>
+      <div class="sec-wm">05</div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-lbl">💣 Exit Shot</div>
+      <div class="exit-q">Your company is going to change the work schedule. Starting next month, everyone is going to start at 7am and finish at 4pm. No exceptions. You are a night person. Your commute is 45 minutes. What are you going to do? Are you going to accept it — or are you going to talk to your boss?</div>
+    </div>
+    <div class="exit-hw">
+      <strong>🎙 WhatsApp Homework:</strong> Record a 60-second voice message in English: <em>"Tell me about your mornings. Are you a morning person or a night person? What time do you wake up? What do you do first? And what is the hardest part of your morning?"</em> Send before our next session.
+    </div>
+    <div class="tn teacher-only">
+      <button class="tn-toggle" onclick="toggleTN(this)">▶ Teacher Notes — Exit Shot & Retention <span>+</span></button>
+      <div class="tn-body"><strong>Why it works:</strong> Concrete workplace scenario using "going to" twice. The commute detail (45 min) makes it more specific and harder to ignore. For night people, this scenario is personally painful — they imagine it immediately. "Accept it or talk to your boss?" forces a decision and uses target grammar naturally. <br><br><strong>Upsell moment:</strong> "Next session we talk about bad habits you can't change. Very similar energy — personal, honest, a little funny. I think you'll enjoy it."</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">Gabriel Turner · Speaking Lab</div>
+  <div class="f-info">A2.1 · Daily Life & Lifestyle · Morning Person or Night Person? · Medium</div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>{const d=document.documentElement;document.getElementById('prog').style.width=((d.scrollTop||document.body.scrollTop)/(d.scrollHeight-d.clientHeight)*100)+'%'});
+function toggleMode(btn){const s=document.body.classList.toggle('student-mode');btn.textContent=s?'Student Mode':'Teacher Mode'}
+function toggleTN(btn){const b=btn.nextElementSibling,o=b.classList.toggle('open');btn.querySelector('span').textContent=o?'−':'+'}
+function toggleTip(btn){const t=btn.nextElementSibling;t.classList.toggle('open');btn.textContent=t.classList.contains('open')?'Hide tip':'Show tip'}
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.85;u.pitch=1;window.speechSynthesis.speak(u)}
+const sections=document.querySelectorAll('section[id]'),navLinks=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)c=s.id});navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+c)})},{passive:true});
+</script>
+</body>
+</html>

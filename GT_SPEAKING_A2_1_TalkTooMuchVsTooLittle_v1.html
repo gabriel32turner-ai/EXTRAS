@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · People Who Talk Too Much vs. Too Little · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FF1F5C;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#FF1F5C;border:1px solid #FF1F5C;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,31,92,.12);color:var(--ac);border:1px solid rgba(255,31,92,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:29px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,31,92,.1);border:1px solid rgba(255,31,92,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px 15px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,31,92,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:3px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:5px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px 17px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,31,92,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,31,92,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,31,92,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,31,92,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 19px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">A2.1</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>People Who Talk Too Much<br>vs. People Who Talk Too Little</h1>
+    <p>Some people never stop. Some people never start. Which one is more annoying — and which one are YOU?</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Let's Talk Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A simple question to start</div>
+    <div class="trigger-quote">"In every office, every family, and every group of friends — there is one person who talks too much, and one person who is always quiet. Which one is more difficult to be with? And be honest: which one are you?"</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Ask directly: <em>"OK — which one are you? Too much or too little?"</em> Then: <em>"Think of someone in your life who talks too much. Don't say the name — but describe them. What do they talk about?"</em> This gets the student describing real people immediately. Keep it fun and light.
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Andrea · 33</div><div class="bub-role">Nurse · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"I have a coworker who talks every minute of the day. About everything. Her food, her kids, her dog, her neighbor. <strong>I can't think.</strong> Quiet people are much better in an office."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Mateo · 38</div><div class="bub-role">Accountant · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"My boss is very quiet. He doesn't say anything — good or bad. I never know if I am doing a good job. <strong>I prefer people who talk.</strong> Silence is more confusing than too many words."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍💼</span>
+        <div><div class="bub-name">Carolina · 41</div><div class="bub-role">HR Manager · CDMX</div></div>
+      </div>
+      <div class="bub-body">"I talk a lot. I know. My friends say 'OK, stop.' But I am friendly and I like people. <strong>Talking is how I connect.</strong> Quiet people make me nervous. What are they thinking?"</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Ernesto · 50</div><div class="bub-role">Teacher · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"People who talk too much usually say nothing important. <strong>Quiet people think more.</strong> When a quiet person finally speaks — you listen. A person who always talks? After 5 minutes you stop listening."</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Ernesto is the provocateur because he defends quiet people with a sharp observation — when someone always talks, you stop listening. Ask: <em>"Is Ernesto right? Do you stop listening to people who talk too much?"</em> Then: <em>"And which bubble describes YOU best — Andrea, Mateo, Carolina, or Ernesto?"</em>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience — Past Simple</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">When was the last time someone talked too much and it drove you crazy? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple narrative. Push: "Where were you? What did you do — did you say something or just listen?" Model: "Last week. A meeting at work. One person talked for 30 minutes. Same idea, 10 times. I looked at my watch 6 times. Everyone was tired. Nobody said anything." Short and real.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did you ever feel uncomfortable because a person was too quiet — and you didn't know what they were thinking?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple + emotion. Push: "Who was it? A boss, a date, a new person?" Model: "Yes. A new coworker. He never talked. He just listened. I always thought: is he angry? Does he like me? Does he have a problem with me? After 2 months I knew — he's just quiet. But the first weeks were difficult." Connects to Carolina's bubble.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">Did someone interrupt you in a conversation last week? What did you do?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple. Push: "Did you say something — or did you just stop?" Model: "Yes. My sister. She always interrupts me. I was talking and she started a new topic. I stopped. I said 'I wasn't finished.' She said 'sorry' and I continued. But it was annoying." Good for activating the verb "interrupt."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion — Simple Present</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Which is more annoying — a person who talks too much or a person who is always quiet?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The central binary. Push: "Why? Give me a specific example." Target: I think + comparative (more annoying than). Model: "For me, talking too much is worse. I need silence. When a person talks and talks I can't think. But a quiet person is fine — I don't need to talk every minute." Gets strong opinions.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think quiet people are shy — or just smart?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Connects to Ernesto's observation. Push: "What is the difference between shy and quiet?" Target: I think / maybe + present simple. Model: "I think it's different. Shy people want to talk but they're afraid. Quiet people choose to listen. One is a problem. The other is a personality. I prefer quiet people — they listen better."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">In your job, is it better to talk a lot — or to be quiet and work?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Very context-specific. Push: "What about your current job — what is more important?" Target: it's better to + infinitive + because. Model: "In my job, you need both. Quiet when you work. Talk when there's a problem or meeting. People who only talk and don't work are the problem — not the quiet ones."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Future Plans — Going to / Will</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Is there a person at work or in your family who talks too much? Are you going to say something to them — or not?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + will for plans and intentions. Push: "What are you going to say? Give me the words." Model: "My coworker Carmen. She talks every morning for 30 minutes. I'm going to say 'Carmen, I need to work now, sorry.' Nice but direct. I'm going to do it next Monday. Maybe." The "maybe" is natural and valid.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">Next time a person interrupts you in a conversation, what are you going to do?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + direct action. Push: "Say the exact words." Model: "I'm going to say 'excuse me, I wasn't finished' and continue talking. I don't want to be rude. But I also don't want to stop and lose my idea." Gets students producing real, usable English phrases for real situations.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest — do YOU talk too much sometimes? When?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Self-reflection — most students will laugh and admit something. Push: "When do you talk the most — when you're nervous, happy, angry?" Target: present simple + specific situations. Model: "Yes. When I'm nervous, I talk a lot. Too much. I say the same thing 3 times. I know. My friends say 'yes, yes, we heard you.'" Honest and fun.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">A new person in your office is very quiet. Nobody knows them. People say "they are rude." Do you agree — or do you think that's not fair?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Simple scenario with a mild cultural tension. Push: "Is quiet the same as rude?" Target: present simple + I think that's fair / I think that's not fair. Model: "No, that's not fair. Quiet is not rude. Quiet is just quiet. Maybe they are nervous, maybe they are shy, maybe they just need more time. People jump to conclusions too fast." Good closer with a clear position.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Scenario</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Tomorrow you are going to have lunch with a person who talks too much. They always talk about the same things. You have a problem at work and you want to talk about it. But they are going to talk first — and they are not going to stop. What are you going to do?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me: what are you going to do — and what are you going to say to this person? In English. Simple words are perfect."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">A2.1 · Speaking Lab · People Who Talk Too Much vs. Too Little · Relationships &amp; Personality · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'silence',def:'When there is no sound or talking',ex:'"I love silence. My coworker hates it."'},
+  {w:'noise',def:'Loud, annoying sound',ex:'"The office noise drives me crazy."'},
+  {w:'conversation',def:'When two or more people talk together',ex:'"It was a good conversation — she listened."'},
+  {w:'opinion',def:'What you think about something',ex:'"She has an opinion about everything. Everything."'},
+  {w:'meeting',def:'A work event where people talk together',ex:'"The meeting was 2 hours. One person talked 90 minutes."'},
+  {w:'topic',def:'The subject of a conversation',ex:'"He always changes the topic. Very annoying."'},
+  {w:'gossip',def:'Talking about other people\'s personal life',ex:'"She loves gossip. I don\'t."'},
+  {w:'point',def:'The main idea or reason for saying something',ex:'"He talks for 10 minutes with no point. Zero."'},
+  {w:'story',def:'A description of something that happened',ex:'"She tells the same story every week."'},
+  {w:'attention',def:'When you focus on and listen to someone',ex:'"I stopped paying attention after minute 3."'},
+];
+const verbs=[
+  {w:'interrupt',def:'To start talking when someone else is talking',ex:'"He interrupts everyone. Every time."'},
+  {w:'listen',def:'To pay attention to someone who is talking',ex:'"She talks but doesn\'t listen. Only talks."'},
+  {w:'repeat',def:'To say the same thing again',ex:'"He repeated the same point 4 times."'},
+  {w:'stop',def:'To finish doing something',ex:'"I said \'please stop.\' She didn\'t."'},
+  {w:'whisper',def:'To speak very quietly — only for one person',ex:'"He whispered the gossip in my ear."'},
+  {w:'change',def:'To make something different',ex:'"She always changes the topic before I finish."'},
+  {w:'ignore',def:'To not pay attention to someone',ex:'"I ignored her and she talked more. More!"'},
+  {w:'yell',def:'To speak very loudly, usually when angry',ex:'"He yells when he\'s excited. Very loud."'},
+  {w:'speak up',def:'To talk louder or say what you think',ex:'"The quiet person finally spoke up. Good idea."'},
+  {w:'wait',def:'To not do something until the right moment',ex:'"I waited for my turn. She didn\'t give me one."'},
+];
+const phrases=[
+  {p:'Come on!',ctx:'Said when someone is exaggerating or you can\'t believe what they\'re saying'},
+  {p:'Let me finish.',ctx:'Said when someone interrupts you and you want to continue speaking'},
+  {p:'That drives me crazy!',ctx:'Said when someone\'s behavior is very annoying'},
+  {p:'No way!',ctx:'Said when something surprises you or you can\'t believe it'},
+  {p:'I don\'t care.',ctx:'Said when you are tired of a topic or conversation — or pretend to be'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

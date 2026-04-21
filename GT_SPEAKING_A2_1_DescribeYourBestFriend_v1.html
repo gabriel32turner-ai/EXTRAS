@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · Describe Your Best Friend (Honest Version) · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--ac:#FF1F5C;--s2:#121D28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.95);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.tog{background:#FF1F5C;border:1px solid #FF1F5C;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:4px;transition:all .2s}
+.tog.student-mode{background:#2a3a4e;border-color:#2a3a4e;color:#EAEAEA}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,16,24,.97) 0%,rgba(10,16,24,.65) 60%,rgba(10,16,24,.3) 100%)}
+.hero-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:3px;background:rgba(255,31,92,.12);color:var(--ac);border:1px solid rgba(255,31,92,.3)}
+.tag.medium{background:rgba(255,140,0,.12);color:#FFAA44;border-color:rgba(255,140,0,.3)}
+.hero h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero p{font-size:14px;color:var(--muted);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 60px}
+.sec{margin-top:48px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.sec-emoji{font-size:28px;line-height:1}
+.sec-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+.sec-sub{font-size:12px;color:var(--ac);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.timer-pill{margin-left:auto;background:rgba(255,31,92,.1);border:1px solid rgba(255,31,92,.25);color:var(--ac);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 14px;border-radius:20px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--card);padding:24px 28px;border-radius:0 8px 8px 0}
+.trigger-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);font-style:italic}
+.trigger-script{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+.trigger-script strong{color:var(--ac)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin-bottom:20px}
+.v-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px 15px;cursor:pointer;transition:all .2s;user-select:none}
+.v-card:hover{border-color:var(--ac);background:rgba(255,31,92,.06)}
+.v-card:active{transform:scale(.97)}
+.v-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:3px}
+.v-def{font-size:12px;color:var(--muted);line-height:1.4}
+.v-ex{font-size:11px;color:var(--text);margin-top:5px;font-style:italic;opacity:.7}
+.v-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:18px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px 17px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.phrase-item:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.phrase-text{font-size:14px;font-weight:500}
+.phrase-ctx{font-size:12px;color:var(--muted);margin-top:3px}
+.speak-icon{font-size:16px;opacity:.5}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative}
+.bubble.provocateur{border-color:rgba(255,80,60,.35);background:rgba(255,80,60,.04)}
+.bub-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bub-avatar{font-size:26px;line-height:1}
+.bub-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700}
+.bub-role{font-size:11px;color:var(--muted)}
+.bub-body{font-size:13px;line-height:1.65;color:#c8d0db}
+.prov-tag{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#FF6B5B;background:rgba(255,80,60,.12);border:1px solid rgba(255,80,60,.25);padding:3px 8px;border-radius:3px}
+.q-block{margin-bottom:28px}
+.q-block-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.q-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:8px}
+.q-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--ac);letter-spacing:1px;margin-bottom:6px}
+.q-text{font-size:15px;color:var(--text);margin-bottom:10px}
+.show-tip-btn{background:transparent;border:1px solid rgba(255,31,92,.3);color:var(--ac);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:4px;cursor:pointer;transition:all .2s}
+.show-tip-btn:hover{background:rgba(255,31,92,.1)}
+.tip-content{display:none;margin-top:12px;padding:12px 14px;background:rgba(255,31,92,.06);border-radius:6px;border-left:3px solid var(--ac);font-size:13px;color:var(--muted);line-height:1.6}
+.exit-box{border:2px solid var(--ac);border-radius:12px;padding:28px 32px;margin-top:12px;background:rgba(255,31,92,.04)}
+.exit-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-size:19px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:20px}
+.exit-hw{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 19px;font-size:13px;color:var(--muted)}
+.exit-hw strong{color:var(--text)}
+.ftr{background:var(--s2);border-top:1px solid var(--border);padding:24px;text-align:center;margin-top:60px}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.ftr-info{font-size:12px;color:var(--border);margin-top:4px}
+.teacher-only{display:block}
+body.student .teacher-only{display:none!important}
+body.student .timer-pill{display:none!important}
+@media(max-width:600px){.wall{grid-template-columns:1fr}.vocab-grid{grid-template-columns:1fr 1fr}.hero{padding:24px 20px;height:auto;padding-top:80px}.wrap{padding:0 16px 40px}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">Gabriel Turner · Speaking Lab</div>
+  <button class="tog" id="modeToggle" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="tags">
+      <span class="tag">A2.1</span>
+      <span class="tag">Relationships &amp; Personality</span>
+      <span class="tag medium">⚡ Medium Edge</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Describe Your Best Friend<br>(Honest Version)</h1>
+    <p>Your best friend is great — but they also do things that drive you crazy. Today we describe the real person, not the perfect one.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🪝</span>
+    <div><div class="sec-title">The Trigger</div><div class="sec-sub">Phase 1 · Let's Talk Starter</div></div>
+    <div class="timer-pill teacher-only">⏱ 4 min</div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">A simple question to start</div>
+    <div class="trigger-quote">"Your best friend is the person you call when something is wrong. But they are also the person who sometimes makes you angry, says the wrong thing, or forgets important things. Can you describe your best friend — the REAL version, not the perfect version?"</div>
+    <div class="trigger-script teacher-only">
+      <strong>Teacher Script:</strong> Ask directly: <em>"Who is your best friend? Tell me one GREAT thing about them — and one thing they do that is a little annoying."</em> The "honest version" concept breaks the ice immediately. Students love describing real people with both good and bad qualities. Keep follow-ups short: "How long are you friends?" / "Do you see them every week?"
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💉</span>
+    <div><div class="sec-title">Vocab Injection</div><div class="sec-sub">Phase 2 · Click to Hear</div></div>
+    <div class="timer-pill teacher-only">⏱ 8 min</div>
+  </div>
+  <div class="v-label">Nouns</div>
+  <div class="vocab-grid" id="nouns-grid"></div>
+  <div class="v-label">Verbs</div>
+  <div class="vocab-grid" id="verbs-grid"></div>
+  <div class="v-label">Colloquial Phrases — Click to Hear</div>
+  <div class="phrase-list" id="phrases-list"></div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🧱</span>
+    <div><div class="sec-title">The Opinion Wall</div><div class="sec-sub">Phase 3 · Who do you agree with?</div></div>
+    <div class="timer-pill teacher-only">⏱ 10 min</div>
+  </div>
+  <div class="wall">
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩</span>
+        <div><div class="bub-name">Lucía · 31</div><div class="bub-role">Secretary · Celaya</div></div>
+      </div>
+      <div class="bub-body">"My best friend is always late. Always. One hour late, two hours late. It drives me crazy. But she is the best person in the world. <strong>A little annoying and a lot wonderful.</strong> That is a real friend."</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👨</span>
+        <div><div class="bub-name">Rodrigo · 40</div><div class="bub-role">Mechanic · Monterrey</div></div>
+      </div>
+      <div class="bub-body">"My best friend talks too much. Too much. But when I have a problem, he is the first person to call me. <strong>I don't need a perfect friend. I need a real one.</strong>"</div>
+    </div>
+
+    <div class="bubble">
+      <div class="bub-head"><span class="bub-avatar">👩‍🍳</span>
+        <div><div class="bub-name">Patricia · 36</div><div class="bub-role">Cook · Guadalajara</div></div>
+      </div>
+      <div class="bub-body">"I have 3 best friends. They are all very different. One is serious, one is crazy, one is quiet. <strong>I need all three.</strong> For different days and different problems."</div>
+    </div>
+
+    <div class="bubble provocateur">
+      <div class="prov-tag">Provocateur</div>
+      <div class="bub-head"><span class="bub-avatar">🧔</span>
+        <div><div class="bub-name">Diego · 44</div><div class="bub-role">Salesman · Querétaro</div></div>
+      </div>
+      <div class="bub-body">"I don't have a best friend. I have good friends, but not one special person. <strong>I think one best friend is too much pressure.</strong> What happens when that person is not there?"</div>
+    </div>
+
+  </div>
+  <div class="trigger-script teacher-only" style="margin-top:16px;padding:16px 20px;background:var(--card);border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+    <strong style="color:var(--ac)">Teacher Note:</strong> Diego is the gentle provocateur — he questions the whole concept of having ONE best friend. Ask: <em>"Do you agree with Diego? Is one best friend too much pressure?"</em> Then: <em>"What do you think — is it better to have one very close friend or many good friends?"</em> Simple, accessible, gets strong opinions from A2.1 students.
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">🗣️</span>
+    <div><div class="sec-title">The Conversation Engine</div><div class="sec-sub">Phase 4 · 10 Questions · 4 Blocks</div></div>
+    <div class="timer-pill teacher-only">⏱ 23 min</div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 · Personal Experience — Past Simple</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">When was the last time your best friend did something that made you laugh?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple for the story. Push: "What happened? What did they do?" Model: "Last Saturday. We were at a restaurant and he talked to the wrong person. He thought it was his cousin. It was a stranger. Very funny." Short, clear, past simple narrative.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did your best friend do something that made you angry last month? What happened?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: past simple. Push: "What did you do? Did you tell them?" Model: "Yes. She forgot my birthday. I was angry. I didn't say anything that day. But the next day I told her. She felt very bad. She bought me dinner." Simple story with a result.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">When did you meet your best friend? Where were you?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Origin story — very rich for A2.1 description. Push: "How old were you? What was the first thing you talked about?" Target: past simple + time/place context. Model: "I met him at work. Ten years ago. He was my coworker. We ate lunch together every day and then we became friends."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 · Opinion — Simple Present</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">What is more important in a best friend — funny or honest?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Simple binary choice. Push: "Why? Can a person be both?" Target: I think + because. Model: "I think honest is more important. A funny person is nice. But an honest person is necessary. I need someone to tell me the truth, not just make me laugh." Gets clear opinions fast.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Do you think it is OK to be angry with your best friend — or do you always need to be nice?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Good for: I think it's OK / I think you need to. Push: "What do you do when you're angry with a friend?" Target: present simple opinion + can. Model: "Yes, I think it's OK. A best friend is not a boss. You can be honest. You can say 'that was not nice.' Real friends can be angry and then continue."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is it a problem if your best friend and your partner don't like each other?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Very personal and relatable. Push: "Did this happen to you?" Target: present simple + it is/it isn't. Model: "Yes, it is a problem. You can't enjoy time with both of them. You always feel in the middle. It is very uncomfortable." Good for 2-3 exchanges.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 · Future Plans — Going to / Will</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to see your best friend this week or this weekend?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Target: going to + present continuous for plans. Push: "What are you going to do? Where are you going to go?" Model: "Yes, I'm going to see her on Saturday. We are going to eat at a new restaurant. She is going to pay because she forgot my birthday last month." Keeps it personal and fun.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">Is there something you want to tell your best friend — but you didn't say it yet? Are you going to say it?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Emotionally rich but grammatically simple. Target: going to + will for intention. Push: "What is it? When are you going to say it?" Model: "Yes. I want to tell him that his new girlfriend is not good for him. But I don't know how. I'm going to talk to him soon. I think. Maybe." The uncertainty is real and valid.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 · Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest — do YOU do annoying things to your best friend sometimes? What do you do?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">The honest self-reflection question. Most students will laugh and admit something. Push: "Does your friend say anything — or do they accept it?" Target: present simple + I do / I sometimes. Model: "Yes. I always cancel plans at the last minute. She hates that. I say 'I'm tired' and I don't go. It's not nice. I know."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">A friend asks you: "Is my new haircut nice?" — but it's terrible. What do you say?</div>
+      <button class="show-tip-btn" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content">Simple scenario, universally relatable. Push: "Do you tell the truth — or do you lie?" Target: present simple + direct speech practice. Model: "I say 'it's different! Very interesting!' I don't say 'terrible.' That's too honest. But I also don't say 'beautiful' because that's a lie." Get the student to say the actual words they would use.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <span class="sec-emoji">💣</span>
+    <div><div class="sec-title">The Exit Shot</div><div class="sec-sub">Phase 5 · One Final Scenario</div></div>
+    <div class="timer-pill teacher-only">⏱ 5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">Final Question</div>
+    <div class="exit-q">Your best friend is going to make a big mistake — a new job, a new relationship, or a big purchase. You can see the problem. They are excited and happy. They didn't ask your opinion. Are you going to say something — or are you going to wait?</div>
+    <div class="exit-hw teacher-only">
+      <strong>Homework Loop:</strong> "Record a 60-second WhatsApp voice message. Tell me: what are you going to do — say something or wait? And what are you going to say? In English. Simple words are perfect."
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="ftr-brand">Gabriel Turner English Training</div>
+  <div class="ftr-info">A2.1 · Speaking Lab · Describe Your Best Friend (Honest Version) · Relationships &amp; Personality · Medium Edge</div>
+</footer>
+
+<script>
+const nouns=[
+  {w:'friend',def:'A person you like and trust',ex:'"My best friend is funny and a little annoying."'},
+  {w:'trust',def:'When you believe a person is good',ex:'"I trust my friend. He doesn\'t lie to me."'},
+  {w:'secret',def:'Something you don\'t tell other people',ex:'"She knows all my secrets. That\'s a real friend."'},
+  {w:'fight',def:'A big argument between two people',ex:'"We had a fight last year. Now we are OK."'},
+  {w:'memory',def:'Something nice you remember from the past',ex:'"We have good memories from our trip."'},
+  {w:'problem',def:'A difficult situation',ex:'"She always helps me with my problems."'},
+  {w:'advice',def:'An idea to help someone',ex:'"He gives bad advice but good company."'},
+  {w:'loyalty',def:'When you always support your friend',ex:'"Loyalty is the most important thing in a friend."'},
+  {w:'habit',def:'Something a person does every day',ex:'"His bad habit is being late. Always."'},
+  {w:'distance',def:'When two people are far from each other',ex:'"We are good friends, but the distance is difficult."'},
+];
+const verbs=[
+  {w:'trust',def:'To believe a person is honest',ex:'"I trust her with everything."'},
+  {w:'argue',def:'To fight with words',ex:'"We argue sometimes, but we don\'t stay angry."'},
+  {w:'support',def:'To help a person in difficult times',ex:'"He supported me when I lost my job."'},
+  {w:'cancel',def:'To not go to a plan you said yes to',ex:'"She cancels plans a lot. It\'s annoying."'},
+  {w:'forget',def:'To not remember something',ex:'"He forgot my birthday again. Third year!"'},
+  {w:'judge',def:'To have a bad opinion about someone',ex:'"A real friend doesn\'t judge you."'},
+  {w:'miss',def:'To feel sad when a person is not there',ex:'"I miss my friend. She moved to another city."'},
+  {w:'laugh',def:'To make a happy sound when something is funny',ex:'"We laugh a lot together. That is important."'},
+  {w:'accept',def:'To say yes to a person — good and bad parts',ex:'"She accepts me. Even my bad parts."'},
+  {w:'stay',def:'To continue to be there — not leave',ex:'"Good friends stay. Bad ones leave when it\'s difficult."'},
+];
+const phrases=[
+  {p:'Me too!',ctx:'Said when you agree or have the same experience'},
+  {p:'Are you serious?',ctx:'Said when something surprises you or is hard to believe'},
+  {p:'That drives me crazy!',ctx:'Said when something a person does is very annoying'},
+  {p:'Same here.',ctx:'Short way to say "I have the same situation"'},
+  {p:'Come on!',ctx:'Said when you think someone is wrong or exaggerating'},
+];
+
+function buildCards(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="v-card" onclick="speak('${d.w}')"><div class="v-word">🔊 ${d.w}</div><div class="v-def">${d.def}</div><div class="v-ex">${d.ex}</div></div>`).join('')}
+function buildPhrases(data,cid){const el=document.getElementById(cid);if(!el)return;el.innerHTML=data.map(d=>`<div class="phrase-item" onclick="speak('${d.p}')"><div><div class="phrase-text">🔊 "${d.p}"</div><div class="phrase-ctx">${d.ctx}</div></div><span class="speak-icon">▶</span></div>`).join('')}
+function speak(text){if(!window.speechSynthesis)return;const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function toggleTip(btn){const tip=btn.nextElementSibling;const open=tip.style.display==='block';tip.style.display=open?'none':'block';btn.textContent=open?'Show Tip':'Hide Tip'}
+function toggleMode(){
+  const isStudent=document.body.classList.toggle('student');
+  const btn=document.getElementById('modeToggle');
+  if(isStudent){btn.textContent='Teacher Mode';btn.classList.add('student-mode')}
+  else{btn.textContent='Student Mode';btn.classList.remove('student-mode')}
+}
+buildCards(nouns,'nouns-grid');buildCards(verbs,'verbs-grid');buildPhrases(phrases,'phrases-list');
+</script>
+</body>
+</html>

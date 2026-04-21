@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GT · Speaking Lab · A2.1 · People Who Never Pay Back</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#141F2B;--s2:#1A2840;--bd:rgba(255,255,255,.07);--ac:#FF1F5C;--ac2:#FF6B8A;--green:#00E676;--cyan:#00CFFF;--gold:#FFB800;--txt:#E4E4E4;--mt:rgba(228,228,228,.5);--dim:rgba(228,228,228,.25)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;overflow-x:hidden}
+body.student-mode .teacher-only{display:none!important}.teacher-only{display:block}
+.prog{height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));position:fixed;top:0;left:0;z-index:500;transition:width .12s;width:0;pointer-events:none}
+.hdr{background:rgba(20,31,43,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:400}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px rgba(255,31,92,.5)}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:3px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;background:rgba(255,31,92,.08)}
+.mode-btn{background:#FF1F5C;border:1px solid #FF1F5C;color:#fff;padding:5px 13px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;touch-action:manipulation}
+body.student-mode .mode-btn{background:#2a3a4e;border-color:#2a3a4e;color:#fff}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:360px;object-fit:cover;object-position:center 40%;filter:brightness(.22) saturate(.55);display:block}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(15,25,35,.05) 0%,rgba(15,25,35,.6) 40%,rgba(15,25,35,1) 100%)}
+.hero-wm{position:absolute;right:-20px;bottom:-40px;font-family:'Syne',sans-serif;font-size:240px;font-weight:800;color:rgba(255,31,92,.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-12px}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding:30px 32px 36px}
+.hero-meta{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.hero-meta-line{width:22px;height:1px;background:var(--ac);opacity:.5}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:.92;color:#fff;letter-spacing:-.03em;margin-bottom:14px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:520px;line-height:1.65;margin-bottom:18px;font-weight:300;font-style:italic}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hchip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.5)}
+.hchip.em{background:rgba(255,31,92,.1);border-color:rgba(255,31,92,.3);color:var(--ac2)}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sni{padding:12px 15px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.35)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}
+.sec{padding:44px 32px;max-width:1000px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;position:relative}
+.sec-hd-l{flex:1}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.sec-title{font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#fff}
+.sec-sub{font-size:12.5px;color:var(--mt);margin-top:3px}
+.sec-wm{position:absolute;right:0;top:-16px;font-family:'Syne',sans-serif;font-size:80px;font-weight:800;color:rgba(255,31,92,.05);line-height:1;pointer-events:none;user-select:none}
+.sec-time{border:1px solid rgba(255,31,92,.3);color:var(--ac);padding:3px 11px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;border-radius:2px;margin-left:16px;margin-top:4px}
+body.student-mode .sec-time{display:none}
+.hook-stat{background:linear-gradient(135deg,rgba(255,31,92,.08) 0%,rgba(255,31,92,.03) 100%);border:1px solid rgba(255,31,92,.25);border-left:4px solid var(--ac);padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden}
+.hs-deco{position:absolute;right:-10px;top:-20px;font-family:'Syne',sans-serif;font-size:100px;font-weight:800;color:rgba(255,31,92,.06);line-height:1;pointer-events:none;user-select:none}
+.hs-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,31,92,.6);margin-bottom:10px}
+.hs-num{font-family:'Syne',sans-serif;font-size:54px;font-weight:800;color:var(--ac);line-height:1;letter-spacing:-.03em;margin-bottom:6px}
+.hs-text{font-size:13px;color:var(--mt);line-height:1.6;max-width:500px}
+.hs-source{font-size:10px;color:var(--dim);font-style:italic;margin-top:8px}
+.hook-q{background:var(--s1);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:18px 22px;margin-bottom:10px}
+.hq-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.hq-text{font-size:18px;color:#fff;font-weight:600;line-height:1.4;font-family:'Syne',sans-serif}
+.hook-script{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:10px 14px;font-size:12px;color:var(--mt);line-height:1.6}
+.hook-script strong{color:rgba(255,31,92,.7);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+.v-divider{display:flex;align-items:center;gap:10px;margin:18px 0 10px}
+.v-line{flex:1;height:1px;background:var(--bd)}
+.v-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.v-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.vc{background:var(--s1);padding:12px 10px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--bd);transition:border-color .18s;cursor:pointer;touch-action:manipulation}
+.vc:hover{border-color:rgba(255,31,92,.3)}
+.vc.noun-c{border-top:2px solid rgba(255,31,92,.4)}.vc.verb-c{border-left:2px solid rgba(0,207,255,.35)}
+.vw{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff;line-height:1.2}
+.vtype{font-size:8px;font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1px}
+.vc.noun-c .vtype{color:rgba(255,31,92,.6)}.vc.verb-c .vtype{color:rgba(0,207,255,.6)}
+.vdef{font-size:11px;color:var(--mt);line-height:1.4;margin-top:1px}
+.vex{font-size:10px;color:rgba(255,107,138,.8);font-style:italic;border-left:2px solid rgba(255,31,92,.2);padding-left:5px;margin-top:3px;line-height:1.3}
+.vc.verb-c .vex{color:rgba(0,207,255,.7);border-left-color:rgba(0,207,255,.18)}
+.spk{margin-top:5px;background:rgba(255,31,92,.07);border:1px solid rgba(255,31,92,.18);color:var(--ac2);padding:3px 7px;font-size:10px;cursor:pointer;align-self:flex-start;border-radius:2px;touch-action:manipulation}
+.spk:hover{background:rgba(255,31,92,.14)}
+.vc.verb-c .spk{background:rgba(0,207,255,.06);border-color:rgba(0,207,255,.18);color:rgba(0,207,255,.8)}
+.phrases-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:2px}
+.ph{background:var(--s1);border:1px solid var(--bd);border-top:2px solid rgba(255,184,0,.35);padding:10px 11px;cursor:pointer;transition:border-color .18s;touch-action:manipulation}
+.ph:hover{border-color:rgba(255,184,0,.4)}
+.ph-txt{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
+.ph-def{font-size:11px;color:var(--mt)}
+.chal-btn{background:rgba(255,31,92,.08);border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:7px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;margin-bottom:10px;touch-action:manipulation}
+body.challenge-mode .vdef,body.challenge-mode .vex,body.challenge-mode .spk,body.challenge-mode .ph-def{visibility:hidden}
+body.challenge-mode .chal-btn{background:rgba(255,31,92,.2);color:#fff}
+.vc-prompt{background:rgba(255,31,92,.04);border:1px solid rgba(255,31,92,.18);padding:12px 16px;margin-top:10px;font-size:12.5px;color:var(--txt);line-height:1.55}
+.vc-prompt em{color:var(--ac2);font-style:normal;font-weight:600}
+.vc-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:5px}
+.persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pc{background:var(--s1);border:1px solid var(--bd);overflow:hidden;transition:border-color .2s}
+.pc:hover{border-color:rgba(255,31,92,.22)}
+.pc-img-wrap{position:relative;height:110px;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.55) saturate(.75)}
+.pc-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(15,25,35,.95) 100%)}
+.pc-profile{position:absolute;bottom:0;left:0;right:0;padding:8px 14px}
+.pc-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:#fff}
+.pc-role{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
+.pc-flag{position:absolute;top:8px;right:10px;font-size:16px}
+.pc-body{padding:12px 14px}
+.pc-quote{font-size:13px;color:var(--mt);line-height:1.65;font-style:italic;position:relative;padding-left:12px}
+.pc-quote::before{content:'"';position:absolute;left:0;top:-3px;font-size:24px;color:rgba(255,31,92,.3);font-family:'Syne',sans-serif;font-weight:800;line-height:1}
+.persp-q{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.17);padding:12px 16px;margin-top:10px}
+.pq-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:5px}
+.pq-txt{font-size:13px;color:#fff;font-weight:500;line-height:1.5}
+.conv-phase{margin-bottom:26px}
+.phase-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.phase-tag{font-family:'Syne',sans-serif;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:rgba(255,31,92,.1);border:1px solid rgba(255,31,92,.26);color:var(--ac);padding:3px 9px;border-radius:2px;white-space:nowrap}
+.phase-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#fff}
+.phase-mech{font-size:11px;color:var(--dim);margin-left:auto;white-space:nowrap}
+body.student-mode .phase-mech{display:none}
+.q-card{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;margin-bottom:7px;transition:border-color .2s}
+.q-card:hover{border-color:rgba(255,31,92,.18)}
+.q-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.q-num::after{content:'';flex:1;height:1px;background:rgba(255,31,92,.1)}
+.q-text{font-size:14px;color:#fff;font-weight:500;line-height:1.55;margin-bottom:8px}
+.q-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--mt);cursor:pointer;transition:all .14s;touch-action:manipulation}
+.chip:hover{background:rgba(255,31,92,.1);border-color:rgba(255,31,92,.28);color:var(--ac2)}
+.tip-btn{background:rgba(255,31,92,.07);border:1px solid rgba(255,31,92,.2);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:2px;touch-action:manipulation}
+.tip-content{display:none;margin-top:7px;font-size:12px;color:rgba(255,107,138,.7);background:rgba(255,31,92,.04);border:1px solid rgba(255,31,92,.1);padding:8px 11px;line-height:1.55;border-left:2px solid rgba(255,31,92,.3)}
+.tip-content strong{color:rgba(255,31,92,.8);font-size:10px;font-family:'Syne',sans-serif;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+.conv-rule{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.14);padding:9px 14px;margin-bottom:14px;font-size:12px;color:var(--mt)}
+.conv-rule strong{color:rgba(255,31,92,.75)}
+.exit-box{background:linear-gradient(135deg,rgba(255,31,92,.1) 0%,rgba(255,31,92,.04) 50%,transparent 100%);border:1px solid rgba(255,31,92,.25);padding:32px 30px;margin-bottom:12px;position:relative;overflow:hidden}
+.exit-wm{position:absolute;right:-10px;bottom:-15px;font-family:'Syne',sans-serif;font-size:120px;font-weight:800;color:rgba(255,31,92,.05);line-height:1;pointer-events:none;user-select:none}
+.exit-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.exit-lbl::after{content:'';flex:0 0 36px;height:1px;background:var(--ac);opacity:.4}
+.exit-q{font-family:'Syne',sans-serif;font-size:clamp(1.15rem,2.8vw,1.55rem);font-weight:800;color:#fff;line-height:1.3;margin-bottom:16px}
+.exit-q em{color:var(--ac);font-style:normal}
+.exit-rule{font-size:12px;color:var(--mt);line-height:1.6;max-width:460px}
+.exit-model{background:var(--s1);border:1px solid rgba(0,230,118,.18);border-left:3px solid var(--green);padding:12px 16px;margin-top:10px}
+.em-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.em-txt{font-size:13px;color:rgba(0,230,118,.8);font-style:italic;line-height:1.55}
+.hw-box{background:rgba(255,255,255,.03);border:1px solid var(--bd);padding:10px 14px;font-size:12px;color:var(--mt);line-height:1.55;margin-top:8px}
+.hw-box strong{color:rgba(255,31,92,.65);font-family:'Syne',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:22px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.fbrand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:11px;color:var(--dim)}
+.flevels{display:flex;gap:2px}
+.flv{padding:4px 9px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s2);color:var(--dim)}
+.flv.on{background:var(--ac);color:#fff}
+@media(max-width:768px){.persp-grid{grid-template-columns:1fr}.v-grid{grid-template-columns:repeat(2,1fr)}.phrases-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:2rem}.sec{padding:28px 18px}.hdr{padding:0 16px}.snav{padding:0 14px}}
+</style>
+</head>
+<body ontouchstart="">
+<div class="prog" id="prog"></div>
+<header class="hdr">
+  <div class="brand"><div class="dot"></div><div><div class="bname">Gabriel Turner</div><div class="bsub">Speaking Lab</div></div></div>
+  <div class="hdr-r"><div class="badge">A2.1 · Speaking Lab</div><button class="mode-btn" onclick="toggleMode(this)">👁 Student Mode</button></div>
+</header>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=80" alt="Money owed">
+  <div class="hero-overlay"></div>
+  <div class="hero-wm">A2</div>
+  <div class="hero-body">
+    <div class="hero-meta"><div class="hero-meta-line"></div>Speaking Lab · A2.1 · Money &amp; Finance</div>
+    <div class="hero-title">PEOPLE WHO<br><em>NEVER PAY BACK</em></div>
+    <div class="hero-sub">You lent the money. They said "yes, soon." That was three months ago.</div>
+    <div class="hero-chips">
+      <span class="hchip em">~50 min</span><span class="hchip">No grammar focus</span><span class="hchip">No reading</span>
+      <span class="hchip em">100% Speaking</span><span class="hchip">🌶 Spicy</span>
+    </div>
+  </div>
+</section>
+
+<nav class="snav" id="snav">
+  <a class="sni active" href="#s1">🪝 Trigger</a>
+  <a class="sni" href="#s2">💉 Vocab</a>
+  <a class="sni" href="#s3">🧱 Opinion Wall</a>
+  <a class="sni" href="#s4">🗣 Conversation</a>
+  <a class="sni" href="#s5">💣 Exit Shot</a>
+</nav>
+
+<!-- §1 TRIGGER -->
+<div class="sec-outer" id="s1"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 01 · The Trigger</div><div class="sec-title">🪝 The Money That Never Comes Back</div><div class="sec-sub">Read aloud · Immediate reaction · No debate yet · 4 min</div></div>
+    <div class="sec-wm">01</div><div class="sec-time teacher-only">4 min</div>
+  </div>
+  <div class="hook-stat">
+    <div class="hs-deco">💸</div>
+    <div class="hs-label">Creditkarma / Forbes Money Survey 2023</div>
+    <div class="hs-num">1 in 3</div>
+    <div class="hs-text">People say they lost a friendship because of money — specifically because one person borrowed money and never paid it back. The average amount: around $3,000–5,000 pesos.</div>
+    <div class="hs-source">Source: CreditKarma Friendship &amp; Money Survey 2023 · Forbes Personal Finance</div>
+  </div>
+  <div class="hook-q">
+    <div class="hq-label">🪝 Opening question — Point at one student and ask:</div>
+    <div class="hq-text">"Right now — do you have someone who owes you money? Yes or no?"</div>
+  </div>
+  <div class="hook-script teacher-only">
+    <strong>Teacher Script — 4 min</strong>
+    Binary question — yes or no first. Then: "How much? And do you think they are going to pay you back?" 2–3 students. Don't go deep yet — just activate the memory. Say: "We talk about the full story in §4."
+  </div>
+  <div class="tn teacher-only" style="margin-top:14px;border:1px solid rgba(255,31,92,.18);border-radius:2px;overflow:hidden">
+    <button class="tn-toggle" onclick="toggleTN(this)" style="width:100%;background:rgba(255,31,92,.06);border:none;color:var(--ac);padding:9px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;touch-action:manipulation">📋 Teacher Notes — §1 <span class="tn-arrow" style="transition:transform .2s">▼</span></button>
+    <div class="tn-body" style="display:none">
+      <div style="padding:10px 14px;border-top:1px solid rgba(255,31,92,.1);border-left:3px solid rgba(255,31,92,.5);font-size:12.5px;color:var(--mt);line-height:1.6">
+        <strong style="color:var(--txt);display:block;margin-bottom:4px">Pedagogical</strong>
+        Almost every adult in the group will raise their hand or nod. This is one of the most universally relatable frustrations in adult Mexican social life. The "1 in 3 lost a friendship" stat is the emotional activator — don't rush past it. Let it land.
+        <strong style="color:var(--txt);display:block;margin:8px 0 4px">Retention</strong>
+        "This is our last lab in this work/money series. But honestly — this topic could last 3 hours. There is always more to say about people who don't pay back."
+      </div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §2 VOCAB -->
+<div class="sec-outer" id="s2"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 02 · Vocab Injection</div><div class="sec-title">💉 Words for Borrowed Money</div><div class="sec-sub">Click to hear · Pairs: A reads definition, B says word · Then challenge</div></div>
+    <div class="sec-wm">02</div><div class="sec-time teacher-only">8 min</div>
+  </div>
+  <button class="chal-btn" onclick="toggleChallenge(this)">🧠 Challenge Mode — Hide Definitions</button>
+  <div class="v-divider"><div class="v-line"></div><div class="v-label">💡 10 Nouns</div><div class="v-line"></div></div>
+  <div class="v-grid" id="nounGrid"></div>
+  <div class="v-divider" style="margin-top:14px"><div class="v-line"></div><div class="v-label">🔵 10 Verbs</div><div class="v-line"></div></div>
+  <div class="v-grid" id="verbGrid"></div>
+  <div class="v-divider" style="margin-top:14px"><div class="v-line"></div><div class="v-label">💬 5 Phrases</div><div class="v-line"></div></div>
+  <div class="phrases-grid" id="phraseGrid"></div>
+  <div class="vc-prompt"><span class="vc-label">⚡ Production Challenge</span>Pick <em>3 words</em>. One sentence each — about a <em>real person or situation with money.</em> Honest. Just talk.</div>
+</section></div>
+
+<!-- §3 OPINION WALL -->
+<div class="sec-outer" id="s3"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 03 · Opinion Wall</div><div class="sec-title">🧱 4 People. 4 Views on Lending Money.</div><div class="sec-sub">Read all 4 · Pairs 90 sec · "I agree with [name] because..." · Group share</div></div>
+    <div class="sec-wm">03</div><div class="sec-time teacher-only">10 min</div>
+  </div>
+  <div class="persp-grid" id="perspGrid"></div>
+  <div class="persp-q">
+    <div class="pq-lbl">🔁 Processing Question — Ask every student</div>
+    <div class="pq-txt">"Who do you agree with most? Use: I agree with [name] because..."</div>
+  </div>
+  <div class="tn teacher-only" style="margin-top:14px;border:1px solid rgba(255,31,92,.18);border-radius:2px;overflow:hidden">
+    <button class="tn-toggle" onclick="toggleTN(this)" style="width:100%;background:rgba(255,31,92,.06);border:none;color:var(--ac);padding:9px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:space-between;touch-action:manipulation">📋 Teacher Notes — §3 <span class="tn-arrow" style="transition:transform .2s">▼</span></button>
+    <div class="tn-body" style="display:none">
+      <div style="padding:10px 14px;border-top:1px solid rgba(255,31,92,.1);border-left:3px solid rgba(255,31,92,.5);font-size:12.5px;color:var(--mt);line-height:1.6">
+        <strong style="color:var(--txt);display:block;margin-bottom:4px">Provocateur: Rodrigo Peña</strong>
+        Rodrigo's "I never lend money — I just give it" position is the most provocative because it neutralizes the whole problem by reframing it. Students who are angry about unpaid loans will find this either liberating or infuriating. Both reactions produce language. Push: "Is Rodrigo right? Or is he just rich?" Creates immediate energy.
+      </div>
+    </div>
+  </div>
+</section></div>
+
+<!-- §4 CONVERSATION ENGINE -->
+<div class="sec-outer" id="s4"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 04 · Conversation Engine</div><div class="sec-title">🗣 10 Questions. 4 Blocks. 23 Minutes.</div><div class="sec-sub">Past → Opinion → Future → Provocative · No round-robin · Point and push</div></div>
+    <div class="sec-wm">04</div><div class="sec-time teacher-only">23 min</div>
+  </div>
+  <div class="conv-rule"><strong>A2.1 Rule:</strong> Short answers are great. One complete sentence = perfect. Use the chips to start if you need help.</div>
+  <div id="convPhases"></div>
+</section></div>
+
+<!-- §5 EXIT SHOT -->
+<div class="sec-outer" id="s5"><section class="sec">
+  <div class="sec-hd">
+    <div class="sec-hd-l"><div class="sec-lbl">§ 05 · Exit Shot</div><div class="sec-title">💣 One Scenario. Your Real Answer.</div><div class="sec-sub">5 min · No chips · Real answer only · Then the homework loop</div></div>
+    <div class="sec-wm">05</div><div class="sec-time teacher-only">5 min</div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-wm">EXIT</div>
+    <div class="exit-lbl">💣 Exit Shot</div>
+    <div class="exit-q">A good friend calls you. He needs <em>2,000 pesos</em> — urgently. You have the money. But he still owes you <em>500 pesos</em> from last year. He didn't mention it. What are you going to do?</div>
+    <div class="exit-rule">Answer in 2–3 sentences. Start with yes or no — do you lend the money? Then tell me the real reason — not the polite answer.</div>
+  </div>
+  <div class="exit-model teacher-only">
+    <div class="em-lbl">📌 A2.1 Model Answer — Show AFTER student speaks</div>
+    <div class="em-txt">"I am going to lend him the money because he is my good friend and it is an emergency. But I am going to say: 'I can help you, but you still owe me 500 pesos from last year. Can we talk about that too?' I don't want to lose the friendship, but I also don't want to lose 2,500 pesos."</div>
+  </div>
+  <div class="hw-box">
+    <strong>🔁 WhatsApp Homework Loop</strong>
+    "Tonight — record 60 seconds in English. Your answer to today's Exit Shot. Don't write it first. Just talk. Send to [teacher number]."
+  </div>
+</section></div>
+
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner · English Training</div>
+  <div class="finfo">A2.1 · Speaking Lab · People Who Never Pay Back · Money &amp; Finance · Spicy</div>
+  <div class="flevels"><div class="flv">A1.1</div><div class="flv">A1.2</div><div class="flv on">A2.1</div><div class="flv">A2.2</div><div class="flv">B1.1</div><div class="flv">B1.2</div><div class="flv">B2.1</div><div class="flv">B2.2</div></div>
+</footer>
+
+<script>
+const nouns=[
+  {w:"money",    def:"What you use to pay for things"},
+  {w:"debt",     def:"Money you owe someone"},
+  {w:"loan",     def:"Money someone lends you"},
+  {w:"promise",  def:"Words to say you will do something"},
+  {w:"excuse",   def:"Reason (often false) for not doing something"},
+  {w:"trust",    def:"Belief that someone is honest"},
+  {w:"friendship",def:"Close relationship with a friend"},
+  {w:"wallet",   def:"Where you keep your money"},
+  {w:"amount",   def:"How much money there is"},
+  {w:"cash",     def:"Physical money — bills and coins"}
+];
+const verbs=[
+  {w:"lend",     def:"Give money (they return it later)"},
+  {w:"borrow",   def:"Take money (you return it later)"},
+  {w:"owe",      def:"Need to pay money to someone"},
+  {w:"pay back", def:"Return money you borrowed"},
+  {w:"ask for",  def:"Request something from someone"},
+  {w:"lie",      def:"Say something that is not true"},
+  {w:"ignore",   def:"Not respond to someone"},
+  {w:"trust",    def:"Believe someone is honest"},
+  {w:"lose",     def:"Not have something anymore"},
+  {w:"remind",   def:"Tell someone to remember something"}
+];
+const phrases=[
+  {t:"That's not fair!",      d:"This is unjust"},
+  {t:"Are you serious?",      d:"I can't believe this"},
+  {t:"I don't trust him.",    d:"He is not honest with me"},
+  {t:"Same here.",            d:"I have the same problem"},
+  {t:"No way!",               d:"Absolutely not / incredible"}
+];
+const perspectives=[
+  {name:"Carmen Delgado",  meta:"38 · Teacher · Celaya", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80",
+   quote:"A friend borrowed 1,500 pesos from me. That was <strong>two years ago.</strong> She never paid me back. When I see her, she acts like nothing happened. I am still angry. But I don't want to fight. It's very difficult."},
+  {name:"Rodrigo Peña",    meta:"44 · Businessman · Monterrey — provocateur", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80",
+   quote:"I never lend money. <strong>I give it.</strong> If a friend needs 500 pesos, I give it. I don't expect it back. That way, I don't have problems. The money is gone, but the friendship is OK."},
+  {name:"Patricia Ruiz",   meta:"29 · Secretary · Guanajuato", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80",
+   quote:"I don't lend money to anyone. Not family, not friends. <strong>Never.</strong> My mom taught me that. Money and friendship is a bad combination. If a friend asks me, I say I don't have it."},
+  {name:"Héctor Villanueva",meta:"52 · Mechanic · Irapuato", flag:"🇲🇽", img:"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=80",
+   quote:"My brother owes me 8,000 pesos. I asked him many times. He always says 'next week, next week.' Now I <strong>stop asking.</strong> But I don't forget. The money is gone, but I know who he is now."}
+];
+const phases=[
+  {tag:"BLOCK 1",name:"Past Simple — Real Stories",mech:"Past simple only · 2 min per Q · Personal stories",qs:[
+    {n:"Q1",q:"Did someone ever borrow money from you and not pay you back? What happened?",chips:["Yes — my [friend/family/coworker] borrowed...","They said 'yes soon' but...","The money was...","After that, I felt..."],tip:"<strong>A2.1 Model:</strong> 'Yes. My coworker borrowed 300 pesos for lunch. That was six months ago. She never paid me back. I see her every day at work. It's very uncomfortable.'"},
+    {n:"Q2",q:"Did you ever ask someone to pay you back — and it was a difficult conversation?",chips:["Yes, I asked... and they said...","I was nervous to ask because...","I asked by WhatsApp because...","I didn't ask — I was afraid because..."],tip:"Many students avoid asking face-to-face. 'I sent a WhatsApp because I was embarrassed to ask in person' is a very relatable and specific A2.1 sentence. Celebrate that honesty."},
+    {n:"Q3",q:"Did you ever lose a friendship because of money? What happened?",chips:["Yes. My friend borrowed... and...","We didn't talk for... months because...","The friendship ended when...","No, but it was difficult when..."],tip:"The '1 in 3' stat from §1 is relevant here. Both yes and no are valid. Push for the specific event — 'When exactly did the friendship end? What did you say to each other?'"}
+  ]},
+  {tag:"BLOCK 2",name:"Opinion — What Do You Think?",mech:"Simple present · 2 min per Q",qs:[
+    {n:"Q4",q:"Is it OK to lend money to a friend? Or is it always a bad idea?",chips:["I think yes, if...","I think no, because...","I think it depends on...","For me, the rule is..."],tip:"<strong>A2.1 Model:</strong> 'I think it depends. If it is a small amount, yes. If it is a lot of money, no. I think money problems destroy friendships. Rodrigo from the Opinion Wall is right — give it, don't lend it.'"},
+    {n:"Q5",q:"Do you think people who don't pay back are bad people — or just bad with money?",chips:["I think they are bad people because...","I think it is a money problem, not a character problem...","Some people are bad with money but they are still good because...","I think they are selfish because..."],tip:"This is the moral question of the session. Both interpretations are valid. Push: 'Can a good person be a bad payer? Give me an example.'"},
+    {n:"Q6",q:"Is it more important to keep the friendship — or get your money back?",chips:["I think the friendship is more important because...","I think the money is more important because...","Both are important but...","It depends on how much money it is..."],tip:"The classic dilemma. Push: 'What if it was 10,000 pesos? Would your answer change?' Numbers change the answer for most people — that's the interesting moment."}
+  ]},
+  {tag:"BLOCK 3",name:"Future Plans — Going To & Will",mech:"Going to + will · 2 min per Q",qs:[
+    {n:"Q7",q:"Do you have someone who owes you money right now? Are you going to ask them?",chips:["Yes, I am going to ask...","No, I am not going to ask because...","I want to ask but I am afraid because...","I am going to send a WhatsApp because..."],tip:"<strong>A2.1 Model:</strong> 'Yes, a friend owes me 600 pesos. I am going to ask her this week. I am going to say: do you remember the money? I need it back.' The specificity is the output — encourage real names and amounts."},
+    {n:"Q8",q:"Are you going to lend money to a family member or friend again in the future?",chips:["Yes, if it is an emergency I will...","No, I decided I am not going to lend money anymore because...","Maybe, but only if...","I am going to say no next time because..."],tip:"Future resolution — activates 'going to' and 'will' naturally. 'I am NOT going to lend money anymore' is perfect production. Celebrate the firm negative future."}
+  ]},
+  {tag:"BLOCK 4",name:"Provocative — Be Honest",mech:"Simple present · No chips · Honest only",qs:[
+    {n:"Q9",q:"Be honest — do YOU sometimes borrow money and forget to pay it back?",chips:[],tip:"<strong>Teacher Note:</strong> Wait 5 seconds. This is the most vulnerable question — it asks students to be the person they were just criticizing. Some will say yes with humor. Some will say never. Both are honest reactions. Push: 'When was the last time you borrowed money from someone? Did you pay it back immediately?'"},
+    {n:"Q10",q:"Final question: Is a person who lends money and doesn't ask for it back — is that person smart, kind, or stupid?",chips:[],tip:"<strong>Teacher Note:</strong> Rodrigo's position from §3 is back in focus. All three answers are defensible. 'Smart because you don't have a problem' vs 'stupid because you lose the money' vs 'kind because you help your friend.' Push for a specific word and a reason."}
+  ]}
+];
+
+function buildVocab(d,cId,type){const g=document.getElementById(cId);d.forEach(i=>{const c=document.createElement("div");c.className="vc "+(type==="noun"?"noun-c":"verb-c");const ex=type==="noun"?`"I have a ${i.w} problem with my friend."`:`"I ${i.w} the money but he didn't pay me back."`;c.innerHTML=`<div class="vtype">${type==="noun"?"NOUN":"VERB"}</div><div class="vw">${i.w}</div><div class="vdef">${i.def}</div><div class="vex">${ex}</div><button class="spk" onclick="speak('${i.w.replace(/'/g,"&#39;")}',event)">🔊 Hear</button>`;g.appendChild(c);});}
+buildVocab(nouns,"nounGrid","noun");buildVocab(verbs,"verbGrid","verb");
+const pg2=document.getElementById("phraseGrid");phrases.forEach(p=>{pg2.innerHTML+=`<div class="ph" onclick="speak('${p.t.replace(/!/g,"").replace(/'/g,"&#39;")}',event)"><div class="ph-txt">${p.t}</div><div class="ph-def">${p.d}</div></div>`;});
+const pg=document.getElementById("perspGrid");perspectives.forEach(p=>{pg.innerHTML+=`<div class="pc"><div class="pc-img-wrap"><img src="${p.img}" alt="${p.name}"><div class="pc-overlay"></div><div class="pc-flag">${p.flag}</div><div class="pc-profile"><div class="pc-name">${p.name}</div><div class="pc-role">${p.meta}</div></div></div><div class="pc-body"><div class="pc-quote">${p.quote}</div></div></div>`;});
+const ce=document.getElementById("convPhases");phases.forEach(ph=>{let qHTML="";ph.qs.forEach(q=>{const chips=q.chips.map(c=>`<span class="chip" onclick="speakChip('${c.replace(/'/g,"\\'")}',event)">${c}</span>`).join("");qHTML+=`<div class="q-card"><div class="q-num">${q.n}</div><div class="q-text">${q.q}</div>${chips?`<div class="q-chips">${chips}</div>`:""}<div style="display:flex;align-items:center;gap:8px;margin-top:6px"><button class="tip-btn" onclick="toggleTip(this)">💡 Show tip</button></div><div class="tip-content teacher-only">${q.tip}</div></div>`;});ce.innerHTML+=`<div class="conv-phase"><div class="phase-hd"><div class="phase-tag">${ph.tag}</div><div class="phase-name">${ph.name}</div><div class="phase-mech teacher-only">${ph.mech}</div></div>${qHTML}</div>`;});
+function speak(t,e){if(e)e.stopPropagation();if(!("speechSynthesis"in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=0.85;window.speechSynthesis.speak(u);}
+function speakChip(t,e){if(e)e.stopPropagation();speak(t,null);}
+function toggleMode(btn){document.body.classList.toggle("student-mode");btn.textContent=document.body.classList.contains("student-mode")?"👤 Teacher Mode":"👁 Student Mode";}
+function toggleTip(btn){const tc=btn.parentElement.nextElementSibling;tc.style.display=tc.style.display==="block"?"none":"block";btn.textContent=tc.style.display==="block"?"🙈 Hide tip":"💡 Show tip";}
+function toggleTN(btn){const b=btn.nextElementSibling;b.style.display=b.style.display==="block"?"none":"block";btn.querySelector(".tn-arrow").style.transform=b.style.display==="block"?"rotate(180deg)":"";}
+function toggleChallenge(btn){document.body.classList.toggle("challenge-mode");btn.textContent=document.body.classList.contains("challenge-mode")?"✅ Show Definitions":"🧠 Challenge Mode — Hide Definitions";}
+window.addEventListener("scroll",()=>{const p=document.getElementById("prog");const h=document.documentElement.scrollHeight-window.innerHeight;p.style.width=h>0?(window.scrollY/h*100)+"%":"0%";});
+const secs=["s1","s2","s3","s4","s5"],nls=document.querySelectorAll(".sni");
+function updateNav(){let cur=secs[0];secs.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});nls.forEach(a=>{a.classList.toggle("active",a.getAttribute("href")==="#"+cur);});}
+window.addEventListener("scroll",updateNav,{passive:true});
+</script>
+</body>
+</html>

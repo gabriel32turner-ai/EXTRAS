@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GT Speaking Lab · First Impressions: Right or Wrong? · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F1923;--s1:#18222F;--s2:#1e2d3d;--bd:#243243;
+  --txt:#EAEAEA;--mt:#8a97ab;--dim:#4a5568;
+  --ac:#FF1F5C;
+  --font-h:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-b);font-size:15px;line-height:1.6}
+.hdr{position:sticky;top:0;z-index:100;background:rgba(15,25,35,.92);border-bottom:1px solid var(--bd);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(8px)}
+.hbrand{font-family:var(--font-h);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.hbrand span{color:var(--ac)}
+.htoggle{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 18px;border:none;background:var(--ac);color:#fff;cursor:pointer;transition:all .2s}
+body.student-mode .htoggle{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1454923634634-bd1614719a7b?w=1400&q=80&fit=crop') center/cover no-repeat;filter:brightness(.33)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,25,35,.97) 0%,rgba(15,25,35,.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto;width:100%}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.htag{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--bd);color:var(--mt)}
+.htag.level{border-color:var(--ac);color:var(--ac)}
+.hero-title{font-family:var(--font-h);font-size:32px;font-weight:800;line-height:1.15;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--mt);max-width:560px}
+.wrap{max-width:880px;margin:0 auto;padding:0 32px 80px}
+.sec{padding:52px 0 0}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
+.sec-emoji{font-size:36px;line-height:1}
+.sec-label{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:3px}
+.sec-title{font-family:var(--font-h);font-size:22px;font-weight:800;line-height:1.2}
+.sec-sub{font-size:13px;color:var(--mt);margin-top:4px}
+.timer-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--bd);padding:4px 12px;font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:1px;color:var(--mt);margin-top:8px}
+.trigger-box{border-left:4px solid var(--ac);background:var(--s1);padding:24px 28px;margin-bottom:24px}
+.trigger-source{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.trigger-quote{font-size:17px;font-weight:500;line-height:1.55;font-style:italic}
+.teacher-script{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:16px}
+.ts-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:8px}
+.ts-text{font-size:13px;color:var(--mt);line-height:1.6;font-style:italic}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.vsec-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin:20px 0 10px;border-bottom:1px solid var(--bd);padding-bottom:8px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.vcard:hover{border-color:var(--ac);background:var(--s2)}
+.vcard:hover .vword{color:var(--ac)}
+.vword{font-family:var(--font-h);font-size:14px;font-weight:800;margin-bottom:4px;transition:color .18s}
+.vdef{font-size:11.5px;color:var(--mt);line-height:1.45;margin-bottom:6px}
+.vex{font-size:11px;color:var(--dim);font-style:italic;line-height:1.4}
+.vspeaker{font-size:9px;color:var(--ac);font-family:var(--font-h);letter-spacing:1px;margin-top:5px}
+.phrase-list{display:flex;flex-direction:column;gap:8px}
+.phrase-item{background:var(--s1);border:1px solid var(--bd);padding:12px 16px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center}
+.phrase-item:hover{border-color:var(--ac);background:var(--s2)}
+.phrase-text{font-size:13.5px;font-weight:500}
+.phrase-context{font-size:11.5px;color:var(--mt);font-style:italic;margin-top:3px}
+.speak-icon{font-size:14px;opacity:.5}
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bubble{background:var(--s1);border:1px solid var(--bd);padding:20px 22px;transition:border-color .2s}
+.bubble:hover{border-color:var(--ac)}
+.b-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.b-avatar{font-size:26px;line-height:1}
+.b-name{font-family:var(--font-h);font-size:13px;font-weight:800}
+.b-role{font-size:11px;color:var(--mt)}
+.b-text{font-size:13px;color:var(--mt);line-height:1.65}
+.b-text strong{color:var(--txt)}
+.prov-tag{display:inline-block;font-family:var(--font-h);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);border:1px solid var(--ac);padding:2px 8px;margin-bottom:8px}
+.opinion-cta{font-size:13px;color:var(--mt);margin-top:16px;padding:14px 18px;background:var(--s2);border-left:3px solid var(--ac)}
+.q-block{margin-bottom:32px}
+.q-block-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+.q-item{background:var(--s1);border:1px solid var(--bd);padding:18px 20px;margin-bottom:10px}
+.q-num{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--mt);margin-bottom:6px}
+.q-text{font-size:14.5px;line-height:1.5;margin-bottom:12px}
+.tip-btn{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--ac);color:var(--ac);background:transparent;cursor:pointer;transition:all .18s}
+.tip-btn:hover{background:var(--ac);color:#fff}
+.tip-content{display:none;margin-top:14px;background:var(--s2);border-left:3px solid var(--ac);padding:14px 18px;font-size:13px;color:var(--mt);line-height:1.6}
+.tip-content.open{display:block}
+.exit-box{border:2px solid var(--ac);background:var(--s1);padding:32px 36px;margin-top:48px}
+.exit-label{font-family:var(--font-h);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
+.exit-q{font-family:var(--font-h);font-size:20px;font-weight:800;line-height:1.4;margin-bottom:20px}
+.exit-hw{background:var(--s2);border:1px solid var(--bd);padding:16px 20px;margin-top:20px}
+.exit-hw-label{font-family:var(--font-h);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mt);margin-bottom:6px}
+.exit-hw-text{font-size:13px;color:var(--mt);line-height:1.55}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px 40px;display:flex;justify-content:space-between;align-items:center;margin-top:80px}
+.fbrand{font-family:var(--font-h);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.finfo{font-size:12px;color:var(--dim)}
+.teacher-only{display:block}
+body.student-mode .teacher-only{display:none}
+body.student-mode .timer-pill{display:none}
+body.student-mode .tip-content{display:none!important}
+@media(max-width:600px){
+  .hero{height:auto;padding:120px 20px 32px}
+  .wrap{padding:0 16px 60px}
+  .opinion-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .hdr{padding:12px 16px}
+  .ftr{flex-direction:column;gap:8px;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hbrand">GABRIEL TURNER · <span>Speaking Lab</span></div>
+  <button class="htoggle" id="modeBtn" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="htag level">A2.1</span>
+      <span class="htag">Relationships & Personality</span>
+      <span class="htag">⚡ Edge: Medium</span>
+      <span class="htag">⏱ 50 min</span>
+    </div>
+    <div class="hero-title">First Impressions:<br>Right or Wrong?</div>
+    <div class="hero-sub">You look at someone for the first time. You have an opinion in 5 seconds. Is that smart — or dangerous?</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🪝</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 1</div>
+      <div class="sec-title">The Trigger</div>
+      <div class="sec-sub">A real fact. A real conversation.</div>
+      <div class="timer-pill teacher-only">⏱ 4 min</div>
+    </div>
+  </div>
+  <div class="trigger-box">
+    <div class="trigger-source">Princeton University · Psychology Study</div>
+    <div class="trigger-quote">"Your brain decides if a person is nice, smart, or dangerous in less than one second. And most of the time — you don't change that opinion."</div>
+  </div>
+  <div class="teacher-script teacher-only">
+    <div class="ts-label">Teacher Script</div>
+    <div class="ts-text">"Think about the last new person you met. At work, at a party, anywhere. What was your first thought about them? And — was your first impression correct? Today we talk about first impressions. They are quick, they are strong, and sometimes they are completely wrong."</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💉</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 2</div>
+      <div class="sec-title">Vocab Injection</div>
+      <div class="sec-sub">Click any card to hear the pronunciation.</div>
+      <div class="timer-pill teacher-only">⏱ 8 min</div>
+    </div>
+  </div>
+
+  <div class="vsec-label">Nouns</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('impression')"><div class="vword">impression</div><div class="vdef">Your first opinion about someone</div><div class="vex">"My first impression of him was wrong. He looked cold but he was very nice."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('smile')"><div class="vword">smile</div><div class="vdef">A happy expression on your face</div><div class="vex">"She had a big smile. I liked her immediately."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('attitude')"><div class="vword">attitude</div><div class="vdef">How you act and talk with others</div><div class="vex">"His attitude in the meeting was terrible. Very rude."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('clothes')"><div class="vword">clothes</div><div class="vdef">What you wear</div><div class="vex">"People judge your clothes. It's not fair but it's true."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('face')"><div class="vword">face</div><div class="vdef">Your eyes, nose, and mouth</div><div class="vex">"I looked at his face and I thought: this person is honest."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('handshake')"><div class="vword">handshake</div><div class="vdef">When you hold and shake someone's hand</div><div class="vex">"A bad handshake — soft and short — makes a bad impression."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('opinion')"><div class="vword">opinion</div><div class="vdef">What you think about someone or something</div><div class="vex">"My opinion about her changed after I talked to her for an hour."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('voice')"><div class="vword">voice</div><div class="vdef">The sound you make when you talk</div><div class="vex">"He has a quiet voice. At first I thought he was shy. He is not."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('mistake')"><div class="vword">mistake</div><div class="vdef">Something wrong you did</div><div class="vex">"I made a mistake. My first impression was completely wrong."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('stranger')"><div class="vword">stranger</div><div class="vdef">A person you don't know</div><div class="vex">"He was a stranger on the bus. But I had a bad feeling about him immediately."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Verbs</div>
+  <div class="vocab-grid">
+    <div class="vcard" onclick="speak('judge')"><div class="vword">judge</div><div class="vdef">Decide if someone is good or bad</div><div class="vex">"I don't like to judge people. But I always do it anyway."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('trust')"><div class="vword">trust</div><div class="vdef">Believe someone is good and honest</div><div class="vex">"I trusted her immediately. She was very open."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('look at')"><div class="vword">look at</div><div class="vdef">Use your eyes to see someone</div><div class="vex">"She looked at me and she didn't smile. I thought: this is going to be difficult."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('feel')"><div class="vword">feel</div><div class="vdef">Have an emotion or physical sensation</div><div class="vex">"I felt comfortable with him immediately. Good energy."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('change your mind')"><div class="vword">change your mind</div><div class="vdef">Think something different from before</div><div class="vex">"I changed my mind about her after one hour. She was not what I thought."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('surprise')"><div class="vword">surprise</div><div class="vdef">Make someone feel something unexpected</div><div class="vex">"He surprised me. I thought he was boring but he was very funny."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('notice')"><div class="vword">notice</div><div class="vdef">See something that you pay attention to</div><div class="vex">"I noticed she didn't look at me when she talked. I didn't like that."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('seem')"><div class="vword">seem</div><div class="vdef">Look or appear in a certain way</div><div class="vex">"He seemed very confident. But he was nervous inside."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('meet')"><div class="vword">meet</div><div class="vdef">See someone for the first time</div><div class="vex">"I met my best friend at work. My first impression was: she is difficult. I was wrong."</div><div class="vspeaker">▶ tap to hear</div></div>
+    <div class="vcard" onclick="speak('remember')"><div class="vword">remember</div><div class="vdef">Think of something from the past</div><div class="vex">"I remember the first time I met my boss. I thought: this is a nice person. I was right."</div><div class="vspeaker">▶ tap to hear</div></div>
+  </div>
+
+  <div class="vsec-label">Colloquial Phrases</div>
+  <div class="phrase-list">
+    <div class="phrase-item" onclick="speak('Good vibes!')"><div><div class="phrase-text">Good vibes!</div><div class="phrase-context">When you feel something positive about a person immediately — no logical reason</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Something felt wrong.')"><div><div class="phrase-text">Something felt wrong.</div><div class="phrase-context">When your first impression was negative — you just had a bad feeling</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('Don\'t judge a book by its cover.')"><div><div class="phrase-text">Don't judge a book by its cover.</div><div class="phrase-context">Famous saying: don't judge a person by how they look — go deeper</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('I was totally wrong about her.')"><div><div class="phrase-text">I was totally wrong about her.</div><div class="phrase-context">When your first impression was completely incorrect — a big surprise</div></div><div class="speak-icon">▶</div></div>
+    <div class="phrase-item" onclick="speak('No way! Really?')"><div><div class="phrase-text">No way! Really?</div><div class="phrase-context">When someone surprises you with something you didn't expect at all</div></div><div class="speak-icon">▶</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🧱</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 3</div>
+      <div class="sec-title">The Opinion Wall</div>
+      <div class="sec-sub">Four real takes. Pick one. Say why.</div>
+      <div class="timer-pill teacher-only">⏱ 10 min</div>
+    </div>
+  </div>
+  <div class="opinion-grid">
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍💼</div><div><div class="b-name">Sandra, 36</div><div class="b-role">HR Manager · Monterrey</div></div></div>
+      <div class="b-text">"First impressions are important in my job. <strong>You know in 3 minutes if someone is good for the position.</strong> My experience says: my first impression is correct almost always."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👨‍🎨</div><div><div class="b-name">Pablo, 29</div><div class="b-role">Graphic Designer · CDMX</div></div></div>
+      <div class="b-text">"My first impression is always wrong. I thought my best friend was unfriendly. <strong>Now he is my best friend.</strong> I learned to wait before I have an opinion."</div>
+    </div>
+    <div class="bubble">
+      <div class="b-header"><div class="b-avatar">👩‍🏥</div><div><div class="b-name">Carmen, 44</div><div class="b-role">Nurse · Guadalajara</div></div></div>
+      <div class="b-text">"In my work, I meet new people every day. <strong>I think first impressions are useful but dangerous.</strong> They help you but they are not always the truth. People are more complex."</div>
+    </div>
+    <div class="bubble" style="border-color:rgba(255,31,92,.3)">
+      <div class="prov-tag">⚡ Provocateur</div>
+      <div class="b-header"><div class="b-avatar">👴</div><div><div class="b-name">Don Roberto, 55</div><div class="b-role">Retired Sales Director · León</div></div></div>
+      <div class="b-text">"I worked in sales for 30 years. <strong>People judge you in the first 10 seconds.</strong> That is reality. If your clothes are bad, your handshake is weak, or you don't look at my eyes — the sale is over. Life is not fair. But this is how it works."</div>
+    </div>
+  </div>
+  <div class="opinion-cta">👉 <strong>Choose one.</strong> Say: "I agree with [name] because..." — tell your teacher one reason.</div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">🗣️</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 4</div>
+      <div class="sec-title">The Conversation Engine</div>
+      <div class="sec-sub">10 questions. Real stories. No wrong answers.</div>
+      <div class="timer-pill teacher-only">⏱ 23 min</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="q-item">
+      <div class="q-num">Q1</div>
+      <div class="q-text">Think about a person you met recently. What was your first impression? Was it correct?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The core question of the class. Push for a real person — at work, a new neighbor, someone at a party. Model: "I met a new coworker last month. My first impression was: she is cold. But I was wrong. She was just nervous on the first day."</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q2</div>
+      <div class="q-text">Did someone have a bad first impression of YOU — and then change their opinion? What happened?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Flips the perspective to the student as the subject. Very engaging. If they can't think of one, ask: "Did your boss or a colleague think something wrong about you at the beginning? How did you change that?" Good vocabulary: seemed, looked, changed their mind.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q3</div>
+      <div class="q-text">When you started your current job, what was your first impression of your boss or your team?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Workplace context, past simple, very concrete. Model: "My first impression of my boss was: very serious and a little cold. But after two weeks I saw he is actually very fair and he helps the team. I changed my mind completely."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 2 — Opinion (Present Simple)</div>
+    <div class="q-item">
+      <div class="q-num">Q4</div>
+      <div class="q-text">Do you think clothes are important for a first impression? Do you judge people by their clothes?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Most people say "no, I don't judge clothes" and then give an example that says the opposite. Gently point that out. Don Roberto's point lives here. Simple honest conversation: "Do you dress differently for an important meeting? Why?" The answer reveals the truth.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q5</div>
+      <div class="q-text">Is it good to trust your first impression — or is it better to wait and see?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The core debate question. Model: "I think both. In some situations — like a stranger on the street at night — your first impression can protect you. In work or friendships, it's better to wait." Push for a reason in each case.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q6</div>
+      <div class="q-text">Is a person's face important for a first impression — or do you look at other things first?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Fun sensory question — what do people notice first? Eyes, smile, posture, energy, voice? Everyone has a different answer. No wrong response. Great vocabulary moment: "I look at the eyes first. A person's eyes tell you a lot. When they don't look at you — something is wrong."</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 3 — Future Plans (Going to / Will)</div>
+    <div class="q-item">
+      <div class="q-num">Q7</div>
+      <div class="q-text">Are you going to meet any new people soon — at work, at an event, or with friends? How are you going to make a good first impression?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Future planning with real vocabulary. "I'm going to smile. I'm going to look at their eyes. I'm going to listen more than I talk." Push for specific actions — what ARE they going to do differently after this class? Great retention hook.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q8</div>
+      <div class="q-text">The next time you meet someone new, are you going to trust your first impression — or are you going to wait?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Direct application of the class topic to the future. Model: "I think I'm going to wait. After this class, I see that my first impression is not always correct. I'm going to try to know the person before I have an opinion." Simple, honest, uses going to correctly.</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-block-label">Block 4 — Provocative</div>
+    <div class="q-item">
+      <div class="q-num">Q9</div>
+      <div class="q-text">Be honest — do YOU judge people by their appearance? Their clothes, their hair, their tattoos?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">The honest mirror question. Almost everyone says "no" and almost everyone does it. Don't shame — celebrate honesty. A good A2.1 answer: "Yes. If a person has very dirty clothes and doesn't look clean, I feel uncomfortable. I don't think it's nice but it's true." That's perfect honesty at A2.1.</div>
+    </div>
+    <div class="q-item">
+      <div class="q-num">Q10</div>
+      <div class="q-text">You are in a job interview. You look at the interviewer and your first impression is: this person doesn't like me. What do you do?</div>
+      <button class="tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Simple scenario, real professional stakes. Options: try harder to connect, stay calm and professional, feel nervous and show it. Push the student to role-play 2-3 sentences of what they would actually say or do. Great for professional English at A2.1 level.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div class="sec-emoji">💣</div>
+    <div class="sec-meta">
+      <div class="sec-label">Phase 5</div>
+      <div class="sec-title">The Exit Shot</div>
+      <div class="sec-sub">One question. Real situation. What are you going to do?</div>
+      <div class="timer-pill teacher-only">⏱ 5 min</div>
+    </div>
+  </div>
+  <div class="exit-box">
+    <div class="exit-label">💣 Exit Shot</div>
+    <div class="exit-q">Tomorrow you are going to have a job interview. The position is perfect for you. But you know the first impression is very important. What are you going to wear? What are you going to say first? And what are you going to do if the interviewer looks cold and serious?</div>
+    <div class="exit-hw">
+      <div class="exit-hw-label">📱 WhatsApp Homework</div>
+      <div class="exit-hw-text">Record a 60-second voice message in English. Tell me your plan for this interview. What are you going to do in the first 3 minutes? Be specific. Send it before your next session.</div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer class="ftr">
+  <div class="fbrand">Gabriel Turner English Training</div>
+  <div class="finfo">A2.1 · Speaking Lab · First Impressions: Right or Wrong? · Relationships & Personality</div>
+</footer>
+<script>
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.85;u.pitch=1;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function toggleTip(btn){
+  const tip=btn.nextElementSibling;
+  tip.classList.toggle('open');
+  btn.textContent=tip.classList.contains('open')?'Hide Tip':'Show Tip';
+}
+let studentMode=false;
+function toggleMode(){
+  studentMode=!studentMode;
+  document.body.classList.toggle('student-mode',studentMode);
+  document.getElementById('modeBtn').textContent=studentMode?'Teacher Mode':'Student Mode';
+}
+</script>
+</body>
+</html>

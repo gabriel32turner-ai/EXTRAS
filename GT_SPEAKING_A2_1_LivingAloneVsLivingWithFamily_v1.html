@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · Living Alone vs. Living With Family · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #FF1F5C;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #FF1F5C; border: none; color: white;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(255,31,92,0.1); border: 1px solid rgba(255,31,92,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,31,92,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(255,31,92,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(255,31,92,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(255,31,92,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">A2.1</span>
+      <span class="tag">Daily Life &amp; Lifestyle</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>Living Alone vs. Living With Family</h1>
+    <p>Freedom or company? Silence or noise? Your rules or their rules? Which one is really better?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"In Mexico, 70% of adults under 35 still live with their parents. In countries like Germany or the USA, that number is 30%. Is it about money, culture, or love for family?"</div>
+      <div class="quote-source">— INEGI / Pew Research Center</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "70% of young adults in Mexico live with their family. In other countries — much less. So — do you live alone or with family?" [Pause for response.] "And which one do you think is better? Today we find out."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('freedom')">
+        <div class="vocab-word">freedom</div>
+        <div class="vocab-def">doing what you want, when you want</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('privacy')">
+        <div class="vocab-word">privacy</div>
+        <div class="vocab-def">time alone, without other people around</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('rent')">
+        <div class="vocab-word">rent</div>
+        <div class="vocab-def">money you pay every month to live somewhere</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('noise')">
+        <div class="vocab-word">noise</div>
+        <div class="vocab-def">loud sounds in the house — from family or neighbors</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('rule')">
+        <div class="vocab-word">rule</div>
+        <div class="vocab-def">something you must or cannot do at home</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('company')">
+        <div class="vocab-word">company</div>
+        <div class="vocab-def">having people around you — not being alone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('food')">
+        <div class="vocab-word">food</div>
+        <div class="vocab-def">what your mom cooks — the main reason people stay home</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('money')">
+        <div class="vocab-word">money</div>
+        <div class="vocab-def">the reason many people still live with family</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('space')">
+        <div class="vocab-word">space</div>
+        <div class="vocab-def">physical room — and personal room — in your home</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('loneliness')">
+        <div class="vocab-word">loneliness</div>
+        <div class="vocab-def">the sad feeling of being alone too much</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('live alone')">
+        <div class="vocab-word">live alone</div>
+        <div class="vocab-def">to live in a place with no other people</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('move out')">
+        <div class="vocab-word">move out</div>
+        <div class="vocab-def">to leave your family home and go to a new place</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('cook')">
+        <div class="vocab-word">cook</div>
+        <div class="vocab-def">to make food — something you do more when you live alone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('pay')">
+        <div class="vocab-word">pay</div>
+        <div class="vocab-def">to give money for rent, food, and bills</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('share')">
+        <div class="vocab-word">share</div>
+        <div class="vocab-def">to use the same things with other people</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('miss')">
+        <div class="vocab-word">miss</div>
+        <div class="vocab-def">to feel sad because you are not with someone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('decide')">
+        <div class="vocab-word">decide</div>
+        <div class="vocab-def">to choose what to do, eat, or watch — without asking anyone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('argue')">
+        <div class="vocab-word">argue</div>
+        <div class="vocab-def">to fight with words — common in family homes</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('save')">
+        <div class="vocab-word">save</div>
+        <div class="vocab-def">to keep money because you do not spend it on rent</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('feel lonely')">
+        <div class="vocab-word">feel lonely</div>
+        <div class="vocab-def">to feel sad and alone — a risk when you live by yourself</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('My house, my rules.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"My house, my rules."</div>
+          <div class="phrase-context">What your parents say when you live with them. And what you say when you live alone.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I need my space.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I need my space."</div>
+          <div class="phrase-context">When you want to be alone and other people are always around.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Lucky you!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Lucky you!"</div>
+          <div class="phrase-context">What you say to someone who lives alone and can do whatever they want.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I can not wait to move out.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I can't wait to move out."</div>
+          <div class="phrase-context">When you love your family but need your independence.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('It is not so easy living alone.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"It's not so easy living alone."</div>
+          <div class="phrase-context">What you say after you move out and realize you miss your mom's cooking.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🏠</div>
+          <div>
+            <div class="op-name">Lucía, 31</div>
+            <div class="op-role">Nurse, Celaya</div>
+          </div>
+        </div>
+        <div class="op-text">"I live alone and I love it. I eat what I want, I sleep when I want, <strong>I watch my shows without asking anyone.</strong> Yes, I pay rent. But the freedom is worth it."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">👨‍👩‍👧</div>
+          <div>
+            <div class="op-name">Ricardo, 35</div>
+            <div class="op-role">Mechanic, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I live with my parents. I save a lot of money. My mom cooks. My dad helps with the car. <strong>Why pay rent when family is here?</strong> I'm not embarrassed. I'm smart."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">😌</div>
+          <div>
+            <div class="op-name">Sofía, 42</div>
+            <div class="op-role">Teacher, León</div>
+          </div>
+        </div>
+        <div class="op-text">"I lived alone for 5 years. Then I moved back with my parents when my dad got sick. <strong>Now I think both are good — at different times in life.</strong> It's not one or the other forever."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">😏</div>
+          <div>
+            <div class="op-name">Andrés, 48</div>
+            <div class="op-role">Salesman, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"Adults who live with their parents after 30 are not independent. <strong>You can't grow up when mom does your laundry.</strong> Family is important — but you need your own life. That is just my opinion."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Who do you agree with? Is Andrés too hard — or does he have a point? What do YOU think about adults who live with their family?</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">Did you ever live alone? What was the best part?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple. "Yes, I lived alone for..." / "No, I never lived alone." If never — ask: "Do you want to? Why or why not?" Both answers open great conversation. Best part: freedom, quiet, my own rules. Let them tell the story.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">What was the most difficult thing about your home situation? With family — or alone?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple describing difficulties. "The most difficult thing was..." With family: no privacy, arguments, questions. Alone: cooking, loneliness, paying bills. Model: "The most difficult thing was cooking. I ate eggs every day for a month."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">Did you ever argue with a family member about a rule at home? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple conflict story. "Yes, one time I argued with my mom because..." Common conflicts: what time to come home, noise, cleaning, visitors. Let the story develop. Fun and relatable — almost everyone has a family rule story.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion (Simple Present)</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">What do you think is better — living alone or with family? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Core opinion. "I think living alone is better because..." / "I think family is better because..." Simple present + "because." Both sides are valid. Lucía vs Ricardo tension. Let them defend their position with their own experience.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Do you think adults over 30 who live with their parents are doing something wrong — or is it a good decision?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Andrés's provocateur view. "I think it is okay because..." / "I think adults need to be independent because..." Very personal in Mexican culture — many students live with family. No judgment from you. Let the debate happen.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">What is more important — saving money or having independence?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Values comparison. "I think money / independence is more important because..." Ricardo vs Lucía. Very direct question, easy to answer with simple grammar. Connects to real life decisions most students face or have faced.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Future Plans (Going To / Will)</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">Are you going to move — to live alone or with family — in the next year? Why?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for near future plans. "Yes, I'm going to move because..." / "No, I'm going to stay because..." Very personal and concrete. Reveals real life situations. Allow them to explain the reasons — money, relationship, job change.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">When your children grow up, will you want them to stay at home or move out?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Will for future preference. "I will want them to stay because..." / "I will want them to move out because..." Parent vs child perspective flip. Many students say "stay" — ask: "Until what age?" That follow-up always generates debate.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Be honest — what is something your family does at home that makes you a little crazy?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Confession question. Simple present. Common answers: too many questions ("where are you going?"), TV too loud, too much food, no privacy. Model: "My mom asks me questions every day when I come home. Every day. The same questions." Said with affection — keep it funny, not mean.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Your parents ask you to come back and live with them for 6 months to save money. It is a good deal. What are you going to say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for immediate decision. "I'm going to say yes because..." / "I'm going to say no because..." The 6-month detail makes it concrete and not forever. Good for conditions: "I'm going to say yes, but I need my own room." Very realistic for Mexican professionals.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">You have a good job and a little money. You can move out and live alone — but it is expensive and difficult. OR you can stay with your family — free, with food, but no privacy and many questions. What are you going to do?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. What are you going to do — and why? Be honest.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · A2.1 · Daily Life &amp; Lifestyle · Living Alone vs. Living With Family
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

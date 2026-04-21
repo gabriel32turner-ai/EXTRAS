@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab · My Guilty Pleasure · A2.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #FF1F5C;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border);
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+  .toggle-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    background: #FF1F5C; border: none; color: white;
+    padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+  }
+  body.student-mode .toggle-btn { background: #2a3a4e; color: white; }
+  .hero {
+    height: 340px; position: relative;
+    background: url('https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1400&q=80') center/cover no-repeat;
+    display: flex; align-items: flex-end;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,25,35,0.97) 0%, rgba(15,25,35,0.65) 50%, rgba(15,25,35,0.3) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 32px; max-width: 880px; width: 100%; margin: 0 auto; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); background: rgba(36,50,67,0.6); }
+  .tag.accent { border-color: var(--accent); color: var(--accent); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px,4vw,40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .section-emoji { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .section-meta { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .timer-pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(255,31,92,0.1); border: 1px solid rgba(255,31,92,0.3); color: var(--accent); padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  .quote-box { background: var(--card); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 24px; margin-bottom: 16px; }
+  .quote-text { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--text); margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .teacher-script { background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .teacher-script strong { color: var(--accent); font-style: normal; }
+  .vocab-section-title { font-size: 13px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .speak-icon { font-size: 11px; color: var(--accent); margin-top: 4px; display: block; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-text { font-weight: 500; color: var(--text); font-size: 15px; }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:600px){ .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,31,92,0.4); }
+  .op-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .op-avatar { font-size: 28px; }
+  .op-name { font-weight: 700; font-size: 14px; color: var(--text); }
+  .op-role { font-size: 12px; color: var(--muted); }
+  .op-text { font-size: 14px; color: #c8d4e0; line-height: 1.6; }
+  .provocateur-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .opinion-prompt { margin-top: 16px; background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.15); border-radius: 8px; padding: 14px 16px; font-size: 14px; color: var(--muted); font-style: italic; }
+  .block-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 24px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 10px; }
+  .q-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 6px; }
+  .q-text { font-size: 15px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .show-tip-btn { margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; background: none; border: 1px solid rgba(255,31,92,0.3); color: var(--accent); padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+  .show-tip-btn:hover { background: rgba(255,31,92,0.1); }
+  .tip-content { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); background: rgba(255,31,92,0.05); border-radius: 6px; padding: 12px 14px; border-left: 3px solid var(--accent); font-style: italic; }
+  .tip-content.open { display: block; }
+  .exit-box { background: var(--card); border: 2px solid var(--accent); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--text); }
+  .homework-box { background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 8px; padding: 16px 20px; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); }
+  footer { text-align: center; padding: 24px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+  @media(max-width:600px){ .hero { height: auto; padding-top: 60px; } .hero-content { padding: 24px 16px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body ontouchstart="">
+
+<header class="header">
+  <span class="brand">GABRIEL TURNER · SPEAKING LAB</span>
+  <button class="toggle-btn" onclick="toggleMode(this)">👁 Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="tags">
+      <span class="tag accent">A2.1</span>
+      <span class="tag">Daily Life &amp; Lifestyle</span>
+      <span class="tag">🌡 Medium</span>
+      <span class="tag">50 min</span>
+    </div>
+    <h1>My Guilty Pleasure</h1>
+    <p>Something you love — but maybe you shouldn't. Everyone has one. What's yours?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🪝</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 1</div>
+        <div class="section-title">The Trigger</div>
+        <span class="timer-pill teacher-only">⏱ 4 min</span>
+      </div>
+    </div>
+    <div class="quote-box">
+      <div class="quote-text">"72% of adults say they eat junk food in secret. 60% watch TV shows they are embarrassed to talk about. And 45% spend money on things they don't want other people to know about."</div>
+      <div class="quote-source">— YouGov Lifestyle Survey</div>
+    </div>
+    <div class="teacher-only">
+      <div class="teacher-script">
+        <strong>Teacher script:</strong> "Everybody has a guilty pleasure — something you love but maybe you feel a little embarrassed about. For me it's..." [Tell your own example — real or funny.] "Now — what is YOUR guilty pleasure? Don't say 'nothing.' Everybody has one."
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💉</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 2</div>
+        <div class="section-title">Vocab Injection</div>
+        <span class="timer-pill teacher-only">⏱ 8 min</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Nouns — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('pleasure')">
+        <div class="vocab-word">pleasure</div>
+        <div class="vocab-def">something that makes you feel good</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('junk food')">
+        <div class="vocab-word">junk food</div>
+        <div class="vocab-def">food that is bad for you but delicious</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('secret')">
+        <div class="vocab-word">secret</div>
+        <div class="vocab-def">something you do not tell other people</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('habit')">
+        <div class="vocab-word">habit</div>
+        <div class="vocab-def">something you do often, every day or week</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('show')">
+        <div class="vocab-word">show</div>
+        <div class="vocab-def">a TV series or program you watch alone</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('money')">
+        <div class="vocab-word">money</div>
+        <div class="vocab-def">what you spend on things you don't need</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('bed')">
+        <div class="vocab-word">bed</div>
+        <div class="vocab-def">where you stay too long on weekend mornings</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('phone')">
+        <div class="vocab-word">phone</div>
+        <div class="vocab-def">the thing you look at too much at night</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('sugar')">
+        <div class="vocab-word">sugar</div>
+        <div class="vocab-def">sweet food — very hard to stop eating</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('nap')">
+        <div class="vocab-word">nap</div>
+        <div class="vocab-def">a short sleep in the afternoon</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Verbs — click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('eat')">
+        <div class="vocab-word">eat</div>
+        <div class="vocab-def">to put food in your mouth — sometimes too much</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('watch')">
+        <div class="vocab-word">watch</div>
+        <div class="vocab-def">to look at TV or videos for a long time</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('sleep in')">
+        <div class="vocab-word">sleep in</div>
+        <div class="vocab-def">to stay in bed late in the morning</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('spend')">
+        <div class="vocab-word">spend</div>
+        <div class="vocab-def">to use money to buy things</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('hide')">
+        <div class="vocab-word">hide</div>
+        <div class="vocab-def">to put something where others cannot find it</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('enjoy')">
+        <div class="vocab-word">enjoy</div>
+        <div class="vocab-def">to feel happy when you do something you like</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('stop')">
+        <div class="vocab-word">stop</div>
+        <div class="vocab-def">to not do something anymore — very hard with a guilty pleasure</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('feel bad')">
+        <div class="vocab-word">feel bad</div>
+        <div class="vocab-def">to feel guilty or sad after doing something</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('buy')">
+        <div class="vocab-word">buy</div>
+        <div class="vocab-def">to get something with money</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+      <div class="vocab-card" onclick="speak('admit')">
+        <div class="vocab-word">admit</div>
+        <div class="vocab-def">to say "yes, I do this" when you feel a little embarrassed</div>
+        <span class="speak-icon">🔊 tap to hear</span>
+      </div>
+    </div>
+
+    <div class="vocab-section-title">Colloquial Phrases — click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('I know, I know.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I know, I know."</div>
+          <div class="phrase-context">When you admit your guilty pleasure and you already know it is bad.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I can not stop.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I can't stop."</div>
+          <div class="phrase-context">When you try to stop a habit but it is too difficult.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Just one more.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Just one more."</div>
+          <div class="phrase-context">What you say before watching another episode or eating another cookie.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Me too!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Me too!"</div>
+          <div class="phrase-context">When someone says their guilty pleasure and you have the same one.</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('No judgment!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"No judgment!"</div>
+          <div class="phrase-context">What you say so a person feels safe to share something embarrassing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🧱</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 3</div>
+        <div class="section-title">The Opinion Wall</div>
+        <span class="timer-pill teacher-only">⏱ 10 min</span>
+      </div>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🍕</div>
+          <div>
+            <div class="op-name">Carolina, 34</div>
+            <div class="op-role">Nurse, León</div>
+          </div>
+        </div>
+        <div class="op-text">"My guilty pleasure is pizza. I eat it every Friday night. <strong>Alone, in my pajamas, watching TV.</strong> It is not healthy. But after a hard week, it is perfect."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">📱</div>
+          <div>
+            <div class="op-name">Diego, 38</div>
+            <div class="op-role">Driver, Querétaro</div>
+          </div>
+        </div>
+        <div class="op-text">"I look at my phone in bed for one hour before I sleep. Every night. <strong>I know it is bad for me.</strong> But I like it. I watch videos and I forget about my problems."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="op-header">
+          <div class="op-avatar">🛍️</div>
+          <div>
+            <div class="op-name">Sofía, 29</div>
+            <div class="op-role">Secretary, CDMX</div>
+          </div>
+        </div>
+        <div class="op-text">"I buy things online when I am sad. Clothes, shoes, things I don't need. <strong>Later I feel bad about the money.</strong> But in the moment — it feels great."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">🌶 Provocateur</div>
+        <div class="op-header">
+          <div class="op-avatar">🤷</div>
+          <div>
+            <div class="op-name">Rodrigo, 47</div>
+            <div class="op-role">Accountant, Monterrey</div>
+          </div>
+        </div>
+        <div class="op-text">"I don't have guilty pleasures. <strong>I eat well, I sleep early, I don't spend money on stupid things.</strong> Life is better when you have good habits. I don't understand why people do things and feel bad about it."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">Who do you agree with? Do you think Rodrigo is right — or is a little guilty pleasure okay? What is YOUR guilty pleasure? Tell me one.</div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">🗣️</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 4</div>
+        <div class="section-title">The Conversation Engine</div>
+        <span class="timer-pill teacher-only">⏱ 23 min</span>
+      </div>
+    </div>
+
+    <div class="block-title">Block 1 — Personal Experience (Past Simple)</div>
+    <div class="question-card">
+      <div class="q-number">Q1</div>
+      <div class="q-text">What did you do last weekend that was a little bit "bad" for you — but felt great?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple. "Last weekend I..." Keep it light. Common answers: slept until noon, ate a lot of junk food, watched 5 episodes of a show, spent too much money. Model: "Last Saturday I ate pizza and watched TV for four hours. It was amazing."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q2</div>
+      <div class="q-text">Did you ever hide food from your family or partner? What was it?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple + fun confession. Almost everyone has done this. Model: "Yes! I hid chocolate in my desk. My wife eats everything fast so I put it there. She never found it." Laughter is guaranteed. Keep the energy high.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q3</div>
+      <div class="q-text">When was the last time you spent money on something you didn't need? What did you buy?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Past simple with time reference. "Last week I bought..." Connect to Sofía's online shopping story. If they say "never" — ask: "Really? Not even coffee every day? Or a snack you didn't need?" Usually opens them up.</div>
+    </div>
+
+    <div class="block-title">Block 2 — Opinion (Simple Present)</div>
+    <div class="question-card">
+      <div class="q-number">Q4</div>
+      <div class="q-text">Do you think guilty pleasures are bad — or do we all need them?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Core opinion. "I think guilty pleasures are okay because..." / "I think they are bad because..." Simple present + "because." Rodrigo's provocateur opinion is useful here as a counterpoint. Most students will defend their pleasures.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q5</div>
+      <div class="q-text">Is it better to enjoy your guilty pleasure alone — or with other people?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Comparison opinion. "I think it is better alone because..." / "I like it with people because..." Carolina's pizza-alone story is the anchor. Generates personal preferences naturally. No complex grammar needed.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q6</div>
+      <div class="q-text">What do you think is the most common guilty pleasure in Mexico?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Fun cultural question. "I think the most common is..." Food-related answers dominate in Mexican groups: tacos late at night, chicharrón, eating in the car. Light, funny, and culturally relevant. No pressure on grammar — just talk.</div>
+    </div>
+
+    <div class="block-title">Block 3 — Future Plans (Going To / Will)</div>
+    <div class="question-card">
+      <div class="q-number">Q7</div>
+      <div class="q-text">Are you going to stop your guilty pleasure this year — or not?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for plans. "I'm going to try to stop because..." / "No, I'm not going to stop. I like it." Honest answers are always "no" or "I'll try but I know I won't." That honesty is perfect — it creates laughter and real conversation.</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q8</div>
+      <div class="q-text">What guilty pleasure are you going to enjoy this weekend?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Going to for near future plans. Very concrete and fun. "This weekend I'm going to..." Students can plan their guilty pleasure out loud in English — low stakes, high engagement. Great closing question for this block.</div>
+    </div>
+
+    <div class="block-title">Block 4 — Provocative</div>
+    <div class="question-card">
+      <div class="q-number">Q9</div>
+      <div class="q-text">Be honest — do you feel guilty when you enjoy your guilty pleasure, or do you actually feel great?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Self-reflection. Most people say "in the moment — great! After — a little bad." That's the perfect A2.1 honest answer: two simple contrasting sentences. Model: "In the moment I feel great. After I feel a little bad. But the next week I do it again."</div>
+    </div>
+    <div class="question-card">
+      <div class="q-number">Q10</div>
+      <div class="q-text">Your partner, friend, or family member says: "You eat too much junk food. You need to stop." What do you say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show tip</button>
+      <div class="tip-content teacher-only">Scenario question with will. "I will say..." / "I'm going to say..." Role-play element. Common responses: "Okay, I'll try" (but won't), "It's my life!", "I know, but I like it." Very relatable and generates animated responses.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-emoji">💣</div>
+      <div class="section-meta">
+        <div class="section-sub">Phase 5</div>
+        <div class="section-title">The Exit Shot</div>
+        <span class="timer-pill teacher-only">⏱ 5 min</span>
+      </div>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">Final Question</div>
+      <div class="exit-question">Your doctor says: "You need to stop your guilty pleasure. It is bad for your health." But your guilty pleasure is your favorite thing in the week. Are you going to stop — or are you going to continue?</div>
+    </div>
+    <div class="homework-box teacher-only">
+      <div class="hw-label">🎙 WhatsApp Homework</div>
+      <div class="hw-text">Record a 60-second voice note in English. What is your guilty pleasure — and are you going to stop it?</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  GABRIEL TURNER · Speaking Lab · A2.1 · Daily Life &amp; Lifestyle · My Guilty Pleasure
+</footer>
+
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide tip' : 'Show tip';
+  }
+  function toggleMode(btn) {
+    document.body.classList.toggle('student-mode');
+    btn.textContent = document.body.classList.contains('student-mode') ? '👁 Teacher Mode' : '👁 Student Mode';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT Speaking Lab A2.1 — Bad Drivers in My City</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F1923; --card: #18222F; --border: #243243;
+    --text: #EAEAEA; --muted: #8a97ab; --accent: #FF1F5C;
+  }
+  body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.6; }
+  .site-header { position: sticky; top: 0; z-index: 100; background: rgba(15,25,35,0.95); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .site-header .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .toggle-btn { background: var(--accent); color: white; border: none; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s; }
+  .toggle-btn.student { background: #2a3a4e; }
+  .hero { height: 340px; position: relative; display: flex; align-items: flex-end; background: url('https://images.unsplash.com/photo-1502920917128-1aa500764bed?w=1200&q=80') center/cover no-repeat; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,25,35,0.40) 0%, rgba(15,25,35,0.93) 100%); }
+  .hero-content { position: relative; z-index: 1; padding: 36px 32px; width: 100%; max-width: 912px; margin: 0 auto; }
+  .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 20px; padding: 4px 12px; }
+  .hero-tag.plain { border-color: var(--border); color: var(--muted); }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .hero p { color: var(--muted); font-size: 15px; max-width: 560px; }
+  .main { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section { margin-bottom: 56px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .section-emoji { font-size: 36px; }
+  .section-title-group { flex: 1; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+  .section-subtitle { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .timer-pill { background: var(--card); border: 1px solid var(--accent); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; white-space: nowrap; }
+  .teacher-only { }
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .tip-content { display: none !important; }
+  body.student-mode .timer-pill { display: none !important; }
+  .trigger-box { border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 12px 12px 0; padding: 24px 28px; margin-bottom: 20px; }
+  .trigger-source { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .trigger-quote { font-size: 18px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .teacher-script { background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .teacher-script-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .teacher-script p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .vocab-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 24px; }
+  .vocab-group-label:first-child { margin-top: 0; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
+  .vocab-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; user-select: none; }
+  .vocab-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vocab-card:active { transform: scale(0.97); }
+  .vocab-word { font-weight: 700; font-size: 15px; color: var(--text); }
+  .vocab-pos { font-size: 11px; color: var(--accent); font-weight: 700; margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .vocab-def { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+  .phrase-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; transition: border-color 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+  .phrase-item:hover { border-color: var(--accent); }
+  .phrase-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .phrase-text { font-weight: 700; font-size: 15px; color: var(--text); }
+  .phrase-context { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .opinion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:600px) { .opinion-grid { grid-template-columns: 1fr; } }
+  .opinion-bubble { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; position: relative; transition: border-color 0.2s; }
+  .opinion-bubble:hover { border-color: var(--accent); }
+  .opinion-bubble.provocateur { border-color: rgba(255,31,92,0.4); }
+  .provocateur-tag { position: absolute; top: -10px; right: 16px; background: var(--accent); color: white; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .opinion-avatar { font-size: 28px; margin-bottom: 8px; }
+  .opinion-name { font-weight: 700; font-size: 14px; color: var(--accent); }
+  .opinion-role { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .opinion-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .opinion-prompt { margin-top: 20px; background: rgba(255,31,92,0.06); border: 1px solid rgba(255,31,92,0.2); border-radius: 10px; padding: 14px 18px; font-size: 14px; color: var(--muted); }
+  .opinion-prompt strong { color: var(--accent); }
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; margin-top: 28px; padding: 6px 14px; background: rgba(255,31,92,0.08); border-radius: 6px; display: inline-block; }
+  .block-label:first-child { margin-top: 0; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 10px; }
+  .question-number { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .question-text { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .show-tip-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+  .show-tip-btn:hover { background: var(--accent); color: white; }
+  .tip-content { display: none; margin-top: 14px; background: rgba(255,31,92,0.06); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tip-content.open { display: block; }
+  .exit-box { border: 2px solid var(--accent); border-radius: 16px; padding: 32px; background: rgba(255,31,92,0.04); margin-bottom: 24px; }
+  .exit-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exit-question { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--text); }
+  .homework-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .hw-icon { font-size: 28px; flex-shrink: 0; }
+  .hw-label { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .hw-text { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; }
+  .site-footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  @media(max-width:600px) {
+    .hero-content { padding: 24px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .section-header { flex-wrap: wrap; }
+    .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <span class="brand">Gabriel Turner · Speaking Lab</span>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">Student Mode</button>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-tags">
+      <span class="hero-tag">A2.1</span>
+      <span class="hero-tag plain">Social Issues &amp; Society</span>
+      <span class="hero-tag plain">⚡ Medium Edge</span>
+      <span class="hero-tag plain">50 min</span>
+    </div>
+    <h1>Bad Drivers in My City</h1>
+    <p>Every city has them. They go too fast, they don't stop, they cut in front of you. What do YOU do?</p>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- PHASE 1 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🪝</span>
+      <div class="section-title-group">
+        <div class="section-title">The Trigger</div>
+        <div class="section-subtitle">Open the Conversation</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 4 min</span>
+    </div>
+    <div class="trigger-box">
+      <div class="trigger-source">A question for the class</div>
+      <div class="trigger-quote">"This morning, on your way here — did you see a bad driver? What did they do?"</div>
+    </div>
+    <div class="teacher-script teacher-only">
+      <div class="teacher-script-label">🎙 Teacher Script</div>
+      <p>Ask the question and point at one student immediately. Don't wait — go around fast. Just the story, no analysis: "What did the driver do?" Let 2 or 3 students share. Then say: <em>"OK — bad drivers. Let's talk."</em> This topic activates everyone instantly because it happened to them today or yesterday.</p>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💉</span>
+      <div class="section-title-group">
+        <div class="section-title">Vocab Injection</div>
+        <div class="section-subtitle">Click to Hear · Tap to Speak</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 8 min</span>
+    </div>
+
+    <div class="vocab-group-label">Nouns — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('traffic')">
+        <div class="vocab-word">traffic</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">All the cars on the road</div>
+      </div>
+      <div class="vocab-card" onclick="speak('horn')">
+        <div class="vocab-word">horn</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The loud noise button in your car</div>
+      </div>
+      <div class="vocab-card" onclick="speak('lane')">
+        <div class="vocab-word">lane</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">One line of traffic on the road</div>
+      </div>
+      <div class="vocab-card" onclick="speak('accident')">
+        <div class="vocab-word">accident</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">When two cars hit each other</div>
+      </div>
+      <div class="vocab-card" onclick="speak('speed')">
+        <div class="vocab-word">speed</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">How fast you go — too much speed is dangerous</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pedestrian')">
+        <div class="vocab-word">pedestrian</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">A person walking on the street</div>
+      </div>
+      <div class="vocab-card" onclick="speak('road')">
+        <div class="vocab-word">road</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The street where cars drive</div>
+      </div>
+      <div class="vocab-card" onclick="speak('signal')">
+        <div class="vocab-word">signal</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The light on your car — left or right — to show where you go</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stop sign')">
+        <div class="vocab-word">stop sign</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The red sign that says STOP — many people ignore it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('anger')">
+        <div class="vocab-word">anger</div>
+        <div class="vocab-pos">noun</div>
+        <div class="vocab-def">The feeling when something makes you very mad</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Verbs — Click to hear</div>
+    <div class="vocab-grid">
+      <div class="vocab-card" onclick="speak('cut in')">
+        <div class="vocab-word">cut in</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Go in front of another car — very rude</div>
+      </div>
+      <div class="vocab-card" onclick="speak('honk')">
+        <div class="vocab-word">honk</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Press the horn — BEEP!</div>
+      </div>
+      <div class="vocab-card" onclick="speak('speed up')">
+        <div class="vocab-word">speed up</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Go faster — often dangerous</div>
+      </div>
+      <div class="vocab-card" onclick="speak('stop')">
+        <div class="vocab-word">stop</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Not move — many bad drivers don't do this</div>
+      </div>
+      <div class="vocab-card" onclick="speak('park')">
+        <div class="vocab-word">park</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Put your car in a place and leave it</div>
+      </div>
+      <div class="vocab-card" onclick="speak('ignore')">
+        <div class="vocab-word">ignore</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Not pay attention — bad drivers ignore signs and people</div>
+      </div>
+      <div class="vocab-card" onclick="speak('yell')">
+        <div class="vocab-word">yell</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Shout very loud — from your car window</div>
+      </div>
+      <div class="vocab-card" onclick="speak('brake')">
+        <div class="vocab-word">brake</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Press the pedal to slow down or stop</div>
+      </div>
+      <div class="vocab-card" onclick="speak('block')">
+        <div class="vocab-word">block</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Park in a bad place and stop other cars from moving</div>
+      </div>
+      <div class="vocab-card" onclick="speak('pass')">
+        <div class="vocab-word">pass</div>
+        <div class="vocab-pos">verb</div>
+        <div class="vocab-def">Go around another car to go in front</div>
+      </div>
+    </div>
+
+    <div class="vocab-group-label" style="margin-top:24px">Colloquial Phrases — Click to hear</div>
+    <div class="phrase-list">
+      <div class="phrase-item" onclick="speak('That drives me crazy!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That drives me crazy!"</div>
+          <div class="phrase-context">When something on the road makes you very angry</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Are you serious right now?')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Are you serious right now?"</div>
+          <div class="phrase-context">When a driver does something very stupid in front of you</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('Come on! Move!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"Come on! Move!"</div>
+          <div class="phrase-context">When a car is very slow and you are in a hurry</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('That\'s not fair!')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"That's not fair!"</div>
+          <div class="phrase-context">When someone cuts in front of you after you waited a long time</div>
+        </div>
+      </div>
+      <div class="phrase-item" onclick="speak('I lost my patience.')">
+        <span class="phrase-icon">💬</span>
+        <div>
+          <div class="phrase-text">"I lost my patience."</div>
+          <div class="phrase-context">When you can't stay calm anymore in traffic</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🧱</span>
+      <div class="section-title-group">
+        <div class="section-title">The Opinion Wall</div>
+        <div class="section-subtitle">Who Do You Agree With?</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 10 min</span>
+    </div>
+    <div class="opinion-grid">
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👩‍🏫</div>
+        <div class="opinion-name">Lucía, 35</div>
+        <div class="opinion-role">Teacher, Celaya</div>
+        <div class="opinion-text">"Bad drivers make me very angry. <strong>Every day I see the same thing.</strong> People go too fast. They don't stop. Someone is going to get hurt."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👨‍🔧</div>
+        <div class="opinion-name">Tomás, 44</div>
+        <div class="opinion-role">Mechanic, Querétaro</div>
+        <div class="opinion-text">"The roads in this city are terrible. <strong>I don't blame the drivers.</strong> The streets are small, the signs are bad. The city is the problem, not the people."</div>
+      </div>
+      <div class="opinion-bubble provocateur">
+        <div class="provocateur-tag">💥 Honest Take</div>
+        <div class="opinion-avatar">👩‍💼</div>
+        <div class="opinion-name">Carolina, 31</div>
+        <div class="opinion-role">Accountant, CDMX</div>
+        <div class="opinion-text">"I drive fast. I cut in sometimes. <strong>I know — I'm a bad driver too.</strong> But I'm always in a hurry. I don't want to be late. I feel a little bad about it."</div>
+      </div>
+      <div class="opinion-bubble">
+        <div class="opinion-avatar">👴</div>
+        <div class="opinion-name">Don Ernesto, 55</div>
+        <div class="opinion-role">Retired, Monterrey</div>
+        <div class="opinion-text">"Before, people drove better. <strong>Now everybody is on their phone.</strong> I see it every day. They don't watch the road. It's very dangerous."</div>
+      </div>
+    </div>
+    <div class="opinion-prompt">
+      <strong>For the class:</strong> Carolina admits she is a bad driver too. Are you honest about your own driving — or do you only see the bad drivers around you?
+    </div>
+  </section>
+
+  <!-- PHASE 4 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">🗣️</span>
+      <div class="section-title-group">
+        <div class="section-title">The Conversation Engine</div>
+        <div class="section-subtitle">23 Minutes of Real Talk</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 23 min</span>
+    </div>
+
+    <span class="block-label">Block 1 — Personal Experience</span>
+    <div class="question-card">
+      <div class="question-number">Q1</div>
+      <div class="question-text">What did the worst driver you ever saw do? Tell me the story.</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Let them tell it in past simple — "He went...", "She didn't stop...", "I was very angry." Help sequence: First... then... after that. Don't correct mid-story. Note errors and recycle later.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q2</div>
+      <div class="question-text">Did a bad driver make you late for work or an important appointment? What happened?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Model answer: "Yes! Last Tuesday. A truck blocked the road for 20 minutes. I called my boss. I was very angry. The driver didn't care." Short sentences, past simple, real emotion.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q3</div>
+      <div class="question-text">Did you ever honk at another driver or yell from your car? What did you say?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Fun self-reflection question. Most students will laugh and admit they did. Model answer: "Yes, one time. A man cut in front of me. I honked three times. He ignored me. I was so angry." The laugh creates connection and lowers anxiety.</div>
+    </div>
+
+    <span class="block-label">Block 2 — Opinion</span>
+    <div class="question-card">
+      <div class="question-number">Q4</div>
+      <div class="question-text">What is the worst thing a driver can do? What is more dangerous — going too fast or using your phone?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">A vs. B debate — easy to answer at A2.1. Push: "Why is that more dangerous?" Help them build a short reason: "Because when you..." Most students choose phone — it's personal and they know they do it.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q5</div>
+      <div class="question-text">Do you think bad drivers need more classes — or bigger punishments?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Two clear options. Model answer: "I think bigger punishments. Classes are not enough. People need to feel consequences. In my city, nobody follows the rules because nothing happens to them."</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q6</div>
+      <div class="question-text">Do you think people in your city drive better or worse than in other cities?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Opens up personal comparison. Many students have a strong opinion about CDMX vs. their city, or about drivers in the US or Europe. Simple: "In my city, drivers are... because..." Great for present simple practice.</div>
+    </div>
+
+    <span class="block-label">Block 3 — Future Plans</span>
+    <div class="question-card">
+      <div class="question-number">Q7</div>
+      <div class="question-text">The next time a bad driver does something dangerous, what are you going to do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Direct "going to" practice. Help students be specific: "I'm going to..." Options: ignore, honk, call the police, take a photo of the plates. Fun to compare who takes which approach.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q8</div>
+      <div class="question-text">Are you going to drive differently after today's class — or do you think you are already a good driver?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Fun self-reflection closer for Block 3. Many students laugh — it's personal. Model answer: "I'm going to use my phone less. I know it's bad. But I'm not going to change my speed. I drive fast but safely!"</div>
+    </div>
+
+    <span class="block-label">Block 4 — Provocative</span>
+    <div class="question-card">
+      <div class="question-number">Q9</div>
+      <div class="question-text">Be honest — do YOU do anything bad when you drive? Use your phone? Go too fast? Cut in sometimes?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Carolina's question — most students will admit something. Celebrate the honesty. Model answer: "OK... I use my phone at red lights. I know it's wrong. But only for 2 seconds!" The confession creates group energy and real conversation.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-number">Q10</div>
+      <div class="question-text">A bad driver cuts in front of you and almost hits your car. You are very angry. The driver looks at you and smiles. What do you do?</div>
+      <button class="show-tip-btn teacher-only" onclick="toggleTip(this)">Show Tip</button>
+      <div class="tip-content teacher-only">Scenario question — vivid and specific. Let students be dramatic. Model answer: "I honk three times. I don't get out of the car — that's dangerous. But I am very angry for the rest of the day." Present simple + past simple combo works perfectly here.</div>
+    </div>
+  </section>
+
+  <!-- PHASE 5 -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-emoji">💣</span>
+      <div class="section-title-group">
+        <div class="section-title">The Exit Shot</div>
+        <div class="section-subtitle">One Situation. Your Decision.</div>
+      </div>
+      <span class="timer-pill teacher-only">⏱ 5 min</span>
+    </div>
+    <div class="exit-box">
+      <div class="exit-label">🎯 Exit Shot</div>
+      <div class="exit-question">A driver parks in front of your driveway. You can't get your car out. You are going to be late for work. You know the driver — it's your neighbor. What are you going to do?</div>
+    </div>
+    <div class="homework-box">
+      <div class="hw-icon">🎙️</div>
+      <div>
+        <div class="hw-label">Voice Note Homework</div>
+        <div class="hw-text">Record a 60-second voice note in English on WhatsApp. What are you going to do with your neighbor? Talk to them? Call the police? Be specific. Your teacher will listen and give you feedback before the next session.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <p>Gabriel Turner · Speaking Lab A2.1 · Bad Drivers in My City · Social Issues &amp; Society</p>
+</footer>
+<script>
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+  }
+  function toggleTip(btn) {
+    const tip = btn.nextElementSibling;
+    tip.classList.toggle('open');
+    btn.textContent = tip.classList.contains('open') ? 'Hide Tip' : 'Show Tip';
+  }
+  let studentMode = false;
+  function toggleMode() {
+    studentMode = !studentMode;
+    document.body.classList.toggle('student-mode', studentMode);
+    const btn = document.getElementById('modeToggle');
+    btn.textContent = studentMode ? 'Teacher Mode' : 'Student Mode';
+    btn.classList.toggle('student', studentMode);
+  }
+</script>
+</body>
+</html>
