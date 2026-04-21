@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>GT · A1.1 Micro Lab · Hot Weather or Cold Weather?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--accent:#FF1F5C;--accent-dim:rgba(255,31,92,0.09);--accent-med:rgba(255,31,92,0.18);--accent-border:rgba(255,31,92,0.38)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 1.75rem;height:54px;display:flex;align-items:center;justify-content:space-between}
+    .topbar-left{display:flex;align-items:center;gap:0.8rem}
+    .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#fff;letter-spacing:-0.01em}
+    .topbar-logo span{color:var(--accent)}
+    .topbar-div{width:1px;height:16px;background:rgba(255,255,255,0.07)}
+    .topbar-badge{display:inline-flex;align-items:center;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:3px 10px;font-size:0.65rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase}
+    .topbar-right{font-size:0.65rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase}
+    .progress-wrap{position:fixed;top:54px;left:0;right:0;height:2px;background:rgba(255,255,255,0.04);z-index:99}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,#ff6b8a 100%);width:0%;transition:width 0.35s ease}
+    .mode-banner{background:rgba(255,31,92,0.06);border-bottom:1px solid rgba(255,31,92,0.12);padding:0.55rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .mode-banner-text{font-size:0.72rem;color:rgba(255,255,255,0.5);font-weight:300}
+    .mode-banner-text strong{color:rgba(255,255,255,0.8);font-weight:500}
+    .mode-toggle{display:flex;align-items:center;gap:0.5rem;cursor:pointer;touch-action:manipulation}
+    .mt-label{font-size:0.7rem;color:var(--muted);white-space:nowrap}
+    .mt-track{width:36px;height:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:20px;position:relative;transition:background 0.2s,border-color 0.2s;flex-shrink:0}
+    .mt-track.on{background:rgba(255,31,92,0.25);border-color:rgba(255,31,92,0.45)}
+    .mt-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform 0.2s,background 0.2s}
+    .mt-track.on .mt-thumb{transform:translateX(16px);background:var(--accent)}
+    .hero{position:relative;height:300px;overflow:hidden}
+    .hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;filter:brightness(0.4) saturate(0.75)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(155deg,rgba(15,25,35,0.05) 0%,rgba(15,25,35,0.3) 35%,rgba(15,25,35,0.82) 65%,var(--navy) 100%)}
+    .hero-stripe{position:absolute;top:0;right:0;width:260px;height:100%;background:linear-gradient(130deg,transparent 55%,rgba(255,31,92,0.05) 100%);pointer-events:none}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 2rem 2rem}
+    .eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.7rem}
+    .eyebrow-tag{font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
+    .eyebrow-sep{width:20px;height:1px;background:rgba(255,31,92,0.45)}
+    .eyebrow-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+    .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em;color:#fff;max-width:600px}
+    .hero-title .hl{color:var(--accent)}
+    .hero-sub{margin-top:0.65rem;font-size:0.82rem;color:rgba(255,255,255,0.4);font-weight:300;font-style:italic;max-width:380px;line-height:1.5}
+    .main{max-width:880px;margin:0 auto;padding:0 1.5rem 5rem}
+    .section{margin-top:3rem}
+    .sec-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.4rem}
+    .sec-emoji{font-size:1.6rem}
+    .sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:-0.02em}
+    .sec-sub{font-size:0.75rem;color:var(--muted);margin-left:2.7rem;margin-bottom:1.2rem}
+    .sec-time{display:inline-block;background:var(--accent-dim);border:1px solid rgba(255,31,92,0.2);border-radius:20px;padding:2px 10px;font-size:0.6rem;font-weight:700;color:var(--accent);letter-spacing:0.04em;margin-left:0.5rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:0.9rem;position:relative}
+    .card-label{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem}
+    .card p{font-size:0.88rem;color:rgba(255,255,255,0.82);line-height:1.55}
+    .tnote{background:rgba(255,31,92,0.05);border:1px solid rgba(255,31,92,0.15);border-radius:10px;padding:1rem 1.2rem;margin-top:0.7rem;display:none}
+    .tnote-title{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
+    .tnote p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.55}
+    body.teacher-on .tnote{display:block}
+    .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.6rem;margin-top:0.8rem}
+    .vcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.85rem 0.9rem;cursor:pointer;transition:border-color 0.2s,transform 0.12s;text-align:center}
+    .vcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .vcard:active{transform:scale(0.97)}
+    .vcard-word{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.25rem}
+    .vcard-def{font-size:0.7rem;color:var(--muted);line-height:1.35}
+    .vcard-type{font-size:0.55rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem}
+    .colloquial-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.6rem;margin-top:0.6rem}
+    .ccard{background:rgba(255,31,92,0.06);border:1px solid rgba(255,31,92,0.18);border-radius:10px;padding:0.75rem 0.9rem;cursor:pointer;text-align:center;transition:border-color 0.2s}
+    .ccard:hover{border-color:var(--accent)}
+    .ccard-phrase{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--accent)}
+    .ccard-use{font-size:0.65rem;color:var(--muted);margin-top:0.2rem}
+    .choose-pair{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.2rem}
+    .choose-opt{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+    .choose-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .choose-opt:active{transform:scale(0.96)}
+    .choose-emoji{font-size:2.2rem;display:block;margin-bottom:0.4rem}
+    .choose-label{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff}
+    .choose-starters{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;line-height:1.5;padding:0 0.5rem;margin-bottom:0.6rem}
+    .qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+    .qcard::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0.5}
+    .qcard-num{font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+    .qcard-q{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.6rem}
+    .qcard-prompt{font-size:0.82rem;color:var(--muted);font-style:italic;margin-bottom:0.7rem}
+    .qcard-model{background:rgba(255,31,92,0.05);border:1px solid rgba(255,31,92,0.15);border-radius:8px;padding:0.9rem 1rem;display:none}
+    .qcard-model-label{font-size:0.58rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem}
+    .qcard-model p{font-size:0.82rem;color:rgba(255,255,255,0.72);line-height:1.55}
+    .qcard-btn{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,31,92,0.1);border:1px solid rgba(255,31,92,0.25);color:var(--accent);font-size:0.7rem;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+    .qcard-btn:hover{background:rgba(255,31,92,0.18)}
+    .sentence-box{background:var(--card);border:2px solid rgba(255,31,92,0.25);border-radius:16px;padding:2rem 1.8rem;text-align:center}
+    .sentence-box p{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;line-height:1.6}
+    .sentence-box .blank{border-bottom:2px dashed var(--accent);padding:0 0.5rem;color:var(--accent);font-style:italic}
+    .sentence-hw{margin-top:1rem;font-size:0.75rem;color:var(--muted);font-style:italic}
+    .footer{text-align:center;padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:3rem}
+    .footer p{font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase}
+    @media(max-width:600px){
+      .topbar{padding:0 1rem;height:48px}
+      .hero{height:240px}
+      .hero-content{padding:1rem 1.2rem 1.4rem}
+      .main{padding:0 1rem 4rem}
+      .vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+      .choose-pair{gap:0.5rem}
+      .choose-emoji{font-size:1.7rem}
+      .qcard{padding:1.2rem}
+      .sentence-box{padding:1.4rem 1rem}
+      .sentence-box p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">GABRIEL TURNER<span> ·</span> Micro Lab</div>
+    <div class="topbar-div"></div>
+    <div class="topbar-badge">A1.1</div>
+  </div>
+  <div class="topbar-right">35 min</div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+<div class="mode-banner">
+  <div class="mode-banner-text"><strong>Teacher Mode</strong> — show teacher notes &amp; model answers</div>
+  <div class="mode-toggle" onclick="toggleMode()">
+    <span class="mt-label">OFF</span>
+    <div class="mt-track" id="mtTrack"><div class="mt-thumb"></div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=1200&q=80" alt="sun and snow contrast">
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-tag">A1.1 · Micro Lab</span>
+      <span class="eyebrow-sep"></span>
+      <span class="eyebrow-sub">Daily Life &amp; Lifestyle</span>
+    </div>
+    <h1 class="hero-title">Hot Weather or <span class="hl">Cold</span> Weather?</h1>
+    <p class="hero-sub">Sun or snow — what is your perfect temperature?</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🎪</span>
+      <span class="sec-title">Show &amp; Tell</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Show a photo from a hot day or a cold day in your life.</p>
+
+    <div class="card">
+      <div class="card-label">Your Task</div>
+      <p>Open your phone. Find a photo from a <strong>hot day</strong> (the beach, summer, your city in June) or a <strong>cold day</strong> (a jacket, rain, a cold morning). Show it and describe it.</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Script — Model First</div>
+      <p>"Look — this is a photo from December. It is cold! I am in a big jacket. My nose is red. I am not happy — I like hot weather. OK — show me YOUR photo. What is the weather like?"</p>
+    </div>
+
+    <div class="card" style="margin-top:0.5rem">
+      <div class="card-label">Sentence Starters</div>
+      <p>This is a photo from _______ .<br>It is hot / cold / rainy / sunny .<br>I am _______ in this photo.<br>The weather is _______ .</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Drill "weather" — students say "weh-AH-ter" instead of "WEH-ther". Also drill "cold" vs "cool" — explain: cold = very (brrr), cool = a little (nice). If they have no photo, just ask: "What is the weather today? Is it hot or cold right now?"</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">💉</span>
+      <span class="sec-title">Vocab Injection</span>
+      <span class="sec-time">8 min</span>
+    </div>
+    <p class="sec-sub">Click each word to hear the pronunciation.</p>
+
+    <div class="card">
+      <div class="card-label">Nouns</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('weather')"><div class="vcard-type">Noun</div><div class="vcard-word">weather</div><div class="vcard-def">rain, sun, cold</div></div>
+        <div class="vcard" onclick="speak('summer')"><div class="vcard-type">Noun</div><div class="vcard-word">summer</div><div class="vcard-def">hot season</div></div>
+        <div class="vcard" onclick="speak('winter')"><div class="vcard-type">Noun</div><div class="vcard-word">winter</div><div class="vcard-def">cold season</div></div>
+        <div class="vcard" onclick="speak('sun')"><div class="vcard-type">Noun</div><div class="vcard-word">sun</div><div class="vcard-def">hot, yellow</div></div>
+        <div class="vcard" onclick="speak('rain')"><div class="vcard-type">Noun</div><div class="vcard-word">rain</div><div class="vcard-def">water from sky</div></div>
+        <div class="vcard" onclick="speak('jacket')"><div class="vcard-type">Noun</div><div class="vcard-word">jacket</div><div class="vcard-def">warm clothes</div></div>
+        <div class="vcard" onclick="speak('beach')"><div class="vcard-type">Noun</div><div class="vcard-word">beach</div><div class="vcard-def">sand and sea</div></div>
+        <div class="vcard" onclick="speak('temperature')"><div class="vcard-type">Noun</div><div class="vcard-word">temperature</div><div class="vcard-def">hot or cold level</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Adjectives</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('hot')"><div class="vcard-type">Adj</div><div class="vcard-word">hot</div><div class="vcard-def">very warm</div></div>
+        <div class="vcard" onclick="speak('cold')"><div class="vcard-type">Adj</div><div class="vcard-word">cold</div><div class="vcard-def">very cool</div></div>
+        <div class="vcard" onclick="speak('sunny')"><div class="vcard-type">Adj</div><div class="vcard-word">sunny</div><div class="vcard-def">sun is out</div></div>
+        <div class="vcard" onclick="speak('rainy')"><div class="vcard-type">Adj</div><div class="vcard-word">rainy</div><div class="vcard-def">a lot of rain</div></div>
+        <div class="vcard" onclick="speak('comfortable')"><div class="vcard-type">Adj</div><div class="vcard-word">comfortable</div><div class="vcard-def">feels good</div></div>
+        <div class="vcard" onclick="speak('terrible')"><div class="vcard-type">Adj</div><div class="vcard-word">terrible</div><div class="vcard-def">very bad</div></div>
+        <div class="vcard" onclick="speak('perfect')"><div class="vcard-type">Adj</div><div class="vcard-word">perfect</div><div class="vcard-def">the best</div></div>
+        <div class="vcard" onclick="speak('humid')"><div class="vcard-type">Adj</div><div class="vcard-word">humid</div><div class="vcard-def">wet air</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Colloquial Phrases</div>
+      <div class="colloquial-row">
+        <div class="ccard" onclick="speak('It is freezing!')"><div class="ccard-phrase">"It is freezing!"</div><div class="ccard-use">= very very cold</div></div>
+        <div class="ccard" onclick="speak('Tell me about it!')"><div class="ccard-phrase">"Tell me about it!"</div><div class="ccard-use">= I agree 100%</div></div>
+        <div class="ccard" onclick="speak('Lucky you!')"><div class="ccard-phrase">"Lucky you!"</div><div class="ccard-use">= you are fortunate</div></div>
+      </div>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Drill "comfortable" — 3 syllables for students: COM-for-ta-ble, not "com-for-TAH-bleh". Also "humid" — students confuse it with "humido" and add extra syllable. Model "HEW-mid" twice. "Temperature" = TEM-pra-chur, not "tem-pe-ra-TU-ra".</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🔀</span>
+      <span class="sec-title">Choose &amp; Speak</span>
+      <span class="sec-time">10 min</span>
+    </div>
+    <p class="sec-sub">Choose one option and explain with 2-3 sentences.</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher — Model the First One</div>
+      <p>"I choose hot weather. I am a summer person. The sun is my energy. Cold weather is terrible for me — I am sad and tired. OK, you choose!"</p>
+    </div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">☀️</span><span class="choose-label">Hot Weather</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">❄️</span><span class="choose-label">Cold Weather</span></div>
+    </div>
+    <div class="choose-starters">I choose _______ weather. I am a _______ person. It is _______ for me.</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🏖️</span><span class="choose-label">Beach Vacation</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🏔️</span><span class="choose-label">Mountain Vacation</span></div>
+    </div>
+    <div class="choose-starters">For vacation, _______ is perfect. It is _______ there.</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🧥</span><span class="choose-label">Big Jacket</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">👕</span><span class="choose-label">T-shirt</span></div>
+    </div>
+    <div class="choose-starters">I am comfortable in a _______ . It is my favorite for _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">☔</span><span class="choose-label">Rainy Day</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🌞</span><span class="choose-label">Sunny Day</span></div>
+    </div>
+    <div class="choose-starters">A _______ day is _______ for me. I am _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🥶</span><span class="choose-label">Celaya in January</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🥵</span><span class="choose-label">Celaya in May</span></div>
+    </div>
+    <div class="choose-starters">Celaya in _______ is _______ . The temperature is _______ .</div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>The Celaya pair is a crowd-pleaser — everyone has an opinion about local weather. Push for degrees: "The temperature is 38!" This generates natural number practice too. If they say just "hot" — push: "HOW hot? Is it terrible? Is it comfortable?"</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🃏</span>
+      <span class="sec-title">Question Cards</span>
+      <span class="sec-time">12 min</span>
+    </div>
+    <p class="sec-sub">Teacher models the answer first. Then student personalizes.</p>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 01</div>
+      <div class="qcard-q">What is the weather like in your city today?</div>
+      <div class="qcard-prompt">Now you: describe the weather RIGHT NOW.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"Today the weather is sunny. The temperature is 29 degrees. It is hot but comfortable. The sky is beautiful."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Start easy — the weather right now. If online, ask them to look out the window. This generates instant real-world language.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 02</div>
+      <div class="qcard-q">What is your perfect temperature?</div>
+      <div class="qcard-prompt">Now you: what number is perfect for YOU?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My perfect temperature is 24 degrees. It is not hot, not cold. It is perfect for everything — for a walk, for coffee outside."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Great number practice. Push for WHY: "24 degrees — is that comfortable? Is that for inside or outside?" Build more sentences from one number.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 03</div>
+      <div class="qcard-q">Who is the cold-weather person in your family?</div>
+      <div class="qcard-prompt">Now you: who in YOUR family is always cold?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My wife is the cold-weather person. She is cold in September! Her jacket is always with her. I am the opposite — I am a hot-weather person."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Family vocab review opportunity. Ask about multiple family members: "And your mom? And your dad? Are they hot or cold people?"</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 04</div>
+      <div class="qcard-q">How is your city in summer? And in winter?</div>
+      <div class="qcard-prompt">Now you: describe YOUR city in both seasons.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My city in summer is very hot — 35 degrees! It is terrible. But in winter it is nice — 18 degrees. The winter is my favorite time."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Push for contrast: "So summer is ______ BUT winter is ______." This is a natural way to introduce "but" as connector without formal grammar teaching.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 05</div>
+      <div class="qcard-q">What is the worst weather for you?</div>
+      <div class="qcard-prompt">Now you: what weather is TERRIBLE for you?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"The worst weather for me is humid and hot. 38 degrees with humidity — it is terrible! I am tired, I am not productive, I am angry."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Emotion + weather = great output. Push for body reactions: "Are you tired? Are you angry? Is your energy at 0%?" Recycle the energy percentage from other labs if they have done them.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 06</div>
+      <div class="qcard-q">Is the weather important for your mood?</div>
+      <div class="qcard-prompt">Now you: is YOUR mood different with different weather?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"Yes! The weather is very important for my mood. On a sunny day I am happy and productive. On a rainy day I am lazy and tired. The sun is my energy."</p>
+      </div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Teach "mood" as a chunk: "My mood is good/bad." Don't explain it grammatically. Just model it and let them use it. If they connect weather to emotions with 3+ sentences, celebrate big.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">✨</span>
+      <span class="sec-title">My Sentence</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Build one perfect sentence. Practice it. Record it.</p>
+
+    <div class="sentence-box">
+      <p>My perfect weather is <span class="blank">_______</span> because I am <span class="blank">_______</span> and my energy is <span class="blank">_______</span> .</p>
+    </div>
+    <p class="sentence-hw">🎙️ Record this sentence as a WhatsApp voice note (30 seconds).</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Push for a specific temperature number + adjective + emotion: "My perfect weather is 22 degrees because I am comfortable and my energy is at 100%." This is a complex, beautiful sentence for A1.1. Celebrate it. Three repetitions, then record.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>GABRIEL TURNER · Micro Lab · A1.1 · Daily Life &amp; Lifestyle</p>
+</div>
+
+<script>
+  let teacherOn=false;
+  function toggleMode(){teacherOn=!teacherOn;document.body.classList.toggle('teacher-on',teacherOn);const t=document.getElementById('mtTrack');t.classList.toggle('on',teacherOn);t.previousElementSibling.textContent=teacherOn?'ON':'OFF'}
+  function toggleModel(btn){const m=btn.nextElementSibling;const o=m.style.display==='block';m.style.display=o?'none':'block';btn.textContent=o?'▶ Show Model Answer':'▼ Hide Model Answer'}
+  function speak(text){if('speechSynthesis' in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.8;u.pitch=1;window.speechSynthesis.speak(u)}}
+  window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const p=h>0?(window.scrollY/h)*100:0;document.getElementById('progFill').style.width=p+'%'});
+</script>
+</body>
+</html>

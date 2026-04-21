@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT · Micro Lab · A1.1 — My Family</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--s2:#1A2840;--bd:#243243;--ac:#FF1F5C;--ac2:#FF4D7A;--txt:#EAEAEA;--mt:#8a97ab;--dim:rgba(228,228,228,0.25);--cyan:#00CFFF;--green:#00E676}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65}
+.prog{height:2px;background:var(--ac);position:fixed;top:0;left:0;z-index:300;transition:width .1s}
+.hdr{background:var(--s1);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200}
+.brand{display:flex;align-items:center;gap:10px}.dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim);margin-left:6px}.hdr-r{display:flex;align-items:center;gap:10px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.mode-btn{background:var(--ac);border:none;color:#fff;padding:6px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:280px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-over{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,0.3) 0%,rgba(15,25,35,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px 32px 28px;max-width:880px;margin:0 auto}
+.hero-wrap{position:relative}
+.h-chips{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.chip{background:rgba(255,31,92,.12);border:1px solid rgba(255,31,92,.25);padding:4px 10px;font-size:10px;color:var(--ac);font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.h-title{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;line-height:.95;color:#fff;margin-bottom:10px}
+.h-title em{color:var(--ac);font-style:normal}
+.h-sub{font-size:13px;color:var(--mt);max-width:420px;line-height:1.55}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.35)}.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}.sec{padding:36px 28px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-hd-left{display:flex;flex-direction:column;gap:3px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt);margin-top:2px}
+.sec-time{border:1px solid rgba(255,31,92,.2);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.tn-wrap{margin-top:20px}body.student-mode .tn-wrap{display:none}
+.tn-toggle{background:rgba(255,31,92,.08);border:1px solid rgba(255,31,92,.2);color:var(--ac);padding:8px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;width:100%;text-align:left;transition:all .15s}
+.tn-toggle:hover{background:rgba(255,31,92,.14)}.tn-toggle::before{content:'▶ ';font-size:8px}.tn-toggle.open::before{content:'▼ '}
+.tn-body{display:none;border:1px solid rgba(255,31,92,.12);border-top:none;padding:16px 18px;background:rgba(255,31,92,.03)}.tn-body.open{display:block}
+.tn-capa{margin-bottom:12px}.tn-capa:last-child{margin-bottom:0}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}.tn-txt ul{list-style:none;display:flex;flex-direction:column;gap:4px}.tn-txt ul li::before{content:'→ ';color:var(--ac)}
+.st-box{background:var(--s1);border:1px solid var(--bd);padding:22px 24px;margin-bottom:14px}
+.st-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.st-script{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;border-left:3px solid var(--ac);padding-left:14px;margin-bottom:14px}
+.st-starters{display:flex;flex-direction:column;gap:6px}
+.st-s{background:var(--s2);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--txt)}.st-s span{color:var(--ac);font-weight:700}
+.v-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:10px}
+.vc{background:var(--s1);padding:14px 12px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);cursor:pointer;transition:border-color .18s}.vc:hover{border-color:rgba(255,31,92,.3)}
+.vw{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}.vd{font-size:10.5px;color:var(--mt)}
+.v-cat{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px;margin-top:14px}
+.v-coll{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:14px}
+.vcol{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.18);padding:12px 14px;text-align:center;cursor:pointer;transition:all .15s}.vcol:hover{background:rgba(255,31,92,.12)}
+.vcol-w{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ac)}.vcol-d{font-size:10px;color:var(--mt);margin-top:2px}
+.ch-toggle{background:var(--s2);border:1px solid var(--bd);padding:8px 14px;font-size:11px;color:var(--mt);cursor:pointer;margin-top:10px;transition:all .15s;font-family:'DM Sans',sans-serif}.ch-toggle:hover{border-color:var(--ac);color:var(--ac)}
+body.challenge-mode .vd{visibility:hidden}
+.cs-grid{display:flex;flex-direction:column;gap:14px}
+.cs-pair{background:var(--s1);border:1px solid var(--bd);overflow:hidden}
+.cs-opts{display:grid;grid-template-columns:1fr auto 1fr}
+.cs-opt{padding:20px 16px;cursor:pointer;text-align:center;transition:all .2s}.cs-opt:hover{background:rgba(255,31,92,.06)}.cs-opt.picked{background:rgba(255,31,92,.1)}
+.cs-emoji{font-size:32px;margin-bottom:6px}.cs-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff}
+.cs-vs{display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.03);padding:0 10px}
+.cs-starters{padding:14px 16px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:4px}
+.cs-st{font-size:12px;color:var(--mt)}.cs-st span{color:var(--ac);font-weight:600}
+.qc-grid{display:flex;flex-direction:column;gap:14px}
+.qc{background:var(--s1);border:1px solid var(--bd);padding:22px 24px}
+.qc-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.qc-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:14px}
+.qc-model-btn{background:rgba(0,207,255,.08);border:1px solid rgba(0,207,255,.2);color:var(--cyan);padding:6px 14px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;margin-bottom:10px}.qc-model-btn:hover{background:rgba(0,207,255,.16)}
+.qc-model{display:none;background:rgba(0,207,255,.04);border:1px solid rgba(0,207,255,.12);padding:12px 16px;font-size:13px;color:var(--cyan);line-height:1.6;margin-bottom:10px;font-style:italic}.qc-model.open{display:block}
+.qc-prompt{font-size:12.5px;color:var(--ac);font-weight:600}
+.qc-tip{margin-top:10px;font-size:11.5px;color:var(--mt);border-left:2px solid var(--ac);padding-left:10px}body.student-mode .qc-tip{display:none}
+.ms-box{background:var(--s1);border:1px solid var(--bd);padding:28px 24px;text-align:center}
+.ms-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.ms-sentence{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1.4}
+.ms-sentence .blank{color:var(--ac);border-bottom:2px solid var(--ac);padding:0 4px}
+.ms-hw{margin-top:18px;background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.15);padding:12px 16px;font-size:12px;color:var(--mt)}.ms-hw strong{color:var(--ac)}
+.ftr{padding:24px 28px;text-align:center;border-top:1px solid var(--bd)}.ftr div{font-size:10px;color:var(--dim);margin-bottom:4px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+@media(max-width:600px){.h-title{font-size:30px}.sec{padding:28px 18px}.v-grid{grid-template-columns:repeat(2,1fr)}.cs-emoji{font-size:26px}.snav{padding:0 14px}.hdr{padding:12px 16px}.v-coll{grid-template-columns:1fr}.qc-q{font-size:16px}.ms-sentence{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+<div class="brand"><div class="dot"></div><span class="bname">Gabriel Turner</span><span class="bsub">· Micro Lab</span></div>
+<div class="hdr-r">
+<span class="badge">A1.1</span>
+<button class="mode-btn" id="modeBtn" onclick="toggleMode()">👁 Student Mode</button>
+</div>
+</header>
+
+<div class="hero-wrap">
+<div class="hero">
+<img class="hero-img" src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1200&q=80" alt="family">
+<div class="hero-over">
+<div class="h-chips"><span class="chip">A1.1</span><span class="chip">Relationships & Personality</span><span class="chip">35 min</span></div>
+<h1 class="h-title">My <em>Family</em></h1>
+<p class="h-sub">Talk about the people who matter most. With simple words, big feelings.</p>
+</div>
+</div>
+</div>
+
+<nav class="snav">
+<a class="sni active" href="#s1">🎪 Show & Tell</a>
+<a class="sni" href="#s2">💉 Vocab</a>
+<a class="sni" href="#s3">🔀 Choose & Speak</a>
+<a class="sni" href="#s4">🃏 Questions</a>
+<a class="sni" href="#s5">✨ My Sentence</a>
+</nav>
+
+<!-- PHASE 1: SHOW & TELL -->
+<div class="sec-outer" id="s1">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 1</div><div class="sec-title">🎪 Show & Tell</div><div class="sec-sub">Show a photo of your family on your phone</div></div>
+<div class="sec-time">5 min</div>
+</div>
+
+<div class="st-box">
+<div class="st-label">Teacher Models First</div>
+<div class="st-script">"OK, look at my phone. This is MY family. This is my mom — her name is Laura. She is 65 years old. She is very nice. And this is my brother. He is tall! OK, now you — show me a photo of YOUR family."</div>
+</div>
+<div class="st-box">
+<div class="st-label">Student Sentence Starters</div>
+<div class="st-starters">
+<div class="st-s"><span>This is my</span> ___ (mom / dad / brother / sister / wife / husband).</div>
+<div class="st-s">His / Her name is <span>___</span>.</div>
+<div class="st-s">He / She is <span>___</span> years old.</div>
+<div class="st-s">He / She is <span>___</span> (nice / tall / funny / young / old).</div>
+</div>
+</div>
+
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>Students LOVE showing family photos. This is the highest-engagement moment of the session. Let them talk.</li>
+<li>Common error: "She have 30 years" (Spanish transfer). Recast: "She IS 30 years old."</li>
+<li>If student only knows "mamá" — teach "mom" right here. It sticks because the photo is in front of them.</li>
+<li>Accept "He is good person" — do not correct article omission at A1.1, just recast naturally.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"Your mom is beautiful!" / "Your brother is tall!" — react to the PHOTO, not just the English.</li>
+<li>"You just introduced your family in English — that is a big moment."</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"Imagine — next month you can describe your family AND your job in English. Same structure."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 2: VOCAB INJECTION -->
+<div class="sec-outer" id="s2">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 2</div><div class="sec-title">💉 Vocab Injection</div><div class="sec-sub">Tap any word to hear pronunciation</div></div>
+<div class="sec-time">8 min</div>
+</div>
+
+<div class="v-cat">Nouns</div>
+<div class="v-grid">
+<div class="vc" onclick="speak('mom')"><div class="vw">mom</div><div class="vd">your mother</div></div>
+<div class="vc" onclick="speak('dad')"><div class="vw">dad</div><div class="vd">your father</div></div>
+<div class="vc" onclick="speak('brother')"><div class="vw">brother</div><div class="vd">male sibling</div></div>
+<div class="vc" onclick="speak('sister')"><div class="vw">sister</div><div class="vd">female sibling</div></div>
+<div class="vc" onclick="speak('wife')"><div class="vw">wife</div><div class="vd">married woman</div></div>
+<div class="vc" onclick="speak('husband')"><div class="vw">husband</div><div class="vd">married man</div></div>
+<div class="vc" onclick="speak('son')"><div class="vw">son</div><div class="vd">male child</div></div>
+<div class="vc" onclick="speak('daughter')"><div class="vw">daughter</div><div class="vd">female child</div></div>
+</div>
+
+<div class="v-cat">Adjectives</div>
+<div class="v-grid">
+<div class="vc" onclick="speak('tall')"><div class="vw">tall</div><div class="vd">not short</div></div>
+<div class="vc" onclick="speak('short')"><div class="vw">short</div><div class="vd">not tall</div></div>
+<div class="vc" onclick="speak('young')"><div class="vw">young</div><div class="vd">not old</div></div>
+<div class="vc" onclick="speak('funny')"><div class="vw">funny</div><div class="vd">makes you laugh</div></div>
+<div class="vc" onclick="speak('nice')"><div class="vw">nice</div><div class="vd">kind, good</div></div>
+<div class="vc" onclick="speak('strict')"><div class="vw">strict</div><div class="vd">many rules</div></div>
+<div class="vc" onclick="speak('beautiful')"><div class="vw">beautiful</div><div class="vd">very pretty</div></div>
+<div class="vc" onclick="speak('strong')"><div class="vw">strong</div><div class="vd">a lot of power</div></div>
+</div>
+
+<div class="v-cat">Colloquial Phrases</div>
+<div class="v-coll">
+<div class="vcol" onclick="speak('Oh my God!')"><div class="vcol-w">Oh my God!</div><div class="vcol-d">surprise / shock</div></div>
+<div class="vcol" onclick="speak('Me too!')"><div class="vcol-w">Me too!</div><div class="vcol-d">same for me</div></div>
+<div class="vcol" onclick="speak('No way!')"><div class="vcol-w">No way!</div><div class="vcol-d">I can't believe it</div></div>
+</div>
+
+<button class="ch-toggle" onclick="document.body.classList.toggle('challenge-mode');this.textContent=document.body.classList.contains('challenge-mode')?'🔓 Show Definitions':'🔒 Challenge Mode: Hide Definitions'">🔒 Challenge Mode: Hide Definitions</button>
+</div>
+</div>
+
+<!-- PHASE 3: CHOOSE & SPEAK -->
+<div class="sec-outer" id="s3">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 3</div><div class="sec-title">🔀 Choose & Speak</div><div class="sec-sub">Pick one option. Explain why in 2-3 sentences.</div></div>
+<div class="sec-time">10 min</div>
+</div>
+
+<div class="cs-grid">
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👨‍👩‍👧‍👦</div><div class="cs-word">Big Family</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👫</div><div class="cs-word">Small Family</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>I choose...</span> A big/small family is...</div>
+<div class="cs-st"><span>My family is...</span> (big / small).</div>
+</div>
+</div>
+
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👩</div><div class="cs-word">More like Mom</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👨</div><div class="cs-word">More like Dad</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>I am more like my...</span> because I am also...</div>
+</div>
+</div>
+
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🏠</div><div class="cs-word">Family Dinner</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🎬</div><div class="cs-word">Family Movie</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>A family dinner / movie is...</span> fun / important / boring.</div>
+</div>
+</div>
+
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👶</div><div class="cs-word">Be the Youngest</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">👑</div><div class="cs-word">Be the Oldest</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>The youngest / oldest is...</span></div>
+<div class="cs-st"><span>I am the...</span> in my family.</div>
+</div>
+</div>
+</div>
+
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>MODEL pair 1: "I choose BIG FAMILY. My family is big — I have 3 brothers. A big family is fun but sometimes it is difficult!"</li>
+<li>"More like Mom/Dad" is GOLD — students love this. They produce adjectives naturally: "I am also serious" / "I am also funny."</li>
+<li>Watch for "I am the more young" → correct to "I am the youngest." Teach as a chunk.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"That is so interesting! You are like your mom — strong and nice."</li>
+<li>Share your own family detail to build rapport: "Me too! I am the oldest."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 4: QUESTION CARDS -->
+<div class="sec-outer" id="s4">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 4</div><div class="sec-title">🃏 Question Cards</div><div class="sec-sub">Teacher models first — then you answer</div></div>
+<div class="sec-time">12 min</div>
+</div>
+
+<div class="qc-grid">
+<div class="qc">
+<div class="qc-num">Question 1</div>
+<div class="qc-q">How many people are in your family?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"There are 5 people in my family. My mom, my dad, my two brothers, and me. We are a big family."</div>
+<div class="qc-prompt">Now you: "There are ___ people in my family..."</div>
+<div class="qc-tip">Tip: Teach "there are" as a fixed phrase. If student says "We are five" — that is also acceptable at A1.1.</div>
+</div>
+
+<div class="qc">
+<div class="qc-num">Question 2</div>
+<div class="qc-q">Who is the funniest person in your family?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"The funniest person in my family is my brother Carlos. He is 28. He is always happy and he is very funny."</div>
+<div class="qc-prompt">Now you: "The funniest person is..."</div>
+<div class="qc-tip">Tip: Accept "My brother is funny" if they avoid the superlative. Just model "funniest" naturally.</div>
+</div>
+
+<div class="qc">
+<div class="qc-num">Question 3</div>
+<div class="qc-q">Is your family in Celaya or in another city?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"My mom is in Guadalajara. My brother is here in Celaya. My family is in different cities."</div>
+<div class="qc-prompt">Now you: "My family is in..."</div>
+<div class="qc-tip">Tip: This produces real, personal answers. Let the student take their time. Help with city names if needed.</div>
+</div>
+
+<div class="qc">
+<div class="qc-num">Question 4</div>
+<div class="qc-q">Is your mom or dad strict or relaxed?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"My dad is very strict! He is serious. But my mom is relaxed. She is always happy."</div>
+<div class="qc-prompt">Now you: "My mom/dad is..."</div>
+<div class="qc-tip">Tip: Teach "relaxed" as a new word here — they know "strict" from vocab. Contrast is natural.</div>
+</div>
+
+<div class="qc">
+<div class="qc-num">Question 5</div>
+<div class="qc-q">Who is your favorite person in your family?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"My favorite person is my daughter. She is 4 years old. She is beautiful and funny. She is my world!"</div>
+<div class="qc-prompt">Now you: "My favorite person is..."</div>
+<div class="qc-tip">Tip: Emotional questions produce longer answers. Give them space. React genuinely to what they share.</div>
+</div>
+
+<div class="qc">
+<div class="qc-num">Question 6</div>
+<div class="qc-q">Is your family important for you?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"Yes, my family is VERY important for me. They are my support. My wife is my best friend. Family is everything!"</div>
+<div class="qc-prompt">Now you: "My family is... for me because..."</div>
+<div class="qc-tip">Tip: This is the emotional peak. Let it breathe. No grammar corrections here — just listen and react.</div>
+</div>
+</div>
+
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>Family questions produce the MOST language at A1.1. Students want to talk — your job is to scaffold.</li>
+<li>Watch for: "My family have 5 persons" → "There ARE 5 people in my family."</li>
+<li>"Persons" → gently model "people" as the natural word.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"Your daughter is 4? That is beautiful. You are a great parent — and now you can describe her in English!"</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"You talked about your entire family in English today. Next time — your desk at work. Same structure, same confidence."</li>
+<li>Testimonial trigger: "Could you describe your family in English before this class? Now you can."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 5: MY SENTENCE -->
+<div class="sec-outer" id="s5">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 5</div><div class="sec-title">✨ My Sentence</div><div class="sec-sub">Build one perfect sentence — practice it — record it</div></div>
+<div class="sec-time">5 min</div>
+</div>
+
+<div class="ms-box">
+<div class="ms-label">Complete This Sentence</div>
+<div class="ms-sentence">The most important <span class="blank">person</span> in my <span class="blank">family</span> is <span class="blank">___</span> because he/she is <span class="blank">___</span>.</div>
+<div class="ms-hw"><strong>📱 WhatsApp Homework:</strong> Record this sentence as a voice note (30 seconds). Say it clearly, with feeling. Send it to your teacher.</div>
+</div>
+
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>Model: "The most important person in my family is my wife because she is my best friend and she is always there."</li>
+<li>Help with pronunciation of "important" (im-POR-tant) and "because" (be-CAUSE).</li>
+<li>Student repeats 2-3 times. Correct only pronunciation, not grammar, at this stage.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"That is a beautiful sentence. That is YOUR sentence. It is real and it is in English."</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"Today: your family. Next time: your desk at work. You are building English about YOUR life."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div>Gabriel Turner · Micro Lab</div>
+<div>A1.1 · Relationships & Personality · My Family</div>
+<div>GT_MICROLAB_A1_1_MyFamily_v1</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';},{passive:true});
+function toggleMode(){const b=document.body,btn=document.getElementById('modeBtn');b.classList.toggle('student-mode');btn.textContent=b.classList.contains('student-mode')?'📋 Teacher Mode':'👁 Student Mode';}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;u.pitch=1;speechSynthesis.speak(u);}
+function toggleTN(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
+function toggleModel(btn){btn.nextElementSibling.classList.toggle('open');btn.textContent=btn.nextElementSibling.classList.contains('open')?'🙈 Hide Model Answer':'👁 Show Model Answer';}
+const secs=document.querySelectorAll('.sec-outer');const navs=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});navs.forEach(n=>{n.classList.remove('active');if(n.getAttribute('href')==='#'+cur)n.classList.add('active');});},{passive:true});
+</script>
+</body>
+</html>

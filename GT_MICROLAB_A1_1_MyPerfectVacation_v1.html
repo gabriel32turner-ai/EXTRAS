@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · My Perfect Vacation · A1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#FF1F5C}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(255,31,92,.12);border:1px solid rgba(255,31,92,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:420px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200" alt="Beach vacation">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.1</span>
+<span class="chip">Travel & Culture</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">My Perfect <em>Vacation</em></h1>
+<p class="hero-sub">Describe your dream vacation. Say where it is and what it is like. Only "to be" and adjectives.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show a vacation photo from your phone and describe it</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Show a <strong style="color:var(--ac)">vacation photo from your phone — or search for a photo of your dream destination</strong> and describe it.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, look — this is a photo from my last vacation. This is the beach in Oaxaca. The water is blue and warm. The sand is white. It is beautiful and relaxing. There are palm trees and small restaurants. It is my favorite place! OK, now you — show me a vacation photo."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">This is _______ . It is in _______ .</div>
+<div class="starter">It is _______ and _______ .</div>
+<div class="starter">The water / the food / the weather is _______ .</div>
+<div class="starter">It is my favorite place because _______ .</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('beach')"><div class="vcard-word">beach</div><div class="vcard-def">sand and ocean</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('mountain')"><div class="vcard-word">mountain</div><div class="vcard-def">very high land</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('hotel')"><div class="vcard-word">hotel</div><div class="vcard-def">place to sleep</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('weather')"><div class="vcard-word">weather</div><div class="vcard-def">sun, rain, cold</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('destination')"><div class="vcard-word">destination</div><div class="vcard-def">where you go</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('suitcase')"><div class="vcard-word">suitcase</div><div class="vcard-def">bag for travel</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('sunset')"><div class="vcard-word">sunset</div><div class="vcard-def">end of the day, sky</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('souvenir')"><div class="vcard-word">souvenir</div><div class="vcard-def">thing you buy there</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Adjectives</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('relaxing')"><div class="vcard-word">relaxing</div><div class="vcard-def">calm, no stress</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('exciting')"><div class="vcard-word">exciting</div><div class="vcard-def">fun, adventure</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('cheap')"><div class="vcard-word">cheap</div><div class="vcard-def">not expensive</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('expensive')"><div class="vcard-word">expensive</div><div class="vcard-def">costs a lot</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('crowded')"><div class="vcard-word">crowded</div><div class="vcard-def">too many people</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('quiet')"><div class="vcard-word">quiet</div><div class="vcard-def">no noise, peaceful</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('warm')"><div class="vcard-word">warm</div><div class="vcard-def">nice temperature</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('perfect')"><div class="vcard-word">perfect</div><div class="vcard-def">the best, no problems</div><div class="vcard-type">adj</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('Oh my God!')"><div class="vcard-word">Oh my God!</div><div class="vcard-def">surprise</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Me too!')"><div class="vcard-word">Me too!</div><div class="vcard-def">same for me</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Really?')"><div class="vcard-word">Really?</div><div class="vcard-def">are you serious?</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 2-3 sentences.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose beach. For me, the perfect vacation is at the beach. The water is warm, the food is fresh, and the sunset is beautiful every day. I am a beach person — mountains are beautiful but they are cold! Now you — beach or mountains?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏖️</div><div class="coption-label">Beach</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏔️</div><div class="coption-label">Mountains</div></div>
+</div>
+<div class="starters"><div class="starter">For me, _______ is better. It is _______ and _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏨</div><div class="coption-label">Luxury hotel</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏕️</div><div class="coption-label">Camping</div></div>
+</div>
+<div class="starters"><div class="starter">I like _______ . It is _______ . For me, that is _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👨‍👩‍👧‍👦</div><div class="coption-label">Family vacation</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👫</div><div class="coption-label">Couple vacation</div></div>
+</div>
+<div class="starters"><div class="starter">For me, vacation with _______ is _______ because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🇲🇽</div><div class="coption-label">Vacation in México</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌍</div><div class="coption-label">Vacation abroad</div></div>
+</div>
+<div class="starters"><div class="starter">My dream destination is _______ . It is _______ . The _______ there is _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">😴</div><div class="coption-label">Relaxing vacation</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🤸</div><div class="coption-label">Adventure vacation</div></div>
+</div>
+<div class="starters"><div class="starter">My perfect vacation is _______ . I am a _______ person.</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">Where is your perfect vacation? What country or city?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My perfect vacation is in Oaxaca, México. The beach there is incredible. The water is warm and blue. The food is amazing — it is the best food in México for me."</div>
+<div class="qcard-prompt">Now you: "My perfect vacation is in _______ . It is..."</div>
+<div class="qtip teacher-only">Tip: If student says only the place, push: "OK, but WHY? What is special about it? Is the food good? Is the weather nice? Is it beautiful?" Every adjective is a sentence.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">What is the weather like in your perfect vacation?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "The weather is warm and sunny. Not too hot — maybe 28 or 30 degrees. The mornings are fresh and the afternoons are warm. The nights are perfect for dinner outside."</div>
+<div class="qcard-prompt">Now you: "The weather is _______ . The mornings are _______ and the afternoons are _______ ."</div>
+<div class="qtip teacher-only">Tip: Great for "to be" + weather adjectives. Push for time of day: "And the nights? Are the nights warm or cold?" Every time slot is a new sentence.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Is your vacation expensive or cheap? Is that important?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My perfect vacation is not very expensive. Oaxaca is cheaper than Cancún. The hotels are nice but not luxury. For me, the food and the beach are more important than the hotel."</div>
+<div class="qcard-prompt">Now you: "My vacation is _______ . For me, the most important thing is..."</div>
+<div class="qtip teacher-only">Tip: Money talk is always engaging for professionals. Ask: "Is an expensive vacation always better? Or is a cheap vacation sometimes more fun?" Forces opinion.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">Who is with you on your perfect vacation?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My wife is with me. She is my best travel partner. We are relaxed together. No kids, no work, no phone. Just us and the beach. That is my perfect vacation."</div>
+<div class="qcard-prompt">Now you: "On my perfect vacation, _______ is with me. He/She is..."</div>
+<div class="qtip teacher-only">Tip: Some students will say "alone!" — that is valid and interesting. Push: "Why alone? Is it more relaxing? Is it more fun?" Both answers produce good language.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">What is the worst thing about vacations?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "The worst thing is the last day. The last day is always sad. You are in paradise and then — back to work on Monday. That moment is terrible!"</div>
+<div class="qcard-prompt">Now you: "The worst thing about vacations is _______ because..."</div>
+<div class="qtip teacher-only">Tip: This question always gets a reaction. Students relate to "the last day" pain. Push: "Is Monday after vacation the worst Monday?" Gets laughs and language.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">How many days is a perfect vacation? Three days? One week? Two weeks?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "For me, one week is perfect. Three days is too short — you are not relaxed yet. Two weeks is too long — I am bored after 10 days. One week is the perfect number."</div>
+<div class="qcard-prompt">Now you: "For me, _______ days is perfect because..."</div>
+<div class="qtip teacher-only">Tip: Good for "too + adjective" structure: "too short, too long, too expensive." Model it and let student copy the pattern.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about your dream vacation. I go first: 'The most important thing in my perfect vacation is the beach because it is relaxing and beautiful.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">The most important <span>thing</span> in my perfect <span>vacation</span> is <span>_______</span> because <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.1 · Travel & Culture</div>
+<div class="ftr-info">My Perfect Vacation — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

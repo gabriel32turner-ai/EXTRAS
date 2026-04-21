@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · My Bag Right Now · A1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#FF1F5C}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(255,31,92,.12);border:1px solid rgba(255,31,92,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:420px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200" alt="Backpack bag contents">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.1</span>
+<span class="chip">Daily Life & Lifestyle</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">My Bag <em>Right Now</em></h1>
+<p class="hero-sub">Open your bag. Describe what is inside. Say why each thing is important. Only "to be" structures.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Open your bag right now and describe 3 things inside</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Open your <strong style="color:var(--ac)">real bag, backpack, or purse</strong> right now. Take out 3 things and describe them.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first (opens own bag on camera or in class):</strong><br>
+"OK, look — this is my bag. It is black and old. Let me see... OK, number one: this is my wallet. It is brown and small. Number two: these are my keys. There are 4 keys — my house, my car, my office, and... I don't know what this one is! Number three: this is my charger. It is very important — my phone is always at 5%! OK, now you — open YOUR bag."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">This is my _______ . It is _______ and _______ .</div>
+<div class="starter">These are my _______ . There are _______ .</div>
+<div class="starter">This is very important because _______ .</div>
+<div class="starter">This is old / new / ugly / necessary.</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('wallet')"><div class="vcard-word">wallet</div><div class="vcard-def">for money and cards</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('keys')"><div class="vcard-word">keys</div><div class="vcard-def">open your house, car</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('charger')"><div class="vcard-word">charger</div><div class="vcard-def">for your phone</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('headphones')"><div class="vcard-word">headphones</div><div class="vcard-def">for music, calls</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('snack')"><div class="vcard-word">snack</div><div class="vcard-def">small food</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('notebook')"><div class="vcard-word">notebook</div><div class="vcard-def">for writing</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('sunglasses')"><div class="vcard-word">sunglasses</div><div class="vcard-def">for the sun</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('receipt')"><div class="vcard-word">receipt</div><div class="vcard-def">paper from a store</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Adjectives</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('necessary')"><div class="vcard-word">necessary</div><div class="vcard-def">you need it</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('useless')"><div class="vcard-word">useless</div><div class="vcard-def">you don't need it</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('heavy')"><div class="vcard-word">heavy</div><div class="vcard-def">weighs a lot</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('light')"><div class="vcard-word">light</div><div class="vcard-def">not heavy</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('messy')"><div class="vcard-word">messy</div><div class="vcard-def">not organized</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('organized')"><div class="vcard-word">organized</div><div class="vcard-def">everything in place</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('broken')"><div class="vcard-word">broken</div><div class="vcard-def">does not work</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('essential')"><div class="vcard-word">essential</div><div class="vcard-def">very very necessary</div><div class="vcard-type">adj</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('Oh my God!')"><div class="vcard-word">Oh my God!</div><div class="vcard-def">surprise</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Me too!')"><div class="vcard-word">Me too!</div><div class="vcard-def">same for me</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Really?')"><div class="vcard-word">Really?</div><div class="vcard-def">are you serious?</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 2-3 sentences.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose big bag. My bag is big because there are many things inside — my laptop, my charger, my water, my notebook, my wallet... I am not a minimalist person! My bag is heavy but I like it. Now you — big bag or small bag?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🎒</div><div class="coption-label">Big bag</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👛</div><div class="coption-label">Small bag</div></div>
+</div>
+<div class="starters"><div class="starter">My bag is _______ because there are _______ things inside.</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🗂️</div><div class="coption-label">Organized bag</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌪️</div><div class="coption-label">Messy bag</div></div>
+</div>
+<div class="starters"><div class="starter">My bag is _______ . Everything is / is not in its place.</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📱</div><div class="coption-label">Phone is #1</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">💳</div><div class="coption-label">Wallet is #1</div></div>
+</div>
+<div class="starters"><div class="starter">The most important thing in my bag is my _______ because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🧴</div><div class="coption-label">Many personal items</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">💼</div><div class="coption-label">Only work items</div></div>
+</div>
+<div class="starters"><div class="starter">In my bag, there are mostly _______ things. My bag is for _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">✨</div><div class="coption-label">New bag</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🧵</div><div class="coption-label">Old bag</div></div>
+</div>
+<div class="starters"><div class="starter">My bag is _______ . It is _______ years old. It is _______ but I like it.</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">What is the most important thing in your bag? Why?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My phone. My phone is essential. My contacts, my photos, my music, my maps — everything is in my phone. Without my phone, I am lost."</div>
+<div class="qcard-prompt">Now you: "The most important thing is my _______ because..."</div>
+<div class="qtip teacher-only">Tip: Almost everyone says "phone." Push: "OK, but WHY? Is it for work? For family? For music? What is it for YOU specifically?" Forces personalization beyond the obvious answer.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">Is there something useless in your bag right now?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes! There are 5 old receipts in my bag. They are useless. And there is a pen that is broken. Why is it still in my bag? I don't know! I am lazy."</div>
+<div class="qcard-prompt">Now you: "Yes, there is / there are _______ . It is / They are useless because..."</div>
+<div class="qtip teacher-only">Tip: This gets laughs — everyone has trash in their bag. Perfect for "there is/there are" practice. Push: "HOW MANY useless things? Count them!" Produces natural numbers + "there are."</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Is your bag heavy or light? Is that a problem?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My bag is very heavy. There are too many things inside. My laptop is heavy, my water bottle is heavy, my charger is heavy. My shoulder is not happy!"</div>
+<div class="qcard-prompt">Now you: "My bag is _______ . The heaviest thing is..."</div>
+<div class="qtip teacher-only">Tip: Good for physical comedy — if in person, ask student to lift their bag. "Is it heavy? What is the heaviest thing?" Kinesthetic moment that breaks routine.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">Is there something surprising or strange in your bag?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Hmm... yes, there is a toy dinosaur in my bag. It is my son's. It is green and small. He is always putting his toys in my bag. It is funny but also annoying!"</div>
+<div class="qcard-prompt">Now you: "Yes, there is _______ . It is there because..."</div>
+<div class="qtip teacher-only">Tip: The "surprise" factor is the engagement peak. If student says "no, nothing strange," push: "Come on — check the small pockets! Is there an old candy? A receipt from 2023? Something from your kids?" Everyone finds something.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">What is NOT in your bag today but is normally there?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My sunglasses! Today they are not in my bag. They are on my desk at home. That is a problem because it is very sunny today. I am always forgetting things!"</div>
+<div class="qcard-prompt">Now you: "Today, my _______ is not in my bag. It is in / at _______ ."</div>
+<div class="qtip teacher-only">Tip: Forces "is not" / negative "to be" — important A1.1 structure. Also generates location prepositions naturally: "It is on my desk / in my car / at home."</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">What is your bag like? Is it a good bag?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My bag is black and big. It is 3 years old. It is not new, it is not beautiful, but it is practical and comfortable. For me, a good bag is not about the brand — it is about the space inside."</div>
+<div class="qcard-prompt">Now you: "My bag is _______ . It is _______ years old. For me, a good bag is..."</div>
+<div class="qtip teacher-only">Tip: Close with a personal opinion about what matters: brand? size? color? comfort? This is the student describing their values with simple adjectives — powerful for A1.1. Celebrate: "You just described your personality through your bag — in English!"</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about your bag. I go first: 'The most important thing in my bag is my phone because it is my connection to everything.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">The most important <span>thing</span> in my <span>bag</span> is <span>_______</span> because <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.1 · Daily Life & Lifestyle</div>
+<div class="ftr-info">My Bag Right Now — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

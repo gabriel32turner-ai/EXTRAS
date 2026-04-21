@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>GT · A1.1 Micro Lab · Morning or Night Person?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--accent:#FF1F5C;--accent-dim:rgba(255,31,92,0.09);--accent-med:rgba(255,31,92,0.18);--accent-border:rgba(255,31,92,0.38)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+    /* ── TOPBAR ─── */
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 1.75rem;height:54px;display:flex;align-items:center;justify-content:space-between}
+    .topbar-left{display:flex;align-items:center;gap:0.8rem}
+    .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#fff;letter-spacing:-0.01em}
+    .topbar-logo span{color:var(--accent)}
+    .topbar-div{width:1px;height:16px;background:rgba(255,255,255,0.07)}
+    .topbar-badge{display:inline-flex;align-items:center;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:3px 10px;font-size:0.65rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase}
+    .topbar-right{font-size:0.65rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase}
+
+    /* ── PROGRESS ─── */
+    .progress-wrap{position:fixed;top:54px;left:0;right:0;height:2px;background:rgba(255,255,255,0.04);z-index:99}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,#ff6b8a 100%);width:0%;transition:width 0.35s ease}
+
+    /* ── MODE TOGGLE ─── */
+    .mode-banner{background:rgba(255,31,92,0.06);border-bottom:1px solid rgba(255,31,92,0.12);padding:0.55rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .mode-banner-text{font-size:0.72rem;color:rgba(255,255,255,0.5);font-weight:300}
+    .mode-banner-text strong{color:rgba(255,255,255,0.8);font-weight:500}
+    .mode-toggle{display:flex;align-items:center;gap:0.5rem;cursor:pointer;touch-action:manipulation}
+    .mt-label{font-size:0.7rem;color:var(--muted);white-space:nowrap}
+    .mt-track{width:36px;height:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:20px;position:relative;transition:background 0.2s,border-color 0.2s;flex-shrink:0}
+    .mt-track.on{background:rgba(255,31,92,0.25);border-color:rgba(255,31,92,0.45)}
+    .mt-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform 0.2s,background 0.2s}
+    .mt-track.on .mt-thumb{transform:translateX(16px);background:var(--accent)}
+
+    /* ── HERO ─── */
+    .hero{position:relative;height:300px;overflow:hidden}
+    .hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;filter:brightness(0.4) saturate(0.75)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(155deg,rgba(15,25,35,0.05) 0%,rgba(15,25,35,0.3) 35%,rgba(15,25,35,0.82) 65%,var(--navy) 100%)}
+    .hero-stripe{position:absolute;top:0;right:0;width:260px;height:100%;background:linear-gradient(130deg,transparent 55%,rgba(255,31,92,0.05) 100%);pointer-events:none}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 2rem 2rem}
+    .eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.7rem}
+    .eyebrow-tag{font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
+    .eyebrow-sep{width:20px;height:1px;background:rgba(255,31,92,0.45)}
+    .eyebrow-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+    .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em;color:#fff;max-width:600px}
+    .hero-title .hl{color:var(--accent)}
+    .hero-sub{margin-top:0.65rem;font-size:0.82rem;color:rgba(255,255,255,0.4);font-weight:300;font-style:italic;max-width:380px;line-height:1.5}
+
+    /* ── MAIN ─── */
+    .main{max-width:880px;margin:0 auto;padding:0 1.5rem 5rem}
+
+    /* ── SECTION ─── */
+    .section{margin-top:3rem}
+    .sec-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.4rem}
+    .sec-emoji{font-size:1.6rem}
+    .sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:-0.02em}
+    .sec-sub{font-size:0.75rem;color:var(--muted);margin-left:2.7rem;margin-bottom:1.2rem}
+    .sec-time{display:inline-block;background:var(--accent-dim);border:1px solid rgba(255,31,92,0.2);border-radius:20px;padding:2px 10px;font-size:0.6rem;font-weight:700;color:var(--accent);letter-spacing:0.04em;margin-left:0.5rem}
+
+    /* ── CARDS GENERAL ─── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:0.9rem;position:relative}
+    .card-label{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem}
+    .card p{font-size:0.88rem;color:rgba(255,255,255,0.82);line-height:1.55}
+
+    /* ── TEACHER NOTE ─── */
+    .tnote{background:rgba(255,31,92,0.05);border:1px solid rgba(255,31,92,0.15);border-radius:10px;padding:1rem 1.2rem;margin-top:0.7rem;display:none}
+    .tnote-title{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
+    .tnote p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.55}
+    body.teacher-on .tnote{display:block}
+
+    /* ── VOCAB GRID ─── */
+    .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.6rem;margin-top:0.8rem}
+    .vcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.85rem 0.9rem;cursor:pointer;transition:border-color 0.2s,transform 0.12s;text-align:center}
+    .vcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .vcard:active{transform:scale(0.97)}
+    .vcard-word{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.25rem}
+    .vcard-def{font-size:0.7rem;color:var(--muted);line-height:1.35}
+    .vcard-type{font-size:0.55rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem}
+    .colloquial-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.6rem;margin-top:0.6rem}
+    .ccard{background:rgba(255,31,92,0.06);border:1px solid rgba(255,31,92,0.18);border-radius:10px;padding:0.75rem 0.9rem;cursor:pointer;text-align:center;transition:border-color 0.2s}
+    .ccard:hover{border-color:var(--accent)}
+    .ccard-phrase{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--accent)}
+    .ccard-use{font-size:0.65rem;color:var(--muted);margin-top:0.2rem}
+
+    /* ── CHOOSE & SPEAK ─── */
+    .choose-pair{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.2rem}
+    .choose-opt{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+    .choose-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .choose-opt:active{transform:scale(0.96)}
+    .choose-emoji{font-size:2.2rem;display:block;margin-bottom:0.4rem}
+    .choose-label{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff}
+    .choose-starters{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;line-height:1.5;padding:0 0.5rem}
+
+    /* ── QUESTION CARDS ─── */
+    .qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+    .qcard::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0.5}
+    .qcard-num{font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+    .qcard-q{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.6rem}
+    .qcard-prompt{font-size:0.82rem;color:var(--muted);font-style:italic;margin-bottom:0.7rem}
+    .qcard-model{background:rgba(255,31,92,0.05);border:1px solid rgba(255,31,92,0.15);border-radius:8px;padding:0.9rem 1rem;display:none}
+    .qcard-model-label{font-size:0.58rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem}
+    .qcard-model p{font-size:0.82rem;color:rgba(255,255,255,0.72);line-height:1.55}
+    .qcard-btn{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,31,92,0.1);border:1px solid rgba(255,31,92,0.25);color:var(--accent);font-size:0.7rem;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+    .qcard-btn:hover{background:rgba(255,31,92,0.18)}
+
+    /* ── MY SENTENCE ─── */
+    .sentence-box{background:var(--card);border:2px solid rgba(255,31,92,0.25);border-radius:16px;padding:2rem 1.8rem;text-align:center}
+    .sentence-box p{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;line-height:1.6}
+    .sentence-box .blank{border-bottom:2px dashed var(--accent);padding:0 0.5rem;color:var(--accent);font-style:italic}
+    .sentence-hw{margin-top:1rem;font-size:0.75rem;color:var(--muted);font-style:italic}
+
+    /* ── FOOTER ─── */
+    .footer{text-align:center;padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:3rem}
+    .footer p{font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase}
+
+    @media(max-width:600px){
+      .topbar{padding:0 1rem;height:48px}
+      .hero{height:240px}
+      .hero-content{padding:1rem 1.2rem 1.4rem}
+      .main{padding:0 1rem 4rem}
+      .vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+      .choose-pair{grid-template-columns:1fr 1fr;gap:0.5rem}
+      .choose-emoji{font-size:1.7rem}
+      .qcard{padding:1.2rem}
+      .sentence-box{padding:1.4rem 1rem}
+      .sentence-box p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">GABRIEL TURNER<span> ·</span> Micro Lab</div>
+    <div class="topbar-div"></div>
+    <div class="topbar-badge">A1.1</div>
+  </div>
+  <div class="topbar-right">35 min</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+
+<!-- MODE TOGGLE -->
+<div class="mode-banner">
+  <div class="mode-banner-text"><strong>Teacher Mode</strong> — show teacher notes &amp; model answers</div>
+  <div class="mode-toggle" onclick="toggleMode()">
+    <span class="mt-label">OFF</span>
+    <div class="mt-track" id="mtTrack"><div class="mt-thumb"></div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1200&q=80" alt="sunrise and night sky">
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-tag">A1.1 · Micro Lab</span>
+      <span class="eyebrow-sep"></span>
+      <span class="eyebrow-sub">Daily Life &amp; Lifestyle</span>
+    </div>
+    <h1 class="hero-title">Morning or <span class="hl">Night</span> Person?</h1>
+    <p class="hero-sub">Are you happy in the morning — or is night your best time?</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🎪</span>
+      <span class="sec-title">Show &amp; Tell</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Show a photo from your phone — your morning or your night.</p>
+
+    <div class="card">
+      <div class="card-label">Your Task</div>
+      <p>Open your phone. Find a photo from your <strong>morning</strong> (coffee, your street, your breakfast) or from your <strong>night</strong> (your sofa, a movie, your dinner). Show it and describe it.</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Script — Model First</div>
+      <p>"Look — this is a photo from MY morning. This is my coffee. It is black. It is very big! My morning is quiet. I am happy in the morning. OK — now you. Show me YOUR photo. What is it?"</p>
+    </div>
+
+    <div class="card" style="margin-top:0.5rem">
+      <div class="card-label">Sentence Starters</div>
+      <p>This is my _______ .<br>It is _______ .<br>My morning / my night is _______ .<br>I am happy / tired / relaxed in the _______ .</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>If they have no photo, ask: "OK, no photo? Describe your morning RIGHT NOW. What is on your desk? What is your coffee like?" Push them to produce 4-5 sentences minimum. Correct pronunciation of "morning" (students often say "mornin") and "night" (the silent 'gh').</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">💉</span>
+      <span class="sec-title">Vocab Injection</span>
+      <span class="sec-time">8 min</span>
+    </div>
+    <p class="sec-sub">Click each word to hear the pronunciation.</p>
+
+    <div class="card">
+      <div class="card-label">Nouns</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('morning')"><div class="vcard-type">Noun</div><div class="vcard-word">morning</div><div class="vcard-def">6 AM – 12 PM</div></div>
+        <div class="vcard" onclick="speak('night')"><div class="vcard-type">Noun</div><div class="vcard-word">night</div><div class="vcard-def">after 9 PM</div></div>
+        <div class="vcard" onclick="speak('alarm')"><div class="vcard-type">Noun</div><div class="vcard-word">alarm</div><div class="vcard-def">wake-up sound</div></div>
+        <div class="vcard" onclick="speak('coffee')"><div class="vcard-type">Noun</div><div class="vcard-word">coffee</div><div class="vcard-def">hot drink</div></div>
+        <div class="vcard" onclick="speak('energy')"><div class="vcard-type">Noun</div><div class="vcard-word">energy</div><div class="vcard-def">power to do</div></div>
+        <div class="vcard" onclick="speak('silence')"><div class="vcard-type">Noun</div><div class="vcard-word">silence</div><div class="vcard-def">no noise</div></div>
+        <div class="vcard" onclick="speak('routine')"><div class="vcard-type">Noun</div><div class="vcard-word">routine</div><div class="vcard-def">daily plan</div></div>
+        <div class="vcard" onclick="speak('pillow')"><div class="vcard-type">Noun</div><div class="vcard-word">pillow</div><div class="vcard-def">soft for head</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Adjectives</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('tired')"><div class="vcard-type">Adj</div><div class="vcard-word">tired</div><div class="vcard-def">no energy</div></div>
+        <div class="vcard" onclick="speak('awake')"><div class="vcard-type">Adj</div><div class="vcard-word">awake</div><div class="vcard-def">not sleeping</div></div>
+        <div class="vcard" onclick="speak('productive')"><div class="vcard-type">Adj</div><div class="vcard-word">productive</div><div class="vcard-def">do a lot</div></div>
+        <div class="vcard" onclick="speak('relaxed')"><div class="vcard-type">Adj</div><div class="vcard-word">relaxed</div><div class="vcard-def">calm, no stress</div></div>
+        <div class="vcard" onclick="speak('quiet')"><div class="vcard-type">Adj</div><div class="vcard-word">quiet</div><div class="vcard-def">not loud</div></div>
+        <div class="vcard" onclick="speak('lazy')"><div class="vcard-type">Adj</div><div class="vcard-word">lazy</div><div class="vcard-def">not active</div></div>
+        <div class="vcard" onclick="speak('early')"><div class="vcard-type">Adj</div><div class="vcard-word">early</div><div class="vcard-def">before normal</div></div>
+        <div class="vcard" onclick="speak('late')"><div class="vcard-type">Adj</div><div class="vcard-word">late</div><div class="vcard-def">after normal</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Colloquial Phrases</div>
+      <div class="colloquial-row">
+        <div class="ccard" onclick="speak('I am not a morning person')"><div class="ccard-phrase">"Not a morning person!"</div><div class="ccard-use">= I am bad in the AM</div></div>
+        <div class="ccard" onclick="speak('Same here!')"><div class="ccard-phrase">"Same here!"</div><div class="ccard-use">= Me too!</div></div>
+        <div class="ccard" onclick="speak('No way!')"><div class="ccard-phrase">"No way!"</div><div class="ccard-use">= I don't believe it!</div></div>
+      </div>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Drill "productive" — it is hard for Spanish speakers (stress on second syllable: pro-DUC-tive). Also drill "quiet" — students say "kwi-ET" instead of "KWAI-et". Model each word twice, then student repeats.</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🔀</span>
+      <span class="sec-title">Choose &amp; Speak</span>
+      <span class="sec-time">10 min</span>
+    </div>
+    <p class="sec-sub">Choose one option and explain with 2-3 sentences.</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher — Model the First One</div>
+      <p>"OK, I choose the morning. The morning is my favorite time. I am productive in the morning. My coffee is important! Now — you choose."</p>
+    </div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🌅</span><span class="choose-label">Morning</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🌙</span><span class="choose-label">Night</span></div>
+    </div>
+    <div class="choose-starters">I choose _______ . It is _______ . I am _______ in the _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">⏰</span><span class="choose-label">Alarm at 5 AM</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">😴</span><span class="choose-label">No Alarm</span></div>
+    </div>
+    <div class="choose-starters">My alarm is at _______ . It is _______ for me.</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">☕</span><span class="choose-label">Coffee First</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🚿</span><span class="choose-label">Shower First</span></div>
+    </div>
+    <div class="choose-starters">For me, _______ is first. It is important because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🤫</span><span class="choose-label">Quiet Morning</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🎵</span><span class="choose-label">Music Morning</span></div>
+    </div>
+    <div class="choose-starters">My morning is _______ . I am _______ with _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">📺</span><span class="choose-label">TV at Night</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">📖</span><span class="choose-label">Book at Night</span></div>
+    </div>
+    <div class="choose-starters">At night, _______ is my thing. It is _______ .</div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Push for FULL sentences, not just one word. If the student says "Coffee!" — say "Great! Now make it a sentence: Coffee is..." Wait. Let them build it. Celebrate every complete sentence: "That is a PERFECT sentence."</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🃏</span>
+      <span class="sec-title">Question Cards</span>
+      <span class="sec-time">12 min</span>
+    </div>
+    <p class="sec-sub">Teacher models the answer first. Then student personalizes.</p>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 01</div>
+      <div class="qcard-q">What is your morning like?</div>
+      <div class="qcard-prompt">Now you: describe YOUR morning.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My morning is early. My alarm is at 5:30. I am tired but my coffee is good. My morning is quiet — it is my favorite time."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>If student answers with one sentence, prompt: "Good! And what is your coffee like? And how is the morning — quiet or noisy?" Push for 3+ sentences.</p>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 02</div>
+      <div class="qcard-q">Is your night relaxed or busy?</div>
+      <div class="qcard-prompt">Now you: what is YOUR night like?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My night is relaxed. My house is quiet at 9 PM. I am on my sofa. It is my time for me."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>Drill "relaxed" vs "relaxing" — at A1.1, only use "relaxed" (I am relaxed). "Relaxing" is too complex to explain as a concept now.</p>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 03</div>
+      <div class="qcard-q">Who is a morning person in your family?</div>
+      <div class="qcard-prompt">Now you: who is the early bird in YOUR family?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"My mom is the morning person. She is awake at 5 AM! She is incredible. My dad is the opposite — he is a night person."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>This is a great moment for family vocab review. Ask: "And your brother? Your wife? Your kids?" Keep them talking about different family members.</p>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 04</div>
+      <div class="qcard-q">How is your energy at 7 AM? And at 10 PM?</div>
+      <div class="qcard-prompt">Now you: what is YOUR energy like at those times?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"At 7 AM, my energy is at 100%! I am productive. But at 10 PM — my energy is at 0. I am tired and I am on my pillow."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>The "energy at percentage" format is fun — students enjoy rating themselves. Try: "So your energy at 2 PM — what percentage?" It generates spontaneous sentences.</p>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 05</div>
+      <div class="qcard-q">What is the best thing about your morning?</div>
+      <div class="qcard-prompt">Now you: what is the best part of YOUR morning?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"The best thing is silence. My house is quiet. My coffee is hot. It is perfect. That is my moment."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>If they struggle, scaffold: "Is it coffee? Is it silence? Is it your family?" Let them pick one and build from there.</p>
+      </div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 06</div>
+      <div class="qcard-q">Is your weekend morning different?</div>
+      <div class="qcard-prompt">Now you: what is YOUR Saturday morning like?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model">
+        <div class="qcard-model-label">Teacher Model</div>
+        <p>"Oh yes! My weekend morning is very different. There is no alarm. I am lazy. My coffee is at 10 AM, not 6 AM. It is beautiful."</p>
+      </div>
+      <div class="tnote">
+        <div class="tnote-title">Teacher Tip</div>
+        <p>Great closer. Compare weekday vs weekend. Ask: "So — your weekday morning is ______ but your weekend morning is ______?" This generates contrastive sentences naturally.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">✨</span>
+      <span class="sec-title">My Sentence</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Build one perfect sentence. Practice it. Record it.</p>
+
+    <div class="sentence-box">
+      <p>The best part of my <span class="blank">morning / night</span> is <span class="blank">_______</span> because it is <span class="blank">_______</span> .</p>
+    </div>
+    <p class="sentence-hw">🎙️ Record this sentence as a WhatsApp voice note (30 seconds).</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Have them say it 3 times. First time: just build it. Second time: correct pronunciation. Third time: say it with confidence and emotion. THEN record. This is the "trophy sentence" they take home.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>GABRIEL TURNER · Micro Lab · A1.1 · Daily Life &amp; Lifestyle</p>
+</div>
+
+<script>
+  // ── TEACHER MODE ──
+  let teacherOn = false;
+  function toggleMode(){
+    teacherOn = !teacherOn;
+    document.body.classList.toggle('teacher-on', teacherOn);
+    const t = document.getElementById('mtTrack');
+    t.classList.toggle('on', teacherOn);
+    t.previousElementSibling.textContent = teacherOn ? 'ON' : 'OFF';
+  }
+
+  // ── MODEL ANSWER TOGGLE ──
+  function toggleModel(btn){
+    const model = btn.nextElementSibling;
+    const open = model.style.display === 'block';
+    model.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? '▶ Show Model Answer' : '▼ Hide Model Answer';
+  }
+
+  // ── WEB SPEECH API ──
+  function speak(text){
+    if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; u.rate = 0.8; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+  // ── SCROLL PROGRESS ──
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('progFill').style.width = p + '%';
+  });
+</script>
+</body>
+</html>

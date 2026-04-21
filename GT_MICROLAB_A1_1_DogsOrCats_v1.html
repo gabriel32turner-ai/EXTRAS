@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · Dogs or Cats? · A1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#FF1F5C}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(255,31,92,.12);border:1px solid rgba(255,31,92,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:420px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200" alt="Dog and cat">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.1</span>
+<span class="chip">Daily Life & Lifestyle</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">Dogs or <em>Cats?</em></h1>
+<p class="hero-sub">Describe your pet or your dream pet. Say what animals are like. Only "to be" and adjectives.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show a photo of your pet — or your favorite animal — and describe it</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Show a <strong style="color:var(--ac)">photo of your pet on your phone</strong>. No pet? Show an animal you like from the internet.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, this is my dog. His name is Pancho. He is 4 years old. He is small and brown. He is very friendly but also very loud! He is my best friend at home. OK, now you — show me YOUR pet or your favorite animal."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">This is my _______ . His / Her name is _______ .</div>
+<div class="starter">He / She is _______ years old.</div>
+<div class="starter">He / She is _______ and _______ .</div>
+<div class="starter">He / She is my _______ .</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('dog')"><div class="vcard-word">dog</div><div class="vcard-def">best friend animal</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('cat')"><div class="vcard-word">cat</div><div class="vcard-def">small, independent</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('pet')"><div class="vcard-word">pet</div><div class="vcard-def">animal at home</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('breed')"><div class="vcard-word">breed</div><div class="vcard-def">type of dog or cat</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('owner')"><div class="vcard-word">owner</div><div class="vcard-def">the pet's person</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('park')"><div class="vcard-word">park</div><div class="vcard-def">green space outside</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('vet')"><div class="vcard-word">vet</div><div class="vcard-def">animal doctor</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('puppy')"><div class="vcard-word">puppy</div><div class="vcard-def">baby dog</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Adjectives</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('friendly')"><div class="vcard-word">friendly</div><div class="vcard-def">nice with people</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('independent')"><div class="vcard-word">independent</div><div class="vcard-def">alone, no help</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('loud')"><div class="vcard-word">loud</div><div class="vcard-def">makes a lot of noise</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('lazy')"><div class="vcard-word">lazy</div><div class="vcard-def">sleeps a lot</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('loyal')"><div class="vcard-word">loyal</div><div class="vcard-def">always with you</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('cute')"><div class="vcard-word">cute</div><div class="vcard-def">adorable, sweet</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('messy')"><div class="vcard-word">messy</div><div class="vcard-def">not clean</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('aggressive')"><div class="vcard-word">aggressive</div><div class="vcard-def">angry, dangerous</div><div class="vcard-type">adj</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('Oh my God!')"><div class="vcard-word">Oh my God!</div><div class="vcard-def">surprise</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Me too!')"><div class="vcard-word">Me too!</div><div class="vcard-def">same for me</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Really?')"><div class="vcard-word">Really?</div><div class="vcard-def">are you serious?</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 2-3 sentences.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose dogs! Dogs are loyal and friendly. My dog Pancho is always happy when I am home. Cats are cute, but they are too independent for me. I like an animal that is happy to see me! Now you — dogs or cats?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐕</div><div class="coption-label">Dogs</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐈</div><div class="coption-label">Cats</div></div>
+</div>
+<div class="starters"><div class="starter">I like _______ more! They are _______ and _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐕‍🦺</div><div class="coption-label">Big dog</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐩</div><div class="coption-label">Small dog</div></div>
+</div>
+<div class="starters"><div class="starter">_______ dogs are _______ . They are _______ for _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏠</div><div class="coption-label">Pets inside the house</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌳</div><div class="coption-label">Pets in the yard</div></div>
+</div>
+<div class="starters"><div class="starter">My pet is _______ . For me, that is _______ because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐾</div><div class="coption-label">One pet is enough</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🐾🐾🐾</div><div class="coption-label">Many pets!</div></div>
+</div>
+<div class="starters"><div class="starter">For me, _______ pet(s) is/are perfect. More is _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👶</div><div class="coption-label">Puppy / kitten</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🧓</div><div class="coption-label">Adult pet</div></div>
+</div>
+<div class="starters"><div class="starter">A _______ is _______ . It is more _______ than a _______ .</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">Is there a pet in your house right now? What is its name?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes! My dog Pancho is at home right now. He is small and brown. He is a mix — not a special breed. He is 4 years old and he is very loud!"</div>
+<div class="qcard-prompt">Now you: "Yes, my _______ is... / No, but I like..."</div>
+<div class="qtip teacher-only">Tip: If student has no pet, redirect: "OK, no pet now — but what is your DREAM pet? A dog? A cat? Something exotic?" Both paths work.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">What is the personality of dogs? And cats?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Dogs are loyal, friendly, and loud. They are always happy. Cats are independent, quiet, and mysterious. They are elegant but cold. For me, dogs are more fun."</div>
+<div class="qcard-prompt">Now you: "Dogs are _______ . Cats are _______ . For me, _______ are more _______ ."</div>
+<div class="qtip teacher-only">Tip: This is adjective gold — push for 3+ adjectives per animal. If student says "dogs are nice," push: "Nice AND? Loyal? Friendly? Loud? What else?" Stack the adjectives.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Is a pet expensive? What is the most expensive thing?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes, a pet is expensive! The vet is very expensive. Food is expensive too. But for me, it is not a problem — Pancho is important for my family."</div>
+<div class="qcard-prompt">Now you: "A pet is _______ . The most expensive thing is..."</div>
+<div class="qtip teacher-only">Tip: Money talk engages professionals. Ask: "Is a dog more expensive than a cat? Why?" Forces comparison with "to be" — natural and productive.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">What is the best thing about having a pet?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "The best thing is the company. When I am alone at home, Pancho is there. He is always happy to see me. That is beautiful — no person is ALWAYS happy to see you, but a dog is!"</div>
+<div class="qcard-prompt">Now you: "The best thing is _______ . My pet is _______ when I am _______ ."</div>
+<div class="qtip teacher-only">Tip: Emotional territory — let the student connect. If they get enthusiastic about their pet, let them talk. This is where "to be" becomes real communication, not grammar exercise.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">What is the worst thing about having a pet?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "The worst thing? Hair! There is hair everywhere — on my clothes, on my sofa, on my bed. And the early morning walks — sometimes it is cold and dark and I am tired. That is terrible!"</div>
+<div class="qcard-prompt">Now you: "The worst thing is _______ . It is _______ because..."</div>
+<div class="qtip teacher-only">Tip: Always gets honest answers. Common: "the hair," "the noise," "the vet." Natural "there is" opportunity: "There is hair on my sofa." Model it if it appears.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">What kind of person are you — a dog person or a cat person?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I am a dog person, 100%! Dog people are active, social, and loud — like dogs. Cat people are calm, independent, and quiet — like cats. I think your pet is a mirror of your personality!"</div>
+<div class="qcard-prompt">Now you: "I am a _______ person because I am _______ and _______ ."</div>
+<div class="qtip teacher-only">Tip: The "mirror" idea is powerful — it makes the student describe THEMSELVES through their pet preference. Ask: "So you are a [dog/cat] person — is your personality similar to a [dog/cat]?" Generates self-description with "to be."</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about pets and your personality. I go first: 'The most important animal in my life is my dog Pancho because he is loyal and he is always happy.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">The most important <span>animal</span> in my <span>life</span> is <span>_______</span> because <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.1 · Daily Life & Lifestyle</div>
+<div class="ftr-info">Dogs or Cats? — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

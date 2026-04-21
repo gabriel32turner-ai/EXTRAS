@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · My Best Friend · A1.1</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#FF1F5C}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(255,31,92,.12);border:1px solid rgba(255,31,92,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:420px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(255,31,92,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(255,31,92,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(255,31,92,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(255,31,92,.05);border:1px solid rgba(255,31,92,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(255,31,92,.06);border:1px solid rgba(255,31,92,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200" alt="Friends laughing">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.1</span>
+<span class="chip">Relationships & Personality</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">My Best <em>Friend</em></h1>
+<p class="hero-sub">Describe your best friend with adjectives. Say who he or she is. Only "to be" structures.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show a photo of your best friend and describe him or her</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Show a <strong style="color:var(--ac)">photo of your best friend on your phone</strong> and describe him or her.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, this is my best friend. Her name is Laura. She is 38 years old. She is from Guadalajara. She is very funny and very honest. We are friends for... a long time! She is like my sister. OK, now show me YOUR best friend."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">This is my best friend. His / Her name is _______ .</div>
+<div class="starter">He / She is _______ years old. He / She is from _______ .</div>
+<div class="starter">He / She is _______ and _______ .</div>
+<div class="starter">He / She is like my _______ .</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('friend')"><div class="vcard-word">friend</div><div class="vcard-def">a person you like</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('neighbor')"><div class="vcard-word">neighbor</div><div class="vcard-def">lives near you</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('childhood')"><div class="vcard-word">childhood</div><div class="vcard-def">when you are small</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('trust')"><div class="vcard-word">trust</div><div class="vcard-def">you believe in them</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('secret')"><div class="vcard-word">secret</div><div class="vcard-def">only you know</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('memory')"><div class="vcard-word">memory</div><div class="vcard-def">something you remember</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('personality')"><div class="vcard-word">personality</div><div class="vcard-def">how a person is</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('distance')"><div class="vcard-word">distance</div><div class="vcard-def">far away</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Adjectives</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('honest')"><div class="vcard-word">honest</div><div class="vcard-def">always true</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('loyal')"><div class="vcard-word">loyal</div><div class="vcard-def">always there</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('crazy')"><div class="vcard-word">crazy</div><div class="vcard-def">wild, fun, intense</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('generous')"><div class="vcard-word">generous</div><div class="vcard-def">gives a lot</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('shy')"><div class="vcard-word">shy</div><div class="vcard-def">quiet with new people</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('confident')"><div class="vcard-word">confident</div><div class="vcard-def">believes in himself</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('annoying')"><div class="vcard-word">annoying</div><div class="vcard-def">bothers you</div><div class="vcard-type">adj</div></div>
+<div class="vcard" onclick="speak('similar')"><div class="vcard-word">similar</div><div class="vcard-def">almost the same</div><div class="vcard-type">adj</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('Oh my God!')"><div class="vcard-word">Oh my God!</div><div class="vcard-def">surprise</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Me too!')"><div class="vcard-word">Me too!</div><div class="vcard-def">same for me</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Really?')"><div class="vcard-word">Really?</div><div class="vcard-def">are you serious?</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 2-3 sentences.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose one best friend. For me, one person is enough. Laura is my best friend since university. She is the only person who is always honest with me. I am a 'one best friend' person. Now you — one or many?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👤</div><div class="coption-label">One best friend</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👥</div><div class="coption-label">Many good friends</div></div>
+</div>
+<div class="starters"><div class="starter">For me, _______ is better. My best friend is _______ . He/She is _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">💡</div><div class="coption-label">Funny friend</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🧠</div><div class="coption-label">Smart friend</div></div>
+</div>
+<div class="starters"><div class="starter">My best friend is more _______ . He/She is always _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👫</div><div class="coption-label">Same gender friend</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👩‍👦</div><div class="coption-label">Different gender friend</div></div>
+</div>
+<div class="starters"><div class="starter">My best friend is a _______ . For me, that is _______ because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏠</div><div class="coption-label">Friend near me</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">✈️</div><div class="coption-label">Friend far away</div></div>
+</div>
+<div class="starters"><div class="starter">My best friend is in _______ . That is _______ for our friendship.</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👶</div><div class="coption-label">Friends since childhood</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏢</div><div class="coption-label">Friends from work</div></div>
+</div>
+<div class="starters"><div class="starter">We are friends since _______ . He/She is important because _______ .</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">What is your best friend's name? Where is he or she from?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My best friend is Laura. She is from Guadalajara. She is 38 years old. She is a teacher — like me! But she is a math teacher."</div>
+<div class="qcard-prompt">Now you: "My best friend is _______ . He/She is from..."</div>
+<div class="qtip teacher-only">Tip: Build a full identity — name, city, age, job. If student says only the name, push: "Where is he/she from? How old?" Every detail is a sentence.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">Is your best friend similar to you or different?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Laura and I are very different! She is calm, I am intense. She is patient, I am impatient. But we are similar in one thing — we are both honest."</div>
+<div class="qcard-prompt">Now you: "We are similar / different. He/She is _______ and I am _______ ."</div>
+<div class="qtip teacher-only">Tip: The contrast structure "He is X, I am Y" is powerful at A1.1. Push for 2-3 pairs. This is where students discover they can make complex comparisons with just "to be."</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">What is the best thing about your friend?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "The best thing about Laura is that she is honest. When I am wrong, she is direct with me. That is not easy, but it is important."</div>
+<div class="qcard-prompt">Now you: "The best thing about _______ is that he/she is..."</div>
+<div class="qtip teacher-only">Tip: If student says "he/she is nice" only — push: "OK, nice HOW? Nice with money? Nice with time? Nice with words?" Force the adjective into a real situation.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">Is there something annoying about your friend?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes! Laura is always late. Always! That is annoying. And sometimes she is too direct — her words are strong. But that is also why she is a good friend."</div>
+<div class="qcard-prompt">Now you: "Yes, sometimes he/she is _______ . That is annoying because..."</div>
+<div class="qtip teacher-only">Tip: Students usually laugh here. Good — humor means comfort. Let them be honest. If they say "nothing is annoying," push gently: "Come on! Nobody is perfect. What is ONE small thing?"</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">Where is your best friend right now? Is he or she near you or far?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Laura is in Guadalajara. That is far from Celaya — maybe 4 hours. It is sad, but she is always in my phone. We are always in contact."</div>
+<div class="qcard-prompt">Now you: "My best friend is in _______ . That is _______ from here."</div>
+<div class="qtip teacher-only">Tip: Good moment for emotional vocabulary: "Is that sad for you? Or is it OK?" Simple follow-up that produces real feeling in English.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">Who is a better friend — you or your best friend?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Hmm, this is difficult! I think Laura is a better friend than me. She is more patient and more generous. I am more fun, but she is more reliable. We are a good team."</div>
+<div class="qcard-prompt">Now you: "I think _______ is a better friend because he/she is..."</div>
+<div class="qtip teacher-only">Tip: This question forces self-reflection — powerful for adults. If student says "me," push: "Why? What are you better at?" If they say "my friend," push: "What is he/she better at than you?" Both paths produce rich language.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about your best friend. Use this structure. I go first: 'The most important person in my life is Laura because she is honest and she is always there for me.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">The most important <span>person</span> in my <span>life</span> is <span>_______</span> because <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.1 · Relationships & Personality</div>
+<div class="ftr-info">My Best Friend — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>
