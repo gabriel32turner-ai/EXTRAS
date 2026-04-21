@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>GT · A1.2 Micro Lab · My Weekend Routine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--accent:#8B5CF6;--accent-dim:rgba(139,92,246,0.09);--accent-med:rgba(139,92,246,0.18);--accent-border:rgba(139,92,246,0.38)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 1.75rem;height:54px;display:flex;align-items:center;justify-content:space-between}
+    .topbar-left{display:flex;align-items:center;gap:0.8rem}
+    .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#fff;letter-spacing:-0.01em}
+    .topbar-logo span{color:var(--accent)}
+    .topbar-div{width:1px;height:16px;background:rgba(255,255,255,0.07)}
+    .topbar-badge{display:inline-flex;align-items:center;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:3px 10px;font-size:0.65rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase}
+    .topbar-right{font-size:0.65rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase}
+    .progress-wrap{position:fixed;top:54px;left:0;right:0;height:2px;background:rgba(255,255,255,0.04);z-index:99}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,#a78bfa 100%);width:0%;transition:width 0.35s ease}
+    .mode-banner{background:rgba(139,92,246,0.06);border-bottom:1px solid rgba(139,92,246,0.12);padding:0.55rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .mode-banner-text{font-size:0.72rem;color:rgba(255,255,255,0.5);font-weight:300}
+    .mode-banner-text strong{color:rgba(255,255,255,0.8);font-weight:500}
+    .mode-toggle{display:flex;align-items:center;gap:0.5rem;cursor:pointer;touch-action:manipulation}
+    .mt-label{font-size:0.7rem;color:var(--muted);white-space:nowrap}
+    .mt-track{width:36px;height:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:20px;position:relative;transition:background 0.2s,border-color 0.2s;flex-shrink:0}
+    .mt-track.on{background:rgba(139,92,246,0.25);border-color:rgba(139,92,246,0.45)}
+    .mt-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform 0.2s,background 0.2s}
+    .mt-track.on .mt-thumb{transform:translateX(16px);background:var(--accent)}
+    .hero{position:relative;height:300px;overflow:hidden}
+    .hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;filter:brightness(0.4) saturate(0.75)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(155deg,rgba(15,25,35,0.05) 0%,rgba(15,25,35,0.3) 35%,rgba(15,25,35,0.82) 65%,var(--navy) 100%)}
+    .hero-stripe{position:absolute;top:0;right:0;width:260px;height:100%;background:linear-gradient(130deg,transparent 55%,rgba(139,92,246,0.05) 100%);pointer-events:none}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 2rem 2rem}
+    .eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.7rem}
+    .eyebrow-tag{font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
+    .eyebrow-sep{width:20px;height:1px;background:rgba(139,92,246,0.45)}
+    .eyebrow-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+    .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em;color:#fff;max-width:600px}
+    .hero-title .hl{color:var(--accent)}
+    .hero-sub{margin-top:0.65rem;font-size:0.82rem;color:rgba(255,255,255,0.4);font-weight:300;font-style:italic;max-width:400px;line-height:1.5}
+    .main{max-width:880px;margin:0 auto;padding:0 1.5rem 5rem}
+    .section{margin-top:3rem}
+    .sec-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.4rem}
+    .sec-emoji{font-size:1.6rem}
+    .sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:-0.02em}
+    .sec-sub{font-size:0.75rem;color:var(--muted);margin-left:2.7rem;margin-bottom:1.2rem}
+    .sec-time{display:inline-block;background:var(--accent-dim);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:2px 10px;font-size:0.6rem;font-weight:700;color:var(--accent);letter-spacing:0.04em;margin-left:0.5rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:0.9rem}
+    .card-label{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem}
+    .card p{font-size:0.88rem;color:rgba(255,255,255,0.82);line-height:1.55}
+    .tnote{background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.15);border-radius:10px;padding:1rem 1.2rem;margin-top:0.7rem;display:none}
+    .tnote-title{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
+    .tnote p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.55}
+    body.teacher-on .tnote{display:block}
+    .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.6rem;margin-top:0.8rem}
+    .vcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.85rem 0.9rem;cursor:pointer;transition:border-color 0.2s,transform 0.12s;text-align:center}
+    .vcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .vcard:active{transform:scale(0.97)}
+    .vcard-word{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.25rem}
+    .vcard-def{font-size:0.7rem;color:var(--muted);line-height:1.35}
+    .vcard-type{font-size:0.55rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem}
+    .colloquial-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.6rem;margin-top:0.6rem}
+    .ccard{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.18);border-radius:10px;padding:0.75rem 0.9rem;cursor:pointer;text-align:center;transition:border-color 0.2s}
+    .ccard:hover{border-color:var(--accent)}
+    .ccard-phrase{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--accent)}
+    .ccard-use{font-size:0.65rem;color:var(--muted);margin-top:0.2rem}
+    .choose-pair{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.2rem}
+    .choose-opt{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+    .choose-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .choose-opt:active{transform:scale(0.96)}
+    .choose-emoji{font-size:2.2rem;display:block;margin-bottom:0.4rem}
+    .choose-label{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff}
+    .choose-starters{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;line-height:1.5;padding:0 0.5rem;margin-bottom:0.6rem}
+    .qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+    .qcard::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0.5}
+    .qcard-num{font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+    .qcard-q{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.6rem}
+    .qcard-prompt{font-size:0.82rem;color:var(--muted);font-style:italic;margin-bottom:0.7rem}
+    .qcard-model{background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:0.9rem 1rem;display:none}
+    .qcard-model-label{font-size:0.58rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem}
+    .qcard-model p{font-size:0.82rem;color:rgba(255,255,255,0.72);line-height:1.55}
+    .qcard-btn{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:var(--accent);font-size:0.7rem;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+    .qcard-btn:hover{background:rgba(139,92,246,0.18)}
+    .sentence-box{background:var(--card);border:2px solid rgba(139,92,246,0.25);border-radius:16px;padding:2rem 1.8rem;text-align:center}
+    .sentence-box p{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.6}
+    .sentence-box .blank{border-bottom:2px dashed var(--accent);padding:0 0.5rem;color:var(--accent);font-style:italic}
+    .sentence-hw{margin-top:1rem;font-size:0.75rem;color:var(--muted);font-style:italic}
+    .footer{text-align:center;padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:3rem}
+    .footer p{font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase}
+    @media(max-width:600px){
+      .topbar{padding:0 1rem;height:48px}.hero{height:240px}.hero-content{padding:1rem 1.2rem 1.4rem}.main{padding:0 1rem 4rem}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.choose-pair{gap:0.5rem}.choose-emoji{font-size:1.7rem}.qcard{padding:1.2rem}.sentence-box{padding:1.4rem 1rem}.sentence-box p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">GABRIEL TURNER<span> ·</span> Micro Lab</div>
+    <div class="topbar-div"></div>
+    <div class="topbar-badge">A1.2</div>
+  </div>
+  <div class="topbar-right">40 min</div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+<div class="mode-banner">
+  <div class="mode-banner-text"><strong>Teacher Mode</strong> — show teacher notes &amp; model answers</div>
+  <div class="mode-toggle" onclick="toggleMode()">
+    <span class="mt-label">OFF</span>
+    <div class="mt-track" id="mtTrack"><div class="mt-thumb"></div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1200&q=80" alt="relaxing weekend morning">
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-tag">A1.2 · Micro Lab</span>
+      <span class="eyebrow-sep"></span>
+      <span class="eyebrow-sub">Daily Life &amp; Lifestyle</span>
+    </div>
+    <h1 class="hero-title">My <span class="hl">Weekend</span> Routine</h1>
+    <p class="hero-sub">What do you do when you don't work? Tell us everything.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🎪</span>
+      <span class="sec-title">Show &amp; Tell</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Show a photo from a recent weekend and describe what you do.</p>
+
+    <div class="card">
+      <div class="card-label">Your Task</div>
+      <p>Open your phone. Find a photo from <strong>your last weekend</strong> — breakfast, a park, your family, your sofa. Show it and describe what you usually do on weekends.</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Script — Model First</div>
+      <p>"Look — this is my Saturday morning. I wake up late — usually at 9. I drink coffee and I read the news on my phone. I don't work on Saturdays. I sometimes go to the park with my dog. OK — show me YOUR photo. What do you do on weekends?"</p>
+    </div>
+
+    <div class="card" style="margin-top:0.5rem">
+      <div class="card-label">Sentence Starters</div>
+      <p>On weekends, I usually _______ .<br>I always _______ in the morning.<br>I sometimes _______ with my family.<br>I never _______ on Sundays.</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Push for adverbs of frequency: "Do you ALWAYS do that? Or just SOMETIMES?" This is a natural way to drill always/usually/sometimes/never. If they produce 3+ sentences with different adverbs, celebrate. Correct third person if they slip: "My wife go..." → "My wife GOES."</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">💉</span>
+      <span class="sec-title">Vocab Injection</span>
+      <span class="sec-time">8 min</span>
+    </div>
+    <p class="sec-sub">Click each word to hear the pronunciation.</p>
+
+    <div class="card">
+      <div class="card-label">Nouns</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('weekend')"><div class="vcard-type">Noun</div><div class="vcard-word">weekend</div><div class="vcard-def">Saturday and Sunday</div></div>
+        <div class="vcard" onclick="speak('routine')"><div class="vcard-type">Noun</div><div class="vcard-word">routine</div><div class="vcard-def">things you do daily</div></div>
+        <div class="vcard" onclick="speak('breakfast')"><div class="vcard-type">Noun</div><div class="vcard-word">breakfast</div><div class="vcard-def">first meal of day</div></div>
+        <div class="vcard" onclick="speak('nap')"><div class="vcard-type">Noun</div><div class="vcard-word">nap</div><div class="vcard-def">short sleep, daytime</div></div>
+        <div class="vcard" onclick="speak('errands')"><div class="vcard-type">Noun</div><div class="vcard-word">errands</div><div class="vcard-def">small tasks outside</div></div>
+        <div class="vcard" onclick="speak('groceries')"><div class="vcard-type">Noun</div><div class="vcard-word">groceries</div><div class="vcard-def">food you buy</div></div>
+        <div class="vcard" onclick="speak('chores')"><div class="vcard-type">Noun</div><div class="vcard-word">chores</div><div class="vcard-def">work at home</div></div>
+        <div class="vcard" onclick="speak('brunch')"><div class="vcard-type">Noun</div><div class="vcard-word">brunch</div><div class="vcard-def">breakfast + lunch</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Verbs</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('wake up')"><div class="vcard-type">Verb</div><div class="vcard-word">wake up</div><div class="vcard-def">stop sleeping</div></div>
+        <div class="vcard" onclick="speak('sleep in')"><div class="vcard-type">Verb</div><div class="vcard-word">sleep in</div><div class="vcard-def">wake up late</div></div>
+        <div class="vcard" onclick="speak('relax')"><div class="vcard-type">Verb</div><div class="vcard-word">relax</div><div class="vcard-def">rest, no stress</div></div>
+        <div class="vcard" onclick="speak('cook')"><div class="vcard-type">Verb</div><div class="vcard-word">cook</div><div class="vcard-def">make food</div></div>
+        <div class="vcard" onclick="speak('exercise')"><div class="vcard-type">Verb</div><div class="vcard-word">exercise</div><div class="vcard-def">move your body</div></div>
+        <div class="vcard" onclick="speak('visit')"><div class="vcard-type">Verb</div><div class="vcard-word">visit</div><div class="vcard-def">go to see someone</div></div>
+        <div class="vcard" onclick="speak('spend time')"><div class="vcard-type">Verb</div><div class="vcard-word">spend time</div><div class="vcard-def">use hours with</div></div>
+        <div class="vcard" onclick="speak('clean')"><div class="vcard-type">Verb</div><div class="vcard-word">clean</div><div class="vcard-def">make things nice</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Colloquial Phrases</div>
+      <div class="colloquial-row">
+        <div class="ccard" onclick="speak('I know, right?')"><div class="ccard-phrase">"I know, right?"</div><div class="ccard-use">= I totally agree</div></div>
+        <div class="ccard" onclick="speak('That sounds nice!')"><div class="ccard-phrase">"That sounds nice!"</div><div class="ccard-use">= I like that idea</div></div>
+        <div class="ccard" onclick="speak('Same here!')"><div class="ccard-phrase">"Same here!"</div><div class="ccard-use">= Me too!</div></div>
+      </div>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Drill "errands" — students don't know this word and it's GOLD for weekend conversations. Model: "I do errands on Saturday — I buy groceries, I go to the bank, I go to the pharmacy." Also "sleep in" is a phrasal verb they love — it feels informal and cool. Drill: "SLEEP in", not "sleep IN".</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🔀</span>
+      <span class="sec-title">Choose &amp; Speak</span>
+      <span class="sec-time">10 min</span>
+    </div>
+    <p class="sec-sub">Choose one and explain with 3-4 sentences using simple present.</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher — Model the First One</div>
+      <p>"I choose sleeping in. On Saturdays I don't use an alarm. I wake up at 9 or 10. I drink coffee in bed. I never wake up early on weekends because I work hard on weekdays. OK, you choose!"</p>
+    </div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">😴</span><span class="choose-label">Sleep In</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">⏰</span><span class="choose-label">Wake Up Early</span></div>
+    </div>
+    <div class="choose-starters">On weekends, I usually _______ because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🍳</span><span class="choose-label">Cook at Home</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🍕</span><span class="choose-label">Eat Out</span></div>
+    </div>
+    <div class="choose-starters">On weekends, I always _______ . I like it because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🏃</span><span class="choose-label">Active Weekend</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🛋️</span><span class="choose-label">Lazy Weekend</span></div>
+    </div>
+    <div class="choose-starters">I usually _______ on weekends. I sometimes _______ but I never _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">👨‍👩‍👧</span><span class="choose-label">Family Time</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🧘</span><span class="choose-label">Alone Time</span></div>
+    </div>
+    <div class="choose-starters">I spend my weekends with _______ . I like it because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🧹</span><span class="choose-label">Chores Saturday</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🚫</span><span class="choose-label">No Chores Ever</span></div>
+    </div>
+    <div class="choose-starters">On Saturdays, I _______ . I don't like it but _______ .</div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Push for NEGATIVE sentences — "I don't..." and "I never..." are powerful at A1.2 and students forget to use them. After every affirmative, ask: "OK, and what do you NEVER do on weekends?" This doubles their output.</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🃏</span>
+      <span class="sec-title">Question Cards</span>
+      <span class="sec-time">12 min</span>
+    </div>
+    <p class="sec-sub">Teacher models first. Then you personalize.</p>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 01</div>
+      <div class="qcard-q">What do you do on Saturday mornings?</div>
+      <div class="qcard-prompt">Now you: describe YOUR Saturday morning step by step.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"On Saturday mornings I wake up late. I don't use an alarm. I make coffee and I read the news. Sometimes I cook breakfast — eggs and toast. I never check work emails on Saturdays."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Push for sequence: "First I... then I... after that I..." This builds natural discourse flow at A1.2.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 02</div>
+      <div class="qcard-q">Do you like Sundays or Saturdays more?</div>
+      <div class="qcard-prompt">Now you: which day do YOU like more and why?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"I like Saturdays more because I have the full day free. I do errands in the morning and I relax in the afternoon. Sundays are good but I always think about Monday — and I don't like that."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>The "Sunday anxiety" is universal — everyone relates. Push: "Do you think about Monday on Sunday night?" Generates great spontaneous language.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 03</div>
+      <div class="qcard-q">Can you cook? What do you cook on weekends?</div>
+      <div class="qcard-prompt">Now you: do YOU cook? What?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes, I can cook! I cook pasta on Saturdays. I can make a good salad too. But I can't cook fish — it's difficult for me. My wife cooks fish."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Great can/can't practice. Push for specifics: "Can you cook tacos? Can you cook Italian food? What CAN'T you cook?" Every answer is a sentence.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 04</div>
+      <div class="qcard-q">Do you exercise on weekends?</div>
+      <div class="qcard-prompt">Now you: what do YOU do to move your body?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Sometimes I exercise on Saturdays. I go to the gym or I walk in the park. I never exercise on Sundays — Sundays are for rest. I can run 5 kilometers but I don't like it."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Mix frequency adverbs + can: "Can you run? Do you ALWAYS go to the gym?" This combines two grammar targets naturally.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 05</div>
+      <div class="qcard-q">What do you usually eat on weekends?</div>
+      <div class="qcard-prompt">Now you: describe YOUR weekend meals.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"On Saturdays I eat a big breakfast — eggs, coffee, fruit. For lunch, I sometimes eat tacos or pizza. I don't eat dinner late on weekends. I like simple food."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Food is always engaging. Push for all three meals: "What do you eat for breakfast? And lunch? And dinner?" Three meals = minimum 6 sentences.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 06</div>
+      <div class="qcard-q">Do you spend time with your family on weekends?</div>
+      <div class="qcard-prompt">Now you: who do YOU spend time with?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes, I always spend time with my family on Sundays. We eat together. We watch a movie sometimes. I visit my parents every two weeks. Family time is important for me."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Push for specifics: "What do you DO with your family? Do you eat together? Do you watch TV?" Each activity = one more sentence.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 07</div>
+      <div class="qcard-q">Is there a park or a nice place near your house?</div>
+      <div class="qcard-prompt">Now you: what is near YOUR house?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes, there is a park near my house. It is big and there are many trees. I go there on Saturdays. There is also a coffee shop and I sometimes buy coffee there."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Great "there is/are" practice. Push: "Is there a gym near your house? Is there a restaurant? Are there stores?" Each answer uses the target structure.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 08</div>
+      <div class="qcard-q">What don't you like about weekends?</div>
+      <div class="qcard-prompt">Now you: what is the WORST part of YOUR weekend?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"I don't like chores. I clean the house on Saturdays and I don't enjoy it. I also don't like Sunday nights because Monday is coming. Weekends are too short!"</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Negative sentences are gold at A1.2. Push for 2-3 "I don't like..." sentences. End on "Weekends are too short!" — everyone agrees and it closes the section with energy.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">✨</span>
+      <span class="sec-title">My Sentence</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Build one perfect sentence. Practice it. Record it.</p>
+
+    <div class="sentence-box">
+      <p>I like my weekends because I <span class="blank">_______</span> and I spend time with <span class="blank">_______</span> .</p>
+    </div>
+    <p class="sentence-hw">🎙️ Record this sentence as a WhatsApp voice note (30 seconds).</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Target: "I like my weekends because I sleep in and I spend time with my family." Push for natural rhythm — no pauses between words. Three repetitions, then record. This sentence has 2 verbs + because + connector "and" — that's A1.2 gold.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>GABRIEL TURNER · Micro Lab · A1.2 · Daily Life &amp; Lifestyle</p>
+</div>
+
+<script>
+  let teacherOn=false;
+  function toggleMode(){teacherOn=!teacherOn;document.body.classList.toggle('teacher-on',teacherOn);const t=document.getElementById('mtTrack');t.classList.toggle('on',teacherOn);t.previousElementSibling.textContent=teacherOn?'ON':'OFF'}
+  function toggleModel(btn){const m=btn.nextElementSibling;const o=m.style.display==='block';m.style.display=o?'none':'block';btn.textContent=o?'▶ Show Model Answer':'▼ Hide Model Answer'}
+  function speak(text){if('speechSynthesis' in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.82;u.pitch=1;window.speechSynthesis.speak(u)}}
+  window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const p=h>0?(window.scrollY/h)*100:0;document.getElementById('progFill').style.width=p+'%'});
+</script>
+</body>
+</html>

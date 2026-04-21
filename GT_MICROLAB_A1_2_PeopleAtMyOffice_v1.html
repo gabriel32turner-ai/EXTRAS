@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT · Micro Lab · A1.2 — People at My Office</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--s2:#1A2840;--bd:#243243;--ac:#8B5CF6;--ac2:#A78BFA;--txt:#EAEAEA;--mt:#8a97ab;--dim:rgba(228,228,228,0.25);--cyan:#00CFFF;--green:#00E676}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65}
+.prog{height:2px;background:var(--ac);position:fixed;top:0;left:0;z-index:300;transition:width .1s}
+.hdr{background:var(--s1);border-bottom:1px solid var(--bd);padding:14px 28px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200}
+.brand{display:flex;align-items:center;gap:10px}.dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.bname{font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.bsub{font-size:10px;color:var(--dim);margin-left:6px}.hdr-r{display:flex;align-items:center;gap:10px}
+.badge{border:1px solid var(--ac);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.mode-btn{background:var(--ac);border:none;color:#fff;padding:6px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+body.student-mode .mode-btn{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-over{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,0.3) 0%,rgba(15,25,35,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:32px 32px 28px;max-width:880px;margin:0 auto}
+.hero-wrap{position:relative}
+.h-chips{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.chip{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);padding:4px 10px;font-size:10px;color:var(--ac);font-family:'Syne',sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.h-title{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;line-height:.95;color:#fff;margin-bottom:10px}
+.h-title em{color:var(--ac);font-style:normal}
+.h-sub{font-size:13px;color:var(--mt);max-width:420px;line-height:1.55}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;transition:all .18s;white-space:nowrap}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(139,92,246,.35)}.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-outer{border-bottom:1px solid var(--bd)}.sec{padding:36px 28px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-hd-left{display:flex;flex-direction:column;gap:3px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt);margin-top:2px}
+.sec-time{border:1px solid rgba(139,92,246,.2);color:var(--ac);padding:4px 10px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.tn-wrap{margin-top:20px}body.student-mode .tn-wrap{display:none}
+.tn-toggle{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:var(--ac);padding:8px 16px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;width:100%;text-align:left;transition:all .15s}
+.tn-toggle:hover{background:rgba(139,92,246,.14)}.tn-toggle::before{content:'▶ ';font-size:8px}.tn-toggle.open::before{content:'▼ '}
+.tn-body{display:none;border:1px solid rgba(139,92,246,.12);border-top:none;padding:16px 18px;background:rgba(139,92,246,.03)}.tn-body.open{display:block}
+.tn-capa{margin-bottom:12px}.tn-capa:last-child{margin-bottom:0}
+.tn-cl{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.tn-txt{font-size:12.5px;color:var(--mt);line-height:1.6}.tn-txt ul{list-style:none;display:flex;flex-direction:column;gap:4px}.tn-txt ul li::before{content:'→ ';color:var(--ac)}
+.st-box{background:var(--s1);border:1px solid var(--bd);padding:22px 24px;margin-bottom:14px}
+.st-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.st-script{font-size:13px;color:var(--mt);line-height:1.7;font-style:italic;border-left:3px solid var(--ac);padding-left:14px;margin-bottom:14px}
+.st-starters{display:flex;flex-direction:column;gap:6px}
+.st-s{background:var(--s2);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--txt)}.st-s span{color:var(--ac);font-weight:700}
+.v-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:10px}
+.vc{background:var(--s1);padding:14px 12px;display:flex;flex-direction:column;gap:3px;border:1px solid var(--bd);cursor:pointer;transition:border-color .18s}.vc:hover{border-color:rgba(139,92,246,.3)}
+.vw{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff}.vd{font-size:10.5px;color:var(--mt)}
+.v-cat{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px;margin-top:14px}
+.v-coll{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:14px}
+.vcol{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.18);padding:12px 14px;text-align:center;cursor:pointer;transition:all .15s}.vcol:hover{background:rgba(139,92,246,.12)}
+.vcol-w{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ac)}.vcol-d{font-size:10px;color:var(--mt);margin-top:2px}
+.ch-toggle{background:var(--s2);border:1px solid var(--bd);padding:8px 14px;font-size:11px;color:var(--mt);cursor:pointer;margin-top:10px;transition:all .15s;font-family:'DM Sans',sans-serif}.ch-toggle:hover{border-color:var(--ac);color:var(--ac)}
+body.challenge-mode .vd{visibility:hidden}
+.cs-grid{display:flex;flex-direction:column;gap:14px}
+.cs-pair{background:var(--s1);border:1px solid var(--bd);overflow:hidden}
+.cs-opts{display:grid;grid-template-columns:1fr auto 1fr}
+.cs-opt{padding:20px 16px;cursor:pointer;text-align:center;transition:all .2s}.cs-opt:hover{background:rgba(139,92,246,.06)}.cs-opt.picked{background:rgba(139,92,246,.1)}
+.cs-emoji{font-size:32px;margin-bottom:6px}.cs-word{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff}
+.cs-vs{display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--dim);background:rgba(255,255,255,.03);padding:0 10px}
+.cs-starters{padding:14px 16px;border-top:1px solid var(--bd);display:flex;flex-direction:column;gap:4px}
+.cs-st{font-size:12px;color:var(--mt)}.cs-st span{color:var(--ac);font-weight:600}
+.qc-grid{display:flex;flex-direction:column;gap:14px}
+.qc{background:var(--s1);border:1px solid var(--bd);padding:22px 24px}
+.qc-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.qc-q{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:14px}
+.qc-model-btn{background:rgba(0,207,255,.08);border:1px solid rgba(0,207,255,.2);color:var(--cyan);padding:6px 14px;font-size:11px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;margin-bottom:10px}.qc-model-btn:hover{background:rgba(0,207,255,.16)}
+.qc-model{display:none;background:rgba(0,207,255,.04);border:1px solid rgba(0,207,255,.12);padding:12px 16px;font-size:13px;color:var(--cyan);line-height:1.6;margin-bottom:10px;font-style:italic}.qc-model.open{display:block}
+.qc-prompt{font-size:12.5px;color:var(--ac);font-weight:600}
+.qc-tip{margin-top:10px;font-size:11.5px;color:var(--mt);border-left:2px solid var(--ac);padding-left:10px}body.student-mode .qc-tip{display:none}
+.ms-box{background:var(--s1);border:1px solid var(--bd);padding:28px 24px;text-align:center}
+.ms-label{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.ms-sentence{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1.4}
+.ms-sentence .blank{color:var(--ac);border-bottom:2px solid var(--ac);padding:0 4px}
+.ms-hw{margin-top:18px;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);padding:12px 16px;font-size:12px;color:var(--mt)}.ms-hw strong{color:var(--ac)}
+.ftr{padding:24px 28px;text-align:center;border-top:1px solid var(--bd)}.ftr div{font-size:10px;color:var(--dim);margin-bottom:4px;font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+@media(max-width:600px){.h-title{font-size:30px}.sec{padding:28px 18px}.v-grid{grid-template-columns:repeat(2,1fr)}.cs-emoji{font-size:26px}.snav{padding:0 14px}.hdr{padding:12px 16px}.v-coll{grid-template-columns:1fr}.qc-q{font-size:16px}.ms-sentence{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<header class="hdr">
+<div class="brand"><div class="dot"></div><span class="bname">Gabriel Turner</span><span class="bsub">· Micro Lab</span></div>
+<div class="hdr-r">
+<span class="badge">A1.2</span>
+<button class="mode-btn" id="modeBtn" onclick="toggleMode()">👁 Student Mode</button>
+</div>
+</header>
+
+<div class="hero-wrap">
+<div class="hero">
+<img class="hero-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80" alt="office people">
+<div class="hero-over">
+<div class="h-chips"><span class="chip">A1.2</span><span class="chip">Work & Corporate Life</span><span class="chip">40 min</span></div>
+<h1 class="h-title">People at My <em>Office</em></h1>
+<p class="h-sub">Describe the people you work with every day. What they do, what they are like, and how you work together.</p>
+</div>
+</div>
+</div>
+
+<nav class="snav">
+<a class="sni active" href="#s1">🎪 Show & Tell</a>
+<a class="sni" href="#s2">💉 Vocab</a>
+<a class="sni" href="#s3">🔀 Choose & Speak</a>
+<a class="sni" href="#s4">🃏 Questions</a>
+<a class="sni" href="#s5">✨ My Sentence</a>
+</nav>
+
+<!-- PHASE 1 -->
+<div class="sec-outer" id="s1">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 1</div><div class="sec-title">🎪 Show & Tell</div><div class="sec-sub">Think of one person at your office — describe them</div></div>
+<div class="sec-time">5 min</div>
+</div>
+<div class="st-box">
+<div class="st-label">Teacher Models First</div>
+<div class="st-script">"OK, I want to tell you about someone at my office. His name is Carlos. He works in the operations department. He is always busy — he checks his email every 5 minutes! He is nice but sometimes he talks a lot. I like working with him. OK, now you — tell me about ONE person at your office."</div>
+</div>
+<div class="st-box">
+<div class="st-label">Student Sentence Starters</div>
+<div class="st-starters">
+<div class="st-s"><span>His / Her name is</span> ___.</div>
+<div class="st-s">He / She <span>works in</span> the ___ department.</div>
+<div class="st-s">He / She is <span>___</span> (nice / strict / funny / quiet).</div>
+<div class="st-s">He / She always <span>___</span> (talks / works / helps / eats lunch alone).</div>
+</div>
+</div>
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>Third person -s is the grammar star here: "He workS", "She talkS". Model it clearly and watch for omissions.</li>
+<li>Common error: "She work in production" → "She WORKS in production." Recast firmly but warmly.</li>
+<li>If student doesn't know department names: teach "production", "quality", "HR", "sales" as quick chunks.</li>
+<li>Accept mixed descriptions: "He is nice but he talks a lot" — that "but" is gold at A1.2.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"He talks a lot? Ha! Every office has one! Me too — I know that person."</li>
+<li>"You just described a real coworker in English. That is not a textbook exercise — that is YOUR life."</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"Imagine introducing your team in English to a foreign visitor. After today — you can."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="sec-outer" id="s2">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 2</div><div class="sec-title">💉 Vocab Injection</div><div class="sec-sub">Tap any word to hear pronunciation</div></div>
+<div class="sec-time">8 min</div>
+</div>
+<div class="v-cat">Nouns</div>
+<div class="v-grid">
+<div class="vc" onclick="speak('boss')"><div class="vw">boss</div><div class="vd">the person in charge</div></div>
+<div class="vc" onclick="speak('coworker')"><div class="vw">coworker</div><div class="vd">person you work with</div></div>
+<div class="vc" onclick="speak('team')"><div class="vw">team</div><div class="vd">group of people</div></div>
+<div class="vc" onclick="speak('department')"><div class="vw">department</div><div class="vd">area in a company</div></div>
+<div class="vc" onclick="speak('meeting')"><div class="vw">meeting</div><div class="vd">people talk at work</div></div>
+<div class="vc" onclick="speak('lunch break')"><div class="vw">lunch break</div><div class="vd">time to eat at work</div></div>
+<div class="vc" onclick="speak('schedule')"><div class="vw">schedule</div><div class="vd">your work timetable</div></div>
+<div class="vc" onclick="speak('office')"><div class="vw">office</div><div class="vd">where you work</div></div>
+</div>
+<div class="v-cat">Verbs</div>
+<div class="v-grid">
+<div class="vc" onclick="speak('help')"><div class="vw">help</div><div class="vd">assist someone</div></div>
+<div class="vc" onclick="speak('talk')"><div class="vw">talk</div><div class="vd">speak with someone</div></div>
+<div class="vc" onclick="speak('check')"><div class="vw">check</div><div class="vd">look at, verify</div></div>
+<div class="vc" onclick="speak('send')"><div class="vw">send</div><div class="vd">deliver a message</div></div>
+<div class="vc" onclick="speak('share')"><div class="vw">share</div><div class="vd">give to others</div></div>
+<div class="vc" onclick="speak('ask')"><div class="vw">ask</div><div class="vd">request information</div></div>
+<div class="vc" onclick="speak('organize')"><div class="vw">organize</div><div class="vd">put things in order</div></div>
+<div class="vc" onclick="speak('arrive')"><div class="vw">arrive</div><div class="vd">get to a place</div></div>
+</div>
+<div class="v-cat">Colloquial Phrases</div>
+<div class="v-coll">
+<div class="vcol" onclick="speak('Tell me about it!')"><div class="vcol-w">Tell me about it!</div><div class="vcol-d">I understand completely</div></div>
+<div class="vcol" onclick="speak('No way!')"><div class="vcol-w">No way!</div><div class="vcol-d">I can't believe it</div></div>
+<div class="vcol" onclick="speak('Same here!')"><div class="vcol-w">Same here!</div><div class="vcol-d">me too, exactly</div></div>
+</div>
+<button class="ch-toggle" onclick="document.body.classList.toggle('challenge-mode');this.textContent=document.body.classList.contains('challenge-mode')?'🔓 Show Definitions':'🔒 Challenge Mode: Hide Definitions'">🔒 Challenge Mode: Hide Definitions</button>
+</div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="sec-outer" id="s3">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 3</div><div class="sec-title">🔀 Choose & Speak</div><div class="sec-sub">Pick one. Explain with simple present sentences.</div></div>
+<div class="sec-time">10 min</div>
+</div>
+<div class="cs-grid">
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">😎</div><div class="cs-word">Cool Boss</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">😤</div><div class="cs-word">Strict Boss</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>I choose...</span> A cool/strict boss...</div>
+<div class="cs-st"><span>My boss...</span> (helps / checks / asks / talks)</div>
+</div>
+</div>
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🍽️</div><div class="cs-word">Eat with Coworkers</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🎧</div><div class="cs-word">Eat Alone</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>I usually eat...</span> because...</div>
+<div class="cs-st"><span>I like / I don't like...</span> lunch with coworkers.</div>
+</div>
+</div>
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🤝</div><div class="cs-word">Big Team</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🧍</div><div class="cs-word">Work Alone</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>I work in a...</span> I like it because...</div>
+</div>
+</div>
+<div class="cs-pair">
+<div class="cs-opts">
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🗣️</div><div class="cs-word">Talkative Office</div></div>
+<div class="cs-vs">OR</div>
+<div class="cs-opt" onclick="this.classList.toggle('picked')"><div class="cs-emoji">🤫</div><div class="cs-word">Quiet Office</div></div>
+</div>
+<div class="cs-starters">
+<div class="cs-st"><span>My office is...</span> People always / never...</div>
+</div>
+</div>
+</div>
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>MODEL pair 1: "I choose COOL BOSS. A cool boss helps you and doesn't check your phone. My boss asks questions but he doesn't get angry. I like that."</li>
+<li>Push for adverbs: "Do you ALWAYS eat alone or SOMETIMES with coworkers?" — natural drilling.</li>
+<li>Watch for: "I working in a big team" → "I WORK in a big team." No present continuous at A1.2.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"Eat alone with headphones? I do that too! Sometimes you need your space."</li>
+<li>"Talkative office? Tell me about it! That can be fun but sometimes it is difficult to work."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="sec-outer" id="s4">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 4</div><div class="sec-title">🃏 Question Cards</div><div class="sec-sub">Teacher models first — then you answer</div></div>
+<div class="sec-time">12 min</div>
+</div>
+<div class="qc-grid">
+<div class="qc">
+<div class="qc-num">Question 1</div>
+<div class="qc-q">Do you like the people at your office?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"Yes, I like most of the people at my office. They are nice. Some people talk too much but in general the team is good."</div>
+<div class="qc-prompt">Now you: "I like / I don't like the people because..."</div>
+<div class="qc-tip">Tip: "Most of" and "some" are useful quantifiers here. Model them naturally.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 2</div>
+<div class="qc-q">What does your boss do every day?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"My boss checks emails in the morning. He goes to meetings. He talks to clients on the phone. He is always busy."</div>
+<div class="qc-prompt">Now you: "My boss... every day."</div>
+<div class="qc-tip">Tip: Third person -s drill. Every sentence is a chance to practice: "checkS", "goeS", "talkS". Recast errors gently.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 3</div>
+<div class="qc-q">Do you eat lunch with your coworkers?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"Sometimes. I usually eat with two coworkers — Ana and Pedro. We go to the cafeteria. We talk about work and sometimes about football."</div>
+<div class="qc-prompt">Now you: "I usually / sometimes / never eat lunch with..."</div>
+<div class="qc-tip">Tip: Adverbs of frequency practice. Ask: "ALWAYS or SOMETIMES?" to push precision.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 4</div>
+<div class="qc-q">Can you describe your best friend at work?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"My best friend at work is Luis. He works in quality. He is funny and he always helps me. We eat lunch together every day."</div>
+<div class="qc-prompt">Now you: "My best friend at work is..."</div>
+<div class="qc-tip">Tip: This is personal and emotional — students produce more language when they care about the topic. Give space.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 5</div>
+<div class="qc-q">Is there someone difficult at your office?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"Yes, there is a person in my team. He doesn't help. He never shares information. He is not a bad person but he is difficult to work with."</div>
+<div class="qc-prompt">Now you: "There is a person who..."</div>
+<div class="qc-tip">Tip: Negative sentences: "doesn't help", "never shares". Model the negative form clearly. Don't force names — keep it anonymous.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 6</div>
+<div class="qc-q">Do you talk to your coworkers in English or Spanish?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"I always speak Spanish at work. But sometimes I read emails in English. I can understand a little but I can't speak much. That is why I study English!"</div>
+<div class="qc-prompt">Now you: "I usually speak... at work. I can / can't..."</div>
+<div class="qc-tip">Tip: META moment — they are talking about why they are HERE. This is retention gold. Let them reflect.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 7</div>
+<div class="qc-q">Do you have meetings every day?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"Not every day. I have meetings on Monday and Wednesday. They are sometimes long and boring. I don't like long meetings!"</div>
+<div class="qc-prompt">Now you: "I have meetings on... They are..."</div>
+<div class="qc-tip">Tip: Days of the week practice. Ask: "On Monday or every day?" Natural frequency drilling.</div>
+</div>
+<div class="qc">
+<div class="qc-num">Question 8</div>
+<div class="qc-q">What is the best thing about the people at your office?</div>
+<button class="qc-model-btn" onclick="toggleModel(this)">👁 Show Model Answer</button>
+<div class="qc-model">"The best thing is that they help each other. When I have a problem, I ask my team and they always help. We are a good team."</div>
+<div class="qc-prompt">Now you: "The best thing is..."</div>
+<div class="qc-tip">Tip: Positive close. Let them appreciate their team. This builds emotional connection to the lesson AND to continuing classes.</div>
+</div>
+</div>
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>8 questions = ~90 seconds each. Keep pace. If one question generates long answers, let it breathe and skip the next tip.</li>
+<li>Key grammar targets: third person -s, adverbs of frequency, negative "doesn't", "can/can't".</li>
+<li>Watch for: "He don't help" → "He DOESN'T help." Critical A1.2 error to address.</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"You described your boss, your best friend, the difficult person, AND your meetings — all in English. That is a full day at the office!"</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"Next time a foreign client visits your office, you can introduce your team. In English. That is a professional skill."</li>
+<li>Testimonial trigger: "Could you describe your coworkers in English before this class? Now you can — and with details."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="sec-outer" id="s5">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-hd-left"><div class="sec-lbl">Phase 5</div><div class="sec-title">✨ My Sentence</div><div class="sec-sub">Build one perfect sentence — practice it — record it</div></div>
+<div class="sec-time">5 min</div>
+</div>
+<div class="ms-box">
+<div class="ms-label">Complete This Sentence</div>
+<div class="ms-sentence">I like the people at my office because they <span class="blank">___</span> and they always <span class="blank">___</span>.</div>
+<div class="ms-hw"><strong>📱 WhatsApp Homework:</strong> Record this sentence as a voice note (30 seconds). Say it naturally, like you are talking to a friend. Send it to your teacher.</div>
+</div>
+<div class="tn-wrap">
+<button class="tn-toggle" onclick="toggleTN(this)">Teacher Notes</button>
+<div class="tn-body">
+<div class="tn-capa"><div class="tn-cl">Capa 1 · Pedagogical</div><div class="tn-txt"><ul>
+<li>Model: "I like the people at my office because they help me and they always share information."</li>
+<li>Two clauses with "they" + verb. No third-person -s needed here — relief after the drilling above.</li>
+<li>Pronunciation: "peo-ple" (2 syllables), "be-CAUSE", "al-ways".</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 2 · Engagement</div><div class="tn-txt"><ul>
+<li>"That sentence is real. You mean it. And you said it in English. That is powerful."</li>
+</ul></div></div>
+<div class="tn-capa"><div class="tn-cl">Capa 3 · Growth & Retention</div><div class="tn-txt"><ul>
+<li>"A1.2 Micro Labs: you can now describe people AND what they DO. That is a huge step from A1.1."</li>
+</ul></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div>Gabriel Turner · Micro Lab</div>
+<div>A1.2 · Work & Corporate Life · People at My Office</div>
+<div>GT_MICROLAB_A1_2_PeopleAtMyOffice_v1</div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';},{passive:true});
+function toggleMode(){const b=document.body,btn=document.getElementById('modeBtn');b.classList.toggle('student-mode');btn.textContent=b.classList.contains('student-mode')?'📋 Teacher Mode':'👁 Student Mode';}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.82;u.pitch=1;speechSynthesis.speak(u);}
+function toggleTN(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
+function toggleModel(btn){btn.nextElementSibling.classList.toggle('open');btn.textContent=btn.nextElementSibling.classList.contains('open')?'🙈 Hide Model Answer':'👁 Show Model Answer';}
+const secs=document.querySelectorAll('.sec-outer');const navs=document.querySelectorAll('.sni');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});navs.forEach(n=>{n.classList.remove('active');if(n.getAttribute('href')==='#'+cur)n.classList.add('active');});},{passive:true});
+</script>
+</body>
+</html>

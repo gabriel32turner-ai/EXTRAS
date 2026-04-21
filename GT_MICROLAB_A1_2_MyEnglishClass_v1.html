@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · My English Class · A1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#8B5CF6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:440px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(139,92,246,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(139,92,246,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(139,92,246,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200" alt="English class learning">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.2</span>
+<span class="chip">Work & Corporate Life</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">My English <em>Class</em></h1>
+<p class="hero-sub">Talk about why you study English, what you like about class, and what is difficult for you.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show something from your English learning — a notebook, an app, or this class screen!</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Show your <strong style="color:var(--ac)">English notebook, a vocabulary list, a language app on your phone, or your class schedule</strong> and describe your English routine.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, look — this is my notebook from when I studied Portuguese. I write new words every class. I always review my notes on the weekend. I also use Duolingo sometimes — but only for vocabulary, not for speaking. I think speaking in class is the most important thing. That's why I teach the way I teach! OK, now you — show me something from YOUR English learning."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">I study English _______ times a week. I have class on _______ .</div>
+<div class="starter">I use _______ to practice. I always / sometimes / never _______ .</div>
+<div class="starter">I like English class because _______ .</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('vocabulary')"><div class="vcard-word">vocabulary</div><div class="vcard-def">words you know</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('grammar')"><div class="vcard-word">grammar</div><div class="vcard-def">rules of language</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('pronunciation')"><div class="vcard-word">pronunciation</div><div class="vcard-def">how you say words</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('mistake')"><div class="vcard-word">mistake</div><div class="vcard-def">error, something wrong</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('progress')"><div class="vcard-word">progress</div><div class="vcard-def">you get better</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('confidence')"><div class="vcard-word">confidence</div><div class="vcard-def">you believe in yourself</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('level')"><div class="vcard-word">level</div><div class="vcard-def">beginner, intermediate...</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('goal')"><div class="vcard-word">goal</div><div class="vcard-def">what you want to reach</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Verbs</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('practice')"><div class="vcard-word">practice</div><div class="vcard-def">do it again and again</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('review')"><div class="vcard-word">review</div><div class="vcard-def">look at it again</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('understand')"><div class="vcard-word">understand</div><div class="vcard-def">you get the meaning</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('forget')"><div class="vcard-word">forget</div><div class="vcard-def">you don't remember</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('improve')"><div class="vcard-word">improve</div><div class="vcard-def">get better</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('struggle')"><div class="vcard-word">struggle</div><div class="vcard-def">have difficulty</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('translate')"><div class="vcard-word">translate</div><div class="vcard-def">change to your language</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('memorize')"><div class="vcard-word">memorize</div><div class="vcard-def">learn and remember</div><div class="vcard-type">verb</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('How do you say...?')"><div class="vcard-word">How do you say...?</div><div class="vcard-def">ask for a word</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('I forgot the word!')"><div class="vcard-word">I forgot the word!</div><div class="vcard-def">I can't remember</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Can you repeat that?')"><div class="vcard-word">Can you repeat that?</div><div class="vcard-def">say it again please</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 3-4 sentences using simple present.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose speaking. For me, speaking is more important than grammar. You can know all the grammar rules but if you can't speak, what's the point? I always tell my students: make mistakes, speak, try again. Grammar comes later. Now you — speaking or grammar?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🗣️</div><div class="coption-label">Speaking is #1</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📝</div><div class="coption-label">Grammar is #1</div></div>
+</div>
+<div class="starters"><div class="starter">For me, _______ is more important. I _______ in class because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏫</div><div class="coption-label">Class with a teacher</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📱</div><div class="coption-label">Apps (Duolingo, etc.)</div></div>
+</div>
+<div class="starters"><div class="starter">I prefer _______ because I can _______ . I use / don't use apps because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👥</div><div class="coption-label">Group class</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">👤</div><div class="coption-label">Private class</div></div>
+</div>
+<div class="starters"><div class="starter">I like _______ classes because _______ . I can / can't _______ in a group.</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🎧</div><div class="coption-label">I learn from listening</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📖</div><div class="coption-label">I learn from reading</div></div>
+</div>
+<div class="starters"><div class="starter">I learn better when I _______ . I usually _______ English content on _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">😰</div><div class="coption-label">English is hard for me</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">😊</div><div class="coption-label">English is fun for me</div></div>
+</div>
+<div class="starters"><div class="starter">English is _______ for me because I _______ . The hardest / best part is _______ .</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">Why do you study English?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I study Portuguese because I like Brazilian culture. But most of my students study English for WORK. Their company needs English. They need English for meetings, emails, and calls with international teams."</div>
+<div class="qcard-prompt">Now you: "I study English because _______ . I need English for..."</div>
+<div class="qtip teacher-only">Tip: This is THE retention question. Whatever they say — write it down. This is their "why." Come back to it in future sessions: "Remember — you said you need English for meetings. Today we practice meeting vocabulary."</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">What is the hardest thing about English for you?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "For me with Portuguese, the hardest thing is listening. People speak very fast! I can read Portuguese, I can write it, but I can't understand fast conversations. I think for my students, speaking is the hardest — they know the words but they can't say them fast."</div>
+<div class="qcard-prompt">Now you: "The hardest thing for me is _______ . I can _______ but I can't..."</div>
+<div class="qtip teacher-only">Tip: Classic can/can't contrast. Push: "Can you READ English? Can you WRITE English? Can you UNDERSTAND songs? Can you SPEAK fast?" Mapping abilities builds awareness.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Do you practice English outside of class? How?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I practice Portuguese with Netflix — I watch series in Portuguese with subtitles. I also listen to music in Portuguese. But I never read books in Portuguese — that's too difficult for me right now."</div>
+<div class="qcard-prompt">Now you: "I practice English with _______ . I sometimes / never _______ in English."</div>
+<div class="qtip teacher-only">Tip: This reveals what they do and DON'T do. If they say "nothing outside class," don't judge — suggest one easy thing: "Can you change your phone to English? That's practice every day!" Practical micro-wins.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">Do you like your English class? What is the best part?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I hope my students like their class! I think the best part is when you can say something new — a new word, a new sentence — and the other person understands you. That moment is magic."</div>
+<div class="qcard-prompt">Now you: "I like my English class because _______ . The best part is when I..."</div>
+<div class="qtip teacher-only">Tip: This is your testimonial moment. Whatever positive thing they say — remember it. You can quote it later: "You said the best part is speaking — and today you spoke for 35 minutes. That's progress."</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">Can you understand English songs or movies without subtitles?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I can understand slow songs in Portuguese but I can't understand fast rap. For movies, I always need subtitles — actors speak too fast! I can understand maybe 40% without subtitles."</div>
+<div class="qcard-prompt">Now you: "I can understand _______ in English. I can't understand _______ because..."</div>
+<div class="qtip teacher-only">Tip: Relatable and safe topic. Push for percentages: "What percentage do you understand? 20%? 50%? 80%?" Numbers make it concrete and trackable over time.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">Do you speak English at work? When?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My students sometimes need English for emails or calls with the US or Europe. Some of them speak English every day at work. Others never use it — but their company wants them to learn for the future."</div>
+<div class="qcard-prompt">Now you: "I speak / don't speak English at work. I need English for..."</div>
+<div class="qtip teacher-only">Tip: Connects class to real work — the reason they're here. If they use English at work, ask: "In meetings? In emails? On the phone? With who?" If they don't: "Do your colleagues speak English? Does your boss?"</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 7</div>
+<div class="qcard-q">What English word do you always forget?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "In Portuguese, I always forget the word for 'ceiling'! I know it, I learn it, and then I forget it again. I think everybody has that one word that never stays in the brain."</div>
+<div class="qcard-prompt">Now you: "I always forget the word _______ . I also struggle with..."</div>
+<div class="qtip teacher-only">Tip: Light and fun. Students usually laugh and share frustrating words. Use the moment to teach: "OK, let's fix that word RIGHT NOW. Say it 5 times." Instant micro-win.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 8</div>
+<div class="qcard-q">What is your English goal? What do you want to do in English?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My Portuguese goal is to have a full conversation with a Brazilian person. No Spanish, no English — only Portuguese. For 10 minutes. That's my goal. I think most of my students want to speak English in a meeting without being nervous."</div>
+<div class="qcard-prompt">Now you: "My English goal is to _______ . I want to _______ in English without..."</div>
+<div class="qtip teacher-only">Tip: This is the closer — their WHY and their DESTINATION. Write it down. Repeat it back to them: "Your goal is to [X]. We work on that every class. You're closer than you think." Retention gold.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about your English journey. I go first: 'I study English because I need it for my work and I want to speak without being nervous in meetings.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">I study English because I <span>_______</span> and I want to <span>_______</span> without <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.2 · Work & Corporate Life</div>
+<div class="ftr-info">My English Class — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.82;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

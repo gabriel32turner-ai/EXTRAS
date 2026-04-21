@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · Foods I Like and Foods I Hate · A1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#8B5CF6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:440px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(139,92,246,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(139,92,246,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(139,92,246,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200" alt="Food variety">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.2</span>
+<span class="chip">Health & Wellness</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">Foods I Like and Foods <em>I Hate</em></h1>
+<p class="hero-sub">Talk about your favorite and least favorite foods. Use simple present to describe what you eat, cook, and buy.</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show a photo of your favorite food and describe it</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Search on your phone for a <strong style="color:var(--ac)">photo of your favorite food or a meal you eat every week</strong> and describe it.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, look — this is my favorite food: tacos al pastor. I eat tacos every Friday. I always go to the same place near my house. I like them with pineapple and a lot of salsa. I can eat 6 or 7 in one sitting! My wife says I eat too many, but I don't care. OK, now you — show me YOUR favorite food."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">This is my favorite food: _______ . I eat it every _______ .</div>
+<div class="starter">I usually go to _______ . I like it with _______ .</div>
+<div class="starter">I can eat _______ in one sitting!</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('snack')"><div class="vcard-word">snack</div><div class="vcard-def">small food between meals</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('recipe')"><div class="vcard-word">recipe</div><div class="vcard-def">instructions to cook</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('ingredient')"><div class="vcard-word">ingredient</div><div class="vcard-def">what you need to cook</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('dessert')"><div class="vcard-word">dessert</div><div class="vcard-def">sweet food after dinner</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('diet')"><div class="vcard-word">diet</div><div class="vcard-def">what you eat regularly</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('portion')"><div class="vcard-word">portion</div><div class="vcard-def">how much food you eat</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('flavor')"><div class="vcard-word">flavor</div><div class="vcard-def">how food tastes</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('craving')"><div class="vcard-word">craving</div><div class="vcard-def">when you really want food</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Verbs</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('cook')"><div class="vcard-word">cook</div><div class="vcard-def">make food at home</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('eat')"><div class="vcard-word">eat</div><div class="vcard-def">put food in your mouth</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('order')"><div class="vcard-word">order</div><div class="vcard-def">ask for food at a place</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('avoid')"><div class="vcard-word">avoid</div><div class="vcard-def">stay away from</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('try')"><div class="vcard-word">try</div><div class="vcard-def">eat for the first time</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('hate')"><div class="vcard-word">hate</div><div class="vcard-def">really don't like</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('prepare')"><div class="vcard-word">prepare</div><div class="vcard-def">get food ready</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('share')"><div class="vcard-word">share</div><div class="vcard-def">give food to others</div><div class="vcard-type">verb</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('I\'m starving!')"><div class="vcard-word">I'm starving!</div><div class="vcard-def">I'm very hungry</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('That\'s disgusting!')"><div class="vcard-word">That's disgusting!</div><div class="vcard-def">that food is terrible</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('I can\'t stop eating!')"><div class="vcard-word">I can't stop eating!</div><div class="vcard-def">it's too delicious</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 3-4 sentences using simple present.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose street food. I love tacos and tortas from the street. I eat street food 3 times a week. I know it's not always clean, but I don't care — the flavor is amazing. Restaurant food is good too, but it's expensive and sometimes boring. Now you — street food or restaurant food?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌮</div><div class="coption-label">Street food</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🍽️</div><div class="coption-label">Restaurant food</div></div>
+</div>
+<div class="starters"><div class="starter">I like _______ more. I eat it _______ times a week because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🍕</div><div class="coption-label">Pizza</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🍔</div><div class="coption-label">Burgers</div></div>
+</div>
+<div class="starters"><div class="starter">I always choose _______ . I usually order it with _______ . I eat it on _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🥗</div><div class="coption-label">Healthy food</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🍟</div><div class="coption-label">Junk food</div></div>
+</div>
+<div class="starters"><div class="starter">I usually eat _______ . I know it's _______ but I like it because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏠</div><div class="coption-label">Cook at home</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📱</div><div class="coption-label">Order delivery</div></div>
+</div>
+<div class="starters"><div class="starter">I _______ almost every day. I _______ because it's _______ and _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌶️</div><div class="coption-label">Spicy food</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🧁</div><div class="coption-label">Sweet food</div></div>
+</div>
+<div class="starters"><div class="starter">I always prefer _______ . I eat _______ every day. I can't eat _______ because _______ .</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">What do you usually eat for breakfast?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I usually eat eggs and toast. I always drink coffee — black, no sugar. Sometimes I eat fruit, but I never eat cereal. Cereal is for kids!"</div>
+<div class="qcard-prompt">Now you: "I usually eat _______ for breakfast. I always drink..."</div>
+<div class="qtip teacher-only">Tip: Push for frequency adverbs: "ALWAYS eggs? Or SOMETIMES? Do you NEVER eat something sweet?" Each adverb is a new sentence. Stack them.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">What food do you hate? Why?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I hate liver. I can't eat it. The smell is terrible and the flavor is disgusting. My mom cooks liver sometimes and I always say no. I also don't like sushi — I know it's popular, but I avoid it."</div>
+<div class="qcard-prompt">Now you: "I hate _______ . I can't eat it because..."</div>
+<div class="qtip teacher-only">Tip: "Hate" produces energy — students get animated. Push: "Is it the smell? The flavor? The texture? Why EXACTLY do you hate it?" Forces specific vocabulary.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Can you cook? What do you usually cook?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I can cook simple things — pasta, eggs, rice. I cook on weekends when I have time. But I can't cook fish or anything complicated. My wife cooks better than me."</div>
+<div class="qcard-prompt">Now you: "I can cook _______ . I usually cook on _______ . I can't cook..."</div>
+<div class="qtip teacher-only">Tip: Perfect "can/can't" practice. Push the contrast: "OK, you CAN cook pasta — but CAN you cook sushi? CAN you cook a cake?" Every "can't" is an honest sentence.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">Do you eat the same food every day or do you like variety?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I eat the same breakfast every day — eggs and coffee. But for lunch and dinner, I like variety. I don't like the same food two days in a row. I get bored."</div>
+<div class="qcard-prompt">Now you: "I usually eat the same _______ every day, but for _______ I like..."</div>
+<div class="qtip teacher-only">Tip: Contrast "every day" vs. "sometimes" — do they have a routine or do they change? Either answer produces good simple present output.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">Is there a good restaurant near your house?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes! There is a taco place two blocks from my house. It's cheap and the food is amazing. There are also some pizza places, but they are expensive. I usually go to the taco place on Fridays."</div>
+<div class="qcard-prompt">Now you: "There is _______ near my house. I go there on..."</div>
+<div class="qtip teacher-only">Tip: Natural "there is/there are" practice. Push: "How many restaurants are there near your house? What kind? Is there a market too?" Each "there is" builds fluency.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">What food do you eat when you feel sad or stressed?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "When I feel stressed, I eat chocolate. Always chocolate. I buy a big bar and I eat it all in one night. I know it's not healthy, but it makes me happy for 20 minutes!"</div>
+<div class="qcard-prompt">Now you: "When I feel _______ , I eat _______ . I usually buy..."</div>
+<div class="qtip teacher-only">Tip: Emotional eating — everyone relates. This question gets honest, personal answers. Don't judge — just push for detail: "How much do you eat? Where do you buy it? Do you share it?"</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 7</div>
+<div class="qcard-q">Do you eat breakfast, lunch, AND dinner every day?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "No! I sometimes skip breakfast because I wake up late. I always eat lunch — it's the most important meal for me. And I usually eat a light dinner, maybe just fruit or a sandwich."</div>
+<div class="qcard-prompt">Now you: "I always eat _______ . I sometimes skip _______ because..."</div>
+<div class="qtip teacher-only">Tip: Great for "always/sometimes/never" stacking. Ask about each meal separately: "Breakfast — always, sometimes, or never? Lunch? Dinner?" Three structures in one question.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 8</div>
+<div class="qcard-q">What is a food you want to try but you never eat?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I want to try Korean food. There is a Korean restaurant in Querétaro but I never go. I don't know what to order! I can eat spicy food, so I think I can like Korean food."</div>
+<div class="qcard-prompt">Now you: "I want to try _______ . I never eat it because..."</div>
+<div class="qtip teacher-only">Tip: "Want to try" is a fixed chunk at A1.2 — model it and let them copy. Push: "Why don't you try it? Is there a place near you? Can you cook it at home?" Opens new paths.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about food and your life. I go first: 'I like tacos al pastor because I eat them every Friday and they always make me happy.' Now you — use simple present and 'because.'"
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">I like <span>_______</span> because I <span>_______</span> every <span>_______</span> and it always <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.2 · Health & Wellness</div>
+<div class="ftr-info">Foods I Like and Foods I Hate — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.82;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>

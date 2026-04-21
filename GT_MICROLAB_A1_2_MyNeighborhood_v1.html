@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>GT · A1.2 Micro Lab · My Neighborhood</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0F1923;--card:#18222F;--border:#243243;--text:#EAEAEA;--muted:#8a97ab;--accent:#8B5CF6;--accent-dim:rgba(139,92,246,0.09);--accent-med:rgba(139,92,246,0.18);--accent-border:rgba(139,92,246,0.38)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.07);padding:0 1.75rem;height:54px;display:flex;align-items:center;justify-content:space-between}
+    .topbar-left{display:flex;align-items:center;gap:0.8rem}
+    .topbar-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:#fff;letter-spacing:-0.01em}
+    .topbar-logo span{color:var(--accent)}
+    .topbar-div{width:1px;height:16px;background:rgba(255,255,255,0.07)}
+    .topbar-badge{display:inline-flex;align-items:center;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:3px 10px;font-size:0.65rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase}
+    .topbar-right{font-size:0.65rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase}
+    .progress-wrap{position:fixed;top:54px;left:0;right:0;height:2px;background:rgba(255,255,255,0.04);z-index:99}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent) 0%,#a78bfa 100%);width:0%;transition:width 0.35s ease}
+    .mode-banner{background:rgba(139,92,246,0.06);border-bottom:1px solid rgba(139,92,246,0.12);padding:0.55rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .mode-banner-text{font-size:0.72rem;color:rgba(255,255,255,0.5);font-weight:300}
+    .mode-banner-text strong{color:rgba(255,255,255,0.8);font-weight:500}
+    .mode-toggle{display:flex;align-items:center;gap:0.5rem;cursor:pointer;touch-action:manipulation}
+    .mt-label{font-size:0.7rem;color:var(--muted);white-space:nowrap}
+    .mt-track{width:36px;height:20px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:20px;position:relative;transition:background 0.2s,border-color 0.2s;flex-shrink:0}
+    .mt-track.on{background:rgba(139,92,246,0.25);border-color:rgba(139,92,246,0.45)}
+    .mt-thumb{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform 0.2s,background 0.2s}
+    .mt-track.on .mt-thumb{transform:translateX(16px);background:var(--accent)}
+    .hero{position:relative;height:300px;overflow:hidden}
+    .hero-img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;filter:brightness(0.4) saturate(0.75)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(155deg,rgba(15,25,35,0.05) 0%,rgba(15,25,35,0.3) 35%,rgba(15,25,35,0.82) 65%,var(--navy) 100%)}
+    .hero-stripe{position:absolute;top:0;right:0;width:260px;height:100%;background:linear-gradient(130deg,transparent 55%,rgba(139,92,246,0.05) 100%);pointer-events:none}
+    .hero-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 2rem 2rem}
+    .eyebrow{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.7rem}
+    .eyebrow-tag{font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase}
+    .eyebrow-sep{width:20px;height:1px;background:rgba(139,92,246,0.45)}
+    .eyebrow-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+    .hero-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em;color:#fff;max-width:600px}
+    .hero-title .hl{color:var(--accent)}
+    .hero-sub{margin-top:0.65rem;font-size:0.82rem;color:rgba(255,255,255,0.4);font-weight:300;font-style:italic;max-width:400px;line-height:1.5}
+    .main{max-width:880px;margin:0 auto;padding:0 1.5rem 5rem}
+    .section{margin-top:3rem}
+    .sec-header{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.4rem}
+    .sec-emoji{font-size:1.6rem}
+    .sec-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:-0.02em}
+    .sec-sub{font-size:0.75rem;color:var(--muted);margin-left:2.7rem;margin-bottom:1.2rem}
+    .sec-time{display:inline-block;background:var(--accent-dim);border:1px solid rgba(139,92,246,0.2);border-radius:20px;padding:2px 10px;font-size:0.6rem;font-weight:700;color:var(--accent);letter-spacing:0.04em;margin-left:0.5rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem 1.4rem;margin-bottom:0.9rem}
+    .card-label{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem}
+    .card p{font-size:0.88rem;color:rgba(255,255,255,0.82);line-height:1.55}
+    .tnote{background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.15);border-radius:10px;padding:1rem 1.2rem;margin-top:0.7rem;display:none}
+    .tnote-title{font-size:0.62rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem}
+    .tnote p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.55}
+    body.teacher-on .tnote{display:block}
+    .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:0.6rem;margin-top:0.8rem}
+    .vcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.85rem 0.9rem;cursor:pointer;transition:border-color 0.2s,transform 0.12s;text-align:center}
+    .vcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .vcard:active{transform:scale(0.97)}
+    .vcard-word{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.25rem}
+    .vcard-def{font-size:0.7rem;color:var(--muted);line-height:1.35}
+    .vcard-type{font-size:0.55rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.3rem}
+    .colloquial-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.6rem;margin-top:0.6rem}
+    .ccard{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.18);border-radius:10px;padding:0.75rem 0.9rem;cursor:pointer;text-align:center;transition:border-color 0.2s}
+    .ccard:hover{border-color:var(--accent)}
+    .ccard-phrase{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--accent)}
+    .ccard-use{font-size:0.65rem;color:var(--muted);margin-top:0.2rem}
+    .choose-pair{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-bottom:1.2rem}
+    .choose-opt{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.3rem 1rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+    .choose-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .choose-opt:active{transform:scale(0.96)}
+    .choose-emoji{font-size:2.2rem;display:block;margin-bottom:0.4rem}
+    .choose-label{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#fff}
+    .choose-starters{font-size:0.78rem;color:var(--muted);margin-top:0.2rem;line-height:1.5;padding:0 0.5rem;margin-bottom:0.6rem}
+    .qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+    .qcard::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:0.5}
+    .qcard-num{font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:800;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem}
+    .qcard-q{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:0.6rem}
+    .qcard-prompt{font-size:0.82rem;color:var(--muted);font-style:italic;margin-bottom:0.7rem}
+    .qcard-model{background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:0.9rem 1rem;display:none}
+    .qcard-model-label{font-size:0.58rem;font-weight:700;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem}
+    .qcard-model p{font-size:0.82rem;color:rgba(255,255,255,0.72);line-height:1.55}
+    .qcard-btn{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);color:var(--accent);font-size:0.7rem;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+    .qcard-btn:hover{background:rgba(139,92,246,0.18)}
+    .sentence-box{background:var(--card);border:2px solid rgba(139,92,246,0.25);border-radius:16px;padding:2rem 1.8rem;text-align:center}
+    .sentence-box p{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.6}
+    .sentence-box .blank{border-bottom:2px dashed var(--accent);padding:0 0.5rem;color:var(--accent);font-style:italic}
+    .sentence-hw{margin-top:1rem;font-size:0.75rem;color:var(--muted);font-style:italic}
+    .footer{text-align:center;padding:2.5rem 1rem;border-top:1px solid rgba(255,255,255,0.05);margin-top:3rem}
+    .footer p{font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase}
+    @media(max-width:600px){
+      .topbar{padding:0 1rem;height:48px}.hero{height:240px}.hero-content{padding:1rem 1.2rem 1.4rem}.main{padding:0 1rem 4rem}.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.choose-pair{gap:0.5rem}.choose-emoji{font-size:1.7rem}.qcard{padding:1.2rem}.sentence-box{padding:1.4rem 1rem}.sentence-box p{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">GABRIEL TURNER<span> ·</span> Micro Lab</div>
+    <div class="topbar-div"></div>
+    <div class="topbar-badge">A1.2</div>
+  </div>
+  <div class="topbar-right">40 min</div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+<div class="mode-banner">
+  <div class="mode-banner-text"><strong>Teacher Mode</strong> — show teacher notes &amp; model answers</div>
+  <div class="mode-toggle" onclick="toggleMode()">
+    <span class="mt-label">OFF</span>
+    <div class="mt-track" id="mtTrack"><div class="mt-thumb"></div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&q=80" alt="neighborhood street view">
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-tag">A1.2 · Micro Lab</span>
+      <span class="eyebrow-sep"></span>
+      <span class="eyebrow-sub">Daily Life &amp; Lifestyle</span>
+    </div>
+    <h1 class="hero-title">My <span class="hl">Neighborhood</span></h1>
+    <p class="hero-sub">The streets, the shops, the people — tell us about the place you live.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🎪</span>
+      <span class="sec-title">Show &amp; Tell</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Show a photo of your street or your neighborhood and describe it.</p>
+
+    <div class="card">
+      <div class="card-label">Your Task</div>
+      <p>Open Google Maps or your phone gallery. Find a photo of <strong>your neighborhood</strong> — your street, a nearby store, a park, your building. Show it and describe what is there.</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Script — Model First</div>
+      <p>"Look — this is my street. There is a small park and there are many trees. I walk there every morning. There is a coffee shop on the corner — I go there on Saturdays. I like my neighborhood because it is quiet. OK — show me YOUR neighborhood. What is there?"</p>
+    </div>
+
+    <div class="card" style="margin-top:0.5rem">
+      <div class="card-label">Sentence Starters</div>
+      <p>There is a _______ near my house.<br>There are many _______ .<br>I go to _______ every _______ .<br>I like my neighborhood because _______ .</p>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Google Maps is an incredible tool here — if the student opens Street View, you can literally point at things: "What is THAT? Is there a pharmacy? Is there a bank?" Push for "there is" and "there are" — this is the target structure. Correct: "there are a stores" → "there are STORES" / "there is a store."</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">💉</span>
+      <span class="sec-title">Vocab Injection</span>
+      <span class="sec-time">8 min</span>
+    </div>
+    <p class="sec-sub">Click each word to hear the pronunciation.</p>
+
+    <div class="card">
+      <div class="card-label">Nouns</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('neighborhood')"><div class="vcard-type">Noun</div><div class="vcard-word">neighborhood</div><div class="vcard-def">area where you live</div></div>
+        <div class="vcard" onclick="speak('corner')"><div class="vcard-type">Noun</div><div class="vcard-word">corner</div><div class="vcard-def">where streets meet</div></div>
+        <div class="vcard" onclick="speak('block')"><div class="vcard-type">Noun</div><div class="vcard-word">block</div><div class="vcard-def">one section of street</div></div>
+        <div class="vcard" onclick="speak('sidewalk')"><div class="vcard-type">Noun</div><div class="vcard-word">sidewalk</div><div class="vcard-def">path for walking</div></div>
+        <div class="vcard" onclick="speak('pharmacy')"><div class="vcard-type">Noun</div><div class="vcard-word">pharmacy</div><div class="vcard-def">store for medicine</div></div>
+        <div class="vcard" onclick="speak('bakery')"><div class="vcard-type">Noun</div><div class="vcard-word">bakery</div><div class="vcard-def">store for bread</div></div>
+        <div class="vcard" onclick="speak('neighbor')"><div class="vcard-type">Noun</div><div class="vcard-word">neighbor</div><div class="vcard-def">person next door</div></div>
+        <div class="vcard" onclick="speak('noise')"><div class="vcard-type">Noun</div><div class="vcard-word">noise</div><div class="vcard-def">loud sounds</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Verbs</div>
+      <div class="vocab-grid">
+        <div class="vcard" onclick="speak('walk')"><div class="vcard-type">Verb</div><div class="vcard-word">walk</div><div class="vcard-def">go on foot</div></div>
+        <div class="vcard" onclick="speak('buy')"><div class="vcard-type">Verb</div><div class="vcard-word">buy</div><div class="vcard-def">pay money for</div></div>
+        <div class="vcard" onclick="speak('park')"><div class="vcard-type">Verb</div><div class="vcard-word">park</div><div class="vcard-def">leave your car</div></div>
+        <div class="vcard" onclick="speak('drive')"><div class="vcard-type">Verb</div><div class="vcard-word">drive</div><div class="vcard-def">use a car</div></div>
+        <div class="vcard" onclick="speak('live')"><div class="vcard-type">Verb</div><div class="vcard-word">live</div><div class="vcard-def">your home is there</div></div>
+        <div class="vcard" onclick="speak('visit')"><div class="vcard-type">Verb</div><div class="vcard-word">visit</div><div class="vcard-def">go to see</div></div>
+        <div class="vcard" onclick="speak('cross')"><div class="vcard-type">Verb</div><div class="vcard-word">cross</div><div class="vcard-def">go to other side</div></div>
+        <div class="vcard" onclick="speak('run')"><div class="vcard-type">Verb</div><div class="vcard-word">run</div><div class="vcard-def">move fast on foot</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Colloquial Phrases</div>
+      <div class="colloquial-row">
+        <div class="ccard" onclick="speak('Around the corner')"><div class="ccard-phrase">"Around the corner"</div><div class="ccard-use">= very close</div></div>
+        <div class="ccard" onclick="speak('That sounds nice!')"><div class="ccard-phrase">"That sounds nice!"</div><div class="ccard-use">= I like that</div></div>
+        <div class="ccard" onclick="speak('Lucky you!')"><div class="ccard-phrase">"Lucky you!"</div><div class="ccard-use">= you are fortunate</div></div>
+      </div>
+    </div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>"Neighborhood" is the hardest word here — NAY-bor-hood. Drill it 3 times. Students want to say "NEI-bor-jud". Also "sidewalk" — students know "banqueta" but not this word. "Around the corner" is incredibly useful — model it in 3 contexts: "The pharmacy is around the corner. The park is around the corner. My favorite restaurant is around the corner."</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🔀</span>
+      <span class="sec-title">Choose &amp; Speak</span>
+      <span class="sec-time">10 min</span>
+    </div>
+    <p class="sec-sub">Choose one and explain with 3-4 sentences.</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher — Model the First One</div>
+      <p>"I choose quiet neighborhood. My street is very quiet. There are not many cars. I can walk at night and I feel safe. I don't like noise — I never go to noisy areas. OK, you choose!"</p>
+    </div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🤫</span><span class="choose-label">Quiet Neighborhood</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🎉</span><span class="choose-label">Busy Neighborhood</span></div>
+    </div>
+    <div class="choose-starters">I live in a _______ neighborhood. I like it because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🚶</span><span class="choose-label">Walk Everywhere</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🚗</span><span class="choose-label">Drive Everywhere</span></div>
+    </div>
+    <div class="choose-starters">I usually _______ to _______ because _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🏪</span><span class="choose-label">Many Stores Nearby</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🌳</span><span class="choose-label">More Nature, Few Stores</span></div>
+    </div>
+    <div class="choose-starters">Near my house there are _______ . I go to _______ every _______ .</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">👋</span><span class="choose-label">Friendly Neighbors</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">🚪</span><span class="choose-label">Private — I Don't Know Them</span></div>
+    </div>
+    <div class="choose-starters">My neighbors are _______ . I sometimes _______ with them.</div>
+
+    <div class="choose-pair">
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">😍</span><span class="choose-label">I Love My Neighborhood</span></div>
+      <div class="choose-opt" onclick="this.style.borderColor='var(--accent)'"><span class="choose-emoji">😐</span><span class="choose-label">I Want to Move</span></div>
+    </div>
+    <div class="choose-starters">I _______ my neighborhood because _______ . I want _______ .</div>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>The "neighbors" pair is culturally loaded in Mexico — many people know their neighbors well, or deliberately avoid them. Both answers generate great language. Push: "What do you do with your neighbors? Do you talk? Do you eat together?" The last pair — love vs. move — often surprises. Many students suddenly open up about wanting to live somewhere else. Let them talk.</p>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">🃏</span>
+      <span class="sec-title">Question Cards</span>
+      <span class="sec-time">12 min</span>
+    </div>
+    <p class="sec-sub">Teacher models first. Then you personalize.</p>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 01</div>
+      <div class="qcard-q">What is there near your house?</div>
+      <div class="qcard-prompt">Now you: list everything near YOUR house.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"There is a park near my house. There are two restaurants and a pharmacy. There is also a small supermarket on the corner. I buy groceries there every week."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>This is a "there is/are" machine. Push for quantity: "How many restaurants are there? Are there banks? Is there a gym?" Every answer = one target structure sentence.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 02</div>
+      <div class="qcard-q">Do you like your neighborhood?</div>
+      <div class="qcard-prompt">Now you: what do YOU like and dislike?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes, I like my neighborhood. It is quiet and safe. I like the park and the coffee shop. But I don't like the traffic on Monday mornings — it is terrible."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Push for both positive AND negative: "What DON'T you like?" This generates the "I don't like..." structure naturally.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 03</div>
+      <div class="qcard-q">Is there a good restaurant near your house?</div>
+      <div class="qcard-prompt">Now you: where do YOU eat near home?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes! There is a taco place around the corner. The tacos are incredible. I eat there every Friday. There is also a pizza place but I don't go there — it is expensive."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Food + location = high engagement. Push: "How often do you eat there? Do you walk or drive? What do you eat?" Each follow-up = another sentence.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 04</div>
+      <div class="qcard-q">Can you walk to the supermarket from your house?</div>
+      <div class="qcard-prompt">Now you: what can you walk to? What do you need a car for?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"I can walk to the pharmacy and the park. They are very close. But I can't walk to the supermarket — it is 3 kilometers. I always drive there on Saturdays."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Great can/can't + location combo. Push for distances: "How far is the gym? Can you walk there in 10 minutes?" Mixes can/can't with there is/are naturally.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 05</div>
+      <div class="qcard-q">Do you know your neighbors?</div>
+      <div class="qcard-prompt">Now you: describe YOUR relationship with your neighbors.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"I know my neighbors on the left side. They are very nice — we sometimes talk in the morning. But I don't know the neighbors on the right side. They are very private."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Culturally rich in Mexico. Push for descriptions: "Are they nice? Are they noisy? Do they have kids? Do they have a dog?" This generates third person + adjectives.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 06</div>
+      <div class="qcard-q">Is there a lot of traffic in your area?</div>
+      <div class="qcard-prompt">Now you: how is traffic near YOUR house?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"Yes, there is a lot of traffic at 8 AM. My street is small but many cars use it. I usually leave my house early because the traffic is terrible. On weekends there is no traffic — it is perfect."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Traffic is universal frustration in Mexican cities. Push for time specifics: "What time is bad? What time is good?" Generates natural use of "at" + time.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 07</div>
+      <div class="qcard-q">What do you usually do in your neighborhood on weekends?</div>
+      <div class="qcard-prompt">Now you: describe YOUR weekend in your area.</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"On weekends I walk in the park. I sometimes buy coffee at the cafe around the corner. I also go to the supermarket on Saturdays. I like my neighborhood on weekends because it is quiet."</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>Cross-references "My Weekend Routine" if they did that lab. Great for recycling vocab. Push for frequency: "Do you ALWAYS walk? Or just sometimes?" Layers adverbs on top of location language.</p></div>
+    </div>
+
+    <div class="qcard">
+      <div class="qcard-num">Question 08</div>
+      <div class="qcard-q">What is missing in your neighborhood?</div>
+      <div class="qcard-prompt">Now you: what do YOU need that isn't there?</div>
+      <button class="qcard-btn" onclick="toggleModel(this)">▶ Show Model Answer</button>
+      <div class="qcard-model"><div class="qcard-model-label">Teacher Model</div><p>"There is no gym near my house — I always drive 20 minutes to the gym. I also want a good coffee shop. There are restaurants but there is no cafe with good coffee. That is a problem!"</p></div>
+      <div class="tnote"><div class="tnote-title">Teacher Tip</div><p>"There is no..." and "There are no..." are key negatives for this level. Push: "Is there a gym? No? Is there a cinema? No?" Every "no" generates "There is no..." Great closer because it ends with an opinion/desire.</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-emoji">✨</span>
+      <span class="sec-title">My Sentence</span>
+      <span class="sec-time">5 min</span>
+    </div>
+    <p class="sec-sub">Build one perfect sentence. Practice it. Record it.</p>
+
+    <div class="sentence-box">
+      <p>I like my neighborhood because there is <span class="blank">_______</span> and I always <span class="blank">_______</span> on <span class="blank">_______</span> .</p>
+    </div>
+    <p class="sentence-hw">🎙️ Record this sentence as a WhatsApp voice note (30 seconds).</p>
+
+    <div class="tnote">
+      <div class="tnote-title">Teacher Tip</div>
+      <p>Target: "I like my neighborhood because there is a park near my house and I always walk there on Saturdays." This stacks: like + because + there is + frequency adverb + day. Full A1.2 arsenal in one sentence. Three repetitions, then record. If they don't like their neighborhood, alternative: "I don't like my neighborhood because there is no _______ and I always have to drive to _______."</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>GABRIEL TURNER · Micro Lab · A1.2 · Daily Life &amp; Lifestyle</p>
+</div>
+
+<script>
+  let teacherOn=false;
+  function toggleMode(){teacherOn=!teacherOn;document.body.classList.toggle('teacher-on',teacherOn);const t=document.getElementById('mtTrack');t.classList.toggle('on',teacherOn);t.previousElementSibling.textContent=teacherOn?'ON':'OFF'}
+  function toggleModel(btn){const m=btn.nextElementSibling;const o=m.style.display==='block';m.style.display=o?'none':'block';btn.textContent=o?'▶ Show Model Answer':'▼ Hide Model Answer'}
+  function speak(text){if('speechSynthesis' in window){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.82;u.pitch=1;window.speechSynthesis.speak(u)}}
+  window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;const p=h>0?(window.scrollY/h)*100:0;document.getElementById('progFill').style.width=p+'%'});
+</script>
+</body>
+</html>

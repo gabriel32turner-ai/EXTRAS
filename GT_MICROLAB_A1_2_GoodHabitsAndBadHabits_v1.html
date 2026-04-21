@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Lab · Good Habits and Bad Habits · A1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1923;--s1:#18222F;--bd:#243243;--txt:#EAEAEA;--mt:#8a97ab;--dim:#556677;--ac:#8B5CF6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body.student-mode .teacher-only{display:none!important}
+.hdr{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:48px}
+.brand{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:8px}
+.brand-dot{width:7px;height:7px;background:var(--ac);border-radius:50%}
+.mode-btn{background:var(--ac);color:#fff;border:none;padding:6px 14px;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.mode-btn.student{background:#2a3a4e;color:#fff}
+.hero{position:relative;height:300px;overflow:hidden;border-bottom:1px solid var(--bd)}
+.hero img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,25,35,.3) 0%,rgba(15,25,35,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.hero-chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);padding:4px 10px;font-size:10px;font-weight:700;color:var(--ac);font-family:'Syne',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.hero-title{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;line-height:.95;color:#fff;margin-bottom:8px}
+.hero-title em{color:var(--ac);font-style:normal}
+.hero-sub{font-size:13px;color:var(--mt);max-width:440px}
+.snav{background:var(--s1);border-bottom:1px solid var(--bd);padding:0 24px;display:flex;overflow-x:auto}
+.sni{padding:12px 14px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:all .18s}
+.sni:hover{color:var(--txt);border-bottom-color:rgba(139,92,246,.3)}
+.sni.active{color:var(--ac);border-bottom-color:var(--ac)}
+.sec-wrap{border-bottom:1px solid var(--bd)}
+.sec{padding:36px 24px;max-width:880px;margin:0 auto}
+.sec-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.sec-left{display:flex;flex-direction:column;gap:4px}
+.sec-emoji{font-size:28px;margin-bottom:4px}
+.sec-lbl{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ac)}
+.sec-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.sec-sub{font-size:12px;color:var(--mt)}
+.sec-time{border:1px solid rgba(139,92,246,.25);color:var(--ac);padding:3px 9px;font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+body.student-mode .sec-time{display:none}
+.card{background:var(--s1);border:1px solid var(--bd);padding:20px;margin-bottom:12px}
+.card-label{font-family:'Syne',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.tscript{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:16px;margin-bottom:16px;font-size:13px;color:var(--txt);line-height:1.7}
+.tscript strong{color:var(--ac)}
+.starters{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.starter{background:var(--bg);border:1px solid var(--bd);padding:10px 14px;font-size:13px;color:var(--mt);font-style:italic}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.vcard{background:var(--s1);border:1px solid var(--bd);padding:14px 12px;cursor:pointer;transition:border-color .2s,transform .15s}
+.vcard:hover{border-color:var(--ac);transform:translateY(-2px)}
+.vcard-word{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.vcard-def{font-size:11px;color:var(--mt)}
+.vcard-type{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.cpair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.coption{background:var(--s1);border:2px solid var(--bd);padding:22px 16px;text-align:center;cursor:pointer;transition:all .2s}
+.coption:hover{border-color:var(--ac);background:rgba(139,92,246,.05)}
+.coption-emoji{font-size:36px;margin-bottom:6px}
+.coption-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff}
+.qcard{background:var(--s1);border:1px solid var(--bd);padding:22px;margin-bottom:14px}
+.qcard-num{font-family:'Syne',sans-serif;font-size:9px;font-weight:700;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.qcard-q{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:10px}
+.qcard-model{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.15);padding:12px;font-size:12.5px;color:var(--mt);line-height:1.6;display:none;margin-bottom:10px}
+.qcard-model strong{color:var(--ac)}
+.qcard-prompt{font-size:12px;color:var(--ac);font-weight:700;margin-bottom:8px}
+.show-model{background:transparent;border:1px solid var(--bd);color:var(--mt);padding:5px 12px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.show-model:hover{border-color:var(--ac);color:var(--ac)}
+.qtip{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.12);padding:10px;font-size:11px;color:var(--mt);display:none;margin-top:8px}
+.sentence-box{background:var(--s1);border:2px solid var(--ac);padding:28px;text-align:center}
+.sentence-text{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.5}
+.sentence-text span{border-bottom:2px dashed var(--ac);padding:0 8px;color:var(--ac)}
+.hw-box{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);padding:14px;margin-top:16px;font-size:12px;color:var(--mt);text-align:center}
+.ftr{background:var(--s1);border-top:1px solid var(--bd);padding:24px;text-align:center}
+.ftr-brand{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.ftr-info{font-size:11px;color:var(--dim)}
+@media(max-width:600px){.hero-title{font-size:28px}.sec{padding:28px 16px}.cpair{grid-template-columns:1fr}.vgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.hdr{padding:0 16px}.snav{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+<div class="brand"><span class="brand-dot"></span> GABRIEL TURNER · Micro Lab</div>
+<button class="mode-btn" onclick="toggleMode()">Teacher Mode</button>
+</header>
+
+<section class="hero">
+<img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200" alt="Exercise healthy habits">
+<div class="hero-overlay">
+<div class="hero-chips">
+<span class="chip">A1.2</span>
+<span class="chip">Daily Life & Lifestyle</span>
+<span class="chip">35 min</span>
+</div>
+<h1 class="hero-title">Good Habits and <em>Bad Habits</em></h1>
+<p class="hero-sub">Talk about what you do every day. The good things and the bad things. Be honest!</p>
+</div>
+</section>
+
+<nav class="snav">
+<a class="sni active" href="#show">🎪 Show & Tell</a>
+<a class="sni" href="#vocab">💉 Vocab</a>
+<a class="sni" href="#choose">🔀 Choose & Speak</a>
+<a class="sni" href="#questions">🃏 Questions</a>
+<a class="sni" href="#sentence">✨ My Sentence</a>
+</nav>
+
+<!-- ═══ PHASE 1: SHOW & TELL ═══ -->
+<div class="sec-wrap" id="show">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🎪</div>
+<div class="sec-lbl">Phase 1</div>
+<div class="sec-title">Show & Tell</div>
+<div class="sec-sub">Show something on your phone that represents a habit — good or bad</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="card">
+<div class="card-label">Today's Object</div>
+<p style="font-size:15px;color:#fff;margin-bottom:12px;">Show your <strong style="color:var(--ac)">screen time, a fitness app, your alarm clock, or your Netflix history</strong> — something that shows a daily habit.</p>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models first:</strong><br>
+"OK, look — this is my screen time. I use my phone 4 hours a day! That's a bad habit. I check Instagram every morning and I watch YouTube every night before I sleep. But I also have a good habit — I drink 2 liters of water every day. I always carry a water bottle. OK, now you — show me something from YOUR phone that shows a habit."
+</div>
+
+<div class="card">
+<div class="card-label">Your Turn — Sentence Starters</div>
+<div class="starters">
+<div class="starter">I use my phone _______ hours a day. I always check _______ .</div>
+<div class="starter">My good habit is: I _______ every day.</div>
+<div class="starter">My bad habit is: I _______ too much.</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 2: VOCAB INJECTION ═══ -->
+<div class="sec-wrap" id="vocab">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">💉</div>
+<div class="sec-lbl">Phase 2</div>
+<div class="sec-title">Vocab Injection</div>
+<div class="sec-sub">Click any word to hear it — practice the pronunciation</div>
+</div>
+<div class="sec-time teacher-only">8 MIN</div>
+</div>
+
+<div class="card-label">Nouns</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('habit')"><div class="vcard-word">habit</div><div class="vcard-def">something you do every day</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('routine')"><div class="vcard-word">routine</div><div class="vcard-def">your daily plan</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('alarm')"><div class="vcard-word">alarm</div><div class="vcard-def">sound that wakes you up</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('screen time')"><div class="vcard-word">screen time</div><div class="vcard-def">hours on your phone</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('gym')"><div class="vcard-word">gym</div><div class="vcard-def">place to exercise</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('junk food')"><div class="vcard-word">junk food</div><div class="vcard-def">unhealthy food</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('nap')"><div class="vcard-word">nap</div><div class="vcard-def">short sleep in the day</div><div class="vcard-type">noun</div></div>
+<div class="vcard" onclick="speak('goal')"><div class="vcard-word">goal</div><div class="vcard-def">what you want to do</div><div class="vcard-type">noun</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Verbs</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('exercise')"><div class="vcard-word">exercise</div><div class="vcard-def">move your body, sport</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('skip')"><div class="vcard-word">skip</div><div class="vcard-def">not do something</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('wake up')"><div class="vcard-word">wake up</div><div class="vcard-def">open your eyes, start day</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('stay up')"><div class="vcard-word">stay up</div><div class="vcard-def">not go to bed late</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('scroll')"><div class="vcard-word">scroll</div><div class="vcard-def">look at your phone</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('procrastinate')"><div class="vcard-word">procrastinate</div><div class="vcard-def">do things later, not now</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('stretch')"><div class="vcard-word">stretch</div><div class="vcard-def">move body slowly</div><div class="vcard-type">verb</div></div>
+<div class="vcard" onclick="speak('meditate')"><div class="vcard-word">meditate</div><div class="vcard-def">sit quiet, relax mind</div><div class="vcard-type">verb</div></div>
+</div>
+
+<div class="card-label" style="margin-top:16px">Colloquial Phrases</div>
+<div class="vgrid">
+<div class="vcard" onclick="speak('I know, I know...')"><div class="vcard-word">I know, I know...</div><div class="vcard-def">yes, it's bad, I know</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('I can\'t help it!')"><div class="vcard-word">I can't help it!</div><div class="vcard-def">I can't stop</div><div class="vcard-type">phrase</div></div>
+<div class="vcard" onclick="speak('Same here!')"><div class="vcard-word">Same here!</div><div class="vcard-def">me too, I do that too</div><div class="vcard-type">phrase</div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 3: CHOOSE & SPEAK ═══ -->
+<div class="sec-wrap" id="choose">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🔀</div>
+<div class="sec-lbl">Phase 3</div>
+<div class="sec-title">Choose & Speak</div>
+<div class="sec-sub">Pick one option. Explain with 3-4 sentences using simple present.</div>
+</div>
+<div class="sec-time teacher-only">10 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher models the first pair:</strong><br>
+"I choose night person. I stay up late almost every night — usually until 12 or 1 AM. I watch series, I scroll on my phone, I read. I know it's a bad habit because I always wake up tired. But I can't help it — the night is MY time. Now you — morning person or night person?"
+</div>
+
+<div class="cpair">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌅</div><div class="coption-label">Morning person</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🌙</div><div class="coption-label">Night person</div></div>
+</div>
+<div class="starters"><div class="starter">I'm a _______ person. I usually _______ at night / in the morning. I can't _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🏃</div><div class="coption-label">I exercise regularly</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🛋️</div><div class="coption-label">I never exercise</div></div>
+</div>
+<div class="starters"><div class="starter">I _______ exercise. I go to _______ . I can / can't _______ because _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">💧</div><div class="coption-label">I drink enough water</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">☕</div><div class="coption-label">I drink too much coffee</div></div>
+</div>
+<div class="starters"><div class="starter">I drink _______ every day. I know I _______ too much _______ but _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📖</div><div class="coption-label">I read before bed</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">📱</div><div class="coption-label">I scroll before bed</div></div>
+</div>
+<div class="starters"><div class="starter">Before I sleep, I always _______ . I spend _______ minutes on _______ .</div></div>
+
+<div class="cpair" style="margin-top:20px">
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🥦</div><div class="coption-label">I eat healthy</div></div>
+<div class="coption" onclick="this.style.borderColor='var(--ac)'"><div class="coption-emoji">🍫</div><div class="coption-label">I eat a lot of junk food</div></div>
+</div>
+<div class="starters"><div class="starter">I usually eat _______ . I know it's _______ but I like it because _______ .</div></div>
+</div>
+</div>
+
+<!-- ═══ PHASE 4: QUESTION CARDS ═══ -->
+<div class="sec-wrap" id="questions">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">🃏</div>
+<div class="sec-lbl">Phase 4</div>
+<div class="sec-title">Question Cards</div>
+<div class="sec-sub">The teacher answers first. Then it's your turn.</div>
+</div>
+<div class="sec-time teacher-only">12 MIN</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 1</div>
+<div class="qcard-q">What is your worst bad habit?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "My worst bad habit is my phone. I check it first thing in the morning — before I even drink water! I scroll Instagram, I read the news, I check WhatsApp. Sometimes I spend 30 minutes in bed just on my phone."</div>
+<div class="qcard-prompt">Now you: "My worst bad habit is _______ . I always _______ and I can't stop."</div>
+<div class="qtip teacher-only">Tip: Everyone has a phone habit — it's universal. If student says "nothing," push: "Come on! Phone? Coffee? Staying up late? Everybody has one bad habit!" Honesty produces the best language.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 2</div>
+<div class="qcard-q">What time do you usually wake up? Is it early enough?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I wake up at 6:30. I need to wake up at 6, but I always hit snooze. I have 3 alarms! It's terrible. I can't wake up with just one alarm."</div>
+<div class="qcard-prompt">Now you: "I wake up at _______ . I need to wake up at _______ but..."</div>
+<div class="qtip teacher-only">Tip: "Hit snooze" is a great chunk to teach — model it. Ask: "How many alarms do you have? Do you wake up on the first alarm or the third?" Gets laughs.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 3</div>
+<div class="qcard-q">Do you exercise? How often?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I exercise 3 times a week. I go to the gym on Monday, Wednesday, and Friday. But sometimes I skip Friday because I'm tired. I can run 5 km but I can't do more than that."</div>
+<div class="qcard-prompt">Now you: "I exercise _______ times a week. I go to _______ . I can _______ but I can't..."</div>
+<div class="qtip teacher-only">Tip: Perfect for "can/can't" + frequency. Push: "Can you run? Can you swim? Can you do push-ups? How many?" Physical ability is concrete and produces real sentences.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 4</div>
+<div class="qcard-q">What do you do before you sleep?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I watch Netflix or YouTube. I stay up until 12 almost every night. I know it's bad for my sleep but I like my quiet time. I never read a book before bed — I always choose the screen."</div>
+<div class="qcard-prompt">Now you: "Before I sleep, I _______ . I usually _______ until _______ ."</div>
+<div class="qtip teacher-only">Tip: Nighttime routines reveal personality. Push for sequence: "First you check your phone, then what? Do you eat something? Do you drink something? What do you watch?"</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 5</div>
+<div class="qcard-q">Is there a gym near your house? Do you go?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "Yes, there is a gym 5 minutes from my house. I go 3 times a week. There are also some parks but I never go to the parks for exercise. I prefer the gym because there is air conditioning!"</div>
+<div class="qcard-prompt">Now you: "There is _______ near my house. I go / I don't go because..."</div>
+<div class="qtip teacher-only">Tip: Natural "there is/there are" moment. Push: "What is INSIDE the gym? Are there machines? Is there a pool? Are there classes?" Every answer is "there is" practice.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 6</div>
+<div class="qcard-q">How many hours do you sleep? Is it enough?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I sleep 6 hours on weekdays. That's not enough — I need 7 or 8. On weekends, I sleep 9 hours. I always feel tired on Monday because I don't sleep enough during the week."</div>
+<div class="qcard-prompt">Now you: "I sleep _______ hours. I need _______ hours. I always feel..."</div>
+<div class="qtip teacher-only">Tip: Sleep is personal and relatable. Ask: "Do you sleep MORE on weekends? How many hours? Is Monday the worst day because of sleep?" Connects habit to feeling.</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 7</div>
+<div class="qcard-q">What is one good habit you do every day?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "I drink 2 liters of water every day. I always carry a bottle. I also eat fruit every morning — usually an apple or a banana. Those are my two good habits. Everything else is... work in progress!"</div>
+<div class="qcard-prompt">Now you: "Every day, I always _______ . I also _______ because..."</div>
+<div class="qtip teacher-only">Tip: After 6 questions about bad habits, this is the positive moment. Celebrate whatever they say: "That's a great habit! Do you do it EVERY day or sometimes you skip?"</div>
+</div>
+
+<div class="qcard">
+<div class="qcard-num">Question 8</div>
+<div class="qcard-q">Can you change a bad habit in one week?</div>
+<button class="show-model" onclick="toggleModel(this)">Show model answer</button>
+<div class="qcard-model"><strong>Teacher:</strong> "No! I can't change a bad habit in one week. I think you need one month or more. I always try to change my phone habit but after 3 days I go back to the same thing. It's very difficult."</div>
+<div class="qcard-prompt">Now you: "I think I can / I can't change _______ in one week because..."</div>
+<div class="qtip teacher-only">Tip: Philosophical closer with "can/can't." Push: "What is harder to change — a food habit or a phone habit? Can you live without your phone for one day?" Big opinion, simple grammar.</div>
+</div>
+</div>
+</div>
+
+<!-- ═══ PHASE 5: MY SENTENCE ═══ -->
+<div class="sec-wrap" id="sentence">
+<div class="sec">
+<div class="sec-hd">
+<div class="sec-left">
+<div class="sec-emoji">✨</div>
+<div class="sec-lbl">Phase 5</div>
+<div class="sec-title">My Sentence</div>
+<div class="sec-sub">Build one perfect sentence. Say it 3 times. Record it.</div>
+</div>
+<div class="sec-time teacher-only">5 MIN</div>
+</div>
+
+<div class="tscript teacher-only">
+<strong>Teacher says:</strong> "Last part. Build ONE perfect sentence about your habits. Use simple present and 'because.' I go first: 'I always check my phone in the morning because I can't start my day without the news and WhatsApp.' Now you."
+</div>
+
+<div class="sentence-box">
+<div class="sentence-text">I always <span>_______</span> every day because I <span>_______</span> and I can't <span>_______</span></div>
+</div>
+
+<div class="hw-box teacher-only">
+📱 <strong>WhatsApp Homework:</strong> Record a 30-second audio saying your sentence. Say it slowly and clearly. Send it to your teacher before the next class.
+</div>
+</div>
+</div>
+
+<footer class="ftr">
+<div class="ftr-brand">Gabriel Turner · Micro Lab · A1.2 · Daily Life & Lifestyle</div>
+<div class="ftr-info">Good Habits and Bad Habits — 35 minutes</div>
+</footer>
+
+<script>
+function toggleMode(){const b=document.querySelector('.mode-btn');const s=document.body.classList.toggle('student-mode');b.textContent=s?'Student Mode':'Teacher Mode';b.classList.toggle('student',s)}
+function speak(t){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.82;speechSynthesis.speak(u)}
+function toggleModel(btn){const m=btn.nextElementSibling;m.style.display=m.style.display==='block'?'none':'block';btn.textContent=m.style.display==='block'?'Hide model answer':'Show model answer'}
+document.querySelectorAll('.sni').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.sni').forEach(n=>n.classList.remove('active'));this.classList.add('active');document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>
