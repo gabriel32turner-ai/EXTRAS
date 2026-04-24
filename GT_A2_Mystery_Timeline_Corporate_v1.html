@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GT — Mystery Timeline · Corporate Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1923;
+    --s1: #141F2B;
+    --s2: #1A2840;
+    --ac: #FF1F5C;
+    --gold: #C9922A;
+    --green: #00E676;
+    --red: #FF5555;
+    --txt: #E4E4E4;
+    --txt-muted: #7A8A9A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--txt);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--s1);
+    border-bottom: 1px solid rgba(255,31,92,0.3);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header-left h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: var(--ac);
+    text-transform: uppercase;
+  }
+
+  .header-left p {
+    font-size: 13px;
+    color: var(--txt-muted);
+    margin-top: 2px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .counter {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    background: var(--s2);
+    border: 1px solid var(--ac);
+    border-radius: 6px;
+    padding: 6px 14px;
+    color: var(--txt);
+  }
+
+  .counter span { color: var(--ac); font-size: 16px; }
+
+  .timer-display {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: var(--gold);
+    background: var(--s2);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 6px 14px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .timer-display:hover { background: rgba(201,146,42,0.15); }
+
+  #teacher-only { display: flex; align-items: center; gap: 10px; }
+
+  .btn-view {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--txt-muted);
+    color: var(--txt-muted);
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-view:hover { border-color: var(--txt); color: var(--txt); }
+
+  /* MAIN LAYOUT */
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 28px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .zone-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--txt-muted);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* EVENT CARDS */
+  .event-card {
+    background: var(--s1);
+    border: 1.5px solid rgba(255,31,92,0.4);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    cursor: grab;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--txt);
+    transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
+    user-select: none;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .event-card:hover { border-color: var(--ac); }
+  .event-card.dragging { opacity: 0.5; cursor: grabbing; }
+  .event-card.locked {
+    border-color: var(--green);
+    background: rgba(0,230,118,0.08);
+    cursor: default;
+    color: var(--green);
+  }
+
+  .event-card.shake {
+    animation: shake 0.3s ease;
+    border-color: var(--red);
+  }
+
+  .event-card.flash-wrong {
+    animation: flashRed 0.4s ease 3;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+
+  @keyframes flashRed {
+    0%,100% { border-color: rgba(255,31,92,0.4); background: var(--s1); }
+    50% { border-color: var(--red); background: rgba(255,85,85,0.12); }
+  }
+
+  @keyframes popGreen {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  /* DROP ZONES */
+  .drop-zone {
+    background: var(--s2);
+    border: 1.5px dashed rgba(255,255,255,0.12);
+    border-radius: 8px;
+    min-height: 60px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+
+  .drop-zone .num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--txt-muted);
+    margin-right: 14px;
+    min-width: 18px;
+    letter-spacing: 0.05em;
+  }
+
+  .drop-zone .placeholder {
+    font-size: 13px;
+    color: rgba(255,255,255,0.15);
+    font-style: italic;
+  }
+
+  .drop-zone.drag-over {
+    border-color: var(--ac);
+    border-style: solid;
+    background: rgba(255,31,92,0.06);
+  }
+
+  .drop-zone.correct {
+    border-color: var(--green);
+    border-style: solid;
+    background: rgba(0,230,118,0.06);
+  }
+
+  /* CONTROLS */
+  .controls-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--s1);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-check {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ac);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .btn-check:hover { opacity: 0.88; }
+  .btn-check:disabled { opacity: 0.35; cursor: default; }
+  .btn-check.pulse { animation: btnPulse 0.4s ease; }
+
+  @keyframes btnPulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .btn-check.shake { animation: shake 0.3s ease; }
+
+  .btn-reset {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--txt-muted);
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-reset:hover { border-color: var(--txt-muted); color: var(--txt); }
+
+  .feedback-msg {
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feedback-msg.visible { opacity: 1; }
+  .feedback-msg.correct { color: var(--green); }
+  .feedback-msg.wrong { color: var(--red); }
+
+  /* SUCCESS OVERLAY */
+  .success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,230,118,0.04);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 50;
+  }
+
+  .success-overlay.active { opacity: 1; }
+
+  /* TEACHER NOTES */
+  .teacher-notes {
+    grid-column: 1 / -1;
+    background: var(--s1);
+    border: 1px solid rgba(201,146,42,0.3);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .notes-toggle {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: none;
+    padding: 16px 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+  }
+
+  .notes-toggle:hover { background: rgba(201,146,42,0.05); }
+  .notes-toggle .arrow { transition: transform 0.2s; }
+  .notes-toggle.open .arrow { transform: rotate(90deg); }
+
+  .notes-body {
+    display: none;
+    padding: 0 20px 20px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--txt-muted);
+  }
+
+  .notes-body.open { display: block; }
+
+  .notes-section { margin-bottom: 20px; }
+
+  .notes-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(201,146,42,0.2);
+  }
+
+  .notes-section ol, .notes-section ul {
+    padding-left: 18px;
+  }
+
+  .notes-section li { margin-bottom: 6px; }
+
+  .notes-section li strong { color: var(--txt); }
+
+  .timing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .timing-item {
+    background: var(--s2);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .timing-item .t { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--gold); }
+  .timing-item .l { color: var(--txt-muted); font-size: 11px; margin-top: 2px; }
+
+  /* STUDENT MODE */
+  body.student-mode .teacher-only { display: none !important; }
+  body.student-mode .teacher-notes { display: none; }
+
+  /* PROMPTS */
+  .prompt-badge {
+    display: inline-block;
+    background: rgba(255,31,92,0.12);
+    border: 1px solid rgba(255,31,92,0.3);
+    color: var(--ac);
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 3px 10px;
+    margin: 3px 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="success-overlay" id="successOverlay"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <h1>Mystery Timeline — Corporate Story</h1>
+    <p>Put the events in the correct order · Past Simple · A2.1</p>
+  </div>
+  <div class="header-right">
+    <div class="counter">Events placed: <span id="placedCount">0</span> / 7</div>
+    <div class="timer-display teacher-only" id="timerDisplay" onclick="resetTimer()" title="Click to reset timer">⏱ <span id="timerVal">00:00</span></div>
+    <div id="teacher-only" class="teacher-only">
+      <button class="btn-view" onclick="toggleStudentMode()" id="viewToggleBtn">Student View</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <!-- LEFT: MIXED ORDER -->
+  <div>
+    <p class="zone-header">Mixed order — debate and drag to the right</p>
+    <div id="mixedZone"></div>
+  </div>
+
+  <!-- RIGHT: DROP ZONES -->
+  <div>
+    <p class="zone-header">Correct order — drop events here</p>
+    <div id="dropZones"></div>
+  </div>
+
+  <!-- TEACHER NOTES -->
+  <div class="teacher-notes teacher-only">
+    <button class="notes-toggle open" id="notesToggle" onclick="toggleNotes()">
+      <span class="arrow">▶</span> Teacher Notes
+    </button>
+    <div class="notes-body open" id="notesBody">
+      <div class="notes-section">
+        <h3>Correct Sequence with Logic</h3>
+        <ol>
+          <li><strong>Maria received an email from the client yesterday</strong> — The email is the START of the story. Everything begins here.</li>
+          <li><strong>She talked to her manager about the project</strong> — First internal action after receiving the email.</li>
+          <li><strong>They organized a meeting with the team</strong> — Decision made to involve the team — preparation begins.</li>
+          <li><strong>The team discussed the proposal</strong> — The meeting happens, discussion follows naturally.</li>
+          <li><strong>They made an important decision</strong> — After discussion, a decision is reached.</li>
+          <li><strong>Maria sent the final plan to the client</strong> — After the decision, the plan is ready to send.</li>
+          <li><strong>The client accepted the proposal</strong> — Last event: the outcome/result of the entire sequence.</li>
+        </ol>
+      </div>
+      <div class="notes-section">
+        <h3>Discussion Prompts — Use these if the group debates</h3>
+        <span class="prompt-badge">"Why did Maria RECEIVE an email FIRST?"</span>
+        <span class="prompt-badge">"What did she DO after she RECEIVED the email?"</span>
+        <span class="prompt-badge">"When did they ORGANIZE the meeting — before or after the discussion?"</span>
+        <span class="prompt-badge">"Why did the client ACCEPT at the end, not at the beginning?"</span>
+      </div>
+      <div class="notes-section">
+        <h3>Follow-up Questions — After correct order</h3>
+        <span class="prompt-badge">"Did Maria TALK to her manager BEFORE or AFTER the meeting?"</span>
+        <span class="prompt-badge">"WHEN did the team DISCUSS the proposal?"</span>
+        <span class="prompt-badge">"What HAPPENED after they MADE the decision?"</span>
+      </div>
+      <div class="notes-section">
+        <h3>Timing Reference</h3>
+        <div class="timing-grid">
+          <div class="timing-item"><div class="t">6–7 min</div><div class="l">Debate + ordering</div></div>
+          <div class="timing-item"><div class="t">3–4 min</div><div class="l">Validation + feedback</div></div>
+          <div class="timing-item"><div class="t">5 min</div><div class="l">Group creates new timeline</div></div>
+          <div class="timing-item"><div class="t">15 min</div><div class="l">Total activity</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- CONTROLS -->
+<div class="controls-bar">
+  <button class="btn-check" id="checkBtn" onclick="checkAnswer()">Check Answer</button>
+  <button class="btn-reset" onclick="resetAll()">Reset</button>
+  <span class="feedback-msg" id="feedbackMsg"></span>
+</div>
+
+<script>
+const EVENTS = [
+  "Maria received an email from the client yesterday.",
+  "She talked to her manager about the project.",
+  "They organized a meeting with the team.",
+  "The team discussed the proposal.",
+  "They made an important decision.",
+  "Maria sent the final plan to the client.",
+  "The client accepted the proposal."
+];
+
+let dropState = Array(7).fill(null);
+let lockedSlots = Array(7).fill(false);
+let draggedId = null;
+let timerInterval = null;
+let timerSeconds = 0;
+let studentMode = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildMixed() {
+  const mixed = document.getElementById('mixedZone');
+  mixed.innerHTML = '';
+  const order = shuffle([0,1,2,3,4,5,6]);
+  order.forEach(i => {
+    const card = makeCard(i);
+    mixed.appendChild(card);
+  });
+}
+
+function makeCard(id) {
+  const card = document.createElement('div');
+  card.className = 'event-card';
+  card.dataset.id = id;
+  card.draggable = true;
+  card.textContent = EVENTS[id];
+  card.addEventListener('dragstart', onDragStart);
+  card.addEventListener('dragend', onDragEnd);
+  return card;
+}
+
+function buildDropZones() {
+  const zone = document.getElementById('dropZones');
+  zone.innerHTML = '';
+  for (let i = 0; i < 7; i++) {
+    const dz = document.createElement('div');
+    dz.className = 'drop-zone';
+    dz.dataset.pos = i;
+    dz.innerHTML = `<span class="num">${i+1}</span><span class="placeholder">Drop event here...</span>`;
+    dz.addEventListener('dragover', onDragOver);
+    dz.addEventListener('dragleave', onDragLeave);
+    dz.addEventListener('drop', onDrop);
+    zone.appendChild(dz);
+  }
+}
+
+function onDragStart(e) {
+  draggedId = parseInt(e.target.dataset.id);
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function onDragEnd(e) {
+  e.target.classList.remove('dragging');
+}
+
+function onDragOver(e) {
+  e.preventDefault();
+  const pos = parseInt(e.currentTarget.dataset.pos);
+  if (!lockedSlots[pos]) {
+    e.currentTarget.classList.add('drag-over');
+  }
+}
+
+function onDragLeave(e) {
+  e.currentTarget.classList.remove('drag-over');
+}
+
+function onDrop(e) {
+  e.preventDefault();
+  const dz = e.currentTarget;
+  const pos = parseInt(dz.dataset.pos);
+  dz.classList.remove('drag-over');
+
+  if (lockedSlots[pos]) return;
+
+  const isCorrect = (draggedId === pos);
+
+  if (isCorrect) {
+    lockedSlots[pos] = true;
+    dropState[pos] = draggedId;
+
+    const card = document.querySelector(`.event-card[data-id="${draggedId}"]`);
+    if (card) card.remove();
+
+    dz.innerHTML = `<span class="num">${pos+1}</span>`;
+    const fixed = document.createElement('div');
+    fixed.className = 'event-card locked';
+    fixed.dataset.id = draggedId;
+    fixed.textContent = EVENTS[draggedId];
+    fixed.style.margin = '0';
+    fixed.style.flex = '1';
+    fixed.style.animation = 'popGreen 0.3s ease';
+    dz.appendChild(fixed);
+    dz.classList.add('correct');
+
+    updateCounter();
+  } else {
+    const card = document.querySelector(`.event-card[data-id="${draggedId}"]`);
+    if (card) {
+      card.classList.add('shake');
+      setTimeout(() => card.classList.remove('shake'), 400);
+    }
+    dz.classList.add('shake');
+    setTimeout(() => dz.classList.remove('shake'), 400);
+  }
+}
+
+function updateCounter() {
+  const count = lockedSlots.filter(Boolean).length;
+  document.getElementById('placedCount').textContent = count;
+  if (count === 7) {
+    showSuccess();
+  }
+}
+
+function checkAnswer() {
+  const count = lockedSlots.filter(Boolean).length;
+  if (count === 0) return;
+
+  const btn = document.getElementById('checkBtn');
+  const msg = document.getElementById('feedbackMsg');
+
+  if (count === 7) {
+    showSuccess();
+  } else {
+    btn.classList.add('shake');
+    setTimeout(() => btn.classList.remove('shake'), 400);
+
+    const cards = document.querySelectorAll('#mixedZone .event-card');
+    cards.forEach(c => {
+      c.classList.add('flash-wrong');
+      setTimeout(() => c.classList.remove('flash-wrong'), 1300);
+    });
+
+    msg.className = 'feedback-msg visible wrong';
+    msg.textContent = `✗ Not quite. Think about what happened first. ${count}/7 correct.`;
+  }
+}
+
+function showSuccess() {
+  document.getElementById('successOverlay').classList.add('active');
+  const btn = document.getElementById('checkBtn');
+  btn.classList.add('pulse');
+  btn.textContent = 'Reveal Explanation';
+  btn.onclick = revealExplanation;
+  setTimeout(() => btn.classList.remove('pulse'), 500);
+
+  const msg = document.getElementById('feedbackMsg');
+  msg.className = 'feedback-msg visible correct';
+  msg.textContent = '✓ PERFECT! That\'s the logical sequence.';
+
+  setTimeout(() => {
+    document.getElementById('successOverlay').classList.remove('active');
+  }, 2000);
+}
+
+function revealExplanation() {
+  const notesBody = document.getElementById('notesBody');
+  const notesToggle = document.getElementById('notesToggle');
+  notesBody.classList.add('open');
+  notesToggle.classList.add('open');
+  notesBody.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  lockedSlots = Array(7).fill(false);
+  dropState = Array(7).fill(null);
+  buildMixed();
+  buildDropZones();
+  document.getElementById('placedCount').textContent = '0';
+  const msg = document.getElementById('feedbackMsg');
+  msg.className = 'feedback-msg';
+  msg.textContent = '';
+  const btn = document.getElementById('checkBtn');
+  btn.textContent = 'Check Answer';
+  btn.onclick = checkAnswer;
+  document.getElementById('successOverlay').classList.remove('active');
+}
+
+function toggleNotes() {
+  const body = document.getElementById('notesBody');
+  const toggle = document.getElementById('notesToggle');
+  body.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+function toggleStudentMode() {
+  studentMode = !studentMode;
+  document.body.classList.toggle('student-mode', studentMode);
+  document.getElementById('viewToggleBtn').textContent = studentMode ? 'Back to Teacher' : 'Student View';
+}
+
+/* TIMER */
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = String(Math.floor(timerSeconds/60)).padStart(2,'0');
+    const s = String(timerSeconds%60).padStart(2,'0');
+    document.getElementById('timerVal').textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+function resetTimer() {
+  timerSeconds = 0;
+  document.getElementById('timerVal').textContent = '00:00';
+}
+
+/* INIT */
+buildMixed();
+buildDropZones();
+startTimer();
+</script>
+
+</body>
+</html>
